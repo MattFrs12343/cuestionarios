@@ -260,7 +260,7 @@ export default function Login({ status, canResetPassword }) {
                                             </p>
                                             <div className="space-y-1 sm:space-y-2">
                                                 <a
-                                                    href="mailto:jmloli88br@gmail.com"
+                                                    href="mailto:sistemasbrasiltech@gmail.com"
                                                     className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1.5 sm:px-2 py-1 transition-all duration-200 hover:bg-blue-100 break-all"
                                                     aria-label="Enviar e-mail para a equipe de suporte técnico"
                                                 >
@@ -278,7 +278,7 @@ export default function Login({ status, canResetPassword }) {
                                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                                         />
                                                     </svg>
-                                                    <span className="truncate">jmloli88br@gmail.com</span>
+                                                    <span className="truncate">sistemasbrasiltech@gmail.com</span>
                                                 </a>
                                                 <span className="block text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                                                     Ou escreva para o nosso WhatsApp{' '}
@@ -287,7 +287,7 @@ export default function Login({ status, canResetPassword }) {
                                                         className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded transition-colors duration-200 whitespace-nowrap"
                                                         aria-label="Ligar para o número de suporte técnico"
                                                     >
-                                                        +55 (11) 98805-3476
+                                                        +591 67708839
                                                     </a>
                                                 </span>
                                             </div>
