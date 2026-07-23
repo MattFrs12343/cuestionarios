@@ -1,0 +1,1 @@
+import{j as e}from"./app-CjH4OeUK.js";function a({className:r="",...o}){return e.jsx("input",{...o,type:"checkbox",className:"rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-500 shadow-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800 transition-colors duration-200 "+r})}export{a as C};
