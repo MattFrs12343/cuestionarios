@@ -395,7 +395,6 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                             <input
                                                 type="file"
                                                 accept="image/*"
-                                                capture={isMobile ? "environment" : undefined}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
                                                     setData('pedido_medico', file);

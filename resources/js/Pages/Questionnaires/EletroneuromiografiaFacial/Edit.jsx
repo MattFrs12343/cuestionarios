@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, router } from '@inertiajs/react';
 import { useState, useEffect, useCallback, memo } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
+import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 
@@ -102,6 +103,7 @@ export default function Edit({ auth, teams, questionnaire }) {
         medicamentos: questionnaire.medicamentos || '',
         assinatura_paciente: questionnaire.assinatura_paciente || null,
         pedido_medico: null,
+        anexos: [],
     });
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
@@ -171,7 +173,14 @@ export default function Edit({ auth, teams, questionnaire }) {
             }
         }
         
-        put(route('questionnaires.eletroneuromiografia-facial.update', questionnaire.id));
+        if (data.anexos.length > 0) {
+            router.post(route('questionnaires.eletroneuromiografia-facial.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+                forceFormData: true,
+                preserveScroll: true,
+            });
+        } else {
+            put(route('questionnaires.eletroneuromiografia-facial.update', questionnaire.id));
+        }
     };
 
     const handleBooleanChange = useCallback((field, value) => {
@@ -363,34 +372,7 @@ export default function Edit({ auth, teams, questionnaire }) {
                                                 </div>
                                             )}
                                             
-                                            <input type="file" accept="image/*" capture={isMobileDevice ? "environment" : undefined} onChange={async (e) => {
-                                                const file = e.target.files[0];
-                                                if (!file) {
-                                                    setData('pedido_medico', null);
-                                                    setPedidoMedicoPreview(null);
-                                                    setImageCompressionInfo(null);
-                                                    return;
-                                                }
-                                                try {
-                                                    setIsCompressing(true);
-                                                    const compressedFile = await compressImage(file, {maxWidth: 1920, maxHeight: 1080, quality: 0.8, outputFormat: 'image/jpeg'});
-                                                    const compressionRatio = getCompressionRatio(file.size, compressedFile.size);
-                                                    setImageCompressionInfo({originalSize: formatFileSize(file.size), compressedSize: formatFileSize(compressedFile.size), compressionRatio: compressionRatio});
-                                                    setData('pedido_medico', compressedFile);
-                                                    const reader = new FileReader();
-                                                    reader.onload = (e) => {setPedidoMedicoPreview(e.target.result);};
-                                                    reader.readAsDataURL(compressedFile);
-                                                } catch (error) {
-                                                    console.error('Error al comprimir imagen:', error);
-                                                    setData('pedido_medico', file);
-                                                    setImageCompressionInfo(null);
-                                                    const reader = new FileReader();
-                                                    reader.onload = (e) => {setPedidoMedicoPreview(e.target.result);};
-                                                    reader.readAsDataURL(file);
-                                                } finally {
-                                                    setIsCompressing(false);
-                                                }
-                                            }} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <AnexosUploader type="eletroneuromiografia-facial" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             {isCompressing && (<div className="mt-2 text-sm text-blue-600 dark:text-blue-400">🔄 Comprimindo imagen...</div>)}
                                             {imageCompressionInfo && (<div className="mt-2 p-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded text-sm"><div className="text-green-800 dark:text-green-300">✅ Imagen comprimida exitosamente</div><div className="text-green-700 dark:text-green-400 mt-1">Tamaño original: {imageCompressionInfo.originalSize} → Comprimido: {imageCompressionInfo.compressedSize} ({imageCompressionInfo.compressionRatio}% reducción)</div></div>)}

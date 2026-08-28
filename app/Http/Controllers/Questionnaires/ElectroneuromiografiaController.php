@@ -14,6 +14,8 @@ use Inertia\Response;
 
 class ElectroneuromiografiaController extends Controller
 {
+    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
     public function __construct()
     {
         // Removido authorizeResource para usar permisos de Spatie directamente
@@ -105,6 +107,8 @@ class ElectroneuromiografiaController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->id();
 
+        $request->validate(['team_id' => $this->teamIdRule()]);
+
         // Debug logging
         \Log::info('Store Electroneuromiografia - Request data:', [
             'has_file' => $request->hasFile('pedido_medico'),
@@ -129,7 +133,11 @@ class ElectroneuromiografiaController extends Controller
 
         \Log::info('Data before create:', ['pedido_medico' => $data['pedido_medico'] ?? 'NULL']);
         
+        $request->validate($this->attachmentRules());
+
         $questionnaire = Electroneuromiografia::create($data);
+
+        $this->storeAttachments($questionnaire, $request);
         
         \Log::info('Electroneuromiografia created:', [
             'id' => $questionnaire->id,
@@ -142,7 +150,9 @@ class ElectroneuromiografiaController extends Controller
 
     public function show(Electroneuromiografia $electroneuromiografia): Response
     {
-        $electroneuromiografia->load(['team', 'creator', 'editor']);
+        $this->authorizeTeamAccess($electroneuromiografia);
+
+        $electroneuromiografia->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Show', [
             'questionnaire' => $electroneuromiografia,
@@ -155,8 +165,10 @@ class ElectroneuromiografiaController extends Controller
 
     public function edit(Electroneuromiografia $electroneuromiografia): Response
     {
+        $this->authorizeTeamAccess($electroneuromiografia);
+
         $user = auth()->user();
-        $electroneuromiografia->load(['team', 'creator', 'editor']);
+        $electroneuromiografia->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Edit', [
             'questionnaire' => $electroneuromiografia,
@@ -173,8 +185,12 @@ class ElectroneuromiografiaController extends Controller
 
     public function update(UpdateElectroneuromiografiaRequest $request, Electroneuromiografia $electroneuromiografia)
     {
+        $this->authorizeTeamAccess($electroneuromiografia);
+
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
+
+        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Debug logging
         \Log::info('Update Electroneuromiografia - Request data:', [
@@ -211,7 +227,11 @@ class ElectroneuromiografiaController extends Controller
 
         \Log::info('Data before update:', ['pedido_medico' => $data['pedido_medico'] ?? 'NOT_SET']);
         
+        $request->validate($this->attachmentRules());
+
         $electroneuromiografia->update($data);
+
+        $this->storeAttachments($electroneuromiografia, $request);
         
         \Log::info('Electroneuromiografia updated:', [
             'id' => $electroneuromiografia->id,
@@ -224,6 +244,8 @@ class ElectroneuromiografiaController extends Controller
 
     public function destroy(Electroneuromiografia $electroneuromiografia)
     {
+        $this->authorizeTeamAccess($electroneuromiografia);
+
         // No necesita eliminar assinatura_paciente ya que es base64 en BD
         
         if ($electroneuromiografia->pedido_medico) {

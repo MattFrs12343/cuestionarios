@@ -78,6 +78,14 @@ class User extends Authenticatable
     }
 
     /**
+     * El super-admin global ve y gestiona todo, sin restricción por equipo.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->email === 'admin@cuestionarios.com';
+    }
+
+    /**
      * Scope for active users
      */
     public function scopeActive($query)

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AnexosUploader from '@/Components/AnexosUploader';
 import { useTranslation } from '@/Hooks/useTranslation';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
@@ -376,6 +377,9 @@ export default function Show({ auth, questionnaire, can }) {
                 imageUrl={questionnaire.pedido_medico ? `/storage/${questionnaire.pedido_medico}` : ''}
                 title={t('Pedido Médico')}
             />
-        </AuthenticatedLayout>
+        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                        <AnexosUploader type="potencial" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
+                    </div>
+                </AuthenticatedLayout>
     );
 }

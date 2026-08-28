@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import AnexosUploader from '@/Components/AnexosUploader';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
@@ -50,6 +51,7 @@ export default function Create({ auth, teams, momentoExameOptions, tipoExameOpti
         comentario: '',
         assinatura_paciente: null,
         pedido_medico: null,
+        anexos: [],
     });
 
     const [idade, setIdade] = useState(null);
@@ -532,66 +534,7 @@ export default function Create({ auth, teams, momentoExameOptions, tipoExameOpti
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                                 Pedido Médico
                                             </label>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                capture={isMobileDevice ? "environment" : undefined}
-                                                onChange={async (e) => {
-                                                    const file = e.target.files[0];
-                                                    
-                                                    if (!file) {
-                                                        setData('pedido_medico', null);
-                                                        setPedidoMedicoPreview(null);
-                                                        setImageCompressionInfo(null);
-                                                        return;
-                                                    }
-
-                                                    try {
-                                                        setIsCompressing(true);
-                                                        
-                                                        // Comprimir imagen
-                                                        const compressedFile = await compressImage(file, {
-                                                            maxWidth: 1920,
-                                                            maxHeight: 1080,
-                                                            quality: 0.8,
-                                                            outputFormat: 'image/jpeg'
-                                                        });
-
-                                                        // Calcular información de compresión
-                                                        const compressionRatio = getCompressionRatio(file.size, compressedFile.size);
-                                                        setImageCompressionInfo({
-                                                            originalSize: formatFileSize(file.size),
-                                                            compressedSize: formatFileSize(compressedFile.size),
-                                                            compressionRatio: compressionRatio
-                                                        });
-
-                                                        // Establecer archivo comprimido
-                                                        setData('pedido_medico', compressedFile);
-                                                        
-                                                        // Crear preview
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            setPedidoMedicoPreview(e.target.result);
-                                                        };
-                                                        reader.readAsDataURL(compressedFile);
-                                                        
-                                                    } catch (error) {
-                                                        console.error('Error al comprimir imagen:', error);
-                                                        // En caso de error, usar archivo original
-                                                        setData('pedido_medico', file);
-                                                        setImageCompressionInfo(null);
-                                                        
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            setPedidoMedicoPreview(e.target.result);
-                                                        };
-                                                        reader.readAsDataURL(file);
-                                                    } finally {
-                                                        setIsCompressing(false);
-                                                    }
-                                                }}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
-                                            />
+                                            <AnexosUploader type="electroencefalograma" files={data.anexos} onFilesChange={(f) => setData('anexos', f)} />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             
                                             {/* Indicador de compresión */}

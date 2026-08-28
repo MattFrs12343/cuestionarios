@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ArrowLeftIcon, UserIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
 export default function Edit({ auth, user, modules, assignedModules }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -34,16 +35,9 @@ export default function Edit({ auth, user, modules, assignedModules }) {
         }
     };
 
-    const getModuleIcon = (moduleName) => {
-        switch (moduleName) {
-            case 'electroencefalograma':
-                return '🧠';
-            case 'electroneuromiografia':
-                return '⚡';
-            default:
-                return '📋';
-        }
-    };
+    const getModuleIcon = (moduleName) => (
+        <QuestionnaireTypeIcon type={moduleName} className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+    );
 
     const getModuleDescription = (moduleName) => {
         switch (moduleName) {
@@ -51,6 +45,10 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                 return 'Fornece acesso ao módulo de questionário de EEG';
             case 'electroneuromiografia':
                 return 'Fornece acesso ao módulo de questionário de eletroneuromiografia';
+            case 'rastreio_cognitivo':
+                return 'Fornece acesso ao módulo de rastreio cognitivo (MoCA)';
+            case 'equilibrio':
+                return 'Fornece acesso ao módulo de avaliação do equilíbrio e risco de quedas';
             default:
                 return 'Módulo del sistema';
         }
@@ -134,7 +132,7 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center space-x-4">
-                                                            <div className="text-2xl">
+                                                            <div>
                                                                 {getModuleIcon(moduleName)}
                                                             </div>
                                                             <div className="flex-1">

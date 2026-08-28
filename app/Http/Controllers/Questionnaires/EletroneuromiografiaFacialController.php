@@ -12,6 +12,8 @@ use Inertia\Response;
 
 class EletroneuromiografiaFacialController extends Controller
 {
+    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
     public function index(Request $request): Response
     {
         $user = $request->user();
@@ -85,6 +87,8 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function store(Request $request)
     {
+        \App\Support\BoolCoerce::apply($request);
+
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'data_nascimento' => 'required|date',
@@ -96,7 +100,7 @@ class EletroneuromiografiaFacialController extends Controller
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
             'sexo' => 'required|in:Feminino,Masculino',
-            'team_id' => 'required|exists:teams,id',
+            'team_id' => $this->teamIdRule(),
             'tem_dor_testa' => 'boolean',
             'tem_dor_olhos' => 'boolean',
             'dor_olhos_lado' => 'nullable|string|max:255',
@@ -148,7 +152,11 @@ class EletroneuromiografiaFacialController extends Controller
             $validated['pedido_medico'] = $filePath;
         }
 
-        EletroneuromiografiaFacial::create($validated);
+        $request->validate($this->attachmentRules());
+
+        $model = EletroneuromiografiaFacial::create($validated);
+
+        $this->storeAttachments($model, $request);
 
         return redirect()->route('questionnaires.eletroneuromiografia-facial.index')
             ->with('success', 'Questionário criado com sucesso!');
@@ -156,7 +164,9 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function show(EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
     {
-        $eletroneuromiografiaFacial->load(['team', 'creator', 'editor']);
+        $this->authorizeTeamAccess($eletroneuromiografiaFacial);
+
+        $eletroneuromiografiaFacial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Show', [
             'questionnaire' => $eletroneuromiografiaFacial,
@@ -169,8 +179,10 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function edit(EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
     {
+        $this->authorizeTeamAccess($eletroneuromiografiaFacial);
+
         $user = auth()->user();
-        $eletroneuromiografiaFacial->load(['team', 'creator', 'editor']);
+        $eletroneuromiografiaFacial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Edit', [
             'questionnaire' => $eletroneuromiografiaFacial,
@@ -180,6 +192,10 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function update(Request $request, EletroneuromiografiaFacial $eletroneuromiografiaFacial)
     {
+        $this->authorizeTeamAccess($eletroneuromiografiaFacial);
+
+        \App\Support\BoolCoerce::apply($request);
+
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'data_nascimento' => 'required|date',
@@ -191,7 +207,7 @@ class EletroneuromiografiaFacialController extends Controller
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
             'sexo' => 'required|in:Feminino,Masculino',
-            'team_id' => 'required|exists:teams,id',
+            'team_id' => $this->teamIdRule(),
             'tem_dor_testa' => 'boolean',
             'tem_dor_olhos' => 'boolean',
             'dor_olhos_lado' => 'nullable|string|max:255',
@@ -248,7 +264,11 @@ class EletroneuromiografiaFacialController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $request->validate($this->attachmentRules());
+
         $eletroneuromiografiaFacial->update($validated);
+
+        $this->storeAttachments($eletroneuromiografiaFacial, $request);
 
         return redirect()->route('questionnaires.eletroneuromiografia-facial.index')
             ->with('success', 'Questionário atualizado com sucesso!');
@@ -256,6 +276,8 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function destroy(EletroneuromiografiaFacial $eletroneuromiografiaFacial)
     {
+        $this->authorizeTeamAccess($eletroneuromiografiaFacial);
+
         if ($eletroneuromiografiaFacial->pedido_medico) {
             Storage::disk('public')->delete($eletroneuromiografiaFacial->pedido_medico);
         }

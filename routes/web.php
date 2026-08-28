@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
             $modules[] = [
                 'name' => 'Electroencefalograma',
                 'description' => 'Questionário para exames de eletroencefalograma',
-                'icon' => '🧠',
+                'icon' => 'electroencefalograma',
                 'href' => route('questionnaires.electroencefalograma.index'),
                 'color' => 'bg-blue-500',
                 'count' => 0
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
             $modules[] = [
                 'name' => 'Electroneuromiografía',
                 'description' => 'Questionário para exames de eletroneuromiografia',
-                'icon' => '⚡',
+                'icon' => 'electroneuromiografia',
                 'href' => route('questionnaires.electroneuromiografia.index'),
                 'color' => 'bg-purple-500',
                 'count' => 0
@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
             $modules[] = [
                 'name' => 'Potencial Evocado',
                 'description' => 'Questionário para exames de potencial evocado auditivo e visual',
-                'icon' => '👁️',
+                'icon' => 'potencial',
                 'href' => route('questionnaires.potencial.index'),
                 'color' => 'bg-green-500',
                 'count' => 0
@@ -65,13 +65,35 @@ Route::middleware('auth')->group(function () {
             $modules[] = [
                 'name' => 'Eletroneuromiografia Facial',
                 'description' => 'Questionário para exames de eletroneuromiografia facial',
-                'icon' => '😊',
+                'icon' => 'eletroneuromiografia_facial',
                 'href' => route('questionnaires.eletroneuromiografia-facial.index'),
                 'color' => 'bg-orange-500',
                 'count' => 0
             ];
         }
-        
+
+        if (in_array('rastreio_cognitivo', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'Rastreio Cognitivo (MoCA)',
+                'description' => 'Protocolo de rastreio cognitivo em consulta',
+                'icon' => 'rastreio_cognitivo',
+                'href' => route('questionnaires.rastreio-cognitivo.index'),
+                'color' => 'bg-teal-500',
+                'count' => 0
+            ];
+        }
+
+        if (in_array('equilibrio', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'Avaliação do Equilíbrio',
+                'description' => 'Avaliação do equilíbrio clínico e risco de quedas',
+                'icon' => 'equilibrio',
+                'href' => route('questionnaires.equilibrio.index'),
+                'color' => 'bg-yellow-500',
+                'count' => 0
+            ];
+        }
+
         return Inertia::render('Questionnaires/Index', [
             'modules' => $modules,
             'userRole' => $user->roles->first()?->name,
@@ -126,6 +148,36 @@ Route::middleware('auth')->group(function () {
         Route::put('/{eletroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'update'])->name('update');
         Route::delete('/{eletroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'destroy'])->name('destroy');
     });
+
+    // Rutas específicas para Rastreio Cognitivo (MoCA)
+    Route::prefix('questionnaires/rastreio-cognitivo')->name('questionnaires.rastreio-cognitivo.')
+        ->middleware('module.access:rastreio_cognitivo')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'store'])->name('store');
+        Route::get('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'show'])->name('show');
+        Route::get('/{rastreioCognitivo}/edit', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'edit'])->name('edit');
+        Route::put('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'update'])->name('update');
+        Route::delete('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para Avaliação do Equilíbrio
+    Route::prefix('questionnaires/equilibrio')->name('questionnaires.equilibrio.')
+        ->middleware('module.access:equilibrio')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'store'])->name('store');
+        Route::get('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'show'])->name('show');
+        Route::get('/{equilibrio}/edit', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'edit'])->name('edit');
+        Route::put('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'update'])->name('update');
+        Route::delete('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'destroy'])->name('destroy');
+    });
+
+    // Anexos (imágenes adjuntas a cualquier tipo de cuestionario, máx. 5)
+    Route::post('anexos/{type}/{id}', [App\Http\Controllers\AttachmentController::class, 'store'])
+        ->name('attachments.store');
+    Route::delete('anexos/{attachment}', [App\Http\Controllers\AttachmentController::class, 'destroy'])
+        ->name('attachments.destroy');
 });
 
 // Rutas de administración

@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import AnexosUploader from '@/Components/AnexosUploader';
 import { useState, useEffect, useCallback } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
@@ -117,6 +118,7 @@ export default function Create({ auth, teams, tiposExameOptions, areasColuna, mo
         // Archivos
         assinatura_paciente: null,
         pedido_medico: null,
+        anexos: [],
     });
 
     const [idade, setIdade] = useState(null);
@@ -986,52 +988,7 @@ export default function Create({ auth, teams, tiposExameOptions, areasColuna, mo
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                                 Pedido Médico
                                             </label>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                capture={isMobileDevice ? "environment" : undefined}
-                                                onChange={async (e) => {
-                                                    const file = e.target.files[0];
-                                                    
-                                                    if (!file) {
-                                                        setData('pedido_medico', null);
-                                                        setPedidoMedicoPreview(null);
-                                                        setImageCompressionInfo(null);
-                                                        return;
-                                                    }
-
-                                                    // Mostrar preview original
-                                                    const reader = new FileReader();
-                                                    reader.onload = (e) => setPedidoMedicoPreview(e.target.result);
-                                                    reader.readAsDataURL(file);
-
-                                                    // Comprimir imagen si es necesario
-                                                    try {
-                                                        setIsCompressing(true);
-                                                        const compressedFile = await compressImage(file, {
-                                                            maxSizeMB: 5,
-                                                            maxWidthOrHeight: 1920,
-                                                            useWebWorker: true
-                                                        });
-
-                                                        const compressionRatio = getCompressionRatio(file, compressedFile);
-                                                        setImageCompressionInfo({
-                                                            originalSize: formatFileSize(file.size),
-                                                            compressedSize: formatFileSize(compressedFile.size),
-                                                            compressionRatio: compressionRatio
-                                                        });
-
-                                                        setData('pedido_medico', compressedFile);
-                                                    } catch (error) {
-                                                        console.error('Error compressing image:', error);
-                                                        setData('pedido_medico', file);
-                                                        setImageCompressionInfo(null);
-                                                    } finally {
-                                                        setIsCompressing(false);
-                                                    }
-                                                }}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
-                                            />
+                                            <AnexosUploader type="electroneuromiografia" files={data.anexos} onFilesChange={(f) => setData('anexos', f)} />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             
                                             {isCompressing && (

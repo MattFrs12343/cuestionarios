@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, Link, router } from '@inertiajs/react';
 import { useState, useEffect, useCallback } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
+import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 
@@ -118,6 +119,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
         // Archivos
         assinatura_paciente: questionnaire.assinatura_paciente || null,
         pedido_medico: null,
+        anexos: [],
     });
 
     const [idade, setIdade] = useState(null);
@@ -167,7 +169,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
         console.log('HandleSubmit - pedidoMedicoPreview:', pedidoMedicoPreview);
         
         // Se houver um arquivo, usar router.post com FormData
-        if (data.pedido_medico) {
+        if (data.pedido_medico || data.anexos.length > 0) {
             console.log('Using FormData approach - file detected');
             setIsSubmitting(true);
             
@@ -177,6 +179,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
             Object.keys(data).forEach(key => {
                 if (data[key] !== null && data[key] !== undefined) {
                     let value = data[key];
+                    if (key === 'anexos') { value.forEach((f) => formData.append('anexos[]', f)); return; }
                     // Converter booleanos para strings para FormData
                     if (typeof value === 'boolean') {
                         value = value ? '1' : '0';
@@ -1054,67 +1057,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
                                                     </div>
                                                 </div>
                                             )}
-                                            <input
-                                                id="pedido_medico_input"
-                                                type="file"
-                                                accept="image/*"
-                                                capture={isMobileDevice ? "environment" : undefined}
-                                                onChange={async (e) => {
-                                                    const file = e.target.files[0];
-                                                    
-                                                    if (!file) {
-                                                        setData('pedido_medico', null);
-                                                        setPedidoMedicoPreview(null);
-                                                        setImageCompressionInfo(null);
-                                                        return;
-                                                    }
-
-                                                    try {
-                                                        setIsCompressing(true);
-                                                        
-                                                        // Comprimir imagen
-                                                        const compressedFile = await compressImage(file, {
-                                                            maxWidth: 1920,
-                                                            maxHeight: 1080,
-                                                            quality: 0.8,
-                                                            outputFormat: 'image/jpeg'
-                                                        });
-
-                                                        // Calcular información de compresión
-                                                        const compressionRatio = getCompressionRatio(file.size, compressedFile.size);
-                                                        setImageCompressionInfo({
-                                                            originalSize: formatFileSize(file.size),
-                                                            compressedSize: formatFileSize(compressedFile.size),
-                                                            compressionRatio: compressionRatio
-                                                        });
-
-                                                        // Establecer archivo comprimido
-                                                        setData('pedido_medico', compressedFile);
-                                                        
-                                                        // Crear preview
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            setPedidoMedicoPreview(e.target.result);
-                                                        };
-                                                        reader.readAsDataURL(compressedFile);
-                                                        
-                                                    } catch (error) {
-                                                        console.error('Error al comprimir imagen:', error);
-                                                        // En caso de error, usar archivo original
-                                                        setData('pedido_medico', file);
-                                                        setImageCompressionInfo(null);
-                                                        
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            setPedidoMedicoPreview(e.target.result);
-                                                        };
-                                                        reader.readAsDataURL(file);
-                                                    } finally {
-                                                        setIsCompressing(false);
-                                                    }
-                                                }}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
-                                            />
+                                            <AnexosUploader type="electroneuromiografia" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
                                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecione um novo arquivo para substituir o atual</p>
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             

@@ -27,6 +27,8 @@ class UserModule extends Model
         'electroneuromiografia' => 'Electroneuromiografía',
         'potencial' => 'Potencial Evocado',
         'eletroneuromiografia_facial' => 'Eletroneuromiografia Facial',
+        'rastreio_cognitivo' => 'Rastreio Cognitivo (MoCA)',
+        'equilibrio' => 'Avaliação do Equilíbrio',
     ];
 
     /**

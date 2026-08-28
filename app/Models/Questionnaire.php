@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAttachments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Carbon\Carbon;
 
 class Questionnaire extends Model
 {
-    use HasFactory;
+    use HasFactory, HasAttachments;
 
     protected $fillable = [
         'clinica',

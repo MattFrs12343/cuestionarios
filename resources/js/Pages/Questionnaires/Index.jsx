@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
+import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
 export default function QuestionnairesIndex({ auth, modules = [], userRole, isAdmin }) {
 
@@ -85,8 +86,8 @@ export default function QuestionnairesIndex({ auth, modules = [], userRole, isAd
                                             <div className="sm:hidden">
                                                 <div className="flex items-center justify-between mb-3">
                                                     <div className="flex items-center">
-                                                        <div className="bg-white/20 rounded-lg p-2 text-lg mr-3">
-                                                            {type.icon}
+                                                        <div className="bg-white/20 rounded-lg p-2 mr-3">
+                                                            <QuestionnaireTypeIcon type={type.icon} className="w-5 h-5 text-white" />
                                                         </div>
                                                         <div>
                                                             <h4 className="text-lg font-bold text-white">{type.name}</h4>
@@ -106,8 +107,8 @@ export default function QuestionnairesIndex({ auth, modules = [], userRole, isAd
                                             {/* Layout tablet/desktop */}
                                             <div className="hidden sm:block">
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <div className="bg-white/20 rounded-lg p-3 text-2xl">
-                                                        {type.icon}
+                                                    <div className="bg-white/20 rounded-lg p-3">
+                                                        <QuestionnaireTypeIcon type={type.icon} className="w-7 h-7 text-white" />
                                                     </div>
                                                     <div className="text-right">
                                                         <p className="text-white/80 text-xs font-medium uppercase tracking-wide">Registros</p>

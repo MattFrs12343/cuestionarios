@@ -462,7 +462,6 @@ export default function Edit({ auth, questionnaire, teams, momentoExameOptions }
                                                 id="pedido_medico_input"
                                                 type="file"
                                                 accept="image/*"
-                                                capture={isMobile ? "environment" : undefined}
                                                 onChange={(e) => {
                                                     const file = e.target.files[0];
                                                     setData('pedido_medico', file);

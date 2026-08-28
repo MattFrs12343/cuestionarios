@@ -12,6 +12,11 @@ class UpdateQuestionnaireRequest extends FormRequest
         return $this->user()->can('edit questionnaires');
     }
 
+    protected function prepareForValidation(): void
+    {
+        \App\Support\BoolCoerce::apply($this);
+    }
+
     public function rules(): array
     {
         return [

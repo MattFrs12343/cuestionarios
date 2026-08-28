@@ -14,6 +14,8 @@ use Inertia\Response;
 
 class PotencialController extends Controller
 {
+    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
     public function index(Request $request): Response
     {
         $user = $request->user();
@@ -94,6 +96,8 @@ class PotencialController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->id();
 
+        $request->validate(['team_id' => $this->teamIdRule()]);
+
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -105,7 +109,11 @@ class PotencialController extends Controller
             $data['pedido_medico'] = $filePath;
         }
         
+        $request->validate($this->attachmentRules());
+
         $questionnaire = Potencial::create($data);
+
+        $this->storeAttachments($questionnaire, $request);
 
         return redirect()->route('questionnaires.potencial.index')
             ->with('success', 'Questionário de Potencial criado com sucesso!');
@@ -113,7 +121,9 @@ class PotencialController extends Controller
 
     public function show(Potencial $potencial): Response
     {
-        $potencial->load(['team', 'creator', 'editor']);
+        $this->authorizeTeamAccess($potencial);
+
+        $potencial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Potencial/Show', [
             'questionnaire' => $potencial,
@@ -126,8 +136,10 @@ class PotencialController extends Controller
 
     public function edit(Potencial $potencial): Response
     {
+        $this->authorizeTeamAccess($potencial);
+
         $user = auth()->user();
-        $potencial->load(['team', 'creator', 'editor']);
+        $potencial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Potencial/Edit', [
             'questionnaire' => $potencial,
@@ -138,8 +150,12 @@ class PotencialController extends Controller
 
     public function update(UpdatePotencialRequest $request, Potencial $potencial)
     {
+        $this->authorizeTeamAccess($potencial);
+
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
+
+        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
@@ -159,7 +175,11 @@ class PotencialController extends Controller
             unset($data['pedido_medico']);
         }
         
+        $request->validate($this->attachmentRules());
+
         $potencial->update($data);
+
+        $this->storeAttachments($potencial, $request);
 
         return redirect()->route('questionnaires.potencial.index')
             ->with('success', 'Questionário de Potencial atualizado com sucesso!');
@@ -167,6 +187,8 @@ class PotencialController extends Controller
 
     public function destroy(Potencial $potencial)
     {
+        $this->authorizeTeamAccess($potencial);
+
         if ($potencial->pedido_medico) {
             Storage::disk('public')->delete($potencial->pedido_medico);
         }

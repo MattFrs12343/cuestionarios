@@ -14,6 +14,8 @@ use Inertia\Response;
 
 class ElectroencefalogramaController extends Controller
 {
+    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
     public function __construct()
     {
         // Removido authorizeResource para usar permisos de Spatie directamente
@@ -104,6 +106,8 @@ class ElectroencefalogramaController extends Controller
         $data = $request->validated();
         $data['created_by'] = auth()->id();
 
+        $request->validate(['team_id' => $this->teamIdRule()]);
+
         // Debug logging
         \Log::info('Store Questionnaire - Request data:', [
             'has_file' => $request->hasFile('pedido_medico'),
@@ -128,7 +132,11 @@ class ElectroencefalogramaController extends Controller
 
         \Log::info('Data before create:', ['pedido_medico' => $data['pedido_medico'] ?? 'NULL']);
         
+        $request->validate($this->attachmentRules());
+
         $questionnaire = Questionnaire::create($data);
+
+        $this->storeAttachments($questionnaire, $request);
         
         \Log::info('Questionnaire created:', [
             'id' => $questionnaire->id,
@@ -141,7 +149,9 @@ class ElectroencefalogramaController extends Controller
 
     public function show(Questionnaire $questionnaire): Response
     {
-        $questionnaire->load(['team', 'creator', 'editor']);
+        $this->authorizeTeamAccess($questionnaire);
+
+        $questionnaire->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Show', [
             'questionnaire' => $questionnaire,
@@ -154,8 +164,10 @@ class ElectroencefalogramaController extends Controller
 
     public function edit(Questionnaire $questionnaire): Response
     {
+        $this->authorizeTeamAccess($questionnaire);
+
         $user = auth()->user();
-        $questionnaire->load(['team', 'creator', 'editor']);
+        $questionnaire->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Edit', [
             'questionnaire' => $questionnaire,
@@ -171,8 +183,12 @@ class ElectroencefalogramaController extends Controller
 
     public function update(UpdateQuestionnaireRequest $request, Questionnaire $questionnaire)
     {
+        $this->authorizeTeamAccess($questionnaire);
+
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
+
+        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Debug logging
         \Log::info('Update Questionnaire - Request data:', [
@@ -209,7 +225,11 @@ class ElectroencefalogramaController extends Controller
 
         \Log::info('Data before update:', ['pedido_medico' => $data['pedido_medico'] ?? 'NOT_SET']);
         
+        $request->validate($this->attachmentRules());
+
         $questionnaire->update($data);
+
+        $this->storeAttachments($questionnaire, $request);
         
         \Log::info('Questionnaire updated:', [
             'id' => $questionnaire->id,
@@ -222,6 +242,8 @@ class ElectroencefalogramaController extends Controller
 
     public function destroy(Questionnaire $questionnaire)
     {
+        $this->authorizeTeamAccess($questionnaire);
+
         // No necesita eliminar assinatura_paciente ya que es base64 en BD
         
         if ($questionnaire->pedido_medico) {

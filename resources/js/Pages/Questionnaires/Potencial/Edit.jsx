@@ -10,6 +10,7 @@ import TextInput from '@/Components/TextInput';
 import Checkbox from '@/Components/Checkbox';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import SignaturePad from '@/Components/SignaturePad';
+import AnexosUploader from '@/Components/AnexosUploader';
 
 export default function Edit({ auth, questionnaire, teams, retardoMentalGraus }) {
     const { t } = useTranslation();
@@ -89,6 +90,7 @@ export default function Edit({ auth, questionnaire, teams, retardoMentalGraus })
         // Archivos
         assinatura_paciente: questionnaire.assinatura_paciente || '',
         pedido_medico: null,
+        anexos: [],
     });
 
     const handleSubmit = (e) => {
@@ -103,7 +105,7 @@ export default function Edit({ auth, questionnaire, teams, retardoMentalGraus })
         }
         
         // Si hay archivo, usar post con _method: PUT (Laravel standard)
-        if (data.pedido_medico) {
+        if (data.pedido_medico || data.anexos.length > 0) {
             // Convertir booleanos a strings para FormData
             submitData = Object.keys(submitData).reduce((acc, key) => {
                 let value = submitData[key];
@@ -934,13 +936,7 @@ export default function Edit({ auth, questionnaire, teams, retardoMentalGraus })
                                                 </p>
                                             </div>
                                         )}
-                                        <input
-                                            id="pedido_medico"
-                                            type="file"
-                                            accept="image/*,application/pdf"
-                                            onChange={handleFileChange}
-                                            className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-900 dark:file:text-indigo-300"
-                                        />
+                                        <AnexosUploader type="potencial" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
                                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                             {t('Deixe em branco para manter o arquivo atual')}
                                         </p>

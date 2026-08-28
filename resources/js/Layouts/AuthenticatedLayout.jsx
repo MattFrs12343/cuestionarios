@@ -7,6 +7,7 @@ import ThemeToggle from '@/Components/ThemeToggle';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { useTranslation } from '@/Hooks/useTranslation';
+import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -215,19 +216,28 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('questionnaires.index')}
                             active={route().current('questionnaires.index')}
                         >
-                            📋 {t('questionnaires.list')}
+                            <span className="inline-flex items-center gap-2">
+                                <QuestionnaireTypeIcon type="default" className="w-4 h-4" />
+                                {t('questionnaires.list')}
+                            </span>
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route('questionnaires.electroencefalograma.index')}
                             active={route().current('questionnaires.electroencefalograma.*')}
                         >
-                            🧠 Eletroencefalograma
+                            <span className="inline-flex items-center gap-2">
+                                <QuestionnaireTypeIcon type="electroencefalograma" className="w-4 h-4" />
+                                Eletroencefalograma
+                            </span>
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route('questionnaires.electroneuromiografia.index')}
                             active={route().current('questionnaires.electroneuromiografia.*')}
                         >
-                            ⚡ Eletroneuromiografia
+                            <span className="inline-flex items-center gap-2">
+                                <QuestionnaireTypeIcon type="electroneuromiografia" className="w-4 h-4" />
+                                Eletroneuromiografia
+                            </span>
                         </ResponsiveNavLink>
                         {user.roles && user.roles.some(role => role.name === 'administrador') && (
                             <ResponsiveNavLink

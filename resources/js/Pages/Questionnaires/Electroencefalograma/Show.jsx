@@ -1,4 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AnexosUploader from '@/Components/AnexosUploader';
 import { Head, Link } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
@@ -388,6 +389,9 @@ export default function Show({ auth, questionnaire, can }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+                        <AnexosUploader type="electroencefalograma" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
+                    </div>
+                </AuthenticatedLayout>
     );
 }

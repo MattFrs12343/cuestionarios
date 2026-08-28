@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
+import AnexosUploader from '@/Components/AnexosUploader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
 import InputError from '@/Components/InputError';
@@ -89,6 +90,7 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
         // Archivos
         assinatura_paciente: '',
         pedido_medico: null,
+        anexos: [],
     });
 
     const handleSubmit = (e) => {
@@ -103,13 +105,15 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
         }
         
         // Si hay archivo, usar FormData
-        if (data.pedido_medico) {
+        if (data.pedido_medico || data.anexos.length > 0) {
             const formData = new FormData();
             
             // Agregar todos los campos del formulario
             Object.keys(submitData).forEach(key => {
                 if (key === 'pedido_medico') {
-                    formData.append(key, data[key]);
+                    if (data[key]) formData.append(key, data[key]);
+                } else if (key === 'anexos') {
+                    submitData.anexos.forEach((f) => formData.append('anexos[]', f));
                 } else if (submitData[key] !== null && submitData[key] !== undefined) {
                     let value = submitData[key];
                     // Converter booleanos para strings para FormData
@@ -918,13 +922,7 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
 
                                     <div>
                                         <InputLabel htmlFor="pedido_medico" value={t('Pedido Médico (Imagem)')} />
-                                        <input
-                                            id="pedido_medico"
-                                            type="file"
-                                            accept="image/*,application/pdf"
-                                            onChange={handleFileChange}
-                                            className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-900 dark:file:text-indigo-300"
-                                        />
+                                        <AnexosUploader type="potencial" files={data.anexos} onFilesChange={(f) => setData('anexos', f)} />
                                         <InputError message={errors.pedido_medico} className="mt-2" />
                                     </div>
                                 </div>

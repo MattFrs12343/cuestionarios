@@ -18,9 +18,43 @@ class UserController extends Controller
         $this->middleware(['auth', 'role:administrador']);
     }
 
+    /**
+     * IDs de equipos a los que el admin puede ver/gestionar. Null = sin restricción (super-admin).
+     */
+    private function scopedTeamIds(User $admin): ?array
+    {
+        if ($admin->isSuperAdmin()) {
+            return null;
+        }
+
+        return $admin->teams()->pluck('teams.id')->toArray();
+    }
+
+    /**
+     * Aborta si el usuario objetivo no pertenece a ningún equipo del admin.
+     */
+    private function authorizeUserAccess(User $admin, User $target, ?array $teamIds): void
+    {
+        if ($teamIds === null) {
+            return;
+        }
+
+        if (! $target->teams()->whereIn('teams.id', $teamIds)->exists()) {
+            abort(403, 'No tienes permisos para acceder a este usuario.');
+        }
+    }
+
     public function index(Request $request)
     {
+        $admin = $request->user();
+        $teamIds = $this->scopedTeamIds($admin);
+
         $users = User::with(['roles', 'teams'])
+            ->when($teamIds !== null, function ($query) use ($teamIds) {
+                $query->whereHas('teams', function ($q) use ($teamIds) {
+                    $q->whereIn('teams.id', $teamIds);
+                });
+            })
             ->when($request->search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%")
                       ->orWhere('email', 'like', "%{$search}%");
@@ -30,10 +64,12 @@ class UserController extends Controller
                     $q->where('name', $role);
                 });
             })
-            ->when($request->team, function ($query, $team) {
-                $query->whereHas('teams', function ($q) use ($team) {
-                    $q->where('id', $team);
-                });
+            ->when($request->team, function ($query, $team) use ($teamIds) {
+                if ($teamIds === null || in_array((int) $team, $teamIds)) {
+                    $query->whereHas('teams', function ($q) use ($team) {
+                        $q->where('teams.id', $team);
+                    });
+                }
             })
             ->when($request->status !== null, function ($query) use ($request) {
                 $query->where('is_active', $request->status);
@@ -43,7 +79,7 @@ class UserController extends Controller
             ->withQueryString();
 
         $roles = Role::all();
-        $teams = Team::all();
+        $teams = $teamIds === null ? Team::all() : Team::whereIn('id', $teamIds)->get();
 
         return Inertia::render('Admin/Users/IndexWithFilters', [
             'users' => $users,
@@ -53,10 +89,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $teamIds = $this->scopedTeamIds($request->user());
         $roles = Role::all();
-        $teams = Team::all();
+        $teams = $teamIds === null ? Team::all() : Team::whereIn('id', $teamIds)->get();
 
         return Inertia::render('Admin/Users/Create', [
             'roles' => $roles,
@@ -66,6 +103,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $teamIds = $this->scopedTeamIds($request->user());
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -76,7 +115,7 @@ class UserController extends Controller
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
             'teams' => 'array',
-            'teams.*' => 'exists:teams,id',
+            'teams.*' => $teamIds === null ? 'exists:teams,id' : [Rule::in($teamIds)],
         ]);
 
         $user = User::create([
@@ -100,8 +139,11 @@ class UserController extends Controller
             ->with('success', __('admin.user_created_successfully'));
     }
 
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
+        $admin = $request->user();
+        $this->authorizeUserAccess($admin, $user, $this->scopedTeamIds($admin));
+
         $user->load(['roles', 'teams', 'createdQuestionnaires', 'editedQuestionnaires']);
 
         return Inertia::render('Admin/Users/Show', [
@@ -109,11 +151,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(User $user)
+    public function edit(Request $request, User $user)
     {
+        $admin = $request->user();
+        $teamIds = $this->scopedTeamIds($admin);
+        $this->authorizeUserAccess($admin, $user, $teamIds);
+
         $user->load(['roles', 'teams']);
         $roles = Role::all();
-        $teams = Team::all();
+        $teams = $teamIds === null ? Team::all() : Team::whereIn('id', $teamIds)->get();
 
         return Inertia::render('Admin/Users/Edit', [
             'user' => $user,
@@ -124,6 +170,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $admin = $request->user();
+        $teamIds = $this->scopedTeamIds($admin);
+        $this->authorizeUserAccess($admin, $user, $teamIds);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -134,7 +184,7 @@ class UserController extends Controller
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
             'teams' => 'array',
-            'teams.*' => 'exists:teams,id',
+            'teams.*' => $teamIds === null ? 'exists:teams,id' : [Rule::in($teamIds)],
         ]);
 
         $userData = [
@@ -163,8 +213,11 @@ class UserController extends Controller
             ->with('success', __('admin.user_updated_successfully'));
     }
 
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
+        $admin = $request->user();
+        $this->authorizeUserAccess($admin, $user, $this->scopedTeamIds($admin));
+
         // Prevenir eliminación del propio usuario administrador
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
@@ -177,8 +230,11 @@ class UserController extends Controller
             ->with('success', __('admin.user_deleted_successfully'));
     }
 
-    public function toggleStatus(User $user)
+    public function toggleStatus(Request $request, User $user)
     {
+        $admin = $request->user();
+        $this->authorizeUserAccess($admin, $user, $this->scopedTeamIds($admin));
+
         // Prevenir desactivación del propio usuario administrador
         if ($user->id === auth()->id()) {
             return response()->json(['error' => __('admin.cannot_deactivate_own_user')], 422);

@@ -12,6 +12,11 @@ class StoreQuestionnaireRequest extends FormRequest
         return $this->user()->can('create questionnaires');
     }
 
+    protected function prepareForValidation(): void
+    {
+        \App\Support\BoolCoerce::apply($this);
+    }
+
     public function rules(): array
     {
         return [

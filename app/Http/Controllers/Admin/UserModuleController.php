@@ -19,16 +19,46 @@ class UserModuleController extends Controller
     }
 
     /**
+     * IDs de equipos a los que el admin puede ver/gestionar. Null = sin restricción (super-admin).
+     */
+    private function scopedTeamIds(User $admin): ?array
+    {
+        if ($admin->isSuperAdmin()) {
+            return null;
+        }
+
+        return $admin->teams()->pluck('teams.id')->toArray();
+    }
+
+    /**
+     * Aborta si el usuario objetivo no pertenece a ningún equipo del admin.
+     */
+    private function authorizeUserAccess(User $admin, User $target): void
+    {
+        $teamIds = $this->scopedTeamIds($admin);
+
+        if ($teamIds !== null && ! $target->teams()->whereIn('teams.id', $teamIds)->exists()) {
+            abort(403, 'No tienes permisos para acceder a este usuario.');
+        }
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response
     {
         $search = $request->get('search');
         $role = $request->get('role');
+        $teamIds = $this->scopedTeamIds($request->user());
 
         $users = User::with(['roles', 'activeModules'])
             ->whereHas('roles', function ($query) {
                 $query->whereIn('name', ['laudador', 'tecnico']);
+            })
+            ->when($teamIds !== null, function ($query) use ($teamIds) {
+                $query->whereHas('teams', function ($q) use ($teamIds) {
+                    $q->whereIn('teams.id', $teamIds);
+                });
             })
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -58,8 +88,10 @@ class UserModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user): Response|RedirectResponse
+    public function edit(Request $request, User $user): Response|RedirectResponse
     {
+        $this->authorizeUserAccess($request->user(), $user);
+
         // Verificar que el usuario puede ser asignado a módulos
         if (!$user->canBeAssignedModules()) {
             $userRoles = $user->roles->pluck('name')->join(', ') ?: 'Sin roles';
@@ -91,6 +123,8 @@ class UserModuleController extends Controller
      */
     public function update(Request $request, User $user): RedirectResponse
     {
+        $this->authorizeUserAccess($request->user(), $user);
+
         // Verificar que el usuario puede ser asignado a módulos
         if (!$user->canBeAssignedModules()) {
             $userRoles = $user->roles->pluck('name')->join(', ') ?: 'Sin roles';
@@ -150,6 +184,8 @@ class UserModuleController extends Controller
      */
     public function toggle(Request $request, User $user)
     {
+        $this->authorizeUserAccess($request->user(), $user);
+
         if (!$user->canBeAssignedModules()) {
             $userRoles = $user->roles->pluck('name')->join(', ') ?: 'Sin roles';
             
