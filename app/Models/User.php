@@ -122,8 +122,8 @@ class User extends Authenticatable
      */
     public function hasModuleAccess(string $moduleName): bool
     {
-        // Los administradores tienen acceso a todos los módulos
-        if ($this->isAdmin()) {
+        // Los administradores y técnicos tienen acceso a todos los módulos
+        if ($this->isAdmin() || $this->hasRole('tecnico')) {
             return true;
         }
 
@@ -137,7 +137,7 @@ class User extends Authenticatable
      */
     public function getAccessibleModules(): array
     {
-        if ($this->isAdmin()) {
+        if ($this->isAdmin() || $this->hasRole('tecnico')) {
             return array_keys(UserModule::MODULES);
         }
 

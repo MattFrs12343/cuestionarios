@@ -10,29 +10,29 @@ class QuestionnairePolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view questionnaires');
+        return $user->can('view questionnaires');
     }
 
     public function view(User $user, Questionnaire $questionnaire): bool
     {
-        return $user->hasPermissionTo('view questionnaires') && 
+        return $user->can('view questionnaires') && 
                $user->teams->contains($questionnaire->team_id);
     }
 
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create questionnaires');
+        return $user->can('create questionnaires');
     }
 
     public function update(User $user, Questionnaire $questionnaire): bool
     {
-        return $user->hasPermissionTo('edit questionnaires') && 
+        return $user->can('edit questionnaires') && 
                $user->teams->contains($questionnaire->team_id);
     }
 
     public function delete(User $user, Questionnaire $questionnaire): bool
     {
-        return $user->hasPermissionTo('delete questionnaires') && 
+        return $user->can('delete questionnaires') && 
                $user->teams->contains($questionnaire->team_id);
     }
 }

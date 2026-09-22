@@ -19,8 +19,11 @@ class AvaliacaoEquilibrioController extends Controller
         $user = $request->user();
         $teamId = $request->get('team_id');
 
-        $query = AvaliacaoEquilibrio::with(['team', 'creator', 'editor'])
-            ->whereIn('team_id', $user->teams->pluck('id'));
+        $query = AvaliacaoEquilibrio::with(['team', 'creator', 'editor']);
+
+        if (! $this->bypassesTeamRestriction($user)) {
+            $query->whereIn('team_id', $user->teams->pluck('id'));
+        }
 
         if ($teamId) {
             $query->where('team_id', $teamId);
@@ -57,15 +60,15 @@ class AvaliacaoEquilibrioController extends Controller
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'currentTeam' => $teamId ? Team::find($teamId) : null,
             'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'sort', 'direction']), function ($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
-                'create' => $user->hasPermissionTo('create questionnaires'),
-                'edit' => $user->hasPermissionTo('edit questionnaires'),
-                'delete' => $user->hasPermissionTo('delete questionnaires'),
+                'create' => $user->can('create questionnaires'),
+                'edit' => $user->can('edit questionnaires'),
+                'delete' => $user->can('delete questionnaires'),
             ],
         ]);
     }
@@ -75,7 +78,7 @@ class AvaliacaoEquilibrioController extends Controller
         $user = auth()->user();
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Create', [
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
         ]);
     }
 
@@ -142,8 +145,8 @@ class AvaliacaoEquilibrioController extends Controller
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Show', [
             'questionnaire' => $equilibrio,
             'can' => [
-                'edit' => auth()->user()->hasPermissionTo('edit questionnaires'),
-                'delete' => auth()->user()->hasPermissionTo('delete questionnaires'),
+                'edit' => auth()->user()->can('edit questionnaires'),
+                'delete' => auth()->user()->can('delete questionnaires'),
             ],
         ]);
     }
@@ -157,7 +160,7 @@ class AvaliacaoEquilibrioController extends Controller
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Edit', [
             'questionnaire' => $equilibrio,
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
         ]);
     }
 

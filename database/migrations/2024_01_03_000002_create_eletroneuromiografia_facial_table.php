@@ -47,7 +47,7 @@ return new class extends Migration
             $table->boolean('toma_medicamento')->nullable();
             $table->string('medicamentos')->nullable();
 
-            $table->string('assinatura_paciente')->nullable();
+            $table->longText('assinatura_paciente')->nullable();
             $table->string('pedido_medico')->nullable();
 
             $table->foreignId('team_id')->nullable()->constrained()->nullOnDelete();

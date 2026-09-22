@@ -26,8 +26,11 @@ class ElectroneuromiografiaController extends Controller
         $user = $request->user();
         $teamId = $request->get('team_id');
 
-        $query = Electroneuromiografia::with(['team', 'creator', 'editor'])
-            ->whereIn('team_id', $user->teams->pluck('id'));
+        $query = Electroneuromiografia::with(['team', 'creator', 'editor']);
+
+        if (! $this->bypassesTeamRestriction($user)) {
+            $query->whereIn('team_id', $user->teams->pluck('id'));
+        }
 
         // Solo filtrar por equipo específico si se proporciona team_id
         if ($teamId) {
@@ -73,15 +76,15 @@ class ElectroneuromiografiaController extends Controller
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'currentTeam' => $teamId ? Team::find($teamId) : null,
             'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
-                'create' => $user->hasPermissionTo('create questionnaires'),
-                'edit' => $user->hasPermissionTo('edit questionnaires'),
-                'delete' => $user->hasPermissionTo('delete questionnaires'),
+                'create' => $user->can('create questionnaires'),
+                'edit' => $user->can('edit questionnaires'),
+                'delete' => $user->can('delete questionnaires'),
             ],
         ]);
     }
@@ -91,7 +94,7 @@ class ElectroneuromiografiaController extends Controller
         $user = auth()->user();
         
         return Inertia::render('Questionnaires/Electroneuromiografia/Create', [
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'tiposExameOptions' => ['MSD', 'MSE', 'MID', 'MIE'],
             'areasColuna' => ['Cervical', 'Torácica', 'Lombar', 'Região Sacral', 'Região do Cóccix'],
             'momentoExameOptions' => [
@@ -172,7 +175,7 @@ class ElectroneuromiografiaController extends Controller
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Edit', [
             'questionnaire' => $electroneuromiografia,
-            'teams' => $user->teams,
+            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'tiposExameOptions' => ['MSD', 'MSE', 'MID', 'MIE'],
             'areasColuna' => ['Cervical', 'Torácica', 'Lombar', 'Região Sacral', 'Região do Cóccix'],
             'momentoExameOptions' => [

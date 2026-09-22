@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('cid')->nullable();
             $table->text('comentario')->nullable();
 
-            $table->string('assinatura_paciente')->nullable();
+            $table->longText('assinatura_paciente')->nullable();
             $table->string('pedido_medico')->nullable();
 
             $table->foreignId('team_id')->nullable()->constrained()->nullOnDelete();

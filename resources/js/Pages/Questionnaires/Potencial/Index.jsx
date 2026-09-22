@@ -274,13 +274,13 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                                     {questionnaires.data.map((questionnaire) => (
                                         <tr key={questionnaire.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4">
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
                                                         <UserIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                                                     </div>
-                                                    <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                                    <div className="ml-4 max-w-[160px]">
+                                                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100 break-words">
                                                             {questionnaire.nome}
                                                         </div>
                                                     </div>
