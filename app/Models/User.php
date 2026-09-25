@@ -98,11 +98,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * El equipo "rojo" del negocio corresponde al equipo "Equipe Principal" en el sistema.
+     * El equipo "rojo" del negocio se reconoce por los nombres "Rojo" o "Equipe Principal".
      */
     public function isInRedTeam(): bool
     {
-        return $this->teams->contains('name', 'Equipe Principal');
+        return $this->teams->contains(fn (Team $team) => in_array($team->name, ['Rojo', 'Equipe Principal']));
     }
 
     /**
