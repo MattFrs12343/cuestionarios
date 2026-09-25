@@ -53,6 +53,35 @@ export default function QuestionnaireTypeIcon({ type, className = "w-6 h-6" }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 7v6m0 0l-4 8m4-8l4 8m-4-4l-5-2m5 2l5-2" />
                 </svg>
             );
+        case 'estesiometria':
+            // Ponto de toque (sensibilidade tátil)
+            return (
+                <svg {...common}>
+                    <circle cx="12" cy="12" r="9" strokeWidth={2} />
+                    <circle cx="12" cy="12" r="3" strokeWidth={2} />
+                </svg>
+            );
+        case 'tdah_infantil':
+            // Estrela (energia/atenção infantil)
+            return (
+                <svg {...common}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+            );
+        case 'tdah_adulto':
+            // Cabeça (avaliação cognitiva/atenção adulto)
+            return (
+                <svg {...common}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            );
+        case 'dinamometro':
+            // Mão fechada (força de preensão)
+            return (
+                <svg {...common}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" />
+                </svg>
+            );
         default:
             // Documento genérico
             return (

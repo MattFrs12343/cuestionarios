@@ -20,6 +20,7 @@ class RastreioCognitivo extends Model
         'rg_ou_cpf',
         'data_nascimento',
         'sexo',
+        'clinica',
         'data_exame',
         'pontuacao_visoespacial',
         'pontuacao_nomeacao',

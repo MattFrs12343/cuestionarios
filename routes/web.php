@@ -94,6 +94,50 @@ Route::middleware('auth')->group(function () {
             ];
         }
 
+        if (in_array('estesiometria', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'Estesiometria',
+                'description' => 'Avaliação sensitiva com monofilamentos',
+                'icon' => 'estesiometria',
+                'href' => route('questionnaires.estesiometria.index'),
+                'color' => 'bg-red-500',
+                'count' => 0
+            ];
+        }
+
+        if (in_array('tdah_infantil', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'TDAH Infantil (SNAP-IV)',
+                'description' => 'Escala de autoavaliação para TDAH em crianças',
+                'icon' => 'tdah_infantil',
+                'href' => route('questionnaires.tdah-infantil.index'),
+                'color' => 'bg-pink-500',
+                'count' => 0
+            ];
+        }
+
+        if (in_array('tdah_adulto', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'TDAH Adulto (ASRS-18)',
+                'description' => 'Escala de autoavaliação para TDAH em adultos',
+                'icon' => 'tdah_adulto',
+                'href' => route('questionnaires.tdah-adulto.index'),
+                'color' => 'bg-indigo-500',
+                'count' => 0
+            ];
+        }
+
+        if (in_array('dinamometro', $accessibleModules)) {
+            $modules[] = [
+                'name' => 'Dinamômetro',
+                'description' => 'Avaliação de força de preensão manual',
+                'icon' => 'dinamometro',
+                'href' => route('questionnaires.dinamometro.index'),
+                'color' => 'bg-violet-500',
+                'count' => 0
+            ];
+        }
+
         return Inertia::render('Questionnaires/Index', [
             'modules' => $modules,
             'userRole' => $user->roles->first()?->name,
@@ -171,6 +215,54 @@ Route::middleware('auth')->group(function () {
         Route::get('/{equilibrio}/edit', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'edit'])->name('edit');
         Route::put('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'update'])->name('update');
         Route::delete('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para Estesiometria (exclusivo equipo rojo / Equipe Principal)
+    Route::prefix('questionnaires/estesiometria')->name('questionnaires.estesiometria.')
+        ->middleware('module.access:estesiometria')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'store'])->name('store');
+        Route::get('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'show'])->name('show');
+        Route::get('/{estesiometria}/edit', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'edit'])->name('edit');
+        Route::put('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'update'])->name('update');
+        Route::delete('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para TDAH Infantil - SNAP-IV (exclusivo equipo rojo / Equipe Principal)
+    Route::prefix('questionnaires/tdah-infantil')->name('questionnaires.tdah-infantil.')
+        ->middleware('module.access:tdah_infantil')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'store'])->name('store');
+        Route::get('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'show'])->name('show');
+        Route::get('/{tdahInfantil}/edit', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'edit'])->name('edit');
+        Route::put('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'update'])->name('update');
+        Route::delete('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para TDAH Adulto - ASRS-18 (exclusivo equipo rojo / Equipe Principal)
+    Route::prefix('questionnaires/tdah-adulto')->name('questionnaires.tdah-adulto.')
+        ->middleware('module.access:tdah_adulto')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'store'])->name('store');
+        Route::get('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'show'])->name('show');
+        Route::get('/{tdahAdulto}/edit', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'edit'])->name('edit');
+        Route::put('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'update'])->name('update');
+        Route::delete('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para Dinamômetro (exclusivo equipo rojo / Equipe Principal)
+    Route::prefix('questionnaires/dinamometro')->name('questionnaires.dinamometro.')
+        ->middleware('module.access:dinamometro')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'store'])->name('store');
+        Route::get('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'show'])->name('show');
+        Route::get('/{dinamometro}/edit', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'edit'])->name('edit');
+        Route::put('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'update'])->name('update');
+        Route::delete('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'destroy'])->name('destroy');
     });
 
     // Anexos (imágenes adjuntas a cualquier tipo de cuestionario, máx. 5)

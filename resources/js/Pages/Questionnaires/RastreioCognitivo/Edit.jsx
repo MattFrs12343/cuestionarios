@@ -69,6 +69,7 @@ export default function Edit({ auth, teams, questionnaire }) {
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
         data_nascimento: questionnaire.data_nascimento || '',
         sexo: questionnaire.sexo || '',
+        clinica: questionnaire.clinica || '',
         data_exame: questionnaire.data_exame || '',
         team_id: questionnaire.team_id || '',
         pontuacao_visoespacial: questionnaire.pontuacao_visoespacial ?? '',
@@ -233,6 +234,12 @@ export default function Edit({ auth, teams, questionnaire }) {
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Exame *</label>
                                             <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Clínica</label>
+                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
+                                            {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
                                         <div>

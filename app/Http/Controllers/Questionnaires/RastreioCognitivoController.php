@@ -44,10 +44,14 @@ class RastreioCognitivoController extends Controller
             $query->where('data_exame', '<=', $dateTo);
         }
 
+        if ($clinica = $request->get('clinica')) {
+            $query->whereRaw('LOWER(clinica) LIKE LOWER(?)', ["%{$clinica}%"]);
+        }
+
         $sortField = $request->get('sort', 'created_at');
         $sortDirection = $request->get('direction', 'desc');
 
-        $allowedSortFields = ['nome_completo', 'rg_ou_cpf', 'data_exame', 'created_at'];
+        $allowedSortFields = ['nome_completo', 'rg_ou_cpf', 'clinica', 'data_exame', 'created_at'];
         if (!in_array($sortField, $allowedSortFields)) {
             $sortField = 'created_at';
         }
@@ -62,7 +66,7 @@ class RastreioCognitivoController extends Controller
             'questionnaires' => $questionnaires,
             'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'sort', 'direction']), function ($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'team_id', 'sort', 'direction']), function ($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -89,6 +93,7 @@ class RastreioCognitivoController extends Controller
             'rg_ou_cpf' => 'required|string|max:255',
             'data_nascimento' => 'required|date',
             'sexo' => 'required|in:Masculino,Feminino',
+            'clinica' => 'nullable|string|max:255',
             'data_exame' => 'required|date',
             'team_id' => $this->teamIdRule(),
             'pontuacao_visoespacial' => 'nullable|integer|min:0|max:5',

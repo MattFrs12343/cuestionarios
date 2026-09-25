@@ -86,6 +86,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Módulos exclusivos del equipo "rojo" (= equipo "Equipe Principal" en el sistema).
+     * No forman parte de UserModule::MODULES: el acceso depende únicamente de la
+     * pertenencia al equipo, no de una asignación manual por usuario.
+     */
+    public const RED_TEAM_ONLY_MODULES = [
+        'estesiometria' => 'Estesiometria',
+        'tdah_infantil' => 'TDAH Infantil (SNAP-IV)',
+        'tdah_adulto' => 'TDAH Adulto (ASRS-18)',
+        'dinamometro' => 'Dinamômetro (Força de Preensão Manual)',
+    ];
+
+    /**
+     * El equipo "rojo" del negocio corresponde al equipo "Equipe Principal" en el sistema.
+     */
+    public function isInRedTeam(): bool
+    {
+        return $this->teams->contains('name', 'Equipe Principal');
+    }
+
+    /**
      * Scope for active users
      */
     public function scopeActive($query)
@@ -122,6 +142,12 @@ class User extends Authenticatable
      */
     public function hasModuleAccess(string $moduleName): bool
     {
+        // Módulos exclusivos del equipo rojo: solo pertenecer al equipo da acceso,
+        // sin excepción para administradores/técnicos ajenos al equipo.
+        if (array_key_exists($moduleName, self::RED_TEAM_ONLY_MODULES)) {
+            return $this->isInRedTeam();
+        }
+
         // Los administradores y técnicos tienen acceso a todos los módulos
         if ($this->isAdmin() || $this->hasRole('tecnico')) {
             return true;
@@ -137,13 +163,15 @@ class User extends Authenticatable
      */
     public function getAccessibleModules(): array
     {
-        if ($this->isAdmin() || $this->hasRole('tecnico')) {
-            return array_keys(UserModule::MODULES);
+        $modules = ($this->isAdmin() || $this->hasRole('tecnico'))
+            ? array_keys(UserModule::MODULES)
+            : $this->activeModules()->pluck('module_name')->toArray();
+
+        if ($this->isInRedTeam()) {
+            $modules = array_merge($modules, array_keys(self::RED_TEAM_ONLY_MODULES));
         }
 
-        return $this->activeModules()
-            ->pluck('module_name')
-            ->toArray();
+        return $modules;
     }
 
     /**

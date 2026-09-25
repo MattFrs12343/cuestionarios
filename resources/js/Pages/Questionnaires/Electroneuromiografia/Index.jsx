@@ -3,6 +3,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import { useTranslation } from '@/Hooks/useTranslation';
+import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 
 export default function ElectroneuromiografiaIndex({ 
     auth, 
@@ -142,6 +143,41 @@ export default function ElectroneuromiografiaIndex({
             router.delete(route('questionnaires.electroneuromiografia.destroy', questionnaire.id));
         }
     };
+
+    const [exportingId, setExportingId] = useState(null);
+
+    const handleExportToJPG = async (questionnaire) => {
+        setExportingId(questionnaire.id);
+        try {
+            await exportQuestionnaireToJPG(questionnaire, 'electroneuromiografia', 'questionario_enmg', questionnaire.nome);
+        } catch (error) {
+            console.error('Error al exportar:', error);
+            alert('Erro ao exportar o questionário. Por favor, tente novamente.');
+        } finally {
+            setExportingId(null);
+        }
+    };
+
+    const ExportButton = ({ questionnaire, className }) => (
+        <button
+            type="button"
+            onClick={() => handleExportToJPG(questionnaire)}
+            disabled={exportingId === questionnaire.id}
+            className={className}
+            title="Exportar questionário como imagem JPG"
+        >
+            {exportingId === questionnaire.id ? (
+                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            )}
+        </button>
+    );
 
     // Componente para cabeceras ordenables
     const SortableHeader = ({ field, children, className = "" }) => {
@@ -458,6 +494,10 @@ export default function ElectroneuromiografiaIndex({
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </Link>
+                                                    <ExportButton
+                                                        questionnaire={questionnaire}
+                                                        className="flex items-center justify-center w-10 h-10 bg-teal-600 dark:bg-teal-700 text-white rounded-full hover:bg-teal-700 dark:hover:bg-teal-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    />
                                                     {can.edit && (
                                                         <Link
                                                             href={route('questionnaires.electroneuromiografia.edit', questionnaire.id)}
@@ -578,6 +618,10 @@ export default function ElectroneuromiografiaIndex({
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                 </svg>
                                                             </Link>
+                                                            <ExportButton
+                                                                questionnaire={questionnaire}
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                            />
                                                             {can.edit && (
                                                                 <Link
                                                                     href={route('questionnaires.electroneuromiografia.edit', questionnaire.id)}

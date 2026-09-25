@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\AvaliacaoEquilibrio;
+use App\Models\Dinamometro;
 use App\Models\Electroneuromiografia;
 use App\Models\EletroneuromiografiaFacial;
+use App\Models\Estesiometria;
 use App\Models\Potencial;
 use App\Models\Questionnaire;
 use App\Models\RastreioCognitivo;
+use App\Models\TdahAdulto;
+use App\Models\TdahInfantil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +29,10 @@ class AttachmentController extends Controller
         'potencial'                    => Potencial::class,
         'rastreio-cognitivo'           => RastreioCognitivo::class,
         'equilibrio'                   => AvaliacaoEquilibrio::class,
+        'estesiometria'                => Estesiometria::class,
+        'tdah-infantil'                => TdahInfantil::class,
+        'tdah-adulto'                  => TdahAdulto::class,
+        'dinamometro'                  => Dinamometro::class,
     ];
 
     /**

@@ -479,5 +479,179 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
     }
 
+    // Avaliação do Equilíbrio (TUG + Berg)
+    if (type === 'avaliacao-equilibrio') {
+        const BERG_ITEMS = [
+            { field: 'berg_sentado_para_pe', label: '1. Sentado para de pé' },
+            { field: 'berg_permanecer_pe_sem_apoio', label: '2. Permanecer de pé sem apoio' },
+            { field: 'berg_sentado_sem_apoio', label: '3. Sentado sem apoio dorsal' },
+            { field: 'berg_pe_para_sentado', label: '4. De pé para sentado' },
+            { field: 'berg_transferencias', label: '5. Transferências entre cadeiras' },
+            { field: 'berg_pe_olhos_fechados', label: '6. De pé com olhos fechados' },
+            { field: 'berg_pe_pes_juntos', label: '7. De pé com pés juntos' },
+            { field: 'berg_alcance_anterior', label: '8. Alcance anterior com braço' },
+            { field: 'berg_pegar_objeto_chao', label: '9. Pegar objeto do chão' },
+            { field: 'berg_olhar_para_tras', label: '10. Olhar para trás (ombros)' },
+            { field: 'berg_girar_360', label: '11. Girar 360 graus' },
+            { field: 'berg_tocar_degrau', label: '12. Tocar degrau alternadamente' },
+            { field: 'berg_posicao_tandem', label: '13. Posição de Tândem' },
+            { field: 'berg_apoio_monopodal', label: '14. Apoio Monopodal' },
+        ];
+
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
+                {/* Header */}
+                <div className="bg-yellow-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Avaliação do Equilíbrio</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Equilíbrio Clínico e Risco de Quedas (TUG + Berg)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Dados Básicos */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="RG ou CPF" value={questionnaire.rg_ou_cpf} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                    </div>
+                </div>
+
+                {/* TUG */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Timed Up and Go (TUG)</h2>
+                    <div className="px-2">
+                        <InfoRow label="Tempo Registrado" value={questionnaire.tug_tempo_segundos ? `${questionnaire.tug_tempo_segundos} segundos` : 'Não informado'} />
+                    </div>
+                </div>
+
+                {/* Escala de Berg */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Escala de Equilíbrio de Berg (BBS)</h2>
+                    <div className="grid grid-cols-3 gap-x-4 gap-y-0 px-2">
+                        {BERG_ITEMS.map((item) => (
+                            <InfoRow key={item.field} label={item.label} value={`${questionnaire[item.field] ?? '-'} / 4`} />
+                        ))}
+                    </div>
+                    <div className="px-2 mt-1">
+                        <InfoRow label="Pontuação Total (Berg)" value={`${questionnaire.berg_total ?? '-'} / 56`} />
+                    </div>
+                </div>
+
+                {/* Avaliação */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Avaliação</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome do Avaliador" value={questionnaire.nome_avaliador || 'Não informado'} />
+                        <InfoRow label="CID" value={questionnaire.cid || 'Não informado'} />
+                    </div>
+                    {questionnaire.comentario && (
+                        <div className="px-2 mt-1">
+                            <div className="text-xs font-semibold text-gray-700 mb-0">Comentário</div>
+                            <div className="text-xs text-gray-900 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.comentario}</div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '8mm', left: '8mm', right: '8mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Rastreio Cognitivo (MoCA)
+    if (type === 'rastreio-cognitivo') {
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
+                {/* Header */}
+                <div className="bg-teal-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Rastreio Cognitivo</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Protocolo de Rastreio Cognitivo em Consulta (MoCA)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Dados Básicos */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="RG ou CPF" value={questionnaire.rg_ou_cpf} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                    </div>
+                </div>
+
+                {/* Folha de Pontuação */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Folha de Pontuação Rápida (MoCA)</h2>
+                    <div className="grid grid-cols-4 gap-x-4 gap-y-0 px-2">
+                        <InfoRow label="Visoespacial / Executiva" value={`${questionnaire.pontuacao_visoespacial ?? '-'} / 5`} />
+                        <InfoRow label="Nomeação" value={`${questionnaire.pontuacao_nomeacao ?? '-'} / 3`} />
+                        <InfoRow label="Atenção" value={`${questionnaire.pontuacao_atencao ?? '-'} / 6`} />
+                        <InfoRow label="Linguagem" value={`${questionnaire.pontuacao_linguagem ?? '-'} / 3`} />
+                        <InfoRow label="Abstração" value={`${questionnaire.pontuacao_abstracao ?? '-'} / 2`} />
+                        <InfoRow label="Evocação Tardia" value={`${questionnaire.pontuacao_evocacao_tardia ?? '-'} / 5`} />
+                        <InfoRow label="Orientação" value={`${questionnaire.pontuacao_orientacao ?? '-'} / 6`} />
+                        <InfoRow label="Ajuste de Escolaridade" value={questionnaire.ajuste_escolaridade ? '+1 pt' : '—'} />
+                    </div>
+                    <div className="px-2 mt-1">
+                        <InfoRow label="Pontuação Total" value={`${questionnaire.pontuacao_total ?? '-'} / 30`} />
+                    </div>
+                </div>
+
+                {/* Avaliação */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Avaliação</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome do Avaliador" value={questionnaire.nome_avaliador || 'Não informado'} />
+                        <InfoRow label="CID" value={questionnaire.cid || 'Não informado'} />
+                    </div>
+                    {questionnaire.comentario && (
+                        <div className="px-2 mt-1">
+                            <div className="text-xs font-semibold text-gray-700 mb-0">Comentário</div>
+                            <div className="text-xs text-gray-900 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.comentario}</div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '8mm', left: '8mm', right: '8mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
     return null;
 }

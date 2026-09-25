@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -6,73 +6,11 @@ import { useTranslation } from '@/Hooks/useTranslation';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import ImageZoomModal from '@/Components/ImageZoomModal';
-import QuestionnaireExportView from '@/Components/QuestionnaireExportView';
-import html2canvas from 'html2canvas';
 
 export default function Show({ auth, questionnaire, can }) {
     const { t } = useTranslation();
     const [showSignatureModal, setShowSignatureModal] = useState(false);
     const [showMedicalRequestModal, setShowMedicalRequestModal] = useState(false);
-    const [isExporting, setIsExporting] = useState(false);
-
-    const handleExportToJPG = async () => {
-        setIsExporting(true);
-        
-        try {
-            const tempContainer = document.createElement('div');
-            tempContainer.style.position = 'absolute';
-            tempContainer.style.left = '-9999px';
-            tempContainer.style.top = '0';
-            document.body.appendChild(tempContainer);
-            
-            const { createRoot } = await import('react-dom/client');
-            const root = createRoot(tempContainer);
-            
-            await new Promise((resolve) => {
-                root.render(
-                    <QuestionnaireExportView questionnaire={questionnaire} type="potencial" />
-                );
-                setTimeout(resolve, 1000);
-            });
-            
-            const canvas = await html2canvas(tempContainer.firstChild, {
-                scale: 2,
-                useCORS: false,
-                allowTaint: true,
-                logging: false,
-                backgroundColor: '#ffffff',
-                width: 794,
-                height: 1123,
-                windowWidth: 794,
-                ignoreElements: (element) => {
-                    return element.tagName === 'IMG' && element.src.includes('storage');
-                }
-            });
-            
-            canvas.toBlob((blob) => {
-                if (blob) {
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    const fileName = `questionario_potencial_${questionnaire.nome.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.jpg`;
-                    link.href = url;
-                    link.download = fileName;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                }
-                
-                root.unmount();
-                document.body.removeChild(tempContainer);
-                setIsExporting(false);
-            }, 'image/jpeg', 0.95);
-            
-        } catch (error) {
-            console.error('Error al exportar:', error);
-            alert('Erro ao exportar o questionário. Por favor, tente novamente.');
-            setIsExporting(false);
-        }
-    };
 
     const formatBoolean = (value) => {
         return value ? t('Sim') : t('Não');
@@ -109,29 +47,6 @@ export default function Show({ auth, questionnaire, can }) {
                         {t('Questionário de Potencial Evocado')} - {questionnaire.nome}
                     </h2>
                     <div className="flex space-x-2">
-                        <button
-                            onClick={handleExportToJPG}
-                            disabled={isExporting}
-                            className="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            title="Exportar questionário como imagem JPG"
-                        >
-                            {isExporting ? (
-                                <>
-                                    <svg className="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    {t('Exportando...')}
-                                </>
-                            ) : (
-                                <>
-                                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    {t('Exportar JPG')}
-                                </>
-                            )}
-                        </button>
                         {can.edit && (
                             <Link href={route('questionnaires.potencial.edit', questionnaire.id)}>
                                 <PrimaryButton>

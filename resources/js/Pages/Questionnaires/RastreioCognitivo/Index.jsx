@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
+import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 
 export default function RastreioCognitivoIndex({
     auth,
@@ -30,6 +31,7 @@ export default function RastreioCognitivoIndex({
     const [search, setSearch] = useState(() => (filters && typeof filters.search === 'string') ? filters.search : '');
     const [dateFrom, setDateFrom] = useState(() => (filters && typeof filters.date_from === 'string') ? filters.date_from : '');
     const [dateTo, setDateTo] = useState(() => (filters && typeof filters.date_to === 'string') ? filters.date_to : '');
+    const [clinica, setClinica] = useState(() => (filters && typeof filters.clinica === 'string') ? filters.clinica : '');
     const [selectedTeam, setSelectedTeam] = useState(() => (filters && filters.team_id) ? String(filters.team_id) : '');
     const [sortField, setSortField] = useState(() => (filters && typeof filters.sort === 'string') ? filters.sort : '');
     const [sortDirection, setSortDirection] = useState(() => (filters && typeof filters.direction === 'string') ? filters.direction : 'desc');
@@ -39,6 +41,7 @@ export default function RastreioCognitivoIndex({
         if (search.trim()) params.search = search.trim();
         if (dateFrom) params.date_from = dateFrom;
         if (dateTo) params.date_to = dateTo;
+        if (clinica.trim()) params.clinica = clinica.trim();
         if (selectedTeam) params.team_id = selectedTeam;
         if (sortField) params.sort = sortField;
         if (sortDirection) params.direction = sortDirection;
@@ -56,6 +59,7 @@ export default function RastreioCognitivoIndex({
         setSearch('');
         setDateFrom('');
         setDateTo('');
+        setClinica('');
         setSelectedTeam('');
         setSortField('');
         setSortDirection('desc');
@@ -85,6 +89,41 @@ export default function RastreioCognitivoIndex({
             router.delete(route('questionnaires.rastreio-cognitivo.destroy', questionnaire.id));
         }
     };
+
+    const [exportingId, setExportingId] = useState(null);
+
+    const handleExportToJPG = async (questionnaire) => {
+        setExportingId(questionnaire.id);
+        try {
+            await exportQuestionnaireToJPG(questionnaire, 'rastreio-cognitivo', 'questionario_rastreio_cognitivo', questionnaire.nome_completo);
+        } catch (error) {
+            console.error('Error al exportar:', error);
+            alert('Erro ao exportar o questionário. Por favor, tente novamente.');
+        } finally {
+            setExportingId(null);
+        }
+    };
+
+    const ExportButton = ({ questionnaire, className }) => (
+        <button
+            type="button"
+            onClick={() => handleExportToJPG(questionnaire)}
+            disabled={exportingId === questionnaire.id}
+            className={className}
+            title="Exportar questionário como imagem JPG"
+        >
+            {exportingId === questionnaire.id ? (
+                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            )}
+        </button>
+    );
 
     const SortableHeader = ({ field, children }) => {
         const isActive = sortField === field;
@@ -224,10 +263,11 @@ export default function RastreioCognitivoIndex({
                                     </svg>
                                     <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                                     <input type="text" placeholder="Buscar por nome ou RG/CPF..." value={search} onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-600 text-sm transition-colors" />
                                     <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-600 text-sm transition-colors" />
                                     <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-600 text-sm transition-colors" />
+                                    <input type="text" placeholder="Buscar por clínica..." value={clinica} onChange={(e) => setClinica(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-600 text-sm transition-colors" />
                                     <select value={selectedTeam} onChange={(e) => setSelectedTeam(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-600 text-sm transition-colors">
                                         <option value="">Todas as equipes</option>
                                         {teams && teams.map(team => (<option key={team.id} value={team.id}>{team.name}</option>))}
@@ -263,6 +303,10 @@ export default function RastreioCognitivoIndex({
                                                         <span className="font-medium text-gray-700 dark:text-gray-300 w-24">Data Exame:</span>
                                                         <span className="text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</span>
                                                     </div>
+                                                    <div className="flex items-center text-sm">
+                                                        <span className="font-medium text-gray-700 dark:text-gray-300 w-24">Clínica:</span>
+                                                        <span className="text-gray-900 dark:text-gray-100">{questionnaire.clinica || '-'}</span>
+                                                    </div>
                                                 </div>
                                                 <div className="flex justify-center gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                                                     <Link href={route('questionnaires.rastreio-cognitivo.show', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-indigo-600 dark:bg-indigo-700 text-white rounded-full hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors duration-200" title="Ver questionário">
@@ -271,6 +315,10 @@ export default function RastreioCognitivoIndex({
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </Link>
+                                                    <ExportButton
+                                                        questionnaire={questionnaire}
+                                                        className="flex items-center justify-center w-10 h-10 bg-teal-600 dark:bg-teal-700 text-white rounded-full hover:bg-teal-700 dark:hover:bg-teal-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    />
                                                     {can.edit && (
                                                         <Link href={route('questionnaires.rastreio-cognitivo.edit', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-purple-600 dark:bg-purple-700 text-white rounded-full hover:bg-purple-700 dark:hover:bg-purple-800 transition-colors duration-200" title="Editar questionário">
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,6 +350,7 @@ export default function RastreioCognitivoIndex({
                                             <SortableHeader field="nome_completo">Paciente</SortableHeader>
                                             <SortableHeader field="rg_ou_cpf">RG/CPF</SortableHeader>
                                             <SortableHeader field="data_exame">Data Exame</SortableHeader>
+                                            <SortableHeader field="clinica">Clínica</SortableHeader>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Pontuação</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Equipe</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Ações</th>
@@ -331,6 +380,9 @@ export default function RastreioCognitivoIndex({
                                                         <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</span>
                                                     </td>
                                                     <td className="px-6 py-4">
+                                                        <span className="text-sm text-gray-600 dark:text-gray-300">{questionnaire.clinica || '-'}</span>
+                                                    </td>
+                                                    <td className="px-6 py-4">
                                                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-teal-100 to-cyan-200 dark:from-teal-900 dark:to-cyan-800 text-teal-800 dark:text-teal-200 border border-teal-200 dark:border-teal-700 shadow-sm">
                                                             {questionnaire.pontuacao_total ?? '-'}/30
                                                         </span>
@@ -348,6 +400,10 @@ export default function RastreioCognitivoIndex({
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                 </svg>
                                                             </Link>
+                                                            <ExportButton
+                                                                questionnaire={questionnaire}
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                            />
                                                             {can.edit && (
                                                                 <Link href={route('questionnaires.rastreio-cognitivo.edit', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110" title="Editar questionário">
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -368,7 +424,7 @@ export default function RastreioCognitivoIndex({
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan="6" className="px-6 py-16 text-center">
+                                                <td colSpan="7" className="px-6 py-16 text-center">
                                                     <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 rounded-full mb-3">
                                                         <svg className="w-8 h-8 text-teal-500 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

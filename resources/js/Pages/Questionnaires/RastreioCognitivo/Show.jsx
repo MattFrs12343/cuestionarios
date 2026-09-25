@@ -98,6 +98,10 @@ export default function Show({ auth, questionnaire, can }) {
                                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.sexo}</dd>
                                     </div>
                                     <div>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Clínica</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.clinica || 'Não informado'}</dd>
+                                    </div>
+                                    <div>
                                         <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data do Exame</dt>
                                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</dd>
                                     </div>

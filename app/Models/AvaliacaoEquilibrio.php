@@ -20,6 +20,7 @@ class AvaliacaoEquilibrio extends Model
         'rg_ou_cpf',
         'data_nascimento',
         'sexo',
+        'clinica',
         'data_exame',
         'tug_tempo_segundos',
         'berg_sentado_para_pe',
