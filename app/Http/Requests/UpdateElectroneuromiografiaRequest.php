@@ -74,7 +74,6 @@ class UpdateElectroneuromiografiaRequest extends FormRequest
             'sexo' => ['required', 'string', 'max:255'],
             'solicitante' => ['required', 'string', 'max:255'],
             'clinica' => ['required', 'string', 'max:255'],
-            'team_id' => ['required', 'exists:teams,id'],
             'tipos_exame' => ['required', 'array', 'min:1'],
             'tipos_exame.*' => ['in:MSD,MSE,MID,MIE'],
             
@@ -185,7 +184,6 @@ class UpdateElectroneuromiografiaRequest extends FormRequest
             'sexo.required' => 'O sexo é obrigatório.',
             'solicitante.required' => 'O solicitante é obrigatório.',
             'clinica.required' => 'A clínica é obrigatória.',
-            'team_id.required' => 'A equipe é obrigatória.',
             'tipos_exame.required' => 'Pelo menos um tipo de exame deve ser selecionado.',
             'tipos_exame.min' => 'Pelo menos um tipo de exame deve ser selecionado.',
             

@@ -51,6 +51,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'last_login_at' => 'datetime',
             'is_active' => 'boolean',
+            'is_super_admin' => 'boolean',
         ];
     }
 
@@ -79,30 +80,24 @@ class User extends Authenticatable
 
     /**
      * El super-admin global ve y gestiona todo, sin restricción por equipo.
+     *
+     * La autoridad vive en la columna users.is_super_admin. El email de
+     * bootstrap solo concede privilegios si la base NO tiene todavía ningún
+     * super-admin (instalación inicial, o para no dejar el sistema sin
+     * administrador si alguien queda sin ninguno): en cuanto existe uno
+     * marcado, el email deja de importar.
      */
     public function isSuperAdmin(): bool
     {
-        return $this->email === 'admin@cuestionarios.com';
-    }
+        if ($this->is_super_admin) {
+            return true;
+        }
 
-    /**
-     * Módulos exclusivos del equipo "rojo" (= equipo "Equipe Principal" en el sistema).
-     * No forman parte de UserModule::MODULES: el acceso depende únicamente de la
-     * pertenencia al equipo, no de una asignación manual por usuario.
-     */
-    public const RED_TEAM_ONLY_MODULES = [
-        'estesiometria' => 'Estesiometria',
-        'tdah_infantil' => 'TDAH Infantil (SNAP-IV)',
-        'tdah_adulto' => 'TDAH Adulto (ASRS-18)',
-        'dinamometro' => 'Dinamômetro (Força de Preensão Manual)',
-    ];
+        if ($this->email !== config('app.super_admin_email')) {
+            return false;
+        }
 
-    /**
-     * El equipo "rojo" del negocio se reconoce por los nombres "Rojo" o "Equipe Principal".
-     */
-    public function isInRedTeam(): bool
-    {
-        return $this->teams->contains(fn (Team $team) => in_array($team->name, ['Rojo', 'Equipe Principal']));
+        return ! static::query()->where('is_super_admin', true)->exists();
     }
 
     /**
@@ -138,17 +133,21 @@ class User extends Authenticatable
     }
 
     /**
-     * Verificar si el usuario tiene acceso a un módulo específico
+     * Verificar si el usuario tiene acceso a un módulo específico.
+     * El módulo tiene que estar habilitado para el equipo del usuario
+     * (team_modules, el "plan" del equipo) Y, si no es admin/técnico,
+     * asignado individualmente vía UserModule.
      */
     public function hasModuleAccess(string $moduleName): bool
     {
-        // Módulos exclusivos del equipo rojo: solo pertenecer al equipo da acceso,
-        // sin excepción para administradores/técnicos ajenos al equipo.
-        if (array_key_exists($moduleName, self::RED_TEAM_ONLY_MODULES)) {
-            return $this->isInRedTeam();
+        if ($this->isSuperAdmin()) {
+            return true;
         }
 
-        // Los administradores y técnicos tienen acceso a todos los módulos
+        if (! $this->teams->contains(fn (Team $team) => $team->hasModuleEnabled($moduleName))) {
+            return false;
+        }
+
         if ($this->isAdmin() || $this->hasRole('tecnico')) {
             return true;
         }
@@ -159,19 +158,23 @@ class User extends Authenticatable
     }
 
     /**
-     * Obtener los nombres de los módulos a los que tiene acceso el usuario
+     * Obtener los nombres de los módulos a los que tiene acceso el usuario.
      */
     public function getAccessibleModules(): array
     {
-        $modules = ($this->isAdmin() || $this->hasRole('tecnico'))
-            ? array_keys(UserModule::MODULES)
-            : $this->activeModules()->pluck('module_name')->toArray();
-
-        if ($this->isInRedTeam()) {
-            $modules = array_merge($modules, array_keys(self::RED_TEAM_ONLY_MODULES));
+        if ($this->isSuperAdmin()) {
+            return array_keys(config('questionnaires.types'));
         }
 
-        return $modules;
+        $teamModules = $this->teams->flatMap(fn (Team $team) => $team->activeModuleNames())->unique();
+
+        if ($this->isAdmin() || $this->hasRole('tecnico')) {
+            return $teamModules->values()->all();
+        }
+
+        $userModules = $this->activeModules()->pluck('module_name');
+
+        return $teamModules->intersect($userModules)->values()->all();
     }
 
     /**

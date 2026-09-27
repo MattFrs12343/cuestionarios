@@ -32,8 +32,7 @@ class UpdatePotencialRequest extends FormRequest
             'sexo' => 'required|in:Feminino,Masculino',
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
-            'team_id' => 'required|exists:teams,id',
-            
+
             // Potencial Evocado Auditivo
             'tem_zumbido_ouvido' => 'boolean',
             'passou_fonoaudiologo' => 'boolean',
@@ -147,8 +146,6 @@ class UpdatePotencialRequest extends FormRequest
             'sexo.required' => 'O campo sexo é obrigatório.',
             'solicitante.required' => 'O campo solicitante é obrigatório.',
             'clinica.required' => 'O campo clínica é obrigatório.',
-            'team_id.required' => 'O campo equipe é obrigatório.',
-            'team_id.exists' => 'A equipe selecionada não existe.',
             'retardo_mental_grau.in' => 'O grau de retardo mental deve ser Leve, Moderado ou Grave.',
             'gestacao_meses.integer' => 'Os meses de gestação devem ser um número inteiro.',
             'gestacao_meses.min' => 'Os meses de gestação devem ser no mínimo 1.',

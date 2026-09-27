@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
 
@@ -191,7 +191,7 @@ export default function Show({ auth, questionnaire, can }) {
                                                 onClick={() => setIsPedidoMedicoModalOpen(true)}
                                             >
                                                 <img
-                                                    src={`/storage/${questionnaire.pedido_medico}`}
+                                                    src={pedidoMedicoUrl}
                                                     alt="Pedido Médico"
                                                     className="w-full h-auto"
                                                 />
@@ -273,7 +273,7 @@ export default function Show({ auth, questionnaire, can }) {
             <ImageZoomModal
                 isOpen={isPedidoMedicoModalOpen}
                 onClose={() => setIsPedidoMedicoModalOpen(false)}
-                imageSrc={`/storage/${questionnaire.pedido_medico}`}
+                imageSrc={pedidoMedicoUrl}
                 imageAlt="Pedido Médico"
             />
         <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">

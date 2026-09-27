@@ -143,7 +143,7 @@ export const translations = {
   // Administração
   admin: {
     title: 'Administração',
-    dashboard: 'Painel Administrativo',
+    dashboard: 'Administração',
     
     // Mensagens de confirmação
     confirm_delete_user: 'Tem certeza que deseja excluir este usuário?',

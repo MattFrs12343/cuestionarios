@@ -285,7 +285,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                         <div className="flex space-x-2">
                                                             <Link
                                                                 href={route('admin.users.show', user.id)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title="Ver"
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,7 +295,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                             </Link>
                                                             <Link
                                                                 href={route('admin.users.edit', user.id)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title="Editar"
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -307,7 +307,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                                 className={`inline-flex items-center justify-center w-9 h-9 ${user.is_active
                                                                     ? 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 hover:bg-gradient-to-br hover:from-orange-500 hover:to-orange-600 dark:hover:from-orange-600 dark:hover:to-orange-700'
                                                                     : 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-gradient-to-br hover:from-green-500 hover:to-green-600 dark:hover:from-green-600 dark:hover:to-green-700'
-                                                                    } hover:text-white rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110`}
+                                                                    } hover:text-white rounded-lg transition-all duration-200 hover:shadow-md`}
                                                                 title={user.is_active ? 'Desativar' : 'Ativar'}
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,7 +320,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                             </button>
                                                             <button
                                                                 onClick={() => deleteUser(user)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title="Eliminar"
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

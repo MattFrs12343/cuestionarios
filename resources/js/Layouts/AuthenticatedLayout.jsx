@@ -4,17 +4,27 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import FlashMessage from '@/Components/FlashMessage';
 import ThemeToggle from '@/Components/ThemeToggle';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { useTranslation } from '@/Hooks/useTranslation';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
 export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+    const page = usePage();
+    const user = page.props.auth.user;
+    const currentTeam = page.props.currentTeam;
+    const switchableTeams = page.props.switchableTeams || [];
     const { t } = useTranslation();
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const handleTeamSwitch = (e) => {
+        const teamId = e.target.value;
+        if (teamId && String(teamId) !== String(currentTeam?.id)) {
+            router.post(route('teams.switch', teamId), {}, { preserveScroll: true });
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
@@ -31,22 +41,8 @@ export default function AuthenticatedLayout({ header, children }) {
 
                             <div className="hidden space-x-2 sm:-my-px sm:ms-12 sm:flex items-center">
                                 <Link
-                                    href={route('dashboard')}
-                                    className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 hover:scale-105 border-0 ${
-                                        route().current('dashboard')
-                                            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 hover:text-blue-600 dark:hover:text-blue-400'
-                                    }`}
-                                >
-                                    <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 15V9a2 2 0 012-2h4a2 2 0 012 2v6" />
-                                    </svg>
-                                    <span className="leading-none">{t('navigation.dashboard')}</span>
-                                </Link>
-                                <Link
                                     href={route('questionnaires.index')}
-                                    className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 hover:scale-105 border-0 ${
+                                    className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 border-0 ${
                                         route().current('questionnaires.*')
                                             ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg shadow-purple-500/25'
                                             : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 dark:hover:from-purple-900/20 dark:hover:to-indigo-900/20 hover:text-purple-600 dark:hover:text-purple-400'
@@ -60,7 +56,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 {user.roles && user.roles.some(role => role.name === 'administrador') && (
                                     <Link
                                         href={route('admin.dashboard')}
-                                        className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 hover:scale-105 border-0 ${
+                                        className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 border-0 ${
                                             route().current('admin.*')
                                                 ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
                                                 : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 dark:hover:from-emerald-900/20 dark:hover:to-teal-900/20 hover:text-emerald-600 dark:hover:text-emerald-400'
@@ -77,6 +73,26 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center gap-4">
+                            {/* Equipe atual */}
+                            {currentTeam && (
+                                switchableTeams.length > 1 ? (
+                                    <select
+                                        value={currentTeam.id}
+                                        onChange={handleTeamSwitch}
+                                        title="Equipe atual"
+                                        className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                    >
+                                        {switchableTeams.map((team) => (
+                                            <option key={team.id} value={team.id}>{team.name}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <span className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        {currentTeam.name}
+                                    </span>
+                                )
+                            )}
+
                             {/* Theme Toggle */}
                             <ThemeToggle />
                             
@@ -109,19 +125,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content className="w-64 rounded-2xl shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-md ring-1 ring-black ring-opacity-5 dark:ring-gray-700 border border-gray-200/50 dark:border-gray-700/50">
-                                        <div className="px-5 py-4 border-b border-gray-200/50 dark:border-gray-700/50">
-                                            <div className="flex items-center">
-                                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                                    <span className="text-lg font-bold text-white">
-                                                        {user.name.charAt(0).toUpperCase()}
-                                                    </span>
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">{user.name}</div>
-                                                    <div className="text-xs text-gray-500 dark:text-gray-400">{user.email}</div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div className="py-2">
                                             <Dropdown.Link
                                                 href={route('profile.edit')}
@@ -207,12 +210,6 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                     <div className="space-y-2 pb-4 pt-3 px-4">
                         <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            {t('navigation.dashboard')}
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
                             href={route('questionnaires.index')}
                             active={route().current('questionnaires.index')}
                         >
@@ -293,6 +290,14 @@ export default function AuthenticatedLayout({ header, children }) {
             )}
 
             <main>{children}</main>
+
+            <footer className="border-t border-gray-200/50 dark:border-gray-700/50 py-4">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                        &copy; {new Date().getFullYear()} Cuestionarios NeuroISBE. Todos os direitos reservados.
+                    </p>
+                </div>
+            </footer>
         </div>
     );
 }

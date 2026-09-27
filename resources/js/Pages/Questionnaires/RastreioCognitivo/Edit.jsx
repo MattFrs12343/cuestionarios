@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -9,7 +9,7 @@ import leaoImg from '@/Assets/moca/leao.jpg';
 import rinoceronteImg from '@/Assets/moca/rinoceronte.jpg';
 import cameloImg from '@/Assets/moca/camelo.jpg';
 
-const ScoreField = ({ label, field, max, help, value, onChange, errors }) => (
+const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing }) => (
     <div className="flex flex-col h-full">
         <div className="mb-2 min-h-[5.5rem]">
             <label className="block text-base font-semibold text-gray-800 dark:text-gray-200">
@@ -30,6 +30,12 @@ const ScoreField = ({ label, field, max, help, value, onChange, errors }) => (
             className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm text-lg font-semibold py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
         />
         {errors[field] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[field]}</div>}
+        {drawing && (
+            <div className="mt-3">
+                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Desenho do paciente</label>
+                <SignaturePad initialSignature={drawing.value} onSignatureChange={drawing.onChange} title={drawing.title} className="w-full" />
+            </div>
+        )}
     </div>
 );
 
@@ -63,7 +69,7 @@ const NamingStimuli = () => (
     </div>
 );
 
-export default function Edit({ auth, teams, questionnaire }) {
+export default function Edit({ auth, questionnaire }) {
     const { data, setData, put, processing, errors } = useForm({
         nome_completo: questionnaire.nome_completo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
@@ -71,7 +77,6 @@ export default function Edit({ auth, teams, questionnaire }) {
         sexo: questionnaire.sexo || '',
         clinica: questionnaire.clinica || '',
         data_exame: questionnaire.data_exame || '',
-        team_id: questionnaire.team_id || '',
         pontuacao_visoespacial: questionnaire.pontuacao_visoespacial ?? '',
         pontuacao_nomeacao: questionnaire.pontuacao_nomeacao ?? '',
         pontuacao_atencao: questionnaire.pontuacao_atencao ?? '',
@@ -79,6 +84,10 @@ export default function Edit({ auth, teams, questionnaire }) {
         pontuacao_abstracao: questionnaire.pontuacao_abstracao ?? '',
         pontuacao_evocacao_tardia: questionnaire.pontuacao_evocacao_tardia ?? '',
         pontuacao_orientacao: questionnaire.pontuacao_orientacao ?? '',
+        desenho_visoespacial: questionnaire.desenho_visoespacial || null,
+        desenho_atencao: questionnaire.desenho_atencao || null,
+        desenho_evocacao_tardia: questionnaire.desenho_evocacao_tardia || null,
+        desenho_orientacao: questionnaire.desenho_orientacao || null,
         ajuste_escolaridade: questionnaire.ajuste_escolaridade || false,
         pontuacao_total: questionnaire.pontuacao_total ?? '',
         nome_avaliador: questionnaire.nome_avaliador || '',
@@ -172,6 +181,15 @@ export default function Edit({ auth, teams, questionnaire }) {
                             <p className="text-xs text-gray-600 dark:text-gray-400">Rastreio Cognitivo (MoCA)</p>
                         </div>
                     </div>
+                    <Link
+                        href={route('questionnaires.rastreio-cognitivo.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -242,14 +260,6 @@ export default function Edit({ auth, teams, questionnaire }) {
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipe *</label>
-                                            <select value={data.team_id} onChange={(e) => setData('team_id', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
-                                        </div>
                                     </div>
                                 </div>
 
@@ -274,12 +284,12 @@ export default function Edit({ auth, teams, questionnaire }) {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                                        <ScoreField label="Visoespacial / Executiva" field="pontuacao_visoespacial" max={5} help="Alternância (1pt), Cubo (1pt), Relógio (3pts - Círculo, Números, Ponteiros)" value={data.pontuacao_visoespacial} onChange={setData} errors={errors} />
-                                        <ScoreField label="Atenção" field="pontuacao_atencao" max={6} help="Dígitos (2pts), Vigilância/Letra A (1pt), Subtração de 7 em 7 (3pts)" value={data.pontuacao_atencao} onChange={setData} errors={errors} />
+                                        <ScoreField label="Visoespacial / Executiva" field="pontuacao_visoespacial" max={5} help="Alternância (1pt), Cubo (1pt), Relógio (3pts - Círculo, Números, Ponteiros)" value={data.pontuacao_visoespacial} onChange={setData} errors={errors} drawing={{ title: 'Visoespacial / Executiva', value: data.desenho_visoespacial, onChange: (signature) => setData('desenho_visoespacial', signature) }} />
+                                        <ScoreField label="Atenção" field="pontuacao_atencao" max={6} help="Dígitos (2pts), Vigilância/Letra A (1pt), Subtração de 7 em 7 (3pts)" value={data.pontuacao_atencao} onChange={setData} errors={errors} drawing={{ title: 'Atenção', value: data.desenho_atencao, onChange: (signature) => setData('desenho_atencao', signature) }} />
                                         <ScoreField label="Linguagem" field="pontuacao_linguagem" max={3} help="Repetição de frases (2pts), Fluidez verbal/Letra F > 11 palavras (1pt)" value={data.pontuacao_linguagem} onChange={setData} errors={errors} />
                                         <ScoreField label="Abstração" field="pontuacao_abstracao" max={2} help="Semelhança entre objetos (2 pontos no total)" value={data.pontuacao_abstracao} onChange={setData} errors={errors} />
-                                        <ScoreField label="Evocação Tardia" field="pontuacao_evocacao_tardia" max={5} help="Recordação das 5 palavras de forma espontânea (1 ponto cada)" value={data.pontuacao_evocacao_tardia} onChange={setData} errors={errors} />
-                                        <ScoreField label="Orientação" field="pontuacao_orientacao" max={6} help="Tempo: Dia, Mês, Ano, Dia da semana. Espaço: Lugar, Cidade (1pt cada)" value={data.pontuacao_orientacao} onChange={setData} errors={errors} />
+                                        <ScoreField label="Evocação Tardia" field="pontuacao_evocacao_tardia" max={5} help="Recordação das 5 palavras de forma espontânea (1 ponto cada)" value={data.pontuacao_evocacao_tardia} onChange={setData} errors={errors} drawing={{ title: 'Evocação Tardia', value: data.desenho_evocacao_tardia, onChange: (signature) => setData('desenho_evocacao_tardia', signature) }} />
+                                        <ScoreField label="Orientação" field="pontuacao_orientacao" max={6} help="Tempo: Dia, Mês, Ano, Dia da semana. Espaço: Lugar, Cidade (1pt cada)" value={data.pontuacao_orientacao} onChange={setData} errors={errors} drawing={{ title: 'Orientação', value: data.desenho_orientacao, onChange: (signature) => setData('desenho_orientacao', signature) }} />
                                     </div>
 
                                     {/* Nomeação com estímulos visuais */}

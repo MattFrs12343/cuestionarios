@@ -1,9 +1,10 @@
-import { 
-    ClipboardDocumentListIcon, 
-    UserGroupIcon, 
-    ChartBarIcon, 
-    ShieldCheckIcon 
+import {
+    ClipboardDocumentListIcon,
+    UserGroupIcon,
+    ChartBarIcon,
+    ShieldCheckIcon
 } from '@heroicons/react/24/outline';
+import GalaxyBackground from '@/Components/GalaxyBackground';
 
 export default function InfoPanel() {
     const features = [
@@ -20,11 +21,13 @@ export default function InfoPanel() {
     ];
 
     return (
-        <aside 
-            className="hidden md:flex md:flex-col md:justify-center md:items-center md:col-span-2 lg:col-span-1 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 p-6 md:p-8 lg:p-12 rounded-l-xl sm:rounded-l-2xl animate-fade-in"
+        <aside
+            className="relative hidden md:flex md:flex-col md:justify-center md:items-center md:col-span-2 lg:col-span-1 overflow-hidden p-6 md:p-8 lg:p-12 rounded-l-xl sm:rounded-l-2xl animate-fade-in"
             aria-label="Informações do sistema"
         >
-            <div className="max-w-md text-white space-y-4 md:space-y-6 lg:space-y-8">
+            <GalaxyBackground />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/70 via-blue-700/60 to-blue-800/70" />
+            <div className="relative z-10 max-w-md text-white space-y-4 md:space-y-6 lg:space-y-8">
                 {/* Logo y Título del Sistema */}
                 <div className="text-center space-y-3 md:space-y-4 lg:space-y-6 animate-slide-down">
                     {/* Logo Profesional */}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -29,11 +30,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user() ? $request->user()->load(['teams', 'roles']) : null,
+                'user' => $user ? $user->load(['teams', 'roles']) : null,
             ],
+            'currentTeam' => $request->attributes->get('currentTeam'),
+            'switchableTeams' => fn () => $user
+                ? ($user->isSuperAdmin() ? Team::orderBy('name')->get() : $user->teams)
+                : [],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

@@ -266,6 +266,10 @@ class Electroneuromiografia extends Model
             return "{$this->updated_at->format('d/m/Y H:i')} por {$this->editor->name}";
         }
         
-        return "{$this->created_at->format('d/m/Y H:i')} por {$this->creator->name}";
+        if ($this->creator) {
+            return "{$this->created_at->format('d/m/Y H:i')} por {$this->creator->name}";
+        }
+
+        return $this->created_at->format('d/m/Y H:i');
     }
 }

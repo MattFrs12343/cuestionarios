@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {
@@ -26,10 +25,11 @@ class Attachment extends Model
     }
 
     /**
-     * URL pública lista para mostrar en el frontend.
+     * URL autenticada para mostrar en el frontend (el disco es privado; la
+     * cookie de sesión viaja sola en el <img src>, no hace falta firmar la URL).
      */
     public function getUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->path);
+        return route('attachments.show', $this);
     }
 }

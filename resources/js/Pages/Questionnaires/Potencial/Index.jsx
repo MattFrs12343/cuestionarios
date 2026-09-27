@@ -11,7 +11,7 @@ import Modal from '@/Components/Modal';
 import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon, EyeIcon, PencilIcon, TrashIcon, CalendarIcon, UserIcon, BuildingOfficeIcon, UserGroupIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 
-export default function Index({ auth, questionnaires, teams, currentTeam, filters, can }) {
+export default function Index({ auth, questionnaires, filters, can }) {
     const { t } = useTranslation();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [questionnaireToDelete, setQuestionnaireToDelete] = useState(null);
@@ -21,7 +21,6 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
         date_from: filters.date_from || '',
         date_to: filters.date_to || '',
         clinica: filters.clinica || '',
-        team_id: filters.team_id || '',
         sort: filters.sort || 'created_at',
         direction: filters.direction || 'desc'
     });
@@ -100,7 +99,7 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
         return searchFilters.direction === 'asc' ? '↑' : '↓';
     };
 
-    const hasActiveFilters = searchFilters.search || searchFilters.date_from || searchFilters.date_to || searchFilters.clinica || searchFilters.team_id;
+    const hasActiveFilters = searchFilters.search || searchFilters.date_from || searchFilters.date_to || searchFilters.clinica;
 
     return (
         <AuthenticatedLayout
@@ -110,13 +109,24 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {t('Questionários de Potencial Evocado')}
                     </h2>
-                    {can.create && (
-                        <Link href={route('questionnaires.potencial.create')}>
-                            <PrimaryButton>
-                                {t('Novo Questionário')}
-                            </PrimaryButton>
+                    <div className="flex items-center gap-2">
+                        <Link
+                            href={route('questionnaires.index')}
+                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        >
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Voltar
                         </Link>
-                    )}
+                        {can.create && (
+                            <Link href={route('questionnaires.potencial.create')}>
+                                <PrimaryButton>
+                                    {t('Novo Questionário')}
+                                </PrimaryButton>
+                            </Link>
+                        )}
+                    </div>
                 </div>
             }
         >
@@ -159,7 +169,7 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                                         <span className="hidden sm:inline">{t('Filtros')}</span>
                                         {hasActiveFilters && (
                                             <span className="absolute -top-1 -right-1 h-5 w-5 bg-indigo-600 text-white text-xs rounded-full flex items-center justify-center">
-                                                {[searchFilters.search, searchFilters.date_from, searchFilters.date_to, searchFilters.clinica, searchFilters.team_id].filter(Boolean).length}
+                                                {[searchFilters.search, searchFilters.date_from, searchFilters.date_to, searchFilters.clinica].filter(Boolean).length}
                                             </span>
                                         )}
                                     </button>
@@ -174,7 +184,7 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                             {/* Panel de filtros expandible */}
                             {showFilters && (
                                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top duration-200">
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                                                 {t('Data de')}
@@ -211,26 +221,6 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                                                 className="w-full"
                                             />
                                         </div>
-                                        
-                                        {teams.length > 1 && (
-                                            <div>
-                                                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                                                    {t('Equipe')}
-                                                </label>
-                                                <select
-                                                    value={searchFilters.team_id}
-                                                    onChange={(e) => setSearchFilters(prev => ({ ...prev, team_id: e.target.value }))}
-                                                    className="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-lg shadow-sm"
-                                                >
-                                                    <option value="">{t('Todas as equipes')}</option>
-                                                    {teams.map(team => (
-                                                        <option key={team.id} value={team.id}>
-                                                            {team.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        )}
                                     </div>
                                     
                                     {hasActiveFilters && (
@@ -242,7 +232,6 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                                                         date_from: '',
                                                         date_to: '',
                                                         clinica: '',
-                                                        team_id: '',
                                                         sort: 'created_at',
                                                         direction: 'desc'
                                                     });
@@ -332,16 +321,16 @@ export default function Index({ auth, questionnaires, teams, currentTeam, filter
                                                     {new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
-                                                <div className="flex items-center">
-                                                    <BuildingOfficeIcon className="h-4 w-4 mr-2 text-gray-400" />
-                                                    {questionnaire.clinica}
+                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-[160px]">
+                                                <div className="flex items-start">
+                                                    <BuildingOfficeIcon className="h-4 w-4 mr-2 mt-0.5 text-gray-400 flex-shrink-0" />
+                                                    <span className="break-words">{questionnaire.clinica}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
-                                                <div className="flex items-center">
-                                                    <UserGroupIcon className="h-4 w-4 mr-2 text-gray-400" />
-                                                    {questionnaire.team?.name}
+                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-[140px]">
+                                                <div className="flex items-start">
+                                                    <UserGroupIcon className="h-4 w-4 mr-2 mt-0.5 text-gray-400 flex-shrink-0" />
+                                                    <span className="break-words">{questionnaire.team?.name}</span>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

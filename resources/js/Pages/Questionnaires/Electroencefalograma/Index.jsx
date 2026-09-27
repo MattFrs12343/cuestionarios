@@ -8,8 +8,6 @@ import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 export default function ElectroencefalogramaIndex({
     auth,
     questionnaires = { data: [], links: [] },
-    teams = [],
-    currentTeam = null,
     filters = {},
     can = {}
 }) {
@@ -31,9 +29,8 @@ export default function ElectroencefalogramaIndex({
             total: questionnaires.total || 0,
             thisMonth,
             clinics: uniqueClinics,
-            teams: teams.length
         };
-    }, [questionnaires, teams]);
+    }, [questionnaires]);
     const [search, setSearch] = useState(() => {
         try {
             return (filters && typeof filters.search === 'string') ? filters.search : '';
@@ -51,13 +48,6 @@ export default function ElectroencefalogramaIndex({
     const [dateTo, setDateTo] = useState(() => {
         try {
             return (filters && typeof filters.date_to === 'string') ? filters.date_to : '';
-        } catch (e) {
-            return '';
-        }
-    });
-    const [selectedTeam, setSelectedTeam] = useState(() => {
-        try {
-            return (filters && filters.team_id) ? String(filters.team_id) : '';
         } catch (e) {
             return '';
         }
@@ -89,7 +79,6 @@ export default function ElectroencefalogramaIndex({
         if (search.trim()) params.search = search.trim();
         if (dateFrom) params.date_from = dateFrom;
         if (dateTo) params.date_to = dateTo;
-        if (selectedTeam) params.team_id = selectedTeam;
         if (selectedClinica.trim()) params.clinica = selectedClinica.trim();
         if (sortField) params.sort = sortField;
         if (sortDirection) params.direction = sortDirection;
@@ -104,7 +93,6 @@ export default function ElectroencefalogramaIndex({
         setSearch('');
         setDateFrom('');
         setDateTo('');
-        setSelectedTeam('');
         setSelectedClinica('');
         setSortField('');
         setSortDirection('desc');
@@ -127,7 +115,6 @@ export default function ElectroencefalogramaIndex({
         if (search.trim()) params.search = search.trim();
         if (dateFrom) params.date_from = dateFrom;
         if (dateTo) params.date_to = dateTo;
-        if (selectedTeam) params.team_id = selectedTeam;
         if (selectedClinica.trim()) params.clinica = selectedClinica.trim();
         params.sort = field;
         params.direction = direction;
@@ -251,7 +238,7 @@ export default function ElectroencefalogramaIndex({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                     {/* Cards de Estatísticas */}
                     {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                        <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-cyan-100 text-xs font-medium uppercase tracking-wide">Total de Exames</p>
@@ -265,7 +252,7 @@ export default function ElectroencefalogramaIndex({
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                        <div className="bg-gradient-to-br from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-teal-100 text-xs font-medium uppercase tracking-wide">Este Mês</p>
@@ -279,7 +266,7 @@ export default function ElectroencefalogramaIndex({
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-blue-100 text-xs font-medium uppercase tracking-wide">Clínicas</p>
@@ -293,7 +280,7 @@ export default function ElectroencefalogramaIndex({
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-indigo-100 text-xs font-medium uppercase tracking-wide">Equipes</p>
@@ -318,25 +305,6 @@ export default function ElectroencefalogramaIndex({
                                         <span className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></span>
                                         Questionários de EEG
                                     </h3>
-                                    {currentTeam ? (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-4">
-                                            <span className="inline-flex items-center">
-                                                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                                </svg>
-                                                Equipe: <span className="font-semibold ml-1">{currentTeam.name}</span>
-                                            </span>
-                                        </p>
-                                    ) : (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-4">
-                                            <span className="inline-flex items-center">
-                                                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                                </svg>
-                                                Mostrando: <span className="font-semibold ml-1">Todas as equipes</span>
-                                            </span>
-                                        </p>
-                                    )}
                                 </div>
                                 {can.create && (
                                     <Link
@@ -359,7 +327,7 @@ export default function ElectroencefalogramaIndex({
                                     </svg>
                                     <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                                     <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
                                         <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
                                             Buscar
@@ -396,21 +364,6 @@ export default function ElectroencefalogramaIndex({
                                             onChange={(e) => setDateTo(e.target.value)}
                                             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
                                         />
-                                    </div>
-                                    <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
-                                        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
-                                            Equipe
-                                        </label>
-                                        <select
-                                            value={selectedTeam}
-                                            onChange={(e) => setSelectedTeam(e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
-                                        >
-                                            <option value="">Todas as equipes</option>
-                                            {teams && teams.map(team => (
-                                                <option key={team.id} value={team.id}>{team.name}</option>
-                                            ))}
-                                        </select>
                                     </div>
                                     <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
                                         <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
@@ -610,7 +563,7 @@ export default function ElectroencefalogramaIndex({
                                                         <div className="flex space-x-2">
                                                             <Link
                                                                 href={route('questionnaires.electroencefalograma.show', questionnaire.id)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title="Ver questionário"
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -620,12 +573,12 @@ export default function ElectroencefalogramaIndex({
                                                             </Link>
                                                             <ExportButton
                                                                 questionnaire={questionnaire}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                                                             />
                                                             {can.edit && (
                                                                 <Link
                                                                     href={route('questionnaires.electroencefalograma.edit', questionnaire.id)}
-                                                                    className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                    className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                     title="Editar questionário"
                                                                 >
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -636,7 +589,7 @@ export default function ElectroencefalogramaIndex({
                                                             {can.delete && (
                                                                 <button
                                                                     onClick={() => deleteQuestionnaire(questionnaire)}
-                                                                    className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                    className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                     title="Excluir questionário"
                                                                 >
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -707,7 +660,6 @@ export default function ElectroencefalogramaIndex({
                                                     if (search.trim()) params.search = search.trim();
                                                     if (dateFrom) params.date_from = dateFrom;
                                                     if (dateTo) params.date_to = dateTo;
-                                                    if (selectedTeam) params.team_id = selectedTeam;
                                                     if (selectedClinica.trim()) params.clinica = selectedClinica.trim();
                                                     if (sortField) params.sort = sortField;
                                                     if (sortDirection) params.direction = sortDirection;

@@ -92,4 +92,35 @@
         animation: slide-in-right 0.3s ease-out;
         will-change: opacity, transform;
     }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 1; }
+    }
+
+    .animate-twinkle {
+        animation: twinkle 4s ease-in-out infinite;
+        will-change: opacity;
+    }
+
+    .animate-twinkle-slow {
+        animation: twinkle 6s ease-in-out infinite;
+        animation-delay: 1.5s;
+        will-change: opacity;
+    }
+
+    @keyframes drift {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(20px, -15px); }
+    }
+
+    .animate-drift {
+        animation: drift 18s ease-in-out infinite;
+        will-change: transform;
+    }
+
+    .animate-drift-reverse {
+        animation: drift 22s ease-in-out infinite reverse;
+        will-change: transform;
+    }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Questionnaires;
 
 use App\Http\Controllers\Controller;
 use App\Models\AvaliacaoEquilibrio;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -17,56 +16,17 @@ class AvaliacaoEquilibrioController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $teamId = $request->get('team_id');
+        $team = $this->currentTeam($request);
 
-        $query = AvaliacaoEquilibrio::with(['team', 'creator', 'editor']);
+        $query = AvaliacaoEquilibrio::with(['team', 'creator', 'editor'])->where('team_id', $team->id);
 
-        if (! $this->bypassesTeamRestriction($user)) {
-            $query->whereIn('team_id', $user->teams->pluck('id'));
-        }
+        $this->applyIndexFilters($query, $request, ['nome_completo', 'rg_ou_cpf'], ['nome_completo', 'rg_ou_cpf', 'clinica', 'data_exame', 'created_at']);
 
-        if ($teamId) {
-            $query->where('team_id', $teamId);
-        }
-
-        if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nome_completo', 'like', "%{$search}%")
-                  ->orWhere('rg_ou_cpf', 'like', "%{$search}%");
-            });
-        }
-
-        if ($dateFrom = $request->get('date_from')) {
-            $query->where('data_exame', '>=', $dateFrom);
-        }
-
-        if ($dateTo = $request->get('date_to')) {
-            $query->where('data_exame', '<=', $dateTo);
-        }
-
-        if ($clinica = $request->get('clinica')) {
-            $query->whereRaw('LOWER(clinica) LIKE LOWER(?)', ["%{$clinica}%"]);
-        }
-
-        $sortField = $request->get('sort', 'created_at');
-        $sortDirection = $request->get('direction', 'desc');
-
-        $allowedSortFields = ['nome_completo', 'rg_ou_cpf', 'clinica', 'data_exame', 'created_at'];
-        if (!in_array($sortField, $allowedSortFields)) {
-            $sortField = 'created_at';
-        }
-
-        if (!in_array($sortDirection, ['asc', 'desc'])) {
-            $sortDirection = 'desc';
-        }
-
-        $questionnaires = $query->orderBy($sortField, $sortDirection)->paginate(15);
+        $questionnaires = $query->paginate(15);
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-            'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'team_id', 'sort', 'direction']), function ($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function ($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -79,11 +39,7 @@ class AvaliacaoEquilibrioController extends Controller
 
     public function create(): Response
     {
-        $user = auth()->user();
-
-        return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Create', [
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-        ]);
+        return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Create');
     }
 
     private function rules(): array
@@ -97,7 +53,6 @@ class AvaliacaoEquilibrioController extends Controller
             'sexo' => 'required|in:Masculino,Feminino',
             'clinica' => 'nullable|string|max:255',
             'data_exame' => 'required|date',
-            'team_id' => $this->teamIdRule(),
             'tug_tempo_segundos' => 'nullable|numeric|min:0',
             'berg_sentado_para_pe' => $bergItem,
             'berg_permanecer_pe_sem_apoio' => $bergItem,
@@ -125,10 +80,11 @@ class AvaliacaoEquilibrioController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate($this->rules());
+        $validated['team_id'] = $this->currentTeam($request)->id;
         $validated['created_by'] = auth()->id();
 
         if ($request->hasFile('pedido_medico')) {
-            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'public');
+            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
 
         $request->validate($this->attachmentRules());
@@ -149,6 +105,9 @@ class AvaliacaoEquilibrioController extends Controller
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Show', [
             'questionnaire' => $equilibrio,
+            'pedidoMedicoUrl' => $equilibrio->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'equilibrio', 'id' => $equilibrio->id])
+                : null,
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -160,12 +119,10 @@ class AvaliacaoEquilibrioController extends Controller
     {
         $this->authorizeTeamAccess($equilibrio);
 
-        $user = auth()->user();
         $equilibrio->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Edit', [
             'questionnaire' => $equilibrio,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
         ]);
     }
 
@@ -178,9 +135,9 @@ class AvaliacaoEquilibrioController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             if ($equilibrio->pedido_medico) {
-                Storage::disk('public')->delete($equilibrio->pedido_medico);
+                Storage::disk('private')->delete($equilibrio->pedido_medico);
             }
-            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'public');
+            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         } else {
             unset($validated['pedido_medico']);
         }
@@ -200,7 +157,7 @@ class AvaliacaoEquilibrioController extends Controller
         $this->authorizeTeamAccess($equilibrio);
 
         if ($equilibrio->pedido_medico) {
-            Storage::disk('public')->delete($equilibrio->pedido_medico);
+            Storage::disk('private')->delete($equilibrio->pedido_medico);
         }
 
         $equilibrio->delete();

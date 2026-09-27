@@ -44,6 +44,82 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Un admin de equipo no puede administrar super-admins: podría quitarles
+     * el panel o degradarlos. El super-admin es la única autoridad sobre sí.
+     */
+    private function authorizeNotSuperAdmin(User $admin, User $target): void
+    {
+        if ($admin->isSuperAdmin() || ! $target->isSuperAdmin()) {
+            return;
+        }
+
+        abort(403, __('admin.cannot_manage_super_admin'));
+    }
+
+    /**
+     * Solo el super-admin concede o revoca el rol de administrador. Si no,
+     * cualquier admin de equipo podría auto-ascenderse (asignándose el rol a
+     * sí mismo o a un cómplice) o degradar al admin que le responde.
+     */
+    private function authorizeAdminRoleChange(User $admin, ?User $target, array $newRoleIds): void
+    {
+        if ($admin->isSuperAdmin()) {
+            return;
+        }
+
+        $adminRoleId = Role::where('name', 'administrador')->value('id');
+
+        if ($adminRoleId === null) {
+            return;
+        }
+
+        $touchingAdminRole = in_array($adminRoleId, $newRoleIds, true)
+            || ($target !== null && $target->roles->contains('id', $adminRoleId));
+
+        if ($touchingAdminRole) {
+            abort(403, __('admin.cannot_assign_admin_role'));
+        }
+    }
+
+    /**
+     * Si el usuario objetivo es hoy un administrador y este cambio le quita el
+     * rol o lo saca de alguno de sus equipos, ese equipo no puede quedar sin
+     * ningún administrador.
+     */
+    private function authorizeTeamsKeepAdministrator(User $admin, User $target, ?array $newRoleIds, ?array $newTeamIds): void
+    {
+        if ($admin->isSuperAdmin()) {
+            return;
+        }
+
+        $adminRoleId = Role::where('name', 'administrador')->value('id');
+
+        if ($adminRoleId === null || ! $target->roles->contains('id', $adminRoleId)) {
+            return;
+        }
+
+        $keepsRole = $newRoleIds !== null && in_array($adminRoleId, $newRoleIds, true);
+
+        $affectedTeamIds = $target->teams
+            ->reject(fn ($team) => $newTeamIds !== null && in_array($team->id, $newTeamIds, true))
+            ->pluck('id');
+
+        if ($keepsRole) {
+            return;
+        }
+
+        foreach (Team::whereIn('id', $affectedTeamIds)->get() as $team) {
+            $hasOtherAdministrator = $team->administrators()
+                ->where('users.id', '!=', $target->id)
+                ->exists();
+
+            if (! $hasOtherAdministrator) {
+                abort(403, __('admin.team_would_be_without_administrator'));
+            }
+        }
+    }
+
     public function index(Request $request)
     {
         $admin = $request->user();
@@ -118,6 +194,8 @@ class UserController extends Controller
             'teams.*' => $teamIds === null ? 'exists:teams,id' : [Rule::in($teamIds)],
         ]);
 
+        $this->authorizeAdminRoleChange($request->user(), null, $request->roles ?? []);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -173,6 +251,7 @@ class UserController extends Controller
         $admin = $request->user();
         $teamIds = $this->scopedTeamIds($admin);
         $this->authorizeUserAccess($admin, $user, $teamIds);
+        $this->authorizeNotSuperAdmin($admin, $user);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -186,6 +265,17 @@ class UserController extends Controller
             'teams' => 'array',
             'teams.*' => $teamIds === null ? 'exists:teams,id' : [Rule::in($teamIds)],
         ]);
+
+        $newRoleIds = $request->roles;
+        $newTeamIds = $request->teams;
+
+        $this->authorizeAdminRoleChange($admin, $user, $newRoleIds ?? []);
+        $this->authorizeTeamsKeepAdministrator(
+            $admin,
+            $user,
+            $request->has('roles') ? $newRoleIds : null,
+            $request->has('teams') ? $newTeamIds : null
+        );
 
         $userData = [
             'name' => $request->name,
@@ -217,12 +307,16 @@ class UserController extends Controller
     {
         $admin = $request->user();
         $this->authorizeUserAccess($admin, $user, $this->scopedTeamIds($admin));
+        $this->authorizeNotSuperAdmin($admin, $user);
 
         // Prevenir eliminación del propio usuario administrador
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
                 ->with('error', __('admin.cannot_delete_own_user'));
         }
+
+        // Borrar al único administrador dejaría su equipo ingobernable.
+        $this->authorizeTeamsKeepAdministrator($admin, $user, [], null);
 
         $user->delete();
 
@@ -234,10 +328,17 @@ class UserController extends Controller
     {
         $admin = $request->user();
         $this->authorizeUserAccess($admin, $user, $this->scopedTeamIds($admin));
+        $this->authorizeNotSuperAdmin($admin, $user);
 
         // Prevenir desactivación del propio usuario administrador
         if ($user->id === auth()->id()) {
             return response()->json(['error' => __('admin.cannot_deactivate_own_user')], 422);
+        }
+
+        // Desactivar al único administrador dejaría su equipo sin nadie
+        // operativo aunque conserve el rol.
+        if ($user->is_active) {
+            $this->authorizeTeamsKeepAdministrator($admin, $user, null, null);
         }
 
         $user->update(['is_active' => !$user->is_active]);

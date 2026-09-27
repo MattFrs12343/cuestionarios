@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePotencialRequest;
 use App\Http\Requests\UpdatePotencialRequest;
 use App\Models\Potencial;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -19,61 +18,17 @@ class PotencialController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $teamId = $request->get('team_id');
+        $team = $this->currentTeam($request);
 
-        $query = Potencial::with(['team', 'creator', 'editor']);
+        $query = Potencial::with(['team', 'creator', 'editor'])->where('team_id', $team->id);
 
-        if (! $this->bypassesTeamRestriction($user)) {
-            $query->whereIn('team_id', $user->teams->pluck('id'));
-        }
+        $this->applyIndexFilters($query, $request, ['nome', 'rg'], ['nome', 'clinica', 'rg', 'data_exame', 'created_at']);
 
-        // Solo filtrar por equipo específico si se proporciona team_id
-        if ($teamId) {
-            $query->where('team_id', $teamId);
-        }
-
-        // Filtros de búsqueda
-        if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nome', 'like', "%{$search}%")
-                  ->orWhere('rg', 'like', "%{$search}%");
-            });
-        }
-
-        if ($dateFrom = $request->get('date_from')) {
-            $query->where('data_exame', '>=', $dateFrom);
-        }
-
-        if ($dateTo = $request->get('date_to')) {
-            $query->where('data_exame', '<=', $dateTo);
-        }
-
-        if ($clinica = $request->get('clinica')) {
-            $query->where('clinica', 'like', "%{$clinica}%");
-        }
-
-        // Ordenamiento
-        $sortField = $request->get('sort', 'created_at');
-        $sortDirection = $request->get('direction', 'desc');
-        
-        // Validar campos de ordenamiento permitidos
-        $allowedSortFields = ['nome', 'clinica', 'rg', 'data_exame', 'created_at'];
-        if (!in_array($sortField, $allowedSortFields)) {
-            $sortField = 'created_at';
-        }
-        
-        // Validar dirección de ordenamiento
-        if (!in_array($sortDirection, ['asc', 'desc'])) {
-            $sortDirection = 'desc';
-        }
-
-        $questionnaires = $query->orderBy($sortField, $sortDirection)->paginate(15);
+        $questionnaires = $query->paginate(15);
 
         return Inertia::render('Questionnaires/Potencial/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-            'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'clinica', 'sort', 'direction']), function($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -86,10 +41,7 @@ class PotencialController extends Controller
 
     public function create(): Response
     {
-        $user = auth()->user();
-        
         return Inertia::render('Questionnaires/Potencial/Create', [
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
         ]);
     }
@@ -97,9 +49,8 @@ class PotencialController extends Controller
     public function store(StorePotencialRequest $request)
     {
         $data = $request->validated();
+        $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
-
-        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
@@ -108,7 +59,7 @@ class PotencialController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
         }
         
@@ -130,6 +81,9 @@ class PotencialController extends Controller
 
         return Inertia::render('Questionnaires/Potencial/Show', [
             'questionnaire' => $potencial,
+            'pedidoMedicoUrl' => $potencial->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
+                : null,
             'can' => [
                 'edit' => auth()->user()->can('update', $potencial),
                 'delete' => auth()->user()->can('delete', $potencial),
@@ -141,12 +95,13 @@ class PotencialController extends Controller
     {
         $this->authorizeTeamAccess($potencial);
 
-        $user = auth()->user();
         $potencial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Potencial/Edit', [
             'questionnaire' => $potencial,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
+            'pedidoMedicoUrl' => $potencial->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
+                : null,
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
         ]);
     }
@@ -158,8 +113,6 @@ class PotencialController extends Controller
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
 
-        $request->validate(['team_id' => $this->teamIdRule()]);
-
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -168,10 +121,10 @@ class PotencialController extends Controller
         if ($request->hasFile('pedido_medico')) {
             // Eliminar archivo anterior si existe
             if ($potencial->pedido_medico) {
-                Storage::disk('public')->delete($potencial->pedido_medico);
+                Storage::disk('private')->delete($potencial->pedido_medico);
             }
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
         } else {
             // Si no hay archivo nuevo, mantener el archivo actual
@@ -193,7 +146,7 @@ class PotencialController extends Controller
         $this->authorizeTeamAccess($potencial);
 
         if ($potencial->pedido_medico) {
-            Storage::disk('public')->delete($potencial->pedido_medico);
+            Storage::disk('private')->delete($potencial->pedido_medico);
         }
 
         $potencial->delete();

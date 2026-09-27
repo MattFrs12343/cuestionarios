@@ -3,7 +3,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { useTranslation } from '@/Hooks/useTranslation';
 import { formatDateTime } from '@/Utils/dateFormatter';
 
-export default function TeamsIndex({ auth, teams }) {
+export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
     const { t } = useTranslation();
     
     const deleteTeam = (team) => {
@@ -47,12 +47,14 @@ export default function TeamsIndex({ auth, teams }) {
                                         {t('admin.teams.list')}
                                     </h3>
                                 </div>
-                                <Link
-                                    href={route('admin.teams.create')}
-                                    className="inline-flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 hover:from-purple-600 hover:to-pink-700 dark:hover:from-purple-700 dark:hover:to-pink-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                                >
-                                    {t('admin.teams.create')}
-                                </Link>
+                                {isSuperAdmin && (
+                                    <Link
+                                        href={route('admin.teams.create')}
+                                        className="inline-flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-600 dark:from-purple-600 dark:to-pink-700 hover:from-purple-600 hover:to-pink-700 dark:hover:from-purple-700 dark:hover:to-pink-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                                    >
+                                        {t('admin.teams.create')}
+                                    </Link>
+                                )}
                             </div>
 
                             {/* Tabla de equipos */}
@@ -110,7 +112,7 @@ export default function TeamsIndex({ auth, teams }) {
                                                         <div className="flex space-x-2">
                                                             <Link
                                                                 href={route('admin.teams.show', team.id)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title={t('common.view')}
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +122,7 @@ export default function TeamsIndex({ auth, teams }) {
                                                             </Link>
                                                             <Link
                                                                 href={route('admin.teams.edit', team.id)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title={t('common.edit')}
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,7 +131,7 @@ export default function TeamsIndex({ auth, teams }) {
                                                             </Link>
                                                             <button
                                                                 onClick={() => deleteTeam(team)}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110"
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md"
                                                                 title={t('common.delete')}
                                                             >
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

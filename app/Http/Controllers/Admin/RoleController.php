@@ -12,7 +12,14 @@ class RoleController extends Controller
 {
     public function __construct()
     {
+        // Los roles/permisos son globales (no por equipo): un admin de un equipo
+        // podía editar permisos que afectan a todos los equipos. Solo el super-admin
+        // gestiona roles.
         $this->middleware(['auth', 'role:administrador']);
+        $this->middleware(function ($request, $next) {
+            abort_unless($request->user()->isSuperAdmin(), 403, 'Solo el super-admin puede gestionar roles.');
+            return $next($request);
+        });
     }
 
     public function index()

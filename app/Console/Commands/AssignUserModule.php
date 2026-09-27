@@ -37,8 +37,8 @@ class AssignUserModule extends Command
         $adminId = $this->option('admin');
 
         // Validar módulo
-        if (!array_key_exists($moduleName, UserModule::MODULES)) {
-            $this->error("Módulo inválido. Módulos disponibles: " . implode(', ', array_keys(UserModule::MODULES)));
+        if (!array_key_exists($moduleName, UserModule::labels())) {
+            $this->error("Módulo inválido. Módulos disponibles: " . implode(', ', array_keys(UserModule::labels())));
             return 1;
         }
 

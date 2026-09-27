@@ -5,9 +5,10 @@ import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
+    const [openDesenhoField, setOpenDesenhoField] = useState(null);
 
     const ScoreDisplay = ({ label, value, max }) => (
         <div>
@@ -15,6 +16,13 @@ export default function Show({ auth, questionnaire, can }) {
             <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100 font-semibold">{value ?? '-'} / {max}</dd>
         </div>
     );
+
+    const DESENHOS = [
+        { field: 'desenho_visoespacial', label: 'Visoespacial / Executiva' },
+        { field: 'desenho_atencao', label: 'Atenção' },
+        { field: 'desenho_evocacao_tardia', label: 'Evocação Tardia' },
+        { field: 'desenho_orientacao', label: 'Orientação' },
+    ];
 
     return (
         <AuthenticatedLayout
@@ -151,6 +159,24 @@ export default function Show({ auth, questionnaire, can }) {
                                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{questionnaire.comentario}</dd>
                                     </div>
                                 )}
+                                {DESENHOS.some(({ field }) => questionnaire[field]) && (
+                                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Desenhos do Paciente</dt>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            {DESENHOS.filter(({ field }) => questionnaire[field]).map(({ field, label }) => (
+                                                <div key={field}>
+                                                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">{label}</p>
+                                                    <div className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-teal-500 dark:hover:border-teal-400 transition-colors duration-200" onClick={() => setOpenDesenhoField(field)}>
+                                                        <img src={questionnaire[field]} alt={label} className="w-full h-auto p-4" />
+                                                        <div className="bg-gray-50 dark:bg-gray-700 px-3 py-2 text-center">
+                                                            <span className="text-xs text-gray-600 dark:text-gray-400">Clique para ampliar</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Arquivos */}
@@ -164,7 +190,7 @@ export default function Show({ auth, questionnaire, can }) {
                                         <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Pedido Médico</dt>
                                         {questionnaire.pedido_medico ? (
                                             <div className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden cursor-pointer hover:border-teal-500 dark:hover:border-teal-400 transition-colors duration-200" onClick={() => setIsPedidoMedicoModalOpen(true)}>
-                                                <img src={`/storage/${questionnaire.pedido_medico}`} alt="Pedido Médico" className="w-full h-auto" />
+                                                <img src={pedidoMedicoUrl} alt="Pedido Médico" className="w-full h-auto" />
                                                 <div className="bg-gray-50 dark:bg-gray-700 px-3 py-2 text-center">
                                                     <span className="text-xs text-gray-600 dark:text-gray-400">Clique para ampliar</span>
                                                 </div>
@@ -224,7 +250,8 @@ export default function Show({ auth, questionnaire, can }) {
             </div>
 
             <ImageZoomModal isOpen={isImageModalOpen} onClose={() => setIsImageModalOpen(false)} imageSrc={questionnaire.assinatura_paciente} imageAlt="Assinatura do Avaliador" />
-            <ImageZoomModal isOpen={isPedidoMedicoModalOpen} onClose={() => setIsPedidoMedicoModalOpen(false)} imageSrc={`/storage/${questionnaire.pedido_medico}`} imageAlt="Pedido Médico" />
+            <ImageZoomModal isOpen={isPedidoMedicoModalOpen} onClose={() => setIsPedidoMedicoModalOpen(false)} imageSrc={pedidoMedicoUrl} imageAlt="Pedido Médico" />
+            <ImageZoomModal isOpen={openDesenhoField !== null} onClose={() => setOpenDesenhoField(null)} imageSrc={openDesenhoField ? questionnaire[openDesenhoField] : null} imageAlt="Desenho do Paciente" />
         <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="rastreio-cognitivo" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
                     </div>

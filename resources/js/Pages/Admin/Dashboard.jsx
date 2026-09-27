@@ -2,9 +2,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import { useTranslation } from '@/Hooks/useTranslation';
 
-export default function AdminDashboard({ auth, stats }) {
+export default function AdminDashboard({ auth, stats, isSuperAdmin }) {
     const { t } = useTranslation();
-    
+
     const dashboardStats = [
         {
             name: t('navigation.users'),
@@ -18,7 +18,7 @@ export default function AdminDashboard({ auth, stats }) {
                 </svg>
             )
         },
-        {
+        ...(isSuperAdmin ? [{
             name: t('navigation.roles'),
             value: stats?.roles || '0',
             href: route('admin.roles.index'),
@@ -29,7 +29,7 @@ export default function AdminDashboard({ auth, stats }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
             )
-        },
+        }] : []),
         {
             name: t('navigation.teams'),
             value: stats?.teams || '0',
@@ -84,7 +84,7 @@ export default function AdminDashboard({ auth, stats }) {
                             {t('admin.dashboard')}
                         </h2>
                         <p className="text-xs text-gray-600 dark:text-gray-400">
-                            Painel Administrativo
+                            Gerenciamento de Usuários, Funções e Equipes
                         </p>
                     </div>
                 </div>
@@ -94,42 +94,13 @@ export default function AdminDashboard({ auth, stats }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-                    {/* Banner de bienvenida 
-                    <div className="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 rounded-xl shadow-xl overflow-hidden">
-                        <div className="p-8">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-5">
-                                        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h1 className="text-3xl font-bold text-white mb-1">
-                                            Bem-vindo ao Painel Administrativo
-                                        </h1>
-                                        <p className="text-orange-100 text-sm">
-                                            Gerencie usuários, funções e equipes do sistema com facilidade
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="hidden lg:block">
-                                    <svg className="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    */}
-
                     {/* Cards de Estadísticas */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                         {dashboardStats.map((stat) => (
                             <Link
                                 key={stat.name}
                                 href={stat.href}
-                                className={`bg-gradient-to-br ${stat.gradient} ${stat.darkGradient} rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200`}
+                                className={`bg-gradient-to-br ${stat.gradient} ${stat.darkGradient} rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200`}
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
@@ -167,24 +138,28 @@ export default function AdminDashboard({ auth, stats }) {
                                             </svg>
                                             {t('admin.users.create')}
                                         </Link>
-                                        <Link
-                                            href={route('admin.roles.create')}
-                                            className="flex items-center w-full px-4 py-3 text-sm font-medium text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-lg transition-all duration-200 border border-green-200 dark:border-green-800 group"
-                                        >
-                                            <svg className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                            {t('admin.roles.create')}
-                                        </Link>
-                                        <Link
-                                            href={route('admin.teams.create')}
-                                            className="flex items-center w-full px-4 py-3 text-sm font-medium text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-lg transition-all duration-200 border border-purple-200 dark:border-purple-800 group"
-                                        >
-                                            <svg className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                            </svg>
-                                            {t('admin.teams.create')}
-                                        </Link>
+                                        {isSuperAdmin && (
+                                            <Link
+                                                href={route('admin.roles.create')}
+                                                className="flex items-center w-full px-4 py-3 text-sm font-medium text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-lg transition-all duration-200 border border-green-200 dark:border-green-800 group"
+                                            >
+                                                <svg className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                </svg>
+                                                {t('admin.roles.create')}
+                                            </Link>
+                                        )}
+                                        {isSuperAdmin && (
+                                            <Link
+                                                href={route('admin.teams.create')}
+                                                className="flex items-center w-full px-4 py-3 text-sm font-medium text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-lg transition-all duration-200 border border-purple-200 dark:border-purple-800 group"
+                                            >
+                                                <svg className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                                </svg>
+                                                {t('admin.teams.create')}
+                                            </Link>
+                                        )}
                                     </div>
                                 </div>
 

@@ -2,12 +2,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
+import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 
 export default function TdahAdultoIndex({
     auth,
     questionnaires = { data: [], links: [] },
-    teams = [],
-    currentTeam = null,
     filters = {},
     can = {}
 }) {
@@ -18,14 +17,13 @@ export default function TdahAdultoIndex({
             const examDate = new Date(q.data_exame);
             return examDate.getMonth() === today.getMonth() && examDate.getFullYear() === today.getFullYear();
         }).length;
-        return { total: questionnaires.total || 0, thisMonth, teams: teams.length };
-    }, [questionnaires, teams]);
+        return { total: questionnaires.total || 0, thisMonth };
+    }, [questionnaires]);
 
     const [search, setSearch] = useState(() => (filters && typeof filters.search === 'string') ? filters.search : '');
     const [dateFrom, setDateFrom] = useState(() => (filters && typeof filters.date_from === 'string') ? filters.date_from : '');
     const [dateTo, setDateTo] = useState(() => (filters && typeof filters.date_to === 'string') ? filters.date_to : '');
     const [clinica, setClinica] = useState(() => (filters && typeof filters.clinica === 'string') ? filters.clinica : '');
-    const [selectedTeam, setSelectedTeam] = useState(() => (filters && filters.team_id) ? String(filters.team_id) : '');
     const [sortField, setSortField] = useState(() => (filters && typeof filters.sort === 'string') ? filters.sort : '');
     const [sortDirection, setSortDirection] = useState(() => (filters && typeof filters.direction === 'string') ? filters.direction : 'desc');
 
@@ -35,7 +33,6 @@ export default function TdahAdultoIndex({
         if (dateFrom) params.date_from = dateFrom;
         if (dateTo) params.date_to = dateTo;
         if (clinica.trim()) params.clinica = clinica.trim();
-        if (selectedTeam) params.team_id = selectedTeam;
         if (sortField) params.sort = sortField;
         if (sortDirection) params.direction = sortDirection;
         return params;
@@ -66,6 +63,41 @@ export default function TdahAdultoIndex({
             router.delete(route('questionnaires.tdah-adulto.destroy', questionnaire.id));
         }
     };
+
+    const [exportingId, setExportingId] = useState(null);
+
+    const handleExportToJPG = async (questionnaire) => {
+        setExportingId(questionnaire.id);
+        try {
+            await exportQuestionnaireToJPG(questionnaire, 'tdah-adulto', 'questionario_tdah_adulto', questionnaire.nome_completo);
+        } catch (error) {
+            console.error('Error al exportar:', error);
+            alert('Erro ao exportar o questionário. Por favor, tente novamente.');
+        } finally {
+            setExportingId(null);
+        }
+    };
+
+    const ExportButton = ({ questionnaire, className }) => (
+        <button
+            type="button"
+            onClick={() => handleExportToJPG(questionnaire)}
+            disabled={exportingId === questionnaire.id}
+            className={className}
+            title="Exportar questionário como imagem JPG"
+        >
+            {exportingId === questionnaire.id ? (
+                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            )}
+        </button>
+    );
 
     const SortableHeader = ({ field, children }) => {
         const isActive = sortField === field;
@@ -107,18 +139,14 @@ export default function TdahAdultoIndex({
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <p className="text-indigo-100 text-xs font-medium uppercase tracking-wide">Total de Exames</p>
                             <p className="text-3xl font-bold mt-2">{stats.total}</p>
                         </div>
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
                             <p className="text-blue-100 text-xs font-medium uppercase tracking-wide">Este Mês</p>
                             <p className="text-3xl font-bold mt-2">{stats.thisMonth}</p>
-                        </div>
-                        <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 dark:from-cyan-600 dark:to-cyan-700 rounded-xl shadow-lg p-5 text-white transform hover:scale-105 transition-transform duration-200">
-                            <p className="text-cyan-100 text-xs font-medium uppercase tracking-wide">Equipes</p>
-                            <p className="text-3xl font-bold mt-2">{stats.teams}</p>
                         </div>
                     </div>
 
@@ -130,11 +158,6 @@ export default function TdahAdultoIndex({
                                         <span className="w-1 h-8 bg-gradient-to-b from-indigo-500 to-blue-600 rounded-full mr-3"></span>
                                         Questionários TDAH Adulto (ASRS-18)
                                     </h3>
-                                    {currentTeam ? (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-4">Equipe: <span className="font-semibold">{currentTeam.name}</span></p>
-                                    ) : (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 ml-4">Mostrando: <span className="font-semibold">Todas as equipes</span></p>
-                                    )}
                                 </div>
                                 {can.create && (
                                     <Link href={route('questionnaires.tdah-adulto.create')} className="inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-blue-600 dark:from-indigo-600 dark:to-blue-700 hover:from-indigo-600 hover:to-blue-700 dark:hover:from-indigo-700 dark:hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
@@ -149,15 +172,11 @@ export default function TdahAdultoIndex({
                                     <svg className="w-5 h-5 text-gray-600 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg>
                                     <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                                     <input type="text" placeholder="Buscar por nome..." value={search} onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
                                     <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
                                     <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
                                     <input type="text" placeholder="Buscar por clínica..." value={clinica} onChange={(e) => setClinica(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
-                                    <select value={selectedTeam} onChange={(e) => setSelectedTeam(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors">
-                                        <option value="">Todas as equipes</option>
-                                        {teams && teams.map(team => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                    </select>
                                     <div className="flex gap-2">
                                         <button onClick={handleSearch} className="flex-1 px-4 py-2 bg-indigo-500 dark:bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 transition-colors duration-200">Buscar</button>
                                         <button onClick={clearFilters} className="flex-1 px-4 py-2 bg-gray-500 dark:bg-gray-600 text-white text-sm font-medium rounded-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-colors duration-200">Limpar</button>
@@ -188,6 +207,10 @@ export default function TdahAdultoIndex({
                                                     <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-indigo-600 dark:bg-indigo-700 text-white rounded-full hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors duration-200" title="Ver questionário">
                                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                                     </Link>
+                                                    <ExportButton
+                                                        questionnaire={questionnaire}
+                                                        className="flex items-center justify-center w-10 h-10 bg-teal-600 dark:bg-teal-700 text-white rounded-full hover:bg-teal-700 dark:hover:bg-teal-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    />
                                                     {can.edit && (
                                                         <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-purple-600 dark:bg-purple-700 text-white rounded-full hover:bg-purple-700 dark:hover:bg-purple-800 transition-colors duration-200" title="Editar questionário">
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
@@ -242,16 +265,20 @@ export default function TdahAdultoIndex({
                                                     </td>
                                                     <td className="px-6 py-4 text-sm font-medium">
                                                         <div className="flex space-x-2">
-                                                            <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110" title="Ver questionário">
+                                                            <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Ver questionário">
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                                             </Link>
+                                                            <ExportButton
+                                                                questionnaire={questionnaire}
+                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                            />
                                                             {can.edit && (
-                                                                <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110" title="Editar questionário">
+                                                                <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Editar questionário">
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                                 </Link>
                                                             )}
                                                             {can.delete && (
-                                                                <button onClick={() => deleteQuestionnaire(questionnaire)} className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-110" title="Excluir questionário">
+                                                                <button onClick={() => deleteQuestionnaire(questionnaire)} className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Excluir questionário">
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                                                 </button>
                                                             )}

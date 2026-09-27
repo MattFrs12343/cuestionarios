@@ -26,7 +26,6 @@ class UpdateQuestionnaireRequest extends FormRequest
             'data_nascimento' => ['required', 'date', 'before:today'],
             'sexo' => ['required', 'string', 'max:255'],
             'rg_ou_cpf' => ['required', 'string', 'max:255'],
-            'team_id' => ['required', 'exists:teams,id'],
             'tipo_exame' => ['required', 'in:EEG,MAPA,FOTO'],
             
             // Campos boolean
@@ -93,10 +92,6 @@ class UpdateQuestionnaireRequest extends FormRequest
             'data_nascimento.before' => 'A data de nascimento deve ser anterior a hoje.',
             'sexo.required' => 'O sexo é obrigatório.',
             'rg_ou_cpf.required' => 'O RG ou CPF é obrigatório.',
-            
-            // Equipe
-            'team_id.required' => 'A equipe é obrigatória.',
-            'team_id.exists' => 'A equipe selecionada não existe.',
             
             // Novos campos
             'tipo_exame.required' => 'O tipo de exame é obrigatório.',

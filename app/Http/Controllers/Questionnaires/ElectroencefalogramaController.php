@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuestionnaireRequest;
 use App\Http\Requests\UpdateQuestionnaireRequest;
 use App\Models\Questionnaire;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -24,61 +23,17 @@ class ElectroencefalogramaController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $teamId = $request->get('team_id');
+        $team = $this->currentTeam($request);
 
-        $query = Questionnaire::with(['team', 'creator', 'editor']);
+        $query = Questionnaire::with(['team', 'creator', 'editor'])->where('team_id', $team->id);
 
-        if (! $this->bypassesTeamRestriction($user)) {
-            $query->whereIn('team_id', $user->teams->pluck('id'));
-        }
+        $this->applyIndexFilters($query, $request, ['nome_completo', 'rg_ou_cpf'], ['nome_completo', 'clinica', 'rg_ou_cpf', 'data_exame', 'created_at']);
 
-        // Solo filtrar por equipo específico si se proporciona team_id
-        if ($teamId) {
-            $query->where('team_id', $teamId);
-        }
-
-        // Filtros de búsqueda
-        if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nome_completo', 'like', "%{$search}%")
-                  ->orWhere('rg_ou_cpf', 'like', "%{$search}%");
-            });
-        }
-
-        if ($dateFrom = $request->get('date_from')) {
-            $query->where('data_exame', '>=', $dateFrom);
-        }
-
-        if ($dateTo = $request->get('date_to')) {
-            $query->where('data_exame', '<=', $dateTo);
-        }
-
-        if ($clinica = $request->get('clinica')) {
-            $query->where('clinica', 'like', "%{$clinica}%");
-        }
-
-        // Ordenamiento
-        $sortField = $request->get('sort', 'created_at');
-        $sortDirection = $request->get('direction', 'desc');
-        
-        // Validar campos de ordenamiento permitidos
-        $allowedSortFields = ['nome_completo', 'clinica', 'rg_ou_cpf', 'data_exame', 'created_at'];
-        if (!in_array($sortField, $allowedSortFields)) {
-            $sortField = 'created_at';
-        }
-        
-        // Validar dirección de ordenamiento
-        if (!in_array($sortDirection, ['asc', 'desc'])) {
-            $sortDirection = 'desc';
-        }
-
-        $questionnaires = $query->orderBy($sortField, $sortDirection)->paginate(15);
+        $questionnaires = $query->paginate(15);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-            'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'clinica', 'sort', 'direction']), function($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -91,10 +46,7 @@ class ElectroencefalogramaController extends Controller
 
     public function create(): Response
     {
-        $user = auth()->user();
-        
         return Inertia::render('Questionnaires/Electroencefalograma/Create', [
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
             'momentoExameOptions' => [
                 'O PACIENTE FICOU CALMO',
                 'O PACIENTE FICOU ANSISO E NERVOSO E MOVIMENTANDO-SE TODO O TEMPO',
@@ -107,9 +59,8 @@ class ElectroencefalogramaController extends Controller
     public function store(StoreQuestionnaireRequest $request)
     {
         $data = $request->validated();
+        $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
-
-        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Debug logging
         \Log::info('Store Questionnaire - Request data:', [
@@ -128,7 +79,7 @@ class ElectroencefalogramaController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
             \Log::info('File stored at:', ['path' => $filePath]);
         }
@@ -158,6 +109,9 @@ class ElectroencefalogramaController extends Controller
 
         return Inertia::render('Questionnaires/Electroencefalograma/Show', [
             'questionnaire' => $questionnaire,
+            'pedidoMedicoUrl' => $questionnaire->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'electroencefalograma', 'id' => $questionnaire->id])
+                : null,
             'can' => [
                 'edit' => auth()->user()->can('update', $questionnaire),
                 'delete' => auth()->user()->can('delete', $questionnaire),
@@ -169,12 +123,13 @@ class ElectroencefalogramaController extends Controller
     {
         $this->authorizeTeamAccess($questionnaire);
 
-        $user = auth()->user();
         $questionnaire->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Edit', [
             'questionnaire' => $questionnaire,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
+            'pedidoMedicoUrl' => $questionnaire->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'electroencefalograma', 'id' => $questionnaire->id])
+                : null,
             'momentoExameOptions' => [
                 'O PACIENTE FICOU CALMO',
                 'O PACIENTE FICOU ANSISO E NERVOSO E MOVIMENTANDO-SE TODO O TEMPO',
@@ -190,8 +145,6 @@ class ElectroencefalogramaController extends Controller
 
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
-
-        $request->validate(['team_id' => $this->teamIdRule()]);
 
         // Debug logging
         \Log::info('Update Questionnaire - Request data:', [
@@ -213,11 +166,11 @@ class ElectroencefalogramaController extends Controller
         if ($request->hasFile('pedido_medico')) {
             // Eliminar archivo anterior si existe
             if ($questionnaire->pedido_medico) {
-                Storage::disk('public')->delete($questionnaire->pedido_medico);
+                Storage::disk('private')->delete($questionnaire->pedido_medico);
                 \Log::info('Deleted old file:', ['path' => $questionnaire->pedido_medico]);
             }
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
             \Log::info('New file stored at:', ['path' => $filePath]);
         } else {
@@ -250,7 +203,7 @@ class ElectroencefalogramaController extends Controller
         // No necesita eliminar assinatura_paciente ya que es base64 en BD
         
         if ($questionnaire->pedido_medico) {
-            Storage::disk('public')->delete($questionnaire->pedido_medico);
+            Storage::disk('private')->delete($questionnaire->pedido_medico);
         }
 
         $questionnaire->delete();

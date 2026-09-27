@@ -1,20 +1,18 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QuestionnaireController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     if (auth()->check()) {
-        return redirect()->route('dashboard');
+        return redirect()->route('questionnaires.index');
     }
     return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect()->route('questionnaires.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -26,117 +24,19 @@ Route::middleware('auth')->group(function () {
     Route::get('questionnaires', function () {
         $user = auth()->user();
         $accessibleModules = $user->getAccessibleModules();
-        
-        $modules = [];
-        if (in_array('electroencefalograma', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Electroencefalograma',
-                'description' => 'Questionário para exames de eletroencefalograma',
-                'icon' => 'electroencefalograma',
-                'href' => route('questionnaires.electroencefalograma.index'),
-                'color' => 'bg-blue-500',
-                'count' => 0
-            ];
-        }
-        
-        if (in_array('electroneuromiografia', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Electroneuromiografía',
-                'description' => 'Questionário para exames de eletroneuromiografia',
-                'icon' => 'electroneuromiografia',
-                'href' => route('questionnaires.electroneuromiografia.index'),
-                'color' => 'bg-purple-500',
-                'count' => 0
-            ];
-        }
-        
-        if (in_array('potencial', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Potencial Evocado',
-                'description' => 'Questionário para exames de potencial evocado auditivo e visual',
-                'icon' => 'potencial',
-                'href' => route('questionnaires.potencial.index'),
-                'color' => 'bg-green-500',
-                'count' => 0
-            ];
-        }
-        
-        if (in_array('eletroneuromiografia_facial', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Eletroneuromiografia Facial',
-                'description' => 'Questionário para exames de eletroneuromiografia facial',
-                'icon' => 'eletroneuromiografia_facial',
-                'href' => route('questionnaires.eletroneuromiografia-facial.index'),
-                'color' => 'bg-orange-500',
-                'count' => 0
-            ];
-        }
 
-        if (in_array('rastreio_cognitivo', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Rastreio Cognitivo (MoCA)',
-                'description' => 'Protocolo de rastreio cognitivo em consulta',
-                'icon' => 'rastreio_cognitivo',
-                'href' => route('questionnaires.rastreio-cognitivo.index'),
-                'color' => 'bg-teal-500',
-                'count' => 0
-            ];
-        }
-
-        if (in_array('equilibrio', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Avaliação do Equilíbrio',
-                'description' => 'Avaliação do equilíbrio clínico e risco de quedas',
-                'icon' => 'equilibrio',
-                'href' => route('questionnaires.equilibrio.index'),
-                'color' => 'bg-yellow-500',
-                'count' => 0
-            ];
-        }
-
-        if (in_array('estesiometria', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Estesiometria',
-                'description' => 'Avaliação sensitiva com monofilamentos',
-                'icon' => 'estesiometria',
-                'href' => route('questionnaires.estesiometria.index'),
-                'color' => 'bg-red-500',
-                'count' => 0
-            ];
-        }
-
-        if (in_array('tdah_infantil', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'TDAH Infantil (SNAP-IV)',
-                'description' => 'Escala de autoavaliação para TDAH em crianças',
-                'icon' => 'tdah_infantil',
-                'href' => route('questionnaires.tdah-infantil.index'),
-                'color' => 'bg-pink-500',
-                'count' => 0
-            ];
-        }
-
-        if (in_array('tdah_adulto', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'TDAH Adulto (ASRS-18)',
-                'description' => 'Escala de autoavaliação para TDAH em adultos',
-                'icon' => 'tdah_adulto',
-                'href' => route('questionnaires.tdah-adulto.index'),
-                'color' => 'bg-indigo-500',
-                'count' => 0
-            ];
-        }
-
-        if (in_array('dinamometro', $accessibleModules)) {
-            $modules[] = [
-                'name' => 'Dinamômetro',
-                'description' => 'Avaliação de força de preensão manual',
-                'icon' => 'dinamometro',
-                'href' => route('questionnaires.dinamometro.index'),
-                'color' => 'bg-violet-500',
-                'count' => 0
-            ];
-        }
+        $modules = collect(config('questionnaires.types'))
+            ->only($accessibleModules)
+            ->map(fn (array $type, string $moduleName) => [
+                'name' => $type['label'],
+                'description' => $type['description'],
+                'icon' => $moduleName,
+                'href' => route("questionnaires.{$type['slug']}.index"),
+                'color' => $type['color'],
+                'count' => 0,
+            ])
+            ->values()
+            ->all();
 
         return Inertia::render('Questionnaires/Index', [
             'modules' => $modules,
@@ -217,7 +117,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'destroy'])->name('destroy');
     });
 
-    // Rutas específicas para Estesiometria (exclusivo equipo rojo / Equipe Principal)
+    // Rutas específicas para Estesiometria (módulo opcional por equipo, ver team_modules)
     Route::prefix('questionnaires/estesiometria')->name('questionnaires.estesiometria.')
         ->middleware('module.access:estesiometria')->group(function () {
         Route::get('/', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'index'])->name('index');
@@ -229,7 +129,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'destroy'])->name('destroy');
     });
 
-    // Rutas específicas para TDAH Infantil - SNAP-IV (exclusivo equipo rojo / Equipe Principal)
+    // Rutas específicas para TDAH Infantil - SNAP-IV (módulo opcional por equipo, ver team_modules)
     Route::prefix('questionnaires/tdah-infantil')->name('questionnaires.tdah-infantil.')
         ->middleware('module.access:tdah_infantil')->group(function () {
         Route::get('/', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'index'])->name('index');
@@ -241,7 +141,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'destroy'])->name('destroy');
     });
 
-    // Rutas específicas para TDAH Adulto - ASRS-18 (exclusivo equipo rojo / Equipe Principal)
+    // Rutas específicas para TDAH Adulto - ASRS-18 (módulo opcional por equipo, ver team_modules)
     Route::prefix('questionnaires/tdah-adulto')->name('questionnaires.tdah-adulto.')
         ->middleware('module.access:tdah_adulto')->group(function () {
         Route::get('/', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'index'])->name('index');
@@ -253,7 +153,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'destroy'])->name('destroy');
     });
 
-    // Rutas específicas para Dinamômetro (exclusivo equipo rojo / Equipe Principal)
+    // Rutas específicas para Dinamômetro (módulo opcional por equipo, ver team_modules)
     Route::prefix('questionnaires/dinamometro')->name('questionnaires.dinamometro.')
         ->middleware('module.access:dinamometro')->group(function () {
         Route::get('/', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'index'])->name('index');
@@ -265,26 +165,60 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'destroy'])->name('destroy');
     });
 
+    // Rutas específicas para Mini Exame do Estado Mental (MEEM)
+    Route::prefix('questionnaires/mini-exame-mental')->name('questionnaires.mini-exame-mental.')
+        ->middleware('module.access:mini_exame_mental')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'store'])->name('store');
+        Route::get('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'show'])->name('show');
+        Route::get('/{miniExameMental}/edit', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'edit'])->name('edit');
+        Route::put('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'update'])->name('update');
+        Route::delete('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'destroy'])->name('destroy');
+    });
+
     // Anexos (imágenes adjuntas a cualquier tipo de cuestionario, máx. 5)
     Route::post('anexos/{type}/{id}', [App\Http\Controllers\AttachmentController::class, 'store'])
         ->name('attachments.store');
+    Route::get('anexos/{attachment}', [App\Http\Controllers\AttachmentController::class, 'show'])
+        ->name('attachments.show');
     Route::delete('anexos/{attachment}', [App\Http\Controllers\AttachmentController::class, 'destroy'])
         ->name('attachments.destroy');
+
+    // Pedido médico (archivo privado adjunto a cualquier tipo de cuestionario)
+    Route::get('pedidos-medicos/{type}/{id}', [App\Http\Controllers\PedidoMedicoController::class, 'show'])
+        ->name('pedidos-medicos.show');
+
+    // Cambiar el equipo actual de la sesión (selector global)
+    Route::post('equipes/{team}/switch', App\Http\Controllers\TeamSwitchController::class)
+        ->name('teams.switch');
 });
 
 // Rutas de administración
 Route::middleware(['auth', 'role:administrador'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard de administración
     Route::get('/', function () {
+        $admin = auth()->user();
+        $isSuperAdmin = $admin->isSuperAdmin();
+
+        // Un admin de equipo solo debe ver el alcance de sus propios equipos:
+        // los conteos globales revelaban la escala de TODO el sistema (otros
+        // equipos/tenants) a cualquier admin, no solo al super-admin.
+        $teamIds = $isSuperAdmin ? null : $admin->teams()->pluck('teams.id');
+        $userQuery = fn () => $teamIds ? \App\Models\User::whereHas('teams', fn ($q) => $q->whereIn('teams.id', $teamIds)) : \App\Models\User::query();
+
         $stats = [
-            'users' => \App\Models\User::count(),
-            'roles' => \Spatie\Permission\Models\Role::count(),
-            'teams' => \App\Models\Team::count(),
-            'active_users' => \App\Models\User::where('is_active', true)->count(),
-            'users_with_modules' => \App\Models\User::whereHas('activeModules')->count(),
+            'users' => $userQuery()->count(),
+            'roles' => $isSuperAdmin ? \Spatie\Permission\Models\Role::count() : null,
+            'teams' => $isSuperAdmin ? \App\Models\Team::count() : $teamIds->count(),
+            'active_users' => $userQuery()->where('is_active', true)->count(),
+            'users_with_modules' => $userQuery()->whereHas('activeModules')->count(),
         ];
-        
-        return Inertia::render('Admin/Dashboard', compact('stats'));
+
+        return Inertia::render('Admin/Dashboard', [
+            'stats' => $stats,
+            'isSuperAdmin' => $isSuperAdmin,
+        ]);
     })->name('dashboard');
     
     // Gestión de usuarios
@@ -293,11 +227,13 @@ Route::middleware(['auth', 'role:administrador'])->prefix('admin')->name('admin.
         ->name('users.toggle-status');
     
     // Gestión de roles
-    Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
+    Route::resource('roles', App\Http\Controllers\Admin\RoleController::class)->except(['show']);
     
     // Gestión de equipos
     Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
-    
+    Route::put('teams/{team}/modules', [App\Http\Controllers\Admin\TeamController::class, 'updateModules'])
+        ->name('teams.update-modules');
+
     // Gestión de módulos de usuarios
     Route::get('user-modules', [App\Http\Controllers\Admin\UserModuleController::class, 'index'])
         ->name('user-modules.index');

@@ -2,16 +2,37 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useTranslation } from '@/Hooks/useTranslation';
 
-export default function EditTeam({ auth, team, users }) {
+export default function EditTeam({ auth, team, users, isSuperAdmin, moduleCatalog, teamModules }) {
     const { t } = useTranslation();
     const { data, setData, put, processing, errors } = useForm({
         name: team.name || '',
         users: team.users ? team.users.map(user => user.id) : []
     });
 
+    const modulesForm = useForm({
+        modules: moduleCatalog
+            ? Object.keys(moduleCatalog).reduce((acc, moduleName) => {
+                acc[moduleName] = teamModules?.[moduleName] ?? false;
+                return acc;
+            }, {})
+            : {}
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault();
         put(route('admin.teams.update', team.id));
+    };
+
+    const handleModulesSubmit = (e) => {
+        e.preventDefault();
+        modulesForm.put(route('admin.teams.update-modules', team.id));
+    };
+
+    const toggleModule = (moduleName) => {
+        modulesForm.setData('modules', {
+            ...modulesForm.data.modules,
+            [moduleName]: !modulesForm.data.modules[moduleName]
+        });
     };
 
     const handleUserChange = (userId) => {
@@ -143,6 +164,44 @@ export default function EditTeam({ auth, team, users }) {
                                     </button>
                                 </div>
                             </form>
+
+                            {isSuperAdmin && moduleCatalog && (
+                                <form onSubmit={handleModulesSubmit} className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Módulos habilitados para este equipo
+                                    </label>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                        Define el "plan" del equipo: solo los módulos habilitados acá pueden asignarse a sus usuarios.
+                                    </p>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border border-gray-200 dark:border-gray-600 rounded-md p-4 bg-gray-50 dark:bg-gray-700/50">
+                                        {Object.entries(moduleCatalog).map(([moduleName, label]) => (
+                                            <div key={moduleName} className="flex items-center p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded transition-colors duration-200">
+                                                <input
+                                                    type="checkbox"
+                                                    id={`module-${moduleName}`}
+                                                    checked={!!modulesForm.data.modules[moduleName]}
+                                                    onChange={() => toggleModule(moduleName)}
+                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"
+                                                />
+                                                <label htmlFor={`module-${moduleName}`} className="ml-3 text-sm text-gray-900 dark:text-gray-100">
+                                                    {label}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-end mt-4">
+                                        <button
+                                            type="submit"
+                                            disabled={modulesForm.processing}
+                                            className="bg-indigo-500 dark:bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 transition-colors duration-200"
+                                        >
+                                            {modulesForm.processing ? 'Salvando...' : 'Salvar módulos'}
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
@@ -32,7 +32,7 @@ const Toggle = ({ label, checked, onChange }) => (
     </label>
 );
 
-export default function Edit({ auth, teams, questionnaire }) {
+export default function Edit({ auth, questionnaire }) {
     const { data, setData, put, processing, errors } = useForm({
         clinica: questionnaire.clinica || '',
         data_exame: questionnaire.data_exame || '',
@@ -46,7 +46,6 @@ export default function Edit({ auth, teams, questionnaire }) {
         responsavel_menor: questionnaire.responsavel_menor || '',
         diagnostico_principal: questionnaire.diagnostico_principal || '',
         indicacao_avaliacao: questionnaire.indicacao_avaliacao || '',
-        team_id: questionnaire.team_id || '',
         contextos_clinicos: questionnaire.contextos_clinicos || [],
 
         doencas_cronicas: questionnaire.doencas_cronicas || '',
@@ -181,14 +180,25 @@ export default function Edit({ auth, teams, questionnaire }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg shadow-lg">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg shadow-lg">
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                        </div>
+                        <div>
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Editar Questionário</h2>
+                            <p className="text-xs text-gray-600 dark:text-gray-400">Dinamômetro - Força de Preensão Manual</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Editar Questionário</h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Dinamômetro - Força de Preensão Manual</p>
-                    </div>
+                    <Link
+                        href={route('questionnaires.dinamometro.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -271,14 +281,6 @@ export default function Edit({ auth, teams, questionnaire }) {
                                                 <div>
                                                     <label className={labelClass}>Clínica</label>
                                                     <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
-                                                </div>
-                                                <div>
-                                                    <label className={labelClass}>Equipe *</label>
-                                                    <select value={data.team_id} onChange={(e) => setData('team_id', e.target.value)} className={inputClass} required>
-                                                        <option value="">Selecione uma equipe...</option>
-                                                        {teams.map((team) => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                                    </select>
-                                                    {errors.team_id && <div className={errorClass}>{errors.team_id}</div>}
                                                 </div>
                                                 <div className="md:col-span-2">
                                                     <label className={labelClass}>Indicação da Avaliação</label>

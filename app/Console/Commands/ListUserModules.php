@@ -70,7 +70,7 @@ class ListUserModules extends Command
 
         foreach ($modules as $module) {
             $rows[] = [
-                UserModule::MODULES[$module->module_name],
+                UserModule::labels()[$module->module_name],
                 $module->is_active ? '✅ Activo' : '❌ Inactivo',
                 $module->assignedBy->name ?? 'N/A',
                 $module->created_at->format('d/m/Y H:i')
@@ -96,7 +96,7 @@ class ListUserModules extends Command
 
         foreach ($users as $user) {
             $activeModules = $user->activeModules->map(function ($module) {
-                return UserModule::MODULES[$module->module_name];
+                return UserModule::labels()[$module->module_name];
             })->join(', ');
 
             $rows[] = [
@@ -115,7 +115,7 @@ class ListUserModules extends Command
         $this->info("Resumen de Módulos del Sistema");
         $this->newLine();
 
-        foreach (UserModule::MODULES as $moduleName => $moduleDisplayName) {
+        foreach (UserModule::labels() as $moduleName => $moduleDisplayName) {
             $activeCount = UserModule::where('module_name', $moduleName)
                 ->where('is_active', true)
                 ->count();

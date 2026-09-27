@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
@@ -32,7 +32,7 @@ const Toggle = ({ label, checked, onChange }) => (
     </label>
 );
 
-export default function Create({ auth, teams }) {
+export default function Create({ auth }) {
     const getCurrentDate = () => new Date().toISOString().split('T')[0];
 
     const { data, setData, post, processing, errors } = useForm({
@@ -48,7 +48,6 @@ export default function Create({ auth, teams }) {
         responsavel_menor: '',
         diagnostico_principal: '',
         indicacao_avaliacao: '',
-        team_id: '',
         contextos_clinicos: [],
 
         doencas_cronicas: '',
@@ -176,16 +175,27 @@ export default function Create({ auth, teams }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg shadow-lg">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" />
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg shadow-lg">
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Novo Questionário</h2>
+                            <p className="text-xs text-gray-600 dark:text-gray-400">Dinamômetro - Força de Preensão Manual</p>
+                        </div>
+                    </div>
+                    <Link
+                        href={route('questionnaires.dinamometro.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                    </div>
-                    <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Novo Questionário</h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Dinamômetro - Força de Preensão Manual</p>
-                    </div>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -269,14 +279,6 @@ export default function Create({ auth, teams }) {
                                                 <div>
                                                     <label className={labelClass}>Clínica</label>
                                                     <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
-                                                </div>
-                                                <div>
-                                                    <label className={labelClass}>Equipe *</label>
-                                                    <select value={data.team_id} onChange={(e) => setData('team_id', e.target.value)} className={inputClass} required>
-                                                        <option value="">Selecione uma equipe...</option>
-                                                        {teams.map((team) => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                                    </select>
-                                                    {errors.team_id && <div className={errorClass}>{errors.team_id}</div>}
                                                 </div>
                                                 <div className="md:col-span-2">
                                                     <label className={labelClass}>Indicação da Avaliação</label>

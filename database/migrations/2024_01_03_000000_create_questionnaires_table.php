@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('nome_tecnico_medico_exame')->nullable();
             $table->string('momento_exame')->nullable();
             $table->text('comentario')->nullable();
-            $table->string('assinatura_paciente')->nullable();
+            $table->longText('assinatura_paciente')->nullable();
             $table->string('pedido_medico')->nullable();
             $table->string('tipo_exame')->nullable();
 

@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
+import GalaxyBackground from '@/Components/GalaxyBackground';
 
 // Gradiente propio de cada tipo, alineado con la identidad visual que ya tiene
 // cada formulário (ex.: Dinamômetro é violeta, Estesiometria é vermelho, etc.).
@@ -15,13 +16,14 @@ const GRADIENTS = {
     pink: { gradient: 'from-pink-500 to-fuchsia-600', darkGradient: 'dark:from-pink-600 dark:to-fuchsia-700' },
     indigo: { gradient: 'from-indigo-500 to-blue-600', darkGradient: 'dark:from-indigo-600 dark:to-blue-700' },
     violet: { gradient: 'from-violet-500 to-purple-600', darkGradient: 'dark:from-violet-600 dark:to-purple-700' },
+    sky: { gradient: 'from-sky-500 to-blue-600', darkGradient: 'dark:from-sky-600 dark:to-blue-700' },
 };
 
 // Agrupamento por especialidade — ajuda a escanear a tela rapidamente
 // mesmo com muitos tipos de questionário disponíveis.
 const CATEGORIES = [
     { title: 'Exames Neurofisiológicos', icons: ['electroencefalograma', 'electroneuromiografia', 'eletroneuromiografia_facial', 'potencial'] },
-    { title: 'Avaliações Físicas e Cognitivas', icons: ['equilibrio', 'rastreio_cognitivo', 'estesiometria', 'dinamometro'] },
+    { title: 'Avaliações Físicas e Cognitivas', icons: ['equilibrio', 'rastreio_cognitivo', 'mini_exame_mental', 'estesiometria', 'dinamometro'] },
     { title: 'TDAH', icons: ['tdah_infantil', 'tdah_adulto'] },
 ];
 
@@ -30,16 +32,21 @@ function getColorName(bgClass) {
     return match ? match[1] : 'blue';
 }
 
-function groupModules(modules) {
-    const remaining = new Set(modules.map((m) => m.icon));
+function groupModules(modules, hiddenTitles = []) {
+    const hiddenIcons = new Set(
+        CATEGORIES.filter((cat) => hiddenTitles.includes(cat.title)).flatMap((cat) => cat.icons)
+    );
+    const visibleModules = modules.filter((m) => !hiddenIcons.has(m.icon));
+
+    const remaining = new Set(visibleModules.map((m) => m.icon));
     const groups = CATEGORIES.map((cat) => ({
         title: cat.title,
-        items: modules.filter((m) => cat.icons.includes(m.icon)),
+        items: visibleModules.filter((m) => cat.icons.includes(m.icon)),
     })).filter((g) => g.items.length > 0);
 
     groups.forEach((g) => g.items.forEach((i) => remaining.delete(i.icon)));
 
-    const rest = modules.filter((m) => remaining.has(m.icon));
+    const rest = visibleModules.filter((m) => remaining.has(m.icon));
     if (rest.length > 0) groups.push({ title: 'Outros', items: rest });
 
     return groups;
@@ -67,33 +74,17 @@ const ModuleCard = ({ type }) => {
 };
 
 export default function QuestionnairesIndex({ auth, modules = [], userRole, isAdmin }) {
-    const groups = groupModules(modules);
+    const isVerdeTeam = (auth.user.teams || []).some((team) => team.name === 'Verde');
+    const hiddenTitles = isVerdeTeam ? ['Avaliações Físicas e Cognitivas'] : [];
+    const groups = groupModules(modules, hiddenTitles);
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg shadow-lg">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                            Questionários
-                        </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                            Gestão de Questionários Médicos
-                        </p>
-                    </div>
-                </div>
-            }
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Questionários" />
 
-            <div className="py-8">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="relative py-8 min-h-[calc(100vh-9rem)]">
+                <GalaxyBackground />
+                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     {modules.length > 0 ? (
                         <>
                             {groups.map((group) => (

@@ -21,15 +21,18 @@ class UserModule extends Model
         'is_active' => 'boolean',
     ];
 
-    // Constantes para los módulos disponibles
-    public const MODULES = [
-        'electroencefalograma' => 'Electroencefalograma',
-        'electroneuromiografia' => 'Electroneuromiografía',
-        'potencial' => 'Potencial Evocado',
-        'eletroneuromiografia_facial' => 'Eletroneuromiografia Facial',
-        'rastreio_cognitivo' => 'Rastreio Cognitivo (MoCA)',
-        'equilibrio' => 'Avaliação do Equilíbrio',
-    ];
+    /**
+     * Catálogo completo de módulos (module_name => label), leído desde
+     * config/questionnaires.php. Incluye los que antes eran "solo Rojo":
+     * ahora cualquier módulo es asignable a un usuario si su equipo lo tiene
+     * habilitado en team_modules.
+     */
+    public static function labels(): array
+    {
+        return collect(config('questionnaires.types'))
+            ->map(fn (array $type) => $type['label'])
+            ->all();
+    }
 
     /**
      * Relación con el usuario que tiene el módulo asignado
@@ -68,6 +71,6 @@ class UserModule extends Model
      */
     public function getModuleDisplayNameAttribute(): string
     {
-        return self::MODULES[$this->module_name] ?? $this->module_name;
+        return self::labels()[$this->module_name] ?? $this->module_name;
     }
 }

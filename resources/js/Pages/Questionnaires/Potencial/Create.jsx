@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
@@ -12,7 +12,7 @@ import Checkbox from '@/Components/Checkbox';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import SignaturePad from '@/Components/SignaturePad';
 
-export default function Create({ auth, teams, retardoMentalGraus }) {
+export default function Create({ auth, retardoMentalGraus }) {
     const { t } = useTranslation();
     const [signatureData, setSignatureData] = useState('');
 
@@ -27,7 +27,6 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
         sexo: 'Feminino',
         solicitante: '',
         clinica: '',
-        team_id: teams.length === 1 ? teams[0].id : '',
         
         // Potencial Evocado Auditivo
         tem_zumbido_ouvido: false,
@@ -148,9 +147,20 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {t('Novo Questionário de Potencial Evocado')}
-                </h2>
+                <div className="flex justify-between items-center">
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        {t('Novo Questionário de Potencial Evocado')}
+                    </h2>
+                    <Link
+                        href={route('questionnaires.potencial.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
+                </div>
             }
         >
             <Head title="Novo Questionário de Potencial Evocado" />
@@ -282,26 +292,6 @@ export default function Create({ auth, teams, retardoMentalGraus }) {
                                         <InputError message={errors.clinica} className="mt-2" />
                                     </div>
 
-                                    {teams.length > 1 && (
-                                        <div>
-                                            <InputLabel htmlFor="team_id" value={t('Equipe')} />
-                                            <select
-                                                id="team_id"
-                                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                                                value={data.team_id}
-                                                onChange={(e) => setData('team_id', e.target.value)}
-                                                required
-                                            >
-                                                <option value="">{t('Selecione uma equipe')}</option>
-                                                {teams.map(team => (
-                                                    <option key={team.id} value={team.id}>
-                                                        {team.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            <InputError message={errors.team_id} className="mt-2" />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
 

@@ -17,6 +17,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Bootstrap Super-Admin
+    |--------------------------------------------------------------------------
+    |
+    | Email que recibe privilegios de super-admin únicamente mientras la base
+    | de datos NO tenga ningún super-admin marcado (instalación inicial, o
+    | recuperación si alguien queda sin ninguno). En cuanto existe al menos
+    | uno con users.is_super_admin = true, la autoridad pasa a esa columna y
+    | este valor deja de concede privilegios.
+    |
+    */
+
+    'super_admin_email' => env('SUPER_ADMIN_EMAIL', 'admin@cuestionarios.com'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

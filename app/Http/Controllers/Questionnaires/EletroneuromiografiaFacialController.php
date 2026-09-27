@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Questionnaires;
 
 use App\Http\Controllers\Controller;
 use App\Models\EletroneuromiografiaFacial;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -17,58 +16,17 @@ class EletroneuromiografiaFacialController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $teamId = $request->get('team_id');
+        $team = $this->currentTeam($request);
 
-        $query = EletroneuromiografiaFacial::with(['team', 'creator', 'editor']);
+        $query = EletroneuromiografiaFacial::with(['team', 'creator', 'editor'])->where('team_id', $team->id);
 
-        if (! $this->bypassesTeamRestriction($user)) {
-            $query->whereIn('team_id', $user->teams->pluck('id'));
-        }
+        $this->applyIndexFilters($query, $request, ['nome', 'rg'], ['nome', 'clinica', 'rg', 'data_exame', 'created_at']);
 
-        if ($teamId) {
-            $query->where('team_id', $teamId);
-        }
-
-        // Filtros de búsqueda
-        if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nome', 'like', "%{$search}%")
-                  ->orWhere('rg', 'like', "%{$search}%");
-            });
-        }
-
-        if ($dateFrom = $request->get('date_from')) {
-            $query->where('data_exame', '>=', $dateFrom);
-        }
-
-        if ($dateTo = $request->get('date_to')) {
-            $query->where('data_exame', '<=', $dateTo);
-        }
-
-        if ($clinica = $request->get('clinica')) {
-            $query->where('clinica', 'like', "%{$clinica}%");
-        }
-
-        // Ordenamiento
-        $sortField = $request->get('sort', 'created_at');
-        $sortDirection = $request->get('direction', 'desc');
-        
-        $allowedSortFields = ['nome', 'clinica', 'rg', 'data_exame', 'created_at'];
-        if (!in_array($sortField, $allowedSortFields)) {
-            $sortField = 'created_at';
-        }
-        
-        if (!in_array($sortDirection, ['asc', 'desc'])) {
-            $sortDirection = 'desc';
-        }
-
-        $questionnaires = $query->orderBy($sortField, $sortDirection)->paginate(15);
+        $questionnaires = $query->paginate(15);
 
         return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-            'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'team_id', 'clinica', 'sort', 'direction']), function($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -81,11 +39,7 @@ class EletroneuromiografiaFacialController extends Controller
 
     public function create(): Response
     {
-        $user = auth()->user();
-        
-        return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Create', [
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-        ]);
+        return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Create');
     }
 
     public function store(Request $request)
@@ -103,7 +57,6 @@ class EletroneuromiografiaFacialController extends Controller
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
             'sexo' => 'required|in:Feminino,Masculino',
-            'team_id' => $this->teamIdRule(),
             'tem_dor_testa' => 'boolean',
             'tem_dor_olhos' => 'boolean',
             'dor_olhos_lado' => 'nullable|string|max:255',
@@ -132,6 +85,7 @@ class EletroneuromiografiaFacialController extends Controller
             'pedido_medico' => 'nullable|file|image|max:10240',
         ]);
 
+        $validated['team_id'] = $this->currentTeam($request)->id;
         $validated['created_by'] = auth()->id();
         
         // Calcular idade automaticamente
@@ -151,7 +105,7 @@ class EletroneuromiografiaFacialController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $validated['pedido_medico'] = $filePath;
         }
 
@@ -173,6 +127,9 @@ class EletroneuromiografiaFacialController extends Controller
 
         return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Show', [
             'questionnaire' => $eletroneuromiografiaFacial,
+            'pedidoMedicoUrl' => $eletroneuromiografiaFacial->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'eletroneuromiografia-facial', 'id' => $eletroneuromiografiaFacial->id])
+                : null,
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -189,7 +146,9 @@ class EletroneuromiografiaFacialController extends Controller
 
         return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Edit', [
             'questionnaire' => $eletroneuromiografiaFacial,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
+            'pedidoMedicoUrl' => $eletroneuromiografiaFacial->pedido_medico
+                ? route('pedidos-medicos.show', ['type' => 'eletroneuromiografia-facial', 'id' => $eletroneuromiografiaFacial->id])
+                : null,
         ]);
     }
 
@@ -210,7 +169,6 @@ class EletroneuromiografiaFacialController extends Controller
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
             'sexo' => 'required|in:Feminino,Masculino',
-            'team_id' => $this->teamIdRule(),
             'tem_dor_testa' => 'boolean',
             'tem_dor_olhos' => 'boolean',
             'dor_olhos_lado' => 'nullable|string|max:255',
@@ -258,10 +216,10 @@ class EletroneuromiografiaFacialController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             if ($eletroneuromiografiaFacial->pedido_medico) {
-                Storage::disk('public')->delete($eletroneuromiografiaFacial->pedido_medico);
+                Storage::disk('private')->delete($eletroneuromiografiaFacial->pedido_medico);
             }
             $filePath = $request->file('pedido_medico')
-                ->store('medical_requests', 'public');
+                ->store('medical_requests', 'private');
             $validated['pedido_medico'] = $filePath;
         } else {
             unset($validated['pedido_medico']);
@@ -282,7 +240,7 @@ class EletroneuromiografiaFacialController extends Controller
         $this->authorizeTeamAccess($eletroneuromiografiaFacial);
 
         if ($eletroneuromiografiaFacial->pedido_medico) {
-            Storage::disk('public')->delete($eletroneuromiografiaFacial->pedido_medico);
+            Storage::disk('private')->delete($eletroneuromiografiaFacial->pedido_medico);
         }
 
         $eletroneuromiografiaFacial->delete();

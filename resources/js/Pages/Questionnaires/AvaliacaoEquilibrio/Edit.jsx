@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -44,7 +44,7 @@ const BergField = ({ item, value, onChange, errors }) => (
     </div>
 );
 
-export default function Edit({ auth, teams, questionnaire }) {
+export default function Edit({ auth, questionnaire }) {
     const { data, setData, put, processing, errors } = useForm({
         nome_completo: questionnaire.nome_completo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
@@ -52,7 +52,6 @@ export default function Edit({ auth, teams, questionnaire }) {
         sexo: questionnaire.sexo || '',
         clinica: questionnaire.clinica || '',
         data_exame: questionnaire.data_exame || '',
-        team_id: questionnaire.team_id || '',
         tug_tempo_segundos: questionnaire.tug_tempo_segundos ?? '',
         berg_sentado_para_pe: questionnaire.berg_sentado_para_pe ?? '',
         berg_permanecer_pe_sem_apoio: questionnaire.berg_permanecer_pe_sem_apoio ?? '',
@@ -141,6 +140,15 @@ export default function Edit({ auth, teams, questionnaire }) {
                             <p className="text-xs text-gray-600 dark:text-gray-400">Avaliação do Equilíbrio e Risco de Quedas</p>
                         </div>
                     </div>
+                    <Link
+                        href={route('questionnaires.equilibrio.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -211,14 +219,6 @@ export default function Edit({ auth, teams, questionnaire }) {
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipe *</label>
-                                            <select value={data.team_id} onChange={(e) => setData('team_id', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
-                                        </div>
                                     </div>
                                 </div>
 

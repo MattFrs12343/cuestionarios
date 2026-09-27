@@ -124,7 +124,7 @@ export default function Dashboard({ auth }) {
                             <Link
                                 key={action.name}
                                 href={action.href}
-                                className={`bg-gradient-to-br ${action.gradient} ${action.darkGradient} rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 text-white transform hover:scale-105 transition-transform duration-200`}
+                                className={`bg-gradient-to-br ${action.gradient} ${action.darkGradient} rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200`}
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
@@ -145,13 +145,13 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
                         <div className="p-4 sm:p-6 text-gray-900 dark:text-gray-100">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                                {/* Accesos Rápidos */}
-                                {/* <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700/50 dark:to-gray-800/50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-blue-500 dark:border-blue-400 transition-colors duration-200">
+                                {/* Acessos Rápidos */}
+                                <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700/50 dark:to-gray-800/50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-blue-500 dark:border-blue-400 transition-colors duration-200">
                                     <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-5 flex items-center">
                                         <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                         </svg>
-                                        Accesos Rápidos
+                                        Acessos Rápidos
                                     </h4>
                                     <div className="space-y-3">
                                         <Link
@@ -163,7 +163,7 @@ export default function Dashboard({ auth }) {
                                             </svg>
                                             Ver Todos os Questionários
                                         </Link>
-                                        
+
                                         {auth.user.roles && auth.user.roles.some(role => ['TECNICO', 'tecnico', 'usuario', 'gerente', 'administrador'].includes(role.name)) && (
                                             <>
                                                 <Link
@@ -187,7 +187,7 @@ export default function Dashboard({ auth }) {
                                             </>
                                         )}
                                     </div>
-                                </div> */}
+                                </div>
 
                                 {/* Información del Usuario */}
                                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-indigo-500 dark:border-indigo-400 transition-colors duration-200">

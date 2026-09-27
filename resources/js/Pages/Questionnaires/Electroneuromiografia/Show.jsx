@@ -3,7 +3,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import { Head, Link } from '@inertiajs/react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
         <div className="mb-4">
             <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</dt>
@@ -315,10 +315,10 @@ export default function Show({ auth, questionnaire, can }) {
                                         {questionnaire.pedido_medico ? (
                                             <div>
                                                 <img
-                                                    src={`/storage/${questionnaire.pedido_medico}`}
+                                                    src={pedidoMedicoUrl}
                                                     alt="Pedido médico"
                                                     className="max-w-full h-48 object-cover rounded border cursor-pointer"
-                                                    onClick={() => window.open(`/storage/${questionnaire.pedido_medico}`, '_blank')}
+                                                    onClick={() => window.open(pedidoMedicoUrl, '_blank')}
                                                 />
                                                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Clique para ampliar</p>
                                             </div>

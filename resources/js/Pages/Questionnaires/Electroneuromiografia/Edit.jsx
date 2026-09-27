@@ -6,7 +6,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 
-export default function Edit({ auth, questionnaire, teams, tiposExameOptions, areasColuna, momentoExameOptions }) {
+export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameOptions, areasColuna, momentoExameOptions }) {
     // Función para formatar datas no formato YYYY-MM-DD
     const formatDateForInput = (date) => {
         if (!date) return '';
@@ -25,7 +25,6 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
         sexo: questionnaire.sexo || '',
         solicitante: questionnaire.solicitante || '',
         clinica: questionnaire.clinica || '',
-        team_id: questionnaire.team_id || '',
         tipos_exame: questionnaire.tipos_exame || [],
         
         // Información adicional
@@ -514,23 +513,6 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipe *</label>
-                                            <select
-                                                value={data.team_id}
-                                                onChange={(e) => setData('team_id', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
-                                                required
-                                            >
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (
-                                                    <option key={team.id} value={team.id}>
-                                                        {team.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
-                                        </div>
 
                                         <div className="md:col-span-2">
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tipos de Exame * (selecione um ou mais)</label>
@@ -1039,7 +1021,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
                                                     <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Arquivo atual:</p>
                                                     <div className="relative">
                                                         <img 
-                                                            src={`/storage/${questionnaire.pedido_medico}`}
+                                                            src={pedidoMedicoUrl}
                                                             alt="Pedido Médico Atual"
                                                             className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50"
                                                         />
@@ -1047,7 +1029,7 @@ export default function Edit({ auth, questionnaire, teams, tiposExameOptions, ar
                                                             type="button"
                                                             onClick={() => {
                                                                 // Aqui você pode implementar um modal para visualizar a imagem em tamanho completo
-                                                                window.open(`/storage/${questionnaire.pedido_medico}`, '_blank');
+                                                                window.open(pedidoMedicoUrl, '_blank');
                                                             }}
                                                             className="absolute top-2 right-2 bg-blue-500 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold transition-colors duration-200"
                                                             title="Visualizar em tamanho completo"

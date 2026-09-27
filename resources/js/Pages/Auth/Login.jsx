@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
+import GalaxyBackground from '@/Components/GalaxyBackground';
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -37,10 +38,11 @@ export default function Login({ status, canResetPassword }) {
         <>
             <Head title="Entrar" />
 
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 animate-fade-in transition-colors duration-200">
-                <div className="w-full max-w-[1400px]">
+            <div className="relative min-h-screen flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 animate-fade-in transition-colors duration-200">
+                <GalaxyBackground />
+                <div className="relative z-10 w-full max-w-[1400px]">
                     {/* Two-column layout container */}
-                    <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl dark:shadow-gray-900/50 overflow-hidden transition-colors duration-200" role="main">
+                    <div className="bg-white/25 dark:bg-gray-900/25 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden transition-colors duration-200" role="main">
                         <div className="grid md:grid-cols-5 lg:grid-cols-2 min-h-[500px] sm:min-h-[600px] lg:min-h-[650px]">
                             {/* Left Column - Info Panel (hidden on mobile, compact on tablet, full on desktop) */}
                             <Suspense fallback={<div className="hidden md:block md:col-span-2 lg:col-span-1 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" />}>
@@ -294,18 +296,6 @@ export default function Login({ status, canResetPassword }) {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Footer with Copyright */}
-                                <footer className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
-                                    <div className="text-center space-y-1 sm:space-y-2">
-                                        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
-                                            © {new Date().getFullYear()} VictCorp Software Development. Todos os direitos reservados.
-                                        </p>
-                                        <p className="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500">
-                                            Versão 1.0.0
-                                        </p>
-                                    </div>
-                                </footer>
                             </div>
                         </div>
                     </div>

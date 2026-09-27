@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Questionnaires;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dinamometro;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -19,53 +18,17 @@ class DinamometroController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $teamId = $request->get('team_id');
+        $team = $this->currentTeam($request);
 
-        $query = Dinamometro::with(['team', 'creator', 'editor']);
+        $query = Dinamometro::with(['team', 'creator', 'editor'])->where('team_id', $team->id);
 
-        if (! $this->bypassesTeamRestriction($user)) {
-            $query->whereIn('team_id', $user->teams->pluck('id'));
-        }
+        $this->applyIndexFilters($query, $request, ['nome_completo'], ['nome_completo', 'clinica', 'data_exame', 'created_at']);
 
-        if ($teamId) {
-            $query->where('team_id', $teamId);
-        }
-
-        if ($search = $request->get('search')) {
-            $query->where('nome_completo', 'like', "%{$search}%");
-        }
-
-        if ($dateFrom = $request->get('date_from')) {
-            $query->where('data_exame', '>=', $dateFrom);
-        }
-
-        if ($dateTo = $request->get('date_to')) {
-            $query->where('data_exame', '<=', $dateTo);
-        }
-
-        if ($clinica = $request->get('clinica')) {
-            $query->whereRaw('LOWER(clinica) LIKE LOWER(?)', ["%{$clinica}%"]);
-        }
-
-        $sortField = $request->get('sort', 'created_at');
-        $sortDirection = $request->get('direction', 'desc');
-
-        $allowedSortFields = ['nome_completo', 'clinica', 'data_exame', 'created_at'];
-        if (!in_array($sortField, $allowedSortFields)) {
-            $sortField = 'created_at';
-        }
-
-        if (!in_array($sortDirection, ['asc', 'desc'])) {
-            $sortDirection = 'desc';
-        }
-
-        $questionnaires = $query->orderBy($sortField, $sortDirection)->paginate(15);
+        $questionnaires = $query->paginate(15);
 
         return Inertia::render('Questionnaires/Dinamometro/Index', [
             'questionnaires' => $questionnaires,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-            'currentTeam' => $teamId ? Team::find($teamId) : null,
-            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'team_id', 'sort', 'direction']), function ($value) {
+            'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function ($value) {
                 return $value !== null && $value !== '';
             }),
             'can' => [
@@ -78,11 +41,7 @@ class DinamometroController extends Controller
 
     public function create(): Response
     {
-        $user = auth()->user();
-
-        return Inertia::render('Questionnaires/Dinamometro/Create', [
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
-        ]);
+        return Inertia::render('Questionnaires/Dinamometro/Create');
     }
 
     private function rules(): array
@@ -100,7 +59,6 @@ class DinamometroController extends Controller
             'responsavel_menor' => 'nullable|string|max:255',
             'diagnostico_principal' => 'nullable|string|max:255',
             'indicacao_avaliacao' => 'nullable|string',
-            'team_id' => $this->teamIdRule(),
 
             'contextos_clinicos' => 'nullable|array',
             'contextos_clinicos.*' => 'in:' . implode(',', self::CONTEXTOS),
@@ -172,10 +130,11 @@ class DinamometroController extends Controller
         \App\Support\BoolCoerce::apply($request);
 
         $validated = $request->validate($this->rules());
+        $validated['team_id'] = $this->currentTeam($request)->id;
         $validated['created_by'] = auth()->id();
 
         if ($request->hasFile('pedido_medico')) {
-            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'public');
+            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
 
         $request->validate($this->attachmentRules());
@@ -207,12 +166,10 @@ class DinamometroController extends Controller
     {
         $this->authorizeTeamAccess($dinamometro);
 
-        $user = auth()->user();
         $dinamometro->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Dinamometro/Edit', [
             'questionnaire' => $dinamometro,
-            'teams' => $this->bypassesTeamRestriction($user) ? Team::all() : $user->teams,
         ]);
     }
 
@@ -227,9 +184,9 @@ class DinamometroController extends Controller
 
         if ($request->hasFile('pedido_medico')) {
             if ($dinamometro->pedido_medico) {
-                Storage::disk('public')->delete($dinamometro->pedido_medico);
+                Storage::disk('private')->delete($dinamometro->pedido_medico);
             }
-            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'public');
+            $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         } else {
             unset($validated['pedido_medico']);
         }
@@ -249,7 +206,7 @@ class DinamometroController extends Controller
         $this->authorizeTeamAccess($dinamometro);
 
         if ($dinamometro->pedido_medico) {
-            Storage::disk('public')->delete($dinamometro->pedido_medico);
+            Storage::disk('private')->delete($dinamometro->pedido_medico);
         }
 
         $dinamometro->delete();

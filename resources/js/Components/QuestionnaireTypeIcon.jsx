@@ -82,6 +82,13 @@ export default function QuestionnaireTypeIcon({ type, className = "w-6 h-6" }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" />
                 </svg>
             );
+        case 'mini_exame_mental':
+            // Prancheta com check (rastreio cognitivo breve)
+            return (
+                <svg {...common}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-5 9l2 2 4-4" />
+                </svg>
+            );
         default:
             // Documento genérico
             return (

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
@@ -237,7 +237,7 @@ export default function Show({ auth, questionnaire, can }) {
                                                 <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Pedido Médico</dt>
                                                 <dd className="relative group">
                                                     <img 
-                                                        src={`/storage/${questionnaire.pedido_medico}`}
+                                                        src={pedidoMedicoUrl}
                                                         alt="Pedido Médico"
                                                         className="max-w-full h-auto border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50 cursor-pointer hover:opacity-90 transition-opacity"
                                                         onClick={() => setIsImageModalOpen(true)}
@@ -278,7 +278,7 @@ export default function Show({ auth, questionnaire, can }) {
                                 <ImageZoomModal
                                     isOpen={isImageModalOpen}
                                     onClose={() => setIsImageModalOpen(false)}
-                                    imageSrc={`/storage/${questionnaire.pedido_medico}`}
+                                    imageSrc={pedidoMedicoUrl}
                                     imageAlt="Pedido Médico"
                                 />
                             )}

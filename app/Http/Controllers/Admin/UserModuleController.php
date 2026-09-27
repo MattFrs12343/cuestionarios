@@ -15,7 +15,7 @@ class UserModuleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:administrador');
+        $this->middleware(['auth', 'role:administrador']);
     }
 
     /**
@@ -40,6 +40,20 @@ class UserModuleController extends Controller
         if ($teamIds !== null && ! $target->teams()->whereIn('teams.id', $teamIds)->exists()) {
             abort(403, 'No tienes permisos para acceder a este usuario.');
         }
+    }
+
+    /**
+     * Módulos (module_name => label) que el equipo del usuario tiene habilitados
+     * en team_modules. Ya no existe una lista fija de "módulos asignables":
+     * depende de qué contrató el equipo, no de un hardcode global.
+     */
+    private function availableModulesFor(User $user): array
+    {
+        $enabled = $user->teams->flatMap(fn ($team) => $team->activeModuleNames())->unique();
+
+        return collect(UserModule::labels())
+            ->only($enabled->all())
+            ->all();
     }
 
     /**
@@ -77,7 +91,7 @@ class UserModuleController extends Controller
 
         return Inertia::render('Admin/UserModules/Index', [
             'users' => $users,
-            'modules' => UserModule::MODULES,
+            'modules' => UserModule::labels(),
             'filters' => [
                 'search' => $search,
                 'role' => $role,
@@ -113,7 +127,7 @@ class UserModuleController extends Controller
 
         return Inertia::render('Admin/UserModules/Edit', [
             'user' => $user,
-            'modules' => UserModule::MODULES,
+            'modules' => $this->availableModulesFor($user),
             'assignedModules' => $assignedModules,
         ]);
     }
@@ -151,7 +165,7 @@ class UserModuleController extends Controller
             // Obtener módulos actuales del usuario
             $currentModules = $user->userModules->keyBy('module_name');
 
-            foreach (UserModule::MODULES as $moduleName => $moduleDisplayName) {
+            foreach ($this->availableModulesFor($user) as $moduleName => $moduleDisplayName) {
                 $shouldHaveAccess = isset($modules[$moduleName]) && $modules[$moduleName];
                 $currentlyHasAccess = $currentModules->has($moduleName) && $currentModules[$moduleName]->is_active;
 
@@ -201,7 +215,7 @@ class UserModuleController extends Controller
         }
 
         $request->validate([
-            'module_name' => 'required|string|in:' . implode(',', array_keys(UserModule::MODULES)),
+            'module_name' => 'required|string|in:' . implode(',', array_keys($this->availableModulesFor($user))),
             'is_active' => 'required|boolean',
         ]);
 

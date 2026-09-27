@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
@@ -61,7 +61,7 @@ const ScaleSection = ({ title, perguntas, respostas, onChange, colorFrom, colorT
     </div>
 );
 
-export default function Create({ auth, teams }) {
+export default function Create({ auth }) {
     const getCurrentDate = () => new Date().toISOString().split('T')[0];
 
     const { data, setData, post, processing, errors } = useForm({
@@ -74,7 +74,6 @@ export default function Create({ auth, teams }) {
         altura: '',
         sexo: '',
         solicitante: '',
-        team_id: '',
         parte_a_respostas: Array(9).fill(null),
         parte_a_total: '',
         parte_b_respostas: Array(9).fill(null),
@@ -141,6 +140,15 @@ export default function Create({ auth, teams }) {
                         <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Novo Questionário</h2>
                         <p className="text-xs text-gray-600 dark:text-gray-400">TDAH Adulto - ASRS-18</p>
                     </div>
+                    <Link
+                        href={route('questionnaires.tdah-adulto.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -206,14 +214,6 @@ export default function Create({ auth, teams }) {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Solicitante</label>
                                             <input type="text" value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Equipe *</label>
-                                            <select value={data.team_id} onChange={(e) => setData('team_id', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600" required>
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (<option key={team.id} value={team.id}>{team.name}</option>))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
                                         </div>
                                     </div>
                                 </div>

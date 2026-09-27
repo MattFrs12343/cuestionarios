@@ -29,6 +29,10 @@ class RastreioCognitivo extends Model
         'pontuacao_abstracao',
         'pontuacao_evocacao_tardia',
         'pontuacao_orientacao',
+        'desenho_visoespacial',
+        'desenho_atencao',
+        'desenho_evocacao_tardia',
+        'desenho_orientacao',
         'ajuste_escolaridade',
         'pontuacao_total',
         'nome_avaliador',
@@ -111,6 +115,10 @@ class RastreioCognitivo extends Model
             return "{$this->updated_at->format('d/m/Y H:i')} por {$this->editor->name}";
         }
 
-        return "{$this->created_at->format('d/m/Y H:i')} por {$this->creator->name}";
+        if ($this->creator) {
+            return "{$this->created_at->format('d/m/Y H:i')} por {$this->creator->name}";
+        }
+
+        return $this->created_at->format('d/m/Y H:i');
     }
 }

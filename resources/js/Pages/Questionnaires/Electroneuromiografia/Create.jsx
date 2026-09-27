@@ -1,12 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { useState, useEffect, useCallback } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 
-export default function Create({ auth, teams, tiposExameOptions, areasColuna, momentoExameOptions }) {
+export default function Create({ auth, tiposExameOptions, areasColuna, momentoExameOptions }) {
     // Obter data atual no formato YYYY-MM-DD
     const getCurrentDate = () => {
         const today = new Date();
@@ -24,7 +24,6 @@ export default function Create({ auth, teams, tiposExameOptions, areasColuna, mo
         sexo: '',
         solicitante: '',
         clinica: '',
-        team_id: '',
         tipos_exame: [],
         
         // Información adicional
@@ -299,6 +298,15 @@ export default function Create({ auth, teams, tiposExameOptions, areasColuna, mo
                             </p>
                         </div>
                     </div>
+                    <Link
+                        href={route('questionnaires.electroneuromiografia.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -463,25 +471,6 @@ export default function Create({ auth, teams, tiposExameOptions, areasColuna, mo
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                                Equipe *
-                                            </label>
-                                            <select
-                                                value={data.team_id}
-                                                onChange={(e) => setData('team_id', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
-                                                required
-                                            >
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (
-                                                    <option key={team.id} value={team.id}>
-                                                        {team.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
-                                        </div>
 
                                         <div className="md:col-span-2">
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

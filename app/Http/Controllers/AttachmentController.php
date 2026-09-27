@@ -3,16 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
-use App\Models\AvaliacaoEquilibrio;
-use App\Models\Dinamometro;
-use App\Models\Electroneuromiografia;
-use App\Models\EletroneuromiografiaFacial;
-use App\Models\Estesiometria;
-use App\Models\Potencial;
-use App\Models\Questionnaire;
-use App\Models\RastreioCognitivo;
-use App\Models\TdahAdulto;
-use App\Models\TdahInfantil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,28 +11,26 @@ class AttachmentController extends Controller
     /** Máximo de anexos por cuestionario. */
     private const MAX = 5;
 
-    /** Mapa slug de tipo -> modelo dueño. */
-    private const TYPES = [
-        'electroencefalograma'         => Questionnaire::class,
-        'electroneuromiografia'        => Electroneuromiografia::class,
-        'eletroneuromiografia-facial'  => EletroneuromiografiaFacial::class,
-        'potencial'                    => Potencial::class,
-        'rastreio-cognitivo'           => RastreioCognitivo::class,
-        'equilibrio'                   => AvaliacaoEquilibrio::class,
-        'estesiometria'                => Estesiometria::class,
-        'tdah-infantil'                => TdahInfantil::class,
-        'tdah-adulto'                  => TdahAdulto::class,
-        'dinamometro'                  => Dinamometro::class,
-    ];
+    /**
+     * Mapa slug de tipo -> modelo dueño, derivado de config/questionnaires.php.
+     * Público: lo reutiliza PedidoMedicoController.
+     */
+    public static function types(): array
+    {
+        return collect(config('questionnaires.types'))
+            ->mapWithKeys(fn (array $type) => [$type['slug'] => $type['model']])
+            ->all();
+    }
 
     /**
      * Sube anexos (imágenes) a un cuestionario, respetando el tope de 5.
      */
     public function store(Request $request, string $type, int $id)
     {
-        abort_unless(isset(self::TYPES[$type]), 404);
+        $types = self::types();
+        abort_unless(isset($types[$type]), 404);
 
-        $owner = self::TYPES[$type]::findOrFail($id);
+        $owner = $types[$type]::findOrFail($id);
         $this->authorizeAccess($owner);
 
         $request->validate([
@@ -57,7 +45,7 @@ class AttachmentController extends Controller
         }
 
         foreach (array_slice($request->file('anexos'), 0, $remaining) as $file) {
-            $path = $file->store('anexos', 'public');
+            $path = $file->store('anexos', 'private');
             $owner->attachments()->create([
                 'path' => $path,
                 'original_name' => $file->getClientOriginalName(),
@@ -74,25 +62,46 @@ class AttachmentController extends Controller
     {
         $owner = $attachment->attachable;
 
-        if ($owner) {
-            $this->authorizeAccess($owner);
-        }
+        abort_if(! $owner, 404);
 
-        Storage::disk('public')->delete($attachment->path);
+        $this->authorizeAccess($owner);
+
+        Storage::disk('private')->delete($attachment->path);
         $attachment->delete();
 
         return back()->with('success', 'Anexo excluído com sucesso!');
     }
 
     /**
-     * Verifica que el usuario pertenezca al equipo del cuestionario (o sea admin).
+     * Sirve el anexo de forma autenticada (disco privado). Usa response(), no
+     * download(): así el navegador lo muestra inline y el <img src> sigue
+     * funcionando en vez de forzar la descarga del archivo.
+     */
+    public function show(Attachment $attachment)
+    {
+        $owner = $attachment->attachable;
+
+        abort_if(! $owner, 404);
+
+        $this->authorizeAccess($owner);
+
+        abort_unless(Storage::disk('private')->exists($attachment->path), 404);
+
+        return Storage::disk('private')->response($attachment->path);
+    }
+
+    /**
+     * Verifica que el usuario pertenezca al equipo del cuestionario (o sea super-admin).
+     * Antes usaba isAdmin(), lo que permitía a un administrador de OTRO equipo
+     * gestionar anexos de cuestionarios ajenos: isAdmin() es un rol Spatie global,
+     * no implica pertenencia al equipo del recurso.
      */
     private function authorizeAccess($owner): void
     {
         $user = auth()->user();
         $teamId = $owner->team_id ?? null;
 
-        if (! $user->isAdmin() && ! $user->teams->contains('id', $teamId)) {
+        if (! $user->isSuperAdmin() && ! $user->teams->contains('id', $teamId)) {
             abort(403, 'No tienes permisos para gestionar los anexos de este cuestionario.');
         }
     }

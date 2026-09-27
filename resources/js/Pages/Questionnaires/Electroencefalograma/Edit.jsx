@@ -5,7 +5,7 @@ import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 
-export default function Edit({ auth, questionnaire, teams, momentoExameOptions, tipoExameOptions }) {
+export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExameOptions, tipoExameOptions }) {
     // Função para formatar datas no formato YYYY-MM-DD
     const formatDateForInput = (date) => {
         if (!date) return '';
@@ -20,7 +20,6 @@ export default function Edit({ auth, questionnaire, teams, momentoExameOptions, 
         data_nascimento: formatDateForInput(questionnaire.data_nascimento) || '',
         sexo: questionnaire.sexo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
-        team_id: questionnaire.team_id || '',
         tipo_exame: questionnaire.tipo_exame || '',
         teve_covid: questionnaire.teve_covid === true,
         teve_desmaio: questionnaire.teve_desmaio === true,
@@ -230,6 +229,15 @@ export default function Edit({ auth, questionnaire, teams, momentoExameOptions, 
                             </p>
                         </div>
                     </div>
+                    <Link
+                        href={route('questionnaires.electroencefalograma.index')}
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                    >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Voltar
+                    </Link>
                 </div>
             }
         >
@@ -350,25 +358,6 @@ export default function Edit({ auth, questionnaire, teams, momentoExameOptions, 
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
                                         </div>
 
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                                Equipe *
-                                            </label>
-                                            <select
-                                                value={data.team_id}
-                                                onChange={(e) => setData('team_id', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
-                                                required
-                                            >
-                                                <option value="">Selecione uma equipe...</option>
-                                                {teams.map((team) => (
-                                                    <option key={team.id} value={team.id}>
-                                                        {team.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            {errors.team_id && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.team_id}</div>}
-                                        </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -583,7 +572,7 @@ export default function Edit({ auth, questionnaire, teams, momentoExameOptions, 
                                                     <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Arquivo atual:</p>
                                                     <div className="relative">
                                                         <img 
-                                                            src={`/storage/${questionnaire.pedido_medico}`}
+                                                            src={pedidoMedicoUrl}
                                                             alt="Pedido Médico Atual"
                                                             className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50"
                                                         />

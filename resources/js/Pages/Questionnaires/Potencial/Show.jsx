@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const { t } = useTranslation();
     const [showSignatureModal, setShowSignatureModal] = useState(false);
     const [showMedicalRequestModal, setShowMedicalRequestModal] = useState(false);
@@ -251,7 +251,7 @@ export default function Show({ auth, questionnaire, can }) {
                                                     className="inline-block border border-gray-300 dark:border-gray-600 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                                                 >
                                                     <img
-                                                        src={`/storage/${questionnaire.pedido_medico}`}
+                                                        src={pedidoMedicoUrl}
                                                         alt={t('Pedido Médico')}
                                                         className="h-20 w-auto"
                                                     />
@@ -289,7 +289,7 @@ export default function Show({ auth, questionnaire, can }) {
             <ImageZoomModal
                 show={showMedicalRequestModal}
                 onClose={() => setShowMedicalRequestModal(false)}
-                imageUrl={questionnaire.pedido_medico ? `/storage/${questionnaire.pedido_medico}` : ''}
+                imageUrl={questionnaire.pedido_medico ? pedidoMedicoUrl : ''}
                 title={t('Pedido Médico')}
             />
         <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">

@@ -41,7 +41,7 @@ trait HandlesAttachments
         }
 
         foreach (array_slice($request->file('anexos'), 0, $remaining) as $file) {
-            $path = $file->store('anexos', 'public');
+            $path = $file->store('anexos', 'private');
             $model->attachments()->create([
                 'path' => $path,
                 'original_name' => $file->getClientOriginalName(),

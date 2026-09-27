@@ -21,7 +21,7 @@ trait HasAttachments
     {
         static::deleting(function ($model) {
             foreach ($model->attachments as $attachment) {
-                Storage::disk('public')->delete($attachment->path);
+                Storage::disk('private')->delete($attachment->path);
                 $attachment->delete();
             }
         });

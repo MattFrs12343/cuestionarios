@@ -49,6 +49,8 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                 return 'Fornece acesso ao módulo de rastreio cognitivo (MoCA)';
             case 'equilibrio':
                 return 'Fornece acesso ao módulo de avaliação do equilíbrio e risco de quedas';
+            case 'mini_exame_mental':
+                return 'Fornece acesso ao módulo de Mini Exame do Estado Mental (MEEM)';
             default:
                 return 'Módulo del sistema';
         }

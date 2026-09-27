@@ -653,5 +653,493 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
     }
 
+    // Mini Exame do Estado Mental (MEEM)
+    if (type === 'mini-exame-mental') {
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
+                {/* Header */}
+                <div className="bg-sky-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Mini Exame do Estado Mental</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Protocolo de Rastreio Cognitivo Breve (MEEM)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Dados Básicos */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="RG ou CPF" value={questionnaire.rg_ou_cpf} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                        <InfoRow label="Escolaridade" value={questionnaire.escolaridade || 'Não informado'} />
+                    </div>
+                </div>
+
+                {/* Folha de Pontuação */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Folha de Pontuação (MEEM)</h2>
+                    <div className="grid grid-cols-4 gap-x-4 gap-y-0 px-2">
+                        <InfoRow label="Orientação Temporal" value={`${questionnaire.pontuacao_orientacao_temporal ?? '-'} / 5`} />
+                        <InfoRow label="Orientação Espacial" value={`${questionnaire.pontuacao_orientacao_espacial ?? '-'} / 5`} />
+                        <InfoRow label="Registro" value={`${questionnaire.pontuacao_registro ?? '-'} / 3`} />
+                        <InfoRow label="Atenção e Cálculo" value={`${questionnaire.pontuacao_atencao_calculo ?? '-'} / 5`} />
+                        <InfoRow label="Evocação" value={`${questionnaire.pontuacao_evocacao ?? '-'} / 3`} />
+                        <InfoRow label="Linguagem" value={`${questionnaire.pontuacao_linguagem ?? '-'} / 8`} />
+                        <InfoRow label="Cópia do Desenho" value={`${questionnaire.pontuacao_desenho ?? '-'} / 1`} />
+                    </div>
+                    <div className="px-2 mt-1">
+                        <InfoRow label="Pontuação Total" value={`${questionnaire.pontuacao_total ?? '-'} / 30`} />
+                    </div>
+                </div>
+
+                {/* Avaliação */}
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Avaliação</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome do Avaliador" value={questionnaire.nome_avaliador || 'Não informado'} />
+                        <InfoRow label="CID" value={questionnaire.cid || 'Não informado'} />
+                    </div>
+                    {questionnaire.comentario && (
+                        <div className="px-2 mt-1">
+                            <div className="text-xs font-semibold text-gray-700 mb-0">Comentário</div>
+                            <div className="text-xs text-gray-900 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.comentario}</div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '8mm', left: '8mm', right: '8mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // TDAH Adulto (ASRS-18)
+    if (type === 'tdah-adulto') {
+        const SCALE = {
+            0: 'Nunca',
+            1: 'Raramente',
+            2: 'Algumas vezes',
+            3: 'Frequentemente',
+            4: 'Muito frequentemente',
+        };
+        const PARTE_A = [
+            'Erros por falta de atenção em projetos chatos ou difíceis?',
+            'Dificuldade para manter a atenção em trabalho chato ou repetitivo?',
+            'Dificuldade para se concentrar no que as pessoas dizem?',
+            'Deixa um projeto pela metade depois de já ter feito as partes mais difíceis?',
+            'Dificuldade de fazer um trabalho que exige organização?',
+            'Evita ou adia o início de tarefas que exigem muita concentração?',
+            'Coloca as coisas fora do lugar ou tem dificuldade de encontrá-las?',
+            'Se distrai com atividades ou barulho ao redor?',
+            'Dificuldade para lembrar de compromissos ou obrigações?',
+        ];
+        const PARTE_B = [
+            'Fica se mexendo na cadeira quando precisa ficar sentado(a) por muito tempo?',
+            'Se levanta da cadeira em situações onde deveria ficar sentado(a)?',
+            'Se sente inquieto(a) ou agitado(a)?',
+            'Dificuldade para sossegar e relaxar no tempo livre?',
+            'Se sente ativo(a) demais, "com um motor ligado"?',
+            'Fala demais em situações sociais?',
+            'Termina as frases das pessoas antes delas?',
+            'Dificuldade para esperar sua vez?',
+            'Interrompe os outros quando estão ocupados?',
+        ];
+        const respScala = (lista, respostas) => (
+            <ul className="list-none pl-0" style={{ fontSize: '9px' }}>
+                {lista.map((p, idx) => (
+                    <li key={idx} className="flex justify-between gap-2 py-0.5" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                        <span>{idx + 1}. {p}</span>
+                        <span className="font-semibold flex-shrink-0">{SCALE[respostas?.[idx]] ?? '-'}</span>
+                    </li>
+                ))}
+            </ul>
+        );
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
+                <div className="bg-indigo-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - TDAH</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>TDAH Adulto (ASRS-18)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="RG" value={questionnaire.rg || '-'} />
+                        <InfoRow label="Peso / Altura" value={`${questionnaire.peso ?? '-'} kg / ${questionnaire.altura ?? '-'} cm`} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica || '-'} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Solicitante" value={questionnaire.solicitante || '-'} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                        <InfoRow label="CID" value={questionnaire.cid || '-'} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Parte A — Desatenção</h2>
+                    <div className="px-2">{respScala(PARTE_A, questionnaire.parte_a_respostas)}</div>
+                    <div className="px-2 mt-1"><InfoRow label="Parte A — Total" value={`${questionnaire.parte_a_total ?? '-'} / 36`} /></div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Parte B — Hiperatividade/Impulsividade</h2>
+                    <div className="px-2">{respScala(PARTE_B, questionnaire.parte_b_respostas)}</div>
+                    <div className="px-2 mt-1"><InfoRow label="Parte B — Total" value={`${questionnaire.parte_b_total ?? '-'} / 36`} /></div>
+                </div>
+
+                {questionnaire.comentario && (
+                    <div className="mb-2">
+                        <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Observações</h2>
+                        <div className="px-2">
+                            <div className="text-xs text-gray-900 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.comentario}</div>
+                        </div>
+                    </div>
+                )}
+
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // TDAH Infantil (SNAP-IV)
+    if (type === 'tdah-infantil') {
+        const SCALE = {
+            0: 'Nunca',
+            1: 'Raramente',
+            2: 'Algumas vezes',
+            3: 'Frequentemente',
+            4: 'Muito frequentemente',
+        };
+        const PARTE_1 = [
+            'Erra atividades porque não presta atenção nos detalhes?',
+            'Dificuldade para manter a atenção em tarefas, brincadeiras ou outras atividades?',
+            'Parece não escutar quando alguém fala diretamente com ela?',
+            'Começa uma tarefa, mas não consegue terminar ou não segue as instruções até o fim?',
+            'Dificuldade para organizar os materiais ou a rotina?',
+            'Evita ou reclama de atividades que exigem pensar ou se concentrar por muito tempo?',
+            'Perde ou esquece onde colocou objetos importantes?',
+            'Se distrai facilmente com barulhos, pessoas ou qualquer coisa ao redor?',
+            'Esquece compromissos, recados ou tarefas do dia a dia?',
+        ];
+        const PARTE_2 = [
+            'Mexe muito as mãos, os pés ou fica inquieta quando está sentada?',
+            'Levanta da cadeira quando deveria permanecer sentada?',
+            'Corre, sobe em móveis ou se movimenta demais em momentos em que deveria ficar calma?',
+            'Dificuldade para brincar ou fazer atividades tranquilas?',
+            'Parece estar sempre agitada, "ligada no máximo"?',
+            'Fala mais do que o esperado?',
+            'Responde antes da pergunta terminar ou interrompe a resposta dos outros?',
+            'Dificuldade para esperar sua vez em filas, jogos ou conversas?',
+            'Costuma interromper conversas, brincadeiras ou se intrometer nas atividades dos outros?',
+        ];
+        const respScala = (lista, respostas) => (
+            <ul className="list-none pl-0" style={{ fontSize: '9px' }}>
+                {lista.map((p, idx) => (
+                    <li key={idx} className="flex justify-between gap-2 py-0.5" style={{ borderBottom: '1px solid #e5e7eb' }}>
+                        <span>{idx + 1}. {p}</span>
+                        <span className="font-semibold flex-shrink-0">{SCALE[respostas?.[idx]] ?? '-'}</span>
+                    </li>
+                ))}
+            </ul>
+        );
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
+                <div className="bg-pink-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - TDAH</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>TDAH Infantil (SNAP-IV)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="RG/CPF" value={questionnaire.rg_ou_cpf || '-'} />
+                        <InfoRow label="Peso / Altura" value={`${questionnaire.peso ?? '-'} kg / ${questionnaire.altura ?? '-'} cm`} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica || '-'} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Solicitante" value={questionnaire.solicitante || '-'} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                        <InfoRow label="CID" value={questionnaire.cid || '-'} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Parte I — Desatenção</h2>
+                    <div className="px-2">{respScala(PARTE_1, questionnaire.parte_1_respostas)}</div>
+                    <div className="px-2 mt-1"><InfoRow label="Parte I — Total" value={`${questionnaire.parte_1_total ?? '-'} / 36`} /></div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Parte II — Hiperatividade/Impulsividade</h2>
+                    <div className="px-2">{respScala(PARTE_2, questionnaire.parte_2_respostas)}</div>
+                    <div className="px-2 mt-1"><InfoRow label="Parte II — Total" value={`${questionnaire.parte_2_total ?? '-'} / 36`} /></div>
+                </div>
+
+                {questionnaire.comentario && (
+                    <div className="mb-2">
+                        <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Observações</h2>
+                        <div className="px-2">
+                            <div className="text-xs text-gray-900 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.comentario}</div>
+                        </div>
+                    </div>
+                )}
+
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Dinamômetro (Força de Preensão Manual)
+    if (type === 'dinamometro') {
+        const CONTEXTO_LABELS = {
+            neurologico: 'Neurológico',
+            ortopedico: 'Ortopédico',
+            geriatrico: 'Geriátrico',
+            pediatrico: 'Pediátrico',
+        };
+        const boolVal = (v) => (v ? 'Sim' : 'Não');
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
+                <div className="bg-violet-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Dinamômetro</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Força de Preensão Manual</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Peso / Altura" value={`${questionnaire.peso ?? '-'} kg / ${questionnaire.altura ?? '-'} cm`} />
+                        <InfoRow label="Dominância" value={questionnaire.dominancia || '-'} />
+                        <InfoRow label="Profissão" value={questionnaire.profissao || '-'} />
+                        <InfoRow label="Diagnóstico Principal" value={questionnaire.diagnostico_principal || '-'} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica || '-'} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                        <InfoRow label="Contextos Clínicos" value={(questionnaire.contextos_clinicos || []).map((c) => CONTEXTO_LABELS[c] || c).join(', ') || '-'} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Histórico Clínico</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Doenças Crônicas" value={questionnaire.doencas_cronicas || '-'} />
+                        <InfoRow label="Dor Atual (0-10)" value={questionnaire.dor_atual ?? '-'} />
+                        <BooleanRow label="Fisioterapia recente?" value={questionnaire.fisioterapia_recente} />
+                        <BooleanRow label="Lesão prévia/atual?" value={questionnaire.lesao_previa_atual} />
+                        <BooleanRow label="Dor piora com força?" value={questionnaire.dor_piora_com_forca} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Padronização e Resultados (kgf)</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <div className="mb-1">
+                            <span className="text-xs font-semibold text-gray-700">Mão Dominante</span>
+                            <div className="text-xs text-gray-900">1ª: {questionnaire.mao_dominante_t1 ?? '-'} · 2ª: {questionnaire.mao_dominante_t2 ?? '-'} · 3ª: {questionnaire.mao_dominante_t3 ?? '-'}</div>
+                            <div className="text-xs text-gray-900 font-bold">Média: {questionnaire.mao_dominante_media ?? '-'}</div>
+                        </div>
+                        <div className="mb-1">
+                            <span className="text-xs font-semibold text-gray-700">Mão Não Dominante</span>
+                            <div className="text-xs text-gray-900">1ª: {questionnaire.mao_nao_dominante_t1 ?? '-'} · 2ª: {questionnaire.mao_nao_dominante_t2 ?? '-'} · 3ª: {questionnaire.mao_nao_dominante_t3 ?? '-'}</div>
+                            <div className="text-xs text-gray-900 font-bold">Média: {questionnaire.mao_nao_dominante_media ?? '-'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Interpretação e Conduta</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Classificação" value={questionnaire.classificacao || '-'} />
+                        <InfoRow label="Assimetria (%)" value={questionnaire.assimetria_percentual ?? '-'} />
+                        <InfoRow label="Profissional" value={questionnaire.nome_avaliador || '-'} />
+                        <InfoRow label="CREFITO/CRM" value={questionnaire.crefito_crm || '-'} />
+                    </div>
+                    {questionnaire.conclusao && (
+                        <div className="px-2 mt-1"><InfoRow label="Conclusão" value={questionnaire.conclusao} /></div>
+                    )}
+                    {questionnaire.conduta && (
+                        <div className="px-2 mt-1"><InfoRow label="Conduta" value={questionnaire.conduta} /></div>
+                    )}
+                    {questionnaire.comentario && (
+                        <div className="px-2 mt-1"><InfoRow label="Comentário" value={questionnaire.comentario} /></div>
+                    )}
+                </div>
+
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Estesiometria (Avaliação Sensitiva)
+    if (type === 'estesiometria') {
+        const PRE_EXAM = [
+            { field: 'dormencia_formigamento', label: 'Dormência, formigamento ou queimação nas mãos/pés' },
+            { field: 'dificuldade_sentir_objetos', label: 'Dificuldade para sentir objetos com as mãos' },
+            { field: 'feridas_sem_dor', label: 'Feridas nos pés sem sentir dor' },
+            { field: 'diagnostico_diabetes_hanseniase', label: 'Diagnóstico de diabetes, hanseníase ou doença neurológica' },
+            { field: 'cirurgia_fratura_recente', label: 'Cirurgia ou fratura recente nas regiões avaliadas' },
+            { field: 'medicamentos_sistema_nervoso', label: 'Uso de medicamentos que afetam o sistema nervoso' },
+        ];
+        const renderPoints = (title, points, sideLabels, sideFields) => (
+            <div className="mb-2">
+                <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-1" style={{ borderRadius: '3px', lineHeight: '1.2' }}>{title}</h2>
+                <table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: '9px' }}>
+                    <thead>
+                        <tr className="bg-gray-100">
+                            <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Ponto</th>
+                            <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Sentiu?</th>
+                            <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>{sideLabels[0]}</th>
+                            <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>{sideLabels[1]}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {(points || []).map((row) => (
+                            <tr key={row.ponto}>
+                                <td className="px-2 py-0.5 font-medium" style={{ border: '1px solid #e5e7eb' }}>{row.ponto}</td>
+                                <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.sentiu ? 'Sim' : 'Não'}</td>
+                                <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row[sideFields[0]] || '-'}</td>
+                                <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row[sideFields[1]] || '-'}</td>
+                            </tr>
+                        ))}
+                        {(points || []).length === 0 && (
+                            <tr><td colSpan="4" className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Sem dados registrados</td></tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        );
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
+                <div className="bg-red-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Estesiometria</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Avaliação Sensitiva (Monofilamentos)</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica || '-'} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Profissional" value={questionnaire.nome_avaliador || '-'} />
+                        <InfoRow label="CRM/RG" value={questionnaire.crm_rg || '-'} />
+                        <InfoRow label="Diagnóstico" value={questionnaire.diagnostico || '-'} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Questionário Pré-Exame</h2>
+                    <div className="px-2">
+                        {PRE_EXAM.map((q) => (
+                            <InfoRow key={q.field} label={q.label} value={questionnaire[q.field] ? 'Sim' : 'Não'} />
+                        ))}
+                    </div>
+                </div>
+
+                {renderPoints('Avaliação dos Pés', questionnaire.pontos_pes, ['Cor Pé Direito', 'Cor Pé Esquerdo'], ['cor_direito', 'cor_esquerdo'])}
+
+                {renderPoints('Avaliação das Mãos', questionnaire.pontos_maos, ['Cor Mão Direita', 'Cor Mão Esquerda'], ['cor_direita', 'cor_esquerda'])}
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Resultado e Classificação</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Pés — % Acerto D / E" value={`${questionnaire.pes_percent_acerto_d ?? '-'} / ${questionnaire.pes_percent_acerto_e ?? '-'}`} />
+                        <InfoRow label="Pés — Classificação" value={questionnaire.pes_classificacao || '-'} />
+                        <InfoRow label="Mãos — % Acerto D / E" value={`${questionnaire.maos_percent_acerto_d ?? '-'} / ${questionnaire.maos_percent_acerto_e ?? '-'}`} />
+                        <InfoRow label="Mãos — Classificação" value={questionnaire.maos_classificacao || '-'} />
+                    </div>
+                    {questionnaire.comentario && (
+                        <div className="px-2 mt-1"><InfoRow label="Observações Clínicas" value={questionnaire.comentario} /></div>
+                    )}
+                </div>
+
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
     return null;
 }
