@@ -61,6 +61,7 @@ class Potencial extends Model
         'tem_labirintite_tontura_auditivo',
         'tem_hipertensao_auditivo',
         'tem_diabetes_auditivo',
+        'hiperativo',
         
         // Potencial Evocado Visual
         'teve_avc',
@@ -124,6 +125,7 @@ class Potencial extends Model
         'tem_labirintite_tontura_auditivo' => 'boolean',
         'tem_hipertensao_auditivo' => 'boolean',
         'tem_diabetes_auditivo' => 'boolean',
+        'hiperativo' => 'boolean',
         
         // Potencial Evocado Visual
         'teve_avc' => 'boolean',

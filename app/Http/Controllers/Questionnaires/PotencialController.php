@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePotencialRequest;
 use App\Http\Requests\UpdatePotencialRequest;
 use App\Models\Potencial;
+use App\Support\QuestionnaireFields;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -14,6 +15,8 @@ use Inertia\Response;
 class PotencialController extends Controller
 {
     use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
+    private const SLUG = 'potencial';
 
     public function index(Request $request): Response
     {
@@ -36,20 +39,24 @@ class PotencialController extends Controller
                 'edit' => $user->can('edit questionnaires'),
                 'delete' => $user->can('delete questionnaires'),
             ],
+            'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),
         ]);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
         return Inertia::render('Questionnaires/Potencial/Create', [
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
     public function store(StorePotencialRequest $request)
     {
         $data = $request->validated();
-        $data['team_id'] = $this->currentTeam($request)->id;
+        $team = $this->currentTeam($request);
+        $data = QuestionnaireFields::onlyVisible($team, self::SLUG, $data);
+        $data['team_id'] = $team->id;
         $data['created_by'] = auth()->id();
 
         // Manejar assinatura (base64)
@@ -73,7 +80,7 @@ class PotencialController extends Controller
             ->with('success', 'Questionário de Potencial criado com sucesso!');
     }
 
-    public function show(Potencial $potencial): Response
+    public function show(Request $request, Potencial $potencial): Response
     {
         $this->authorizeTeamAccess($potencial);
 
@@ -88,10 +95,11 @@ class PotencialController extends Controller
                 'edit' => auth()->user()->can('update', $potencial),
                 'delete' => auth()->user()->can('delete', $potencial),
             ],
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
-    public function edit(Potencial $potencial): Response
+    public function edit(Request $request, Potencial $potencial): Response
     {
         $this->authorizeTeamAccess($potencial);
 
@@ -103,6 +111,7 @@ class PotencialController extends Controller
                 ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
                 : null,
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
@@ -111,6 +120,7 @@ class PotencialController extends Controller
         $this->authorizeTeamAccess($potencial);
 
         $data = $request->validated();
+        $data = QuestionnaireFields::onlyVisible($this->currentTeam($request), self::SLUG, $data);
         $data['updated_by'] = auth()->id();
 
         // Manejar assinatura (base64)

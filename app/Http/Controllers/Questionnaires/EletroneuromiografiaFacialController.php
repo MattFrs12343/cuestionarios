@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Questionnaires;
 
 use App\Http\Controllers\Controller;
 use App\Models\EletroneuromiografiaFacial;
+use App\Support\QuestionnaireFields;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -12,6 +13,8 @@ use Inertia\Response;
 class EletroneuromiografiaFacialController extends Controller
 {
     use RestrictsQuestionnaireByTeam, HandlesAttachments;
+
+    private const SLUG = 'eletroneuromiografia-facial';
 
     public function index(Request $request): Response
     {
@@ -34,12 +37,15 @@ class EletroneuromiografiaFacialController extends Controller
                 'edit' => $user->can('edit questionnaires'),
                 'delete' => $user->can('delete questionnaires'),
             ],
+            'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),
         ]);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Create');
+        return Inertia::render('Questionnaires/EletroneuromiografiaFacial/Create', [
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
+        ]);
     }
 
     public function store(Request $request)
@@ -73,6 +79,8 @@ class EletroneuromiografiaFacialController extends Controller
             'tem_parte_face_paralisada' => 'boolean',
             'parte_face_paralisada_qual' => 'nullable|string|max:255',
             'tem_enxaqueca' => 'boolean',
+            'teve_avc' => 'boolean',
+            'avc_quando' => 'nullable|string|max:255',
             'consegue_sorrir_normalmente' => 'boolean',
             'pode_comer_normalmente' => 'boolean',
             'pode_assoviar' => 'boolean',
@@ -87,6 +95,7 @@ class EletroneuromiografiaFacialController extends Controller
 
         $validated['team_id'] = $this->currentTeam($request)->id;
         $validated['created_by'] = auth()->id();
+        $validated = QuestionnaireFields::onlyVisible($this->currentTeam($request), self::SLUG, $validated);
         
         // Calcular idade automaticamente
         if (isset($validated['data_nascimento']) && isset($validated['data_exame'])) {
@@ -119,7 +128,7 @@ class EletroneuromiografiaFacialController extends Controller
             ->with('success', 'Questionário criado com sucesso!');
     }
 
-    public function show(EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
+    public function show(Request $request, EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
     {
         $this->authorizeTeamAccess($eletroneuromiografiaFacial);
 
@@ -134,10 +143,11 @@ class EletroneuromiografiaFacialController extends Controller
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
             ],
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
-    public function edit(EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
+    public function edit(Request $request, EletroneuromiografiaFacial $eletroneuromiografiaFacial): Response
     {
         $this->authorizeTeamAccess($eletroneuromiografiaFacial);
 
@@ -149,6 +159,7 @@ class EletroneuromiografiaFacialController extends Controller
             'pedidoMedicoUrl' => $eletroneuromiografiaFacial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'eletroneuromiografia-facial', 'id' => $eletroneuromiografiaFacial->id])
                 : null,
+            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
@@ -185,6 +196,8 @@ class EletroneuromiografiaFacialController extends Controller
             'tem_parte_face_paralisada' => 'boolean',
             'parte_face_paralisada_qual' => 'nullable|string|max:255',
             'tem_enxaqueca' => 'boolean',
+            'teve_avc' => 'boolean',
+            'avc_quando' => 'nullable|string|max:255',
             'consegue_sorrir_normalmente' => 'boolean',
             'pode_comer_normalmente' => 'boolean',
             'pode_assoviar' => 'boolean',
@@ -227,7 +240,9 @@ class EletroneuromiografiaFacialController extends Controller
 
         $request->validate($this->attachmentRules());
 
-        $eletroneuromiografiaFacial->update($validated);
+        $eletroneuromiografiaFacial->update(
+            QuestionnaireFields::onlyVisible($this->currentTeam($request), self::SLUG, $validated)
+        );
 
         $this->storeAttachments($eletroneuromiografiaFacial, $request);
 
