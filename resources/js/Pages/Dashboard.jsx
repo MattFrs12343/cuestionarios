@@ -55,7 +55,7 @@ export default function Dashboard({ auth }) {
         description: 'Gerenciar informações do perfil',
         href: route('profile.edit'),
         gradient: 'from-gray-500 to-gray-600',
-        darkGradient: 'dark:from-gray-600 dark:to-gray-700',
+        darkGradient: 'dark:from-zinc-500 dark:to-zinc-600',
         icon: (
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -75,10 +75,10 @@ export default function Dashboard({ auth }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('navigation.dashboard')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Sistema de Questionários Médicos
                         </p>
                     </div>
@@ -142,12 +142,12 @@ export default function Dashboard({ auth }) {
                     </div>
 
                     {/* Sección de Información y Accesos Rápidos */}
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
-                        <div className="p-4 sm:p-6 text-gray-900 dark:text-gray-100">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-lg sm:rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
+                        <div className="p-4 sm:p-6 text-gray-900 dark:text-zinc-100">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                                 {/* Acessos Rápidos */}
-                                <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700/50 dark:to-gray-800/50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-blue-500 dark:border-blue-400 transition-colors duration-200">
-                                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-5 flex items-center">
+                                <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-600/50 dark:to-zinc-700/50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-blue-500 dark:border-blue-400 transition-colors duration-200">
+                                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-zinc-100 mb-3 sm:mb-5 flex items-center">
                                         <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                         </svg>
@@ -191,20 +191,20 @@ export default function Dashboard({ auth }) {
 
                                 {/* Información del Usuario */}
                                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 p-4 sm:p-6 rounded-lg sm:rounded-xl border-l-4 border-indigo-500 dark:border-indigo-400 transition-colors duration-200">
-                                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-5 flex items-center">
+                                    <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-zinc-100 mb-3 sm:mb-5 flex items-center">
                                         <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                         Informações da Conta
                                     </h4>
-                                    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                                    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-700 dark:text-zinc-300">
                                         <div className="flex items-start">
                                             <svg className="w-5 h-5 mr-2 text-indigo-500 dark:text-indigo-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
                                             <div>
                                                 <p className="font-medium">Usuário: {auth.user.name}</p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">{auth.user.email}</p>
+                                                <p className="text-xs text-gray-500 dark:text-zinc-400">{auth.user.email}</p>
                                             </div>
                                         </div>
                                         

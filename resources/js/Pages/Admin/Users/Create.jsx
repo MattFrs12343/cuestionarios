@@ -46,10 +46,10 @@ export default function CreateUser({ auth, roles, teams }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.users.create')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Usuários
                         </p>
                     </div>
@@ -60,7 +60,7 @@ export default function CreateUser({ auth, roles, teams }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Formulário */}
                         <div className="bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 px-6 py-4">
                             <div className="flex items-center justify-between">
@@ -90,75 +90,75 @@ export default function CreateUser({ auth, roles, teams }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Información básica */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             {t('admin.users.name')} *
                                         </label>
                                         <input
                                             type="text"
                                             value={data.name}
                                             onChange={(e) => setData('name', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                             required
                                         />
                                         {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             {t('admin.users.email')} *
                                         </label>
                                         <input
                                             type="email"
                                             value={data.email}
                                             onChange={(e) => setData('email', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                             required
                                         />
                                         {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             {t('auth.password')} *
                                         </label>
                                         <input
                                             type="password"
                                             value={data.password}
                                             onChange={(e) => setData('password', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                             required
                                         />
                                         {errors.password && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>}
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             {t('auth.confirm_password')} *
                                         </label>
                                         <input
                                             type="password"
                                             value={data.password_confirmation}
                                             onChange={(e) => setData('password_confirmation', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             Telefone
                                         </label>
                                         <input
                                             type="text"
                                             value={data.phone}
                                             onChange={(e) => setData('phone', e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                         />
                                         {errors.phone && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>}
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             {t('admin.users.status')}
                                         </label>
                                         <div className="flex items-center">
@@ -166,9 +166,9 @@ export default function CreateUser({ auth, roles, teams }) {
                                                 type="checkbox"
                                                 checked={data.is_active}
                                                 onChange={(e) => setData('is_active', e.target.checked)}
-                                                className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"
+                                                className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded"
                                             />
-                                            <label className="ml-2 block text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="ml-2 block text-sm text-gray-900 dark:text-zinc-100">
                                                 Usuário ativo
                                             </label>
                                         </div>
@@ -176,21 +176,21 @@ export default function CreateUser({ auth, roles, teams }) {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                         Endereço
                                     </label>
                                     <textarea
                                         value={data.address}
                                         onChange={(e) => setData('address', e.target.value)}
                                         rows={3}
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                     />
                                     {errors.address && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.address}</p>}
                                 </div>
 
                                 {/* Roles */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                         {t('navigation.roles')}
                                     </label>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -201,9 +201,9 @@ export default function CreateUser({ auth, roles, teams }) {
                                                     id={`role-${role.id}`}
                                                     checked={data.roles.includes(role.id)}
                                                     onChange={() => handleRoleChange(role.id)}
-                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"
+                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded"
                                                 />
-                                                <label htmlFor={`role-${role.id}`} className="ml-2 block text-sm text-gray-900 dark:text-gray-100">
+                                                <label htmlFor={`role-${role.id}`} className="ml-2 block text-sm text-gray-900 dark:text-zinc-100">
                                                     {role.name}
                                                 </label>
                                             </div>
@@ -214,7 +214,7 @@ export default function CreateUser({ auth, roles, teams }) {
 
                                 {/* Equipos */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                         {t('navigation.teams')}
                                     </label>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -225,9 +225,9 @@ export default function CreateUser({ auth, roles, teams }) {
                                                     id={`team-${team.id}`}
                                                     checked={data.teams.includes(team.id)}
                                                     onChange={() => handleTeamChange(team.id)}
-                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"
+                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded"
                                                 />
-                                                <label htmlFor={`team-${team.id}`} className="ml-2 block text-sm text-gray-900 dark:text-gray-100">
+                                                <label htmlFor={`team-${team.id}`} className="ml-2 block text-sm text-gray-900 dark:text-zinc-100">
                                                     {team.name}
                                                 </label>
                                             </div>
@@ -239,7 +239,7 @@ export default function CreateUser({ auth, roles, teams }) {
                                 <div className="flex justify-end space-x-4">
                                     <Link
                                         href={route('admin.users.index')}
-                                        className="bg-gray-500 dark:bg-gray-600 hover:bg-gray-700 dark:hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                        className="bg-gray-500 dark:bg-zinc-500 hover:bg-gray-700 dark:hover:bg-zinc-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                     >
                                         {t('common.cancel')}
                                     </Link>

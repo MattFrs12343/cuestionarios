@@ -54,10 +54,10 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.users.title')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Usuários
                         </p>
                     </div>
@@ -68,12 +68,12 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         <div className="p-6">
                             {/* Header com botão criar */}
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 flex items-center">
                                         <span className="w-1 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full mr-3"></span>
                                         {t('admin.users.list')}
                                     </h3>
@@ -90,12 +90,12 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                             </div>
 
                             {/* Filtros */}
-                            <div className="mb-6 p-5 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm transition-colors duration-200">
+                            <div className="mb-6 p-5 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700 border border-gray-200 dark:border-zinc-500 rounded-xl shadow-sm transition-colors duration-200">
                                 <div className="flex items-center mb-4">
-                                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 text-gray-600 dark:text-zinc-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                     </svg>
-                                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Filtros de Busca</h4>
+                                    <h4 className="text-sm font-semibold text-gray-700 dark:text-zinc-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                                     <div>
@@ -111,7 +111,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                 value={search}
                                                 onChange={(e) => setSearch(e.target.value)}
                                                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm"
+                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-700 text-gray-900 dark:text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                             <select
                                                 value={selectedRole}
                                                 onChange={(e) => setSelectedRole(e.target.value)}
-                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
+                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-700 text-gray-900 dark:text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
                                             >
                                                 <option value="">Todas as funções</option>
                                                 {roles.map(role => (
@@ -144,7 +144,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                             <select
                                                 value={selectedTeam}
                                                 onChange={(e) => setSelectedTeam(e.target.value)}
-                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
+                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-700 text-gray-900 dark:text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
                                             >
                                                 <option value="">Todas as equipes</option>
                                                 {teams.map(team => (
@@ -163,7 +163,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                             <select
                                                 value={selectedStatus}
                                                 onChange={(e) => setSelectedStatus(e.target.value)}
-                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
+                                                className="w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-700 text-gray-900 dark:text-zinc-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:border-transparent text-sm transition-all shadow-sm appearance-none cursor-pointer"
                                             >
                                                 <option value="">Todos os status</option>
                                                 <option value="1">Ativos</option>
@@ -183,7 +183,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                         </button>
                                         <button
                                             onClick={clearFilters}
-                                            className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-gray-500 dark:bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-all duration-200 shadow-sm hover:shadow"
+                                            className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-gray-500 dark:bg-zinc-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-zinc-500 transition-all duration-200 shadow-sm hover:shadow"
                                         >
                                             <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -195,30 +195,30 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                             </div>
 
                             {/* Tabla de usuarios */}
-                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-750">
+                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-zinc-600">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Usuário
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Funções
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Equipes
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Status
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Ações
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {users.data.map((user, index) => (
-                                            <tr key={user.id} className={`hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/10 dark:hover:to-indigo-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/50 dark:bg-gray-850'}`}>
+                                            <tr key={user.id} className={`hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-900/10 dark:hover:to-indigo-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-zinc-700' : 'bg-gray-50/50 dark:bg-zinc-600/40'}`}>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center">
                                                         <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
@@ -227,10 +227,10 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                             </svg>
                                                         </div>
                                                         <div>
-                                                            <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                            <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                                 {user.name}
                                                             </div>
-                                                            <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                            <div className="text-xs text-gray-500 dark:text-zinc-400">
                                                                 {user.email}
                                                             </div>
                                                         </div>
@@ -341,7 +341,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                             {users.links && users.links.length > 3 && (
                                 <div className="mt-6">
                                     <div className="flex justify-between items-center">
-                                        <div className="text-sm text-gray-700 dark:text-gray-300">
+                                        <div className="text-sm text-gray-700 dark:text-zinc-300">
                                             {t('pagination.showing')} {users.from || 0} {t('pagination.to')} {users.to || 0} {t('pagination.of')} {users.total || 0} {t('pagination.results')}
                                         </div>
                                         <div className="flex space-x-1">
@@ -350,7 +350,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                     return (
                                                         <span
                                                             key={index}
-                                                            className="px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 border border-gray-300 dark:border-gray-600 rounded"
+                                                            className="px-3 py-2 text-sm bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-zinc-400 border border-gray-300 dark:border-zinc-500 rounded"
                                                             dangerouslySetInnerHTML={{ __html: link.label }}
                                                         />
                                                     );
@@ -363,8 +363,8 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                                         className={`px-3 py-2 text-sm ${
                                                             link.active
                                                                 ? 'bg-blue-500 dark:bg-blue-600 text-white'
-                                                                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
-                                                        } border border-gray-300 dark:border-gray-600 rounded transition-colors duration-200`}
+                                                                : 'bg-white dark:bg-zinc-600 text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-500'
+                                                        } border border-gray-300 dark:border-zinc-500 rounded transition-colors duration-200`}
                                                         dangerouslySetInnerHTML={{ __html: link.label }}
                                                     />
                                                 );

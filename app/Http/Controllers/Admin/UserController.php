@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:administrador']);
+        $this->middleware(['auth', 'admin.access']);
     }
 
     /**
@@ -62,9 +62,11 @@ class UserController extends Controller
      * cualquier admin de equipo podría auto-ascenderse (asignándose el rol a
      * sí mismo o a un cómplice) o degradar al admin que le responde.
      */
-    private function authorizeAdminRoleChange(User $admin, ?User $target, array $newRoleIds): void
+    private function authorizeAdminRoleChange(User $admin, ?User $target, ?array $newRoleIds): void
     {
-        if ($admin->isSuperAdmin()) {
+        // Si el request ni siquiera trae el campo roles, no se está
+        // concediendo ni revocando nada: no hay nada que autorizar aquí.
+        if ($admin->isSuperAdmin() || $newRoleIds === null) {
             return;
         }
 
@@ -99,15 +101,19 @@ class UserController extends Controller
             return;
         }
 
-        $keepsRole = $newRoleIds !== null && in_array($adminRoleId, $newRoleIds, true);
+        // El campo ausente significa "sin cambios" en esa dimensión, no "se
+        // quita". Solo cuenta como remoción del rol si el request lo trae
+        // explícitamente sin el id de administrador.
+        $roleRemoved = $newRoleIds !== null && ! in_array($adminRoleId, $newRoleIds, true);
 
-        $affectedTeamIds = $target->teams
-            ->reject(fn ($team) => $newTeamIds !== null && in_array($team->id, $newTeamIds, true))
-            ->pluck('id');
-
-        if ($keepsRole) {
-            return;
-        }
+        // Si se quita el rol, pierde la gobernanza de TODOS sus equipos, sin
+        // importar qué traiga el campo teams. Si el rol se mantiene, solo
+        // importan los equipos de los que el campo teams lo saca explícitamente.
+        $affectedTeamIds = $roleRemoved
+            ? $target->teams->pluck('id')
+            : ($newTeamIds !== null
+                ? $target->teams->reject(fn ($team) => in_array($team->id, $newTeamIds, true))->pluck('id')
+                : collect());
 
         foreach (Team::whereIn('id', $affectedTeamIds)->get() as $team) {
             $hasOtherAdministrator = $team->administrators()
@@ -194,7 +200,7 @@ class UserController extends Controller
             'teams.*' => $teamIds === null ? 'exists:teams,id' : [Rule::in($teamIds)],
         ]);
 
-        $this->authorizeAdminRoleChange($request->user(), null, $request->roles ?? []);
+        $this->authorizeAdminRoleChange($request->user(), null, $request->roles);
 
         $user = User::create([
             'name' => $request->name,
@@ -269,7 +275,7 @@ class UserController extends Controller
         $newRoleIds = $request->roles;
         $newTeamIds = $request->teams;
 
-        $this->authorizeAdminRoleChange($admin, $user, $newRoleIds ?? []);
+        $this->authorizeAdminRoleChange($admin, $user, $newRoleIds);
         $this->authorizeTeamsKeepAdministrator(
             $admin,
             $user,

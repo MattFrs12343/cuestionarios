@@ -38,7 +38,7 @@ const Trigger = ({ children }) => {
 const Content = ({
     align = 'right',
     width = '48',
-    contentClasses = 'py-1 bg-white dark:bg-gray-800',
+    contentClasses = 'py-1 bg-white dark:bg-zinc-700',
     className = '',
     children,
 }) => {
@@ -70,14 +70,14 @@ const Content = ({
                 leaveTo="opacity-0 scale-95"
             >
                 <div
-                    className={`absolute z-50 mt-2 ${className ? '' : 'rounded-md shadow-lg dark:shadow-gray-900/50'} ${alignmentClasses} ${widthClasses}`}
+                    className={`absolute z-50 mt-2 ${className ? '' : 'rounded-md shadow-lg dark:shadow-zinc-900/50'} ${alignmentClasses} ${widthClasses}`}
                     onClick={() => setOpen(false)}
                 >
                     <div
                         className={
                             className
                                 ? `overflow-hidden ${className}`
-                                : `rounded-md ring-1 ring-black dark:ring-gray-700 ring-opacity-5 dark:ring-opacity-50 transition-colors duration-200 ${contentClasses}`
+                                : `rounded-md ring-1 ring-black dark:ring-zinc-600 ring-opacity-5 dark:ring-opacity-50 transition-colors duration-200 ${contentClasses}`
                         }
                     >
                         {children}
@@ -90,7 +90,7 @@ const Content = ({
 
 const DropdownLink = ({ className = '', children, ...props }) => {
     const defaultClasses =
-        'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 focus:outline-none';
+        'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-zinc-300 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-zinc-600 focus:bg-gray-100 dark:focus:bg-zinc-600 focus:outline-none';
 
     return (
         <Link {...props} className={className || defaultClasses}>

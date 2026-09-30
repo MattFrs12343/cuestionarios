@@ -116,9 +116,9 @@ export default function Create({ auth, teams, momentoExameOptions }) {
 
         return (
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{label}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">{label}</label>
                 <div className="flex space-x-4">
-                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(true)}>
+                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(true)}>
                         <input
                             type="radio"
                             name={`${field}_radio`}
@@ -129,7 +129,7 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                         />
                         SIM
                     </label>
-                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(false)}>
+                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(false)}>
                         <input
                             type="radio"
                             name={`${field}_radio`}
@@ -150,7 +150,7 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                             value={data[conditionalField]}
                             onChange={(e) => setData(conditionalField, e.target.value)}
                             placeholder={getPlaceholder()}
-                            className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                         />
                         {errors[conditionalField] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[conditionalField]}</div>}
                     </div>
@@ -162,86 +162,86 @@ export default function Create({ auth, teams, momentoExameOptions }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Novo Questionário</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Novo Questionário</h2>}
         >
             <Head title="Novo Questionário" />
 
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm dark:shadow-gray-900/50 sm:rounded-lg transition-colors duration-200">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm dark:shadow-zinc-900/50 sm:rounded-lg transition-colors duration-200">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Dados Básicos</h3>
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">Dados Básicos</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Clínica *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={data.clinica}
                                                 onChange={(e) => setData('clinica', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Data do Exame *
                                             </label>
                                             <input
                                                 type="date"
                                                 value={data.data_exame}
                                                 onChange={(e) => setData('data_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Nome Completo *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={data.nome_completo}
                                                 onChange={(e) => setData('nome_completo', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Data de Nascimento *
                                             </label>
                                             <input
                                                 type="date"
                                                 value={data.data_nascimento}
                                                 onChange={(e) => setData('data_nascimento', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {idade !== null && (
-                                                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Idade: {idade}</div>
+                                                <div className="text-sm text-gray-600 dark:text-zinc-400 mt-1">Idade: {idade}</div>
                                             )}
                                             {errors.data_nascimento && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_nascimento}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Sexo *
                                             </label>
                                             <select
                                                 value={data.sexo}
                                                 onChange={(e) => setData('sexo', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione...</option>
@@ -252,27 +252,27 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 RG ou CPF *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={data.rg_ou_cpf}
                                                 onChange={(e) => setData('rg_ou_cpf', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Equipe *
                                             </label>
                                             <select
                                                 value={data.team_id}
                                                 onChange={(e) => setData('team_id', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione uma equipe...</option>
@@ -289,7 +289,7 @@ export default function Create({ auth, teams, momentoExameOptions }) {
 
                                 {/* Histórico médico */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Histórico Médico</h3>
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">Histórico Médico</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Teve COVID" field="teve_covid" />
                                         <BooleanField label="Já teve AVC" field="ja_teve_avc" conditionalField="quando_teve_avc" />
@@ -314,31 +314,31 @@ export default function Create({ auth, teams, momentoExameOptions }) {
 
                                 {/* Profissionais */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Profissionais</h3>
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">Profissionais</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Nome do Profissional que fez o Pedido *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={data.nome_profissional_pedido}
                                                 onChange={(e) => setData('nome_profissional_pedido', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.nome_profissional_pedido && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_profissional_pedido}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Nome do Técnico ou Médico que fez o Exame *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={data.nome_tecnico_medico_exame}
                                                 onChange={(e) => setData('nome_tecnico_medico_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                                 required
                                             />
                                             {errors.nome_tecnico_medico_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_tecnico_medico_exame}</div>}
@@ -348,15 +348,15 @@ export default function Create({ auth, teams, momentoExameOptions }) {
 
                                 {/* Momento do exame */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Momento do Exame</h3>
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">Momento do Exame</h3>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Como o paciente ficou durante o exame? *
                                         </label>
                                         <select
                                             value={data.momento_exame}
                                             onChange={(e) => setData('momento_exame', e.target.value)}
-                                            className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                             required
                                         >
                                             <option value="">Selecione...</option>
@@ -370,14 +370,14 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                     </div>
 
                                     <div className="mt-4">
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Comentários
                                         </label>
                                         <textarea
                                             value={data.comentario}
                                             onChange={(e) => setData('comentario', e.target.value)}
                                             rows={4}
-                                            className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                             placeholder="Observações adicionais..."
                                         />
                                         {errors.comentario && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.comentario}</div>}
@@ -386,10 +386,10 @@ export default function Create({ auth, teams, momentoExameOptions }) {
 
                                 {/* Arquivos */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Arquivos</h3>
+                                    <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">Arquivos</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Pedido Médico
                                             </label>
                                             <input
@@ -409,19 +409,19 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                                         setPedidoMedicoPreview(null);
                                                     }
                                                 }}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm transition-colors duration-200"
                                             />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             
                                             {/* Pré-visualização da imagem */}
                                             {pedidoMedicoPreview && (
                                                 <div className="mt-3">
-                                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pré-visualização:</p>
+                                                    <p className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Pré-visualização:</p>
                                                     <div className="relative">
                                                         <img 
                                                             src={pedidoMedicoPreview}
                                                             alt="Pré-visualização do pedido médico"
-                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm"
+                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm"
                                                         />
                                                         <button
                                                             type="button"
@@ -443,7 +443,7 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Assinatura do Paciente
                                             </label>
                                             <SignaturePad
@@ -460,7 +460,7 @@ export default function Create({ auth, teams, momentoExameOptions }) {
                                     <button
                                         type="button"
                                         onClick={() => window.history.back()}
-                                        className="bg-gray-500 dark:bg-gray-600 hover:bg-gray-700 dark:hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                        className="bg-gray-500 dark:bg-zinc-500 hover:bg-gray-700 dark:hover:bg-zinc-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                     >
                                         Cancelar
                                     </button>

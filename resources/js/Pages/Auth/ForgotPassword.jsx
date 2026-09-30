@@ -19,7 +19,7 @@ export default function ForgotPassword({ status }) {
         <GuestLayout>
             <Head title="Esqueceu a Senha" />
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+            <div className="mb-4 text-sm text-gray-600 dark:text-zinc-400">
                 Esqueceu sua senha? Sem problema. Informe seu endereço de e-mail
                 e enviaremos um link para redefinição de senha que permitirá
                 que você escolha uma nova.

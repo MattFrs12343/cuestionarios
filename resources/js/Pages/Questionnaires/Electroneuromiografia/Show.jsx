@@ -6,7 +6,7 @@ import { formatDateShort } from '@/Utils/dateFormatter';
 export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
         <div className="mb-4">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</dt>
+            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">{label}</dt>
             <dd className="mt-1 flex items-center">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${value
                     ? 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'
@@ -15,7 +15,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                     {value ? 'SIM' : 'NÃO'}
                 </span>
                 {value && conditionalValue && (
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({conditionalValue})</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-zinc-400">({conditionalValue})</span>
                 )}
             </dd>
         </div>
@@ -34,10 +34,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Visualizar Questionário
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Eletroneuromiografia
                             </p>
                         </div>
@@ -49,7 +49,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Questionário */}
                         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 px-6 py-4">
                             <div className="flex items-center justify-between">
@@ -89,10 +89,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             {/* Dados básicos */}
                             <div className="mb-8 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/10 dark:to-purple-900/10 rounded-xl p-6 border-l-4 border-indigo-500 dark:border-indigo-400">
-                                <h4 className="text-xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center">
+                                <h4 className="text-xl font-bold mb-6 text-gray-900 dark:text-zinc-100 flex items-center">
                                     <span className="w-8 h-8 bg-indigo-500 dark:bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
                                         <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -102,51 +102,51 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 </h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Nome</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.nome}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Nome</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.nome}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data de Nascimento</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data de Nascimento</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">
                                             {formatDateShort(questionnaire.data_nascimento)}
-                                            {questionnaire.idade && <span className="ml-2 text-gray-600 dark:text-gray-400">({questionnaire.idade})</span>}
+                                            {questionnaire.idade && <span className="ml-2 text-gray-600 dark:text-zinc-400">({questionnaire.idade})</span>}
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Peso</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.peso || 'Não informado'}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Peso</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.peso || 'Não informado'}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Altura</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.altura || 'Não informado'}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Altura</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.altura || 'Não informado'}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data do Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data do Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_exame)}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">RG</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.rg}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">RG</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.rg}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Sexo</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.sexo}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Sexo</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.sexo}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Solicitante</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.solicitante}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Solicitante</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.solicitante}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Clínica</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.clinica}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Clínica</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.clinica}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Equipe</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.team.name}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Equipe</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.team.name}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Tipos de Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Tipos de Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">
                                             {questionnaire.tipos_exame && questionnaire.tipos_exame.length > 0
                                                 ? questionnaire.tipos_exame.join(', ')
                                                 : 'Não informado'}
@@ -157,7 +157,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Informação Adicional */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Informação Adicional</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Informação Adicional</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="É primeira vez que vai fazer esse exame?" value={questionnaire.primeira_vez_exame} />
                                     <BooleanDisplay label="Diabético(a)" value={questionnaire.diabetico} />
@@ -165,11 +165,11 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     <BooleanDisplay label="Está tomando medicamentos (Glifage, Metformina, AAS.)" value={questionnaire.tomando_medicamentos} />
                                     {questionnaire.tomando_medicamentos && questionnaire.medicamentos_detalhes && (
                                         <div className="mb-4">
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                                 Medicamentos que está tomando:
                                             </label>
-                                            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-md border border-gray-200 dark:border-gray-600">
-                                                <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">
+                                            <div className="p-3 bg-gray-50 dark:bg-zinc-600 rounded-md border border-gray-200 dark:border-zinc-500">
+                                                <p className="text-gray-900 dark:text-zinc-100 whitespace-pre-wrap">
                                                     {questionnaire.medicamentos_detalhes}
                                                 </p>
                                             </div>
@@ -185,8 +185,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     {questionnaire.dor_coluna && questionnaire.areas_coluna && questionnaire.areas_coluna.length > 0 && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Áreas da coluna afetadas</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.areas_coluna.join(', ')}</dd>
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Áreas da coluna afetadas</dt>
+                                            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.areas_coluna.join(', ')}</dd>
                                         </div>
                                     )}
 
@@ -204,7 +204,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Membros Superiores */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Membros Superiores</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Membros Superiores</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="Sente dor nos braços?" value={questionnaire.ms_dor_bracos} />
                                     <BooleanDisplay label="A dor começa nos ombros?" value={questionnaire.ms_dor_comeca_ombros} />
@@ -212,8 +212,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     {questionnaire.ms_dor_mais_de && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">A dor é mais de</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.ms_dor_mais_de}</dd>
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">A dor é mais de</dt>
+                                            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.ms_dor_mais_de}</dd>
                                         </div>
                                     )}
 
@@ -235,8 +235,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     {questionnaire.ms_membro_mais_afetado && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Membro mais afetado</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.ms_membro_mais_afetado}</dd>
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Membro mais afetado</dt>
+                                            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.ms_membro_mais_afetado}</dd>
                                         </div>
                                     )}
                                 </dl>
@@ -244,7 +244,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Membros Inferiores */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Membros Inferiores</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Membros Inferiores</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="Sente dor nas pernas?" value={questionnaire.mi_dor_pernas} />
                                     <BooleanDisplay label="A dor começa na bacia?" value={questionnaire.mi_dor_comeca_bacia} />
@@ -268,8 +268,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     {questionnaire.mi_membro_mais_afetado && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Membro mais afetado</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.mi_membro_mais_afetado}</dd>
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Membro mais afetado</dt>
+                                            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.mi_membro_mais_afetado}</dd>
                                         </div>
                                     )}
                                 </dl>
@@ -277,7 +277,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Especialistas */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Especialistas</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Especialistas</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="Consultou com REUMATOLOGISTA?" value={questionnaire.consultou_reumatologista} conditionalValue={questionnaire.reumatologista_motivo} />
                                     <BooleanDisplay label="Consultou com NEUROLOGISTA?" value={questionnaire.consultou_neurologista} conditionalValue={questionnaire.neurologista_motivo} />
@@ -291,16 +291,16 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             {/* Observações */}
                             {questionnaire.observacoes && (
                                 <div className="mb-8">
-                                    <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Observações</h4>
-                                    <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                        <p className="text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{questionnaire.observacoes}</p>
+                                    <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Observações</h4>
+                                    <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                        <p className="text-sm text-gray-900 dark:text-zinc-100 whitespace-pre-wrap">{questionnaire.observacoes}</p>
                                     </div>
                                 </div>
                             )}
 
                             {/* Profissionais */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Profissionais</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Profissionais</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                                 </dl>
@@ -308,10 +308,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Arquivos */}
                             <div className="mb-8">
-                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Arquivos</h4>
+                                <h4 className="text-lg font-medium mb-4 text-gray-800 dark:text-zinc-200 border-b border-gray-200 dark:border-zinc-600 pb-2">Arquivos</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Pedido Médico</dt>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Pedido Médico</dt>
                                         {questionnaire.pedido_medico ? (
                                             <div>
                                                 <img
@@ -320,14 +320,14 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                     className="max-w-full h-48 object-cover rounded border cursor-pointer"
                                                     onClick={() => window.open(pedidoMedicoUrl, '_blank')}
                                                 />
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Clique para ampliar</p>
+                                                <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">Clique para ampliar</p>
                                             </div>
                                         ) : (
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Nenhum arquivo enviado</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400">Nenhum arquivo enviado</p>
                                         )}
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Assinatura do Paciente ou Acompanhante</dt>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente ou Acompanhante</dt>
                                         {questionnaire.assinatura_paciente ? (
                                             <div>
                                                 <img
@@ -337,15 +337,15 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                 />
                                             </div>
                                         ) : (
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Nenhuma assinatura registrada</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400">Nenhuma assinatura registrada</p>
                                         )}
                                     </div>
                                 </div>
                             </div>
 
                             {/* Informações de auditoria */}
-                            <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <div className="border-t border-gray-200 dark:border-zinc-600 pt-4">
+                                <div className="text-sm text-gray-500 dark:text-zinc-400">
                                     <p>Criado em: {questionnaire.created_at ? new Date(questionnaire.created_at).toLocaleString('pt-BR') : 'N/A'}</p>
                                     {questionnaire.creator && <p>Criado por: {questionnaire.creator.name}</p>}
                                     {questionnaire.updated_at && questionnaire.updated_at !== questionnaire.created_at && (
@@ -360,7 +360,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                     </div>
                 </div>
             </div>
-        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+        <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="electroneuromiografia" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
                     </div>
                 </AuthenticatedLayout>

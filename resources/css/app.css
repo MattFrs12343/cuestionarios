@@ -94,33 +94,40 @@
     }
 
     @keyframes twinkle {
-        0%, 100% { opacity: 0.4; }
+        0%, 100% { opacity: 0.35; }
         50% { opacity: 1; }
     }
 
     .animate-twinkle {
-        animation: twinkle 4s ease-in-out infinite;
-        will-change: opacity;
+        animation: twinkle 5s ease-in-out infinite;
     }
 
-    .animate-twinkle-slow {
-        animation: twinkle 6s ease-in-out infinite;
-        animation-delay: 1.5s;
-        will-change: opacity;
+    .animate-twinkle-alt {
+        animation: twinkle 7s ease-in-out infinite;
+        animation-delay: -2.5s;
+    }
+
+    .animate-twinkle-soft {
+        animation: twinkle 9s ease-in-out infinite;
+        animation-delay: -5s;
     }
 
     @keyframes drift {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(20px, -15px); }
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(1.5%, -1.2%, 0); }
     }
 
     .animate-drift {
-        animation: drift 18s ease-in-out infinite;
+        animation: drift 26s ease-in-out infinite;
         will-change: transform;
     }
 
-    .animate-drift-reverse {
-        animation: drift 22s ease-in-out infinite reverse;
-        will-change: transform;
+    @media (prefers-reduced-motion: reduce) {
+        .animate-twinkle,
+        .animate-twinkle-alt,
+        .animate-twinkle-soft,
+        .animate-drift {
+            animation: none;
+        }
     }
 }

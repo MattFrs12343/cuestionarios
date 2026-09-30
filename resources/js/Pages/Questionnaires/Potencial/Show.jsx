@@ -3,12 +3,14 @@ import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { useTranslation } from '@/Hooks/useTranslation';
+import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
 export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const { t } = useTranslation();
+    const { sees } = useFieldVisibility();
     const [showSignatureModal, setShowSignatureModal] = useState(false);
     const [showMedicalRequestModal, setShowMedicalRequestModal] = useState(false);
 
@@ -17,8 +19,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     };
 
     const InfoSection = ({ title, children }) => (
-        <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+        <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg mb-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                 {title}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -29,10 +31,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
     const InfoItem = ({ label, value, fullWidth = false }) => (
         <div className={fullWidth ? "col-span-2" : ""}>
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">
                 {label}
             </dt>
-            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">
                 {value || '-'}
             </dd>
         </div>
@@ -43,7 +45,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
             user={auth.user}
             header={
                 <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                         {t('Questionário de Potencial Evocado')} - {questionnaire.nome}
                     </h2>
                     <div className="flex space-x-2">
@@ -67,7 +69,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 space-y-6">
                             {/* Dados Básicos */}
                             <InfoSection title={t('Dados Básicos')}>
@@ -75,8 +77,8 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 <InfoItem label={t('RG ou CPF')} value={questionnaire.rg} />
                                 <InfoItem label={t('Data de Nascimento')} value={new Date(questionnaire.data_nascimento).toLocaleDateString('pt-BR')} />
                                 <InfoItem label={t('Idade')} value={questionnaire.idade} />
-                                <InfoItem label={t('Peso')} value={questionnaire.peso} />
-                                <InfoItem label={t('Altura')} value={questionnaire.altura} />
+                                {sees('peso') && <InfoItem label={t('Peso')} value={questionnaire.peso} />}
+                                {sees('altura') && <InfoItem label={t('Altura')} value={questionnaire.altura} />}
                                 <InfoItem label={t('Data do Exame')} value={new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')} />
                                 <InfoItem label={t('Sexo')} value={questionnaire.sexo} />
                                 <InfoItem label={t('Solicitante')} value={questionnaire.solicitante} />
@@ -159,6 +161,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 <InfoItem label={t('Tem labirintite ou tontura?')} value={formatBoolean(questionnaire.tem_labirintite_tontura_auditivo)} />
                                 <InfoItem label={t('Tem hipertensão arterial?')} value={formatBoolean(questionnaire.tem_hipertensao_auditivo)} />
                                 <InfoItem label={t('Tem diabetes?')} value={formatBoolean(questionnaire.tem_diabetes_auditivo)} />
+                                {sees('hiperativo') && <InfoItem label={t('Hiperativo?')} value={formatBoolean(questionnaire.hiperativo)} />}
                             </InfoSection>
 
                             {/* Potencial Evocado Visual */}
@@ -219,13 +222,13 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 <div className="col-span-2 space-y-4">
                                     {questionnaire.assinatura_paciente && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">
                                                 {t('Assinatura do Paciente')}
                                             </dt>
                                             <dd>
                                                 <button
                                                     onClick={() => setShowSignatureModal(true)}
-                                                    className="inline-block border border-gray-300 dark:border-gray-600 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                                    className="inline-block border border-gray-300 dark:border-zinc-500 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-colors"
                                                 >
                                                     <img
                                                         src={questionnaire.assinatura_paciente}
@@ -233,7 +236,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                         className="h-20 w-auto"
                                                     />
                                                 </button>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">
                                                     {t('Clique para ampliar')}
                                                 </p>
                                             </dd>
@@ -242,13 +245,13 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     {questionnaire.pedido_medico && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">
                                                 {t('Pedido Médico')}
                                             </dt>
                                             <dd>
                                                 <button
                                                     onClick={() => setShowMedicalRequestModal(true)}
-                                                    className="inline-block border border-gray-300 dark:border-gray-600 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                                    className="inline-block border border-gray-300 dark:border-zinc-500 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-colors"
                                                 >
                                                     <img
                                                         src={pedidoMedicoUrl}
@@ -256,7 +259,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                         className="h-20 w-auto"
                                                     />
                                                 </button>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">
                                                     {t('Clique para ampliar')}
                                                 </p>
                                             </dd>
@@ -279,20 +282,20 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
             {/* Modal para ampliar assinatura */}
             <ImageZoomModal
-                show={showSignatureModal}
+                isOpen={showSignatureModal}
                 onClose={() => setShowSignatureModal(false)}
-                imageUrl={questionnaire.assinatura_paciente}
-                title={t('Assinatura do Paciente')}
+                imageSrc={questionnaire.assinatura_paciente}
+                imageAlt={t('Assinatura do Paciente')}
             />
 
             {/* Modal para ampliar pedido médico */}
             <ImageZoomModal
-                show={showMedicalRequestModal}
+                isOpen={showMedicalRequestModal}
                 onClose={() => setShowMedicalRequestModal(false)}
-                imageUrl={questionnaire.pedido_medico ? pedidoMedicoUrl : ''}
-                title={t('Pedido Médico')}
+                imageSrc={questionnaire.pedido_medico ? pedidoMedicoUrl : ''}
+                imageAlt={t('Pedido Médico')}
             />
-        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+        <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="potencial" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
                     </div>
                 </AuthenticatedLayout>

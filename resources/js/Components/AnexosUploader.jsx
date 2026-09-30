@@ -70,8 +70,8 @@ export default function AnexosUploader({
     return (
         <div>
             <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-                <span className="text-xs text-gray-500 dark:text-gray-400">{total} / {max}</span>
+                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{label}</label>
+                <span className="text-xs text-gray-500 dark:text-zinc-400">{total} / {max}</span>
             </div>
 
             {(existing.length > 0 || previews.length > 0) && (
@@ -82,7 +82,7 @@ export default function AnexosUploader({
                                 <img
                                     src={a.url}
                                     alt={a.original_name || 'anexo'}
-                                    className="h-24 w-full object-cover rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm"
+                                    className="h-24 w-full object-cover rounded-lg border border-gray-300 dark:border-zinc-500 shadow-sm"
                                 />
                             </a>
                             {!readOnly && (
@@ -127,9 +127,9 @@ export default function AnexosUploader({
                         multiple
                         disabled={busy}
                         onChange={handleSelect}
-                        className="w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-900 dark:file:text-indigo-300 disabled:opacity-50"
+                        className="w-full text-sm text-gray-500 dark:text-zinc-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-indigo-900 dark:file:text-indigo-300 disabled:opacity-50"
                     />
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">
                         {busy
                             ? 'Processando imagens...'
                             : `Pode escolher da câmera, galeria ou arquivos. Faltam ${remaining}.`}
@@ -138,11 +138,11 @@ export default function AnexosUploader({
             )}
 
             {!readOnly && remaining === 0 && (
-                <p className="text-xs text-gray-500 dark:text-gray-400">Máximo de {max} imagens atingido.</p>
+                <p className="text-xs text-gray-500 dark:text-zinc-400">Máximo de {max} imagens atingido.</p>
             )}
 
             {readOnly && existing.length === 0 && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">Nenhuma imagem.</p>
+                <p className="text-sm text-gray-500 dark:text-zinc-400">Nenhuma imagem.</p>
             )}
         </div>
     );

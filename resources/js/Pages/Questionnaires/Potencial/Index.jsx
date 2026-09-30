@@ -11,7 +11,7 @@ import Modal from '@/Components/Modal';
 import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon, EyeIcon, PencilIcon, TrashIcon, CalendarIcon, UserIcon, BuildingOfficeIcon, UserGroupIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 
-export default function Index({ auth, questionnaires, filters, can }) {
+export default function Index({ auth, questionnaires, filters, can, fieldVisibility }) {
     const { t } = useTranslation();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [questionnaireToDelete, setQuestionnaireToDelete] = useState(null);
@@ -66,7 +66,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
     const handleExportToJPG = async (questionnaire) => {
         setExportingId(questionnaire.id);
         try {
-            await exportQuestionnaireToJPG(questionnaire, 'potencial', 'questionario_potencial', questionnaire.nome);
+            await exportQuestionnaireToJPG(questionnaire, 'potencial', 'questionario_potencial', questionnaire.nome, fieldVisibility?.hidden ?? []);
         } catch (error) {
             console.error('Error al exportar:', error);
             alert('Erro ao exportar o questionário. Por favor, tente novamente.');
@@ -106,13 +106,13 @@ export default function Index({ auth, questionnaires, filters, can }) {
             user={auth.user}
             header={
                 <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                         {t('Questionários de Potencial Evocado')}
                     </h2>
                     <div className="flex items-center gap-2">
                         <Link
                             href={route('questionnaires.index')}
-                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                         >
                             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -136,9 +136,9 @@ export default function Index({ auth, questionnaires, filters, can }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <FlashMessage />
                     
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-2xl">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl sm:rounded-2xl">
                         {/* Header con búsqueda rápida */}
-                        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-zinc-600">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 {/* Búsqueda rápida */}
                                 <div className="flex-1 max-w-md">
@@ -150,7 +150,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                             onChange={(e) => setSearchFilters(prev => ({ ...prev, search: e.target.value }))}
                                             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                                             placeholder={t('Buscar por nombre o RG...')}
-                                            className="w-full pl-10 pr-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900"
+                                            className="w-full pl-10 pr-4 py-2.5 rounded-lg border-gray-300 dark:border-zinc-500 focus:ring-2 focus:ring-indigo-500 dark:bg-zinc-800"
                                         />
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                         className={`relative inline-flex items-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200 ${
                                             hasActiveFilters
                                                 ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-2 border-indigo-300 dark:border-indigo-700'
-                                                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                : 'bg-gray-100 dark:bg-zinc-600 text-gray-700 dark:text-zinc-300 hover:bg-gray-200 dark:hover:bg-zinc-500'
                                         }`}
                                     >
                                         <FunnelIcon className="h-5 w-5 mr-2" />
@@ -183,10 +183,10 @@ export default function Index({ auth, questionnaires, filters, can }) {
 
                             {/* Panel de filtros expandible */}
                             {showFilters && (
-                                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top duration-200">
+                                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-600 animate-in slide-in-from-top duration-200">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-zinc-300">
                                                 {t('Data de')}
                                             </label>
                                             <TextInput
@@ -198,7 +198,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                         </div>
                                         
                                         <div>
-                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-zinc-300">
                                                 {t('Data até')}
                                             </label>
                                             <TextInput
@@ -210,7 +210,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                         </div>
                                         
                                         <div>
-                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                                            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-zinc-300">
                                                 {t('Clínica')}
                                             </label>
                                             <TextInput
@@ -250,11 +250,11 @@ export default function Index({ auth, questionnaires, filters, can }) {
 
                         {/* Vista de tabla para desktop */}
                         <div className="hidden lg:block overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                <thead className="bg-gray-50 dark:bg-gray-900/50">
+                            <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                <thead className="bg-gray-50 dark:bg-zinc-800/50">
                                     <tr>
                                         <th 
-                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
                                             onClick={() => handleSort('nome')}
                                         >
                                             <div className="flex items-center gap-2">
@@ -262,14 +262,14 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                 <span className="text-base">{getSortIcon('nome')}</span>
                                             </div>
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider">
                                             {t('Idade')}
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider">
                                             {t('RG')}
                                         </th>
                                         <th 
-                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
                                             onClick={() => handleSort('data_exame')}
                                         >
                                             <div className="flex items-center gap-2">
@@ -278,7 +278,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                             </div>
                                         </th>
                                         <th 
-                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                            className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
                                             onClick={() => handleSort('clinica')}
                                         >
                                             <div className="flex items-center gap-2">
@@ -286,48 +286,48 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                 <span className="text-base">{getSortIcon('clinica')}</span>
                                             </div>
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider">
                                             {t('Equipe')}
                                         </th>
-                                        <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 dark:text-zinc-300 uppercase tracking-wider">
                                             {t('Ações')}
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                     {questionnaires.data.map((questionnaire) => (
-                                        <tr key={questionnaire.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                                        <tr key={questionnaire.id} className="hover:bg-gray-50 dark:hover:bg-zinc-600/50 transition-colors">
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
                                                         <UserIcon className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                                                     </div>
                                                     <div className="ml-4 max-w-[160px]">
-                                                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100 break-words">
+                                                        <div className="text-sm font-medium text-gray-900 dark:text-zinc-100 break-words">
                                                             {questionnaire.nome}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-zinc-300">
                                                 {questionnaire.idade}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-zinc-300 font-mono">
                                                 {questionnaire.rg}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-zinc-300">
                                                 <div className="flex items-center">
                                                     <CalendarIcon className="h-4 w-4 mr-2 text-gray-400" />
                                                     {new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-[160px]">
+                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-300 max-w-[160px]">
                                                 <div className="flex items-start">
                                                     <BuildingOfficeIcon className="h-4 w-4 mr-2 mt-0.5 text-gray-400 flex-shrink-0" />
                                                     <span className="break-words">{questionnaire.clinica}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-[140px]">
+                                            <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-300 max-w-[140px]">
                                                 <div className="flex items-start">
                                                     <UserGroupIcon className="h-4 w-4 mr-2 mt-0.5 text-gray-400 flex-shrink-0" />
                                                     <span className="break-words">{questionnaire.team?.name}</span>
@@ -374,7 +374,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                             {questionnaires.data.map((questionnaire) => (
                                 <div 
                                     key={questionnaire.id} 
-                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700"
+                                    className="bg-gradient-to-br from-white to-gray-50 dark:from-zinc-700 dark:to-zinc-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-zinc-600"
                                 >
                                     {/* Header de la tarjeta */}
                                     <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4">
@@ -398,43 +398,43 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                     {/* Contenido de la tarjeta */}
                                     <div className="p-4 space-y-3">
                                         <div className="grid grid-cols-2 gap-3">
-                                            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                                                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                                            <div className="bg-gray-100 dark:bg-zinc-700 rounded-lg p-3">
+                                                <p className="text-xs font-medium text-gray-500 dark:text-zinc-400 mb-1">
                                                     {t('RG')}
                                                 </p>
-                                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                                                <p className="text-sm font-semibold text-gray-900 dark:text-zinc-100 font-mono">
                                                     {questionnaire.rg}
                                                 </p>
                                             </div>
                                             
-                                            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                                                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1 flex items-center">
+                                            <div className="bg-gray-100 dark:bg-zinc-700 rounded-lg p-3">
+                                                <p className="text-xs font-medium text-gray-500 dark:text-zinc-400 mb-1 flex items-center">
                                                     <CalendarIcon className="h-3 w-3 mr-1" />
                                                     {t('Data do Exame')}
                                                 </p>
-                                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                <p className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                     {new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')}
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                                            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1 flex items-center">
+                                        <div className="bg-gray-100 dark:bg-zinc-700 rounded-lg p-3">
+                                            <p className="text-xs font-medium text-gray-500 dark:text-zinc-400 mb-1 flex items-center">
                                                 <BuildingOfficeIcon className="h-3 w-3 mr-1" />
                                                 {t('Clínica')}
                                             </p>
-                                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                            <p className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                 {questionnaire.clinica}
                                             </p>
                                         </div>
 
                                         {questionnaire.team?.name && (
-                                            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                                                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1 flex items-center">
+                                            <div className="bg-gray-100 dark:bg-zinc-700 rounded-lg p-3">
+                                                <p className="text-xs font-medium text-gray-500 dark:text-zinc-400 mb-1 flex items-center">
                                                     <UserGroupIcon className="h-3 w-3 mr-1" />
                                                     {t('Equipe')}
                                                 </p>
-                                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                <p className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                     {questionnaire.team.name}
                                                 </p>
                                             </div>
@@ -442,7 +442,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                     </div>
 
                                     {/* Footer con acciones */}
-                                    <div className="bg-gray-50 dark:bg-gray-900/50 px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+                                    <div className="bg-gray-50 dark:bg-zinc-800/50 px-4 py-3 border-t border-gray-200 dark:border-zinc-600">
                                         <div className="flex gap-2">
                                             <Link
                                                 href={route('questionnaires.potencial.show', questionnaire.id)}
@@ -483,13 +483,13 @@ export default function Index({ auth, questionnaires, filters, can }) {
                         {/* Mensaje cuando no hay resultados */}
                         {questionnaires.data.length === 0 && (
                             <div className="p-12 text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full mb-4">
+                                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-zinc-600 rounded-full mb-4">
                                     <MagnifyingGlassIcon className="h-8 w-8 text-gray-400" />
                                 </div>
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-2">
                                     {t('Nenhum questionário encontrado')}
                                 </h3>
-                                <p className="text-gray-500 dark:text-gray-400">
+                                <p className="text-gray-500 dark:text-zinc-400">
                                     {t('Tente ajustar os filtros de busca')}
                                 </p>
                             </div>
@@ -497,9 +497,9 @@ export default function Index({ auth, questionnaires, filters, can }) {
 
                         {/* Paginación mejorada */}
                         {questionnaires.links && questionnaires.data.length > 0 && (
-                            <div className="bg-gray-50 dark:bg-gray-900/50 px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+                            <div className="bg-gray-50 dark:bg-zinc-800/50 px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-zinc-600">
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                                    <div className="text-sm text-gray-700 dark:text-gray-300 text-center sm:text-left">
+                                    <div className="text-sm text-gray-700 dark:text-zinc-300 text-center sm:text-left">
                                         <span className="font-medium">{questionnaires.from}</span>
                                         {' '}-{' '}
                                         <span className="font-medium">{questionnaires.to}</span>
@@ -516,8 +516,8 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                     link.active
                                                         ? 'bg-indigo-600 text-white shadow-lg scale-105'
                                                         : link.url
-                                                        ? 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600 hover:shadow-md'
-                                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                                                        ? 'bg-white dark:bg-zinc-600 text-gray-700 dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-500 border border-gray-300 dark:border-zinc-500 hover:shadow-md'
+                                                        : 'bg-gray-100 dark:bg-zinc-700 text-gray-400 dark:text-zinc-400 cursor-not-allowed'
                                                 }`}
                                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                             />
@@ -533,10 +533,10 @@ export default function Index({ auth, questionnaires, filters, can }) {
             {/* Modal de confirmação de exclusão */}
             <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
                 <div className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <h2 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
                         {t('Confirmar Exclusão')}
                     </h2>
-                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
                         {t('Tem certeza que deseja excluir este questionário? Esta ação não pode ser desfeita.')}
                     </p>
                     <div className="mt-6 flex justify-end space-x-3">

@@ -63,16 +63,6 @@ class ElectroneuromiografiaController extends Controller
         $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
 
-        // Debug logging
-        \Log::info('Store Electroneuromiografia - Request data:', [
-            'has_file' => $request->hasFile('pedido_medico'),
-            'file_info' => $request->hasFile('pedido_medico') ? [
-                'name' => $request->file('pedido_medico')->getClientOriginalName(),
-                'size' => $request->file('pedido_medico')->getSize(),
-                'mime' => $request->file('pedido_medico')->getMimeType()
-            ] : null
-        ]);
-
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -82,21 +72,13 @@ class ElectroneuromiografiaController extends Controller
             $filePath = $request->file('pedido_medico')
                 ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
-            \Log::info('File stored at:', ['path' => $filePath]);
         }
 
-        \Log::info('Data before create:', ['pedido_medico' => $data['pedido_medico'] ?? 'NULL']);
-        
         $request->validate($this->attachmentRules());
 
         $questionnaire = Electroneuromiografia::create($data);
 
         $this->storeAttachments($questionnaire, $request);
-        
-        \Log::info('Electroneuromiografia created:', [
-            'id' => $questionnaire->id,
-            'pedido_medico_saved' => $questionnaire->pedido_medico
-        ]);
 
         return redirect()->route('questionnaires.electroneuromiografia.index')
             ->with('success', 'Questionário criado com sucesso!');
@@ -148,18 +130,6 @@ class ElectroneuromiografiaController extends Controller
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
 
-        // Debug logging
-        \Log::info('Update Electroneuromiografia - Request data:', [
-            'questionnaire_id' => $electroneuromiografia->id,
-            'has_file' => $request->hasFile('pedido_medico'),
-            'current_pedido_medico' => $electroneuromiografia->pedido_medico,
-            'file_info' => $request->hasFile('pedido_medico') ? [
-                'name' => $request->file('pedido_medico')->getClientOriginalName(),
-                'size' => $request->file('pedido_medico')->getSize(),
-                'mime' => $request->file('pedido_medico')->getMimeType()
-            ] : null
-        ]);
-
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -169,30 +139,20 @@ class ElectroneuromiografiaController extends Controller
             // Eliminar archivo anterior si existe
             if ($electroneuromiografia->pedido_medico) {
                 Storage::disk('private')->delete($electroneuromiografia->pedido_medico);
-                \Log::info('Deleted old file:', ['path' => $electroneuromiografia->pedido_medico]);
             }
             $filePath = $request->file('pedido_medico')
                 ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
-            \Log::info('New file stored at:', ['path' => $filePath]);
         } else {
             // Si no hay archivo nuevo, mantener el archivo actual
             unset($data['pedido_medico']);
-            \Log::info('No new file uploaded, keeping current file:', ['current' => $electroneuromiografia->pedido_medico]);
         }
 
-        \Log::info('Data before update:', ['pedido_medico' => $data['pedido_medico'] ?? 'NOT_SET']);
-        
         $request->validate($this->attachmentRules());
 
         $electroneuromiografia->update($data);
 
         $this->storeAttachments($electroneuromiografia, $request);
-        
-        \Log::info('Electroneuromiografia updated:', [
-            'id' => $electroneuromiografia->id,
-            'pedido_medico_saved' => $electroneuromiografia->fresh()->pedido_medico
-        ]);
 
         return redirect()->route('questionnaires.electroneuromiografia.index')
             ->with('success', 'Questionário atualizado com sucesso!');

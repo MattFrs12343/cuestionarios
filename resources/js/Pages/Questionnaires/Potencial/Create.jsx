@@ -3,6 +3,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
+import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -14,6 +15,7 @@ import SignaturePad from '@/Components/SignaturePad';
 
 export default function Create({ auth, retardoMentalGraus }) {
     const { t } = useTranslation();
+    const { sees } = useFieldVisibility();
     const [signatureData, setSignatureData] = useState('');
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -62,6 +64,7 @@ export default function Create({ auth, retardoMentalGraus }) {
         tem_labirintite_tontura_auditivo: false,
         tem_hipertensao_auditivo: false,
         tem_diabetes_auditivo: false,
+        hiperativo: false,
         
         // Potencial Evocado Visual
         teve_avc: false,
@@ -148,12 +151,12 @@ export default function Create({ auth, retardoMentalGraus }) {
             user={auth.user}
             header={
                 <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                         {t('Novo Questionário de Potencial Evocado')}
                     </h2>
                     <Link
                         href={route('questionnaires.potencial.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -167,11 +170,11 @@ export default function Create({ auth, retardoMentalGraus }) {
 
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm sm:rounded-lg">
                         <form onSubmit={handleSubmit} className="p-6 space-y-6">
                             {/* Dados Básicos */}
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                     {t('Dados Básicos')}
                                 </h3>
                                 
@@ -225,37 +228,41 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         <InputError message={errors.data_exame} className="mt-2" />
                                     </div>
 
-                                    <div>
-                                        <InputLabel htmlFor="peso" value={t('Peso')} />
-                                        <TextInput
-                                            id="peso"
-                                            type="text"
-                                            className="mt-1 block w-full"
-                                            value={data.peso}
-                                            onChange={(e) => setData('peso', e.target.value)}
-                                            placeholder="Ex: 70kg"
-                                        />
-                                        <InputError message={errors.peso} className="mt-2" />
-                                    </div>
+                                    {sees('peso') && (
+                                        <div>
+                                            <InputLabel htmlFor="peso" value={t('Peso')} />
+                                            <TextInput
+                                                id="peso"
+                                                type="text"
+                                                className="mt-1 block w-full"
+                                                value={data.peso}
+                                                onChange={(e) => setData('peso', e.target.value)}
+                                                placeholder="Ex: 70kg"
+                                            />
+                                            <InputError message={errors.peso} className="mt-2" />
+                                        </div>
+                                    )}
 
-                                    <div>
-                                        <InputLabel htmlFor="altura" value={t('Altura')} />
-                                        <TextInput
-                                            id="altura"
-                                            type="text"
-                                            className="mt-1 block w-full"
-                                            value={data.altura}
-                                            onChange={(e) => setData('altura', e.target.value)}
-                                            placeholder="Ex: 1.70m"
-                                        />
-                                        <InputError message={errors.altura} className="mt-2" />
-                                    </div>
+                                    {sees('altura') && (
+                                        <div>
+                                            <InputLabel htmlFor="altura" value={t('Altura')} />
+                                            <TextInput
+                                                id="altura"
+                                                type="text"
+                                                className="mt-1 block w-full"
+                                                value={data.altura}
+                                                onChange={(e) => setData('altura', e.target.value)}
+                                                placeholder="Ex: 1.70m"
+                                            />
+                                            <InputError message={errors.altura} className="mt-2" />
+                                        </div>
+                                    )}
 
                                     <div>
                                         <InputLabel htmlFor="sexo" value={t('Sexo')} />
                                         <select
                                             id="sexo"
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                            className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                                             value={data.sexo}
                                             onChange={(e) => setData('sexo', e.target.value)}
                                             required
@@ -296,8 +303,8 @@ export default function Create({ auth, retardoMentalGraus }) {
                             </div>
 
                             {/* Potencial Evocado Auditivo */}
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                     {t('Questionário de Potencial Evocado Auditivo')}
                                 </h3>
                                 
@@ -445,7 +452,7 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.tem_retardo_mental && (
                                             <div className="ml-7">
                                                 <select
-                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                                    className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                                                     value={data.retardo_mental_grau}
                                                     onChange={(e) => setData('retardo_mental_grau', e.target.value)}
                                                 >
@@ -669,12 +676,24 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         />
                                         <InputLabel htmlFor="tem_diabetes_auditivo" value={t('Tem Diabetes?')} className="cursor-pointer" />
                                     </div>
+
+                                    {sees('hiperativo') && (
+                                        <div className="flex items-start gap-3">
+                                            <Checkbox
+                                                id="hiperativo"
+                                                checked={data.hiperativo}
+                                                onChange={(e) => setData('hiperativo', e.target.checked)}
+                                                className="mt-1"
+                                            />
+                                            <InputLabel htmlFor="hiperativo" value={t('Hiperativo?')} className="cursor-pointer" />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
                             {/* Potencial Evocado Visual */}
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                     {t('Questionário de Potencial Evocado Visual')}
                                 </h3>
                                 
@@ -876,8 +895,8 @@ export default function Create({ auth, retardoMentalGraus }) {
                             </div>
 
                             {/* Observações */}
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                     {t('Observações')}
                                 </h3>
                                 
@@ -885,7 +904,7 @@ export default function Create({ auth, retardoMentalGraus }) {
                                     <InputLabel htmlFor="observacoes" value={t('Observações')} />
                                     <textarea
                                         id="observacoes"
-                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                        className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                                         rows="4"
                                         value={data.observacoes}
                                         onChange={(e) => setData('observacoes', e.target.value)}
@@ -895,8 +914,8 @@ export default function Create({ auth, retardoMentalGraus }) {
                             </div>
 
                             {/* Assinatura e Pedido Médico */}
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                     {t('Assinatura e Documentos')}
                                 </h3>
                                 

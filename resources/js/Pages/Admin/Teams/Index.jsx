@@ -23,10 +23,10 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.teams.title')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Equipes
                         </p>
                     </div>
@@ -37,12 +37,12 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         <div className="p-6">
                             {/* Header con botón crear */}
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 flex items-center">
                                         <span className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-600 rounded-full mr-3"></span>
                                         {t('admin.teams.list')}
                                     </h3>
@@ -59,27 +59,27 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
 
                             {/* Tabla de equipos */}
                             <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-700/50">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gray-50 dark:bg-zinc-600/50">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Nome da Equipe
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 {t('admin.teams.members')}
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Data de Criação
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Ações
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {teams && teams.length > 0 ? (
                                             teams.map((team, index) => (
-                                                <tr key={team.id} className={`hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 dark:hover:from-purple-900/10 dark:hover:to-pink-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/50 dark:bg-gray-850'}`}>
+                                                <tr key={team.id} className={`hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 dark:hover:from-purple-900/10 dark:hover:to-pink-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-zinc-700' : 'bg-gray-50/50 dark:bg-zinc-600/40'}`}>
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center">
                                                             <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
@@ -87,7 +87,7 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                                                 </svg>
                                                             </div>
-                                                            <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                            <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                                 {team.name}
                                                             </div>
                                                         </div>
@@ -101,7 +101,7 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="flex items-center text-sm text-gray-900 dark:text-gray-100">
+                                                        <div className="flex items-center text-sm text-gray-900 dark:text-zinc-100">
                                                             <svg className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                             </svg>
@@ -150,10 +150,10 @@ export default function TeamsIndex({ auth, teams, isSuperAdmin }) {
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                                         </svg>
                                                     </div>
-                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1">
                                                         Nenhuma equipe encontrada
                                                     </h3>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    <p className="text-sm text-gray-500 dark:text-zinc-400">
                                                         Não há equipes registradas no sistema.
                                                     </p>
                                                 </td>

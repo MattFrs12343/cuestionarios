@@ -195,7 +195,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Rutas de administración
-Route::middleware(['auth', 'role:administrador'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin.access'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard de administración
     Route::get('/', function () {
         $admin = auth()->user();

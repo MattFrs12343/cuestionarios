@@ -174,7 +174,7 @@ export default function ElectroencefalogramaIndex({
 
         return (
             <th
-                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${className}`}
+                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-500 transition-colors duration-200 ${className}`}
                 onClick={() => handleSort(field)}
             >
                 <div className="flex items-center space-x-1">
@@ -212,17 +212,17 @@ export default function ElectroencefalogramaIndex({
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Eletroencefalograma
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Gestão de Exames Neurológicos
                             </p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -296,12 +296,12 @@ export default function ElectroencefalogramaIndex({
                     </div> */}
 
                     {/* Contenedor Principal */}
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl transition-colors duration-200">
                         <div className="p-6">
                             {/* Header com botão criar */}
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 flex items-center">
                                         <span className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></span>
                                         Questionários de EEG
                                     </h3>
@@ -320,16 +320,16 @@ export default function ElectroencefalogramaIndex({
                             </div>
 
                             {/* Filtros */}
-                            <div className="mb-6 p-5 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm transition-colors duration-200">
+                            <div className="mb-6 p-5 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700 border border-gray-200 dark:border-zinc-500 rounded-xl shadow-sm transition-colors duration-200">
                                 <div className="flex items-center mb-4">
-                                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 text-gray-600 dark:text-zinc-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                     </svg>
-                                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">Filtros de Busca</h4>
+                                    <h4 className="text-sm font-semibold text-gray-700 dark:text-zinc-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                                     <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
-                                        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
+                                        <label className="block text-xs font-medium text-gray-700 dark:text-zinc-300 mb-1 md:hidden">
                                             Buscar
                                         </label>
                                         <input
@@ -338,11 +338,11 @@ export default function ElectroencefalogramaIndex({
                                             value={search}
                                             onChange={(e) => setSearch(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
+                                        <label className="block text-xs font-medium text-gray-700 dark:text-zinc-300 mb-1 md:hidden">
                                             Data Inicial
                                         </label>
                                         <input
@@ -350,11 +350,11 @@ export default function ElectroencefalogramaIndex({
                                             placeholder="Data inicial"
                                             value={dateFrom}
                                             onChange={(e) => setDateFrom(e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
+                                        <label className="block text-xs font-medium text-gray-700 dark:text-zinc-300 mb-1 md:hidden">
                                             Data Final
                                         </label>
                                         <input
@@ -362,11 +362,11 @@ export default function ElectroencefalogramaIndex({
                                             placeholder="Data final"
                                             value={dateTo}
                                             onChange={(e) => setDateTo(e.target.value)}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
                                         />
                                     </div>
                                     <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
-                                        <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 md:hidden">
+                                        <label className="block text-xs font-medium text-gray-700 dark:text-zinc-300 mb-1 md:hidden">
                                             Clínica
                                         </label>
                                         <input
@@ -375,7 +375,7 @@ export default function ElectroencefalogramaIndex({
                                             value={selectedClinica}
                                             onChange={(e) => setSelectedClinica(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
+                                            className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 text-sm transition-colors"
                                         />
                                     </div>
                                     <div className="flex gap-2 sm:col-span-2 md:col-span-1 lg:col-span-1">
@@ -387,7 +387,7 @@ export default function ElectroencefalogramaIndex({
                                         </button>
                                         <button
                                             onClick={clearFilters}
-                                            className="flex-1 px-4 py-2 bg-gray-500 dark:bg-gray-600 text-white text-sm font-medium rounded-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-colors duration-200"
+                                            className="flex-1 px-4 py-2 bg-gray-500 dark:bg-zinc-500 text-white text-sm font-medium rounded-md hover:bg-gray-600 dark:hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-zinc-500 transition-colors duration-200"
                                         >
                                             Limpar
                                         </button>
@@ -401,16 +401,16 @@ export default function ElectroencefalogramaIndex({
                                     questionnaires.data.map((questionnaire) => (
                                         <div
                                             key={questionnaire.id}
-                                            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm dark:shadow-gray-900/50 hover:shadow-md dark:hover:shadow-gray-900/70 transition-all duration-200"
+                                            className="bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg shadow-sm dark:shadow-zinc-900/50 hover:shadow-md dark:hover:shadow-zinc-900/70 transition-all duration-200"
                                         >
                                             <div className="p-4">
                                                 {/* Header do Card */}
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div className="flex-1">
-                                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-zinc-100">
                                                             {questionnaire.nome_completo}
                                                         </h3>
-                                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                                        <p className="text-sm text-gray-600 dark:text-zinc-400 mt-1">
                                                             {questionnaire.sexo} - {questionnaire.data_nascimento ? formatDateShort(questionnaire.data_nascimento) : 'Não especificada'}
                                                         </p>
                                                     </div>
@@ -422,21 +422,21 @@ export default function ElectroencefalogramaIndex({
                                                 {/* Informações do Card */}
                                                 <div className="space-y-2 mb-4">
                                                     <div className="flex items-center text-sm">
-                                                        <span className="font-medium text-gray-700 dark:text-gray-300 w-24">Clínica:</span>
-                                                        <span className="text-gray-900 dark:text-gray-100">{questionnaire.clinica}</span>
+                                                        <span className="font-medium text-gray-700 dark:text-zinc-300 w-24">Clínica:</span>
+                                                        <span className="text-gray-900 dark:text-zinc-100">{questionnaire.clinica}</span>
                                                     </div>
                                                     <div className="flex items-center text-sm">
-                                                        <span className="font-medium text-gray-700 dark:text-gray-300 w-24">RG:</span>
-                                                        <span className="text-gray-900 dark:text-gray-100">{questionnaire.rg_ou_cpf}</span>
+                                                        <span className="font-medium text-gray-700 dark:text-zinc-300 w-24">RG:</span>
+                                                        <span className="text-gray-900 dark:text-zinc-100">{questionnaire.rg_ou_cpf}</span>
                                                     </div>
                                                     <div className="flex items-center text-sm">
-                                                        <span className="font-medium text-gray-700 dark:text-gray-300 w-24">Data Exame:</span>
-                                                        <span className="text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</span>
+                                                        <span className="font-medium text-gray-700 dark:text-zinc-300 w-24">Data Exame:</span>
+                                                        <span className="text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_exame)}</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Ações do Card */}
-                                                <div className="flex justify-center gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                                                <div className="flex justify-center gap-3 pt-3 border-t border-gray-200 dark:border-zinc-600">
                                                     <Link
                                                         href={route('questionnaires.electroencefalograma.show', questionnaire.id)}
                                                         className="flex items-center justify-center w-10 h-10 bg-indigo-600 dark:bg-indigo-700 text-white rounded-full hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors duration-200"
@@ -478,7 +478,7 @@ export default function ElectroencefalogramaIndex({
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                                    <div className="text-center py-8 text-gray-500 dark:text-zinc-400">
                                         Não há questionários registrados
                                     </div>
                                 )}
@@ -486,8 +486,8 @@ export default function ElectroencefalogramaIndex({
 
                             {/* Vista de Tabela (Tablet y Desktop) */}
                             <div className="hidden md:block overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-700">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gray-50 dark:bg-zinc-600">
                                         <tr>
                                             <SortableHeader field="nome">
                                                 Paciente
@@ -501,18 +501,18 @@ export default function ElectroencefalogramaIndex({
                                             <SortableHeader field="data_exame">
                                                 Data Exame
                                             </SortableHeader>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Equipe
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Ações
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {questionnaires.data && questionnaires.data.length > 0 ? (
                                             questionnaires.data.map((questionnaire, index) => (
-                                                <tr key={questionnaire.id} className={`hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 dark:hover:from-purple-900/10 dark:hover:to-indigo-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/50 dark:bg-gray-700/50'}`}>
+                                                <tr key={questionnaire.id} className={`hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 dark:hover:from-purple-900/10 dark:hover:to-indigo-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-zinc-700' : 'bg-gray-50/50 dark:bg-zinc-600/50'}`}>
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center">
                                                             <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
@@ -521,17 +521,17 @@ export default function ElectroencefalogramaIndex({
                                                                 </svg>
                                                             </div>
                                                             <div>
-                                                                <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                                <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                                     {questionnaire.nome_completo}
                                                                 </div>
-                                                                <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                                <div className="text-xs text-gray-500 dark:text-zinc-400">
                                                                     {questionnaire.sexo} • {questionnaire.data_nascimento ? formatDateShort(questionnaire.data_nascimento) : 'Não especificada'}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="flex items-center text-sm text-gray-900 dark:text-gray-100">
+                                                        <div className="flex items-center text-sm text-gray-900 dark:text-zinc-100">
                                                             <svg className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                                             </svg>
@@ -539,12 +539,12 @@ export default function ElectroencefalogramaIndex({
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600">
+                                                        <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-zinc-600 text-gray-800 dark:text-zinc-200 border border-gray-200 dark:border-zinc-500">
                                                             {questionnaire.rg_ou_cpf}
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="flex items-center text-sm text-gray-900 dark:text-gray-100">
+                                                        <div className="flex items-center text-sm text-gray-900 dark:text-zinc-100">
                                                             <svg className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                             </svg>
@@ -609,10 +609,10 @@ export default function ElectroencefalogramaIndex({
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                         </svg>
                                                     </div>
-                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1">
                                                         Nenhum questionário encontrado
                                                     </h3>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    <p className="text-sm text-gray-500 dark:text-zinc-400">
                                                         Não há questionários registrados com os filtros atuais.
                                                     </p>
                                                 </td>
@@ -624,9 +624,9 @@ export default function ElectroencefalogramaIndex({
 
                             {/* Paginação */}
                             {questionnaires.links && questionnaires.links.length > 3 && (
-                                <div className="mt-6 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-750 rounded-xl p-4 border border-gray-200 dark:border-gray-600">
+                                <div className="mt-6 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-4 border border-gray-200 dark:border-zinc-500">
                                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                                        <div className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 text-center sm:text-left">
+                                        <div className="flex items-center text-sm font-medium text-gray-700 dark:text-zinc-300 text-center sm:text-left">
                                             <svg className="w-5 h-5 mr-2 text-purple-500 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
@@ -640,7 +640,7 @@ export default function ElectroencefalogramaIndex({
                                                     return (
                                                         <span
                                                             key={index}
-                                                            className="inline-flex items-center px-3 py-2 text-sm bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500 border border-gray-300 dark:border-gray-500 rounded-lg cursor-not-allowed"
+                                                            className="inline-flex items-center px-3 py-2 text-sm bg-gray-200 dark:bg-zinc-500 text-gray-400 dark:text-zinc-300 border border-gray-300 dark:border-zinc-400 rounded-lg cursor-not-allowed"
                                                             dangerouslySetInnerHTML={{ __html: link.label }}
                                                         />
                                                     );
@@ -676,7 +676,7 @@ export default function ElectroencefalogramaIndex({
                                                         onClick={handlePaginationClick}
                                                         className={`inline-flex items-center px-4 py-2 text-sm font-medium border rounded-lg transition-all duration-200 shadow-sm hover:shadow ${link.active
                                                             ? 'bg-gradient-to-r from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 text-white border-purple-500 dark:border-purple-600 shadow-md'
-                                                            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-purple-300 dark:hover:border-purple-600'
+                                                            : 'bg-white dark:bg-zinc-700 text-gray-700 dark:text-zinc-300 border-gray-300 dark:border-zinc-500 hover:bg-gray-50 dark:hover:bg-zinc-600 hover:border-purple-300 dark:hover:border-purple-600'
                                                             }`}
                                                         dangerouslySetInnerHTML={{ __html: link.label }}
                                                     />

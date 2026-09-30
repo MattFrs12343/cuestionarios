@@ -1,6 +1,7 @@
 import { formatDateShort } from '@/Utils/dateFormatter';
 
-export default function QuestionnaireExportView({ questionnaire, type = 'electroencefalograma' }) {
+export default function QuestionnaireExportView({ questionnaire, type = 'electroencefalograma', hiddenFields = [] }) {
+    const isHidden = (field) => hiddenFields.includes(field);
     const InfoRow = ({ label, value }) => (
         <div className="mb-1">
             <span className="text-xs font-semibold text-gray-700">{label}</span>
@@ -174,8 +175,8 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <InfoRow label="RG ou CPF" value={questionnaire.rg} />
                         <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
                         <InfoRow label="Idade" value={questionnaire.idade} />
-                        <InfoRow label="Peso" value={questionnaire.peso} />
-                        <InfoRow label="Altura" value={questionnaire.altura} />
+                        {!isHidden('peso') && <InfoRow label="Peso" value={questionnaire.peso} />}
+                        {!isHidden('altura') && <InfoRow label="Altura" value={questionnaire.altura} />}
                         <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
                         <InfoRow label="Sexo" value={questionnaire.sexo} />
                         <InfoRow label="Solicitante" value={questionnaire.solicitante} />
@@ -210,6 +211,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <BooleanRow label="Teve infecção de ouvido?" value={questionnaire.teve_infeccao_ouvido} />
                         <BooleanRow label="Teve trauma de ouvido?" value={questionnaire.teve_trauma_ouvido} />
                         <BooleanRow label="Tem labirintite ou tontura?" value={questionnaire.tem_labirintite_tontura_auditivo} />
+                        {!isHidden('hiperativo') && <BooleanRow label="Hiperativo?" value={questionnaire.hiperativo} />}
                     </div>
                 </div>
 
@@ -458,6 +460,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <BooleanRow label="Teve paralisia facial?" value={questionnaire.teve_paralisia_facial} conditionalValue={questionnaire.paralisia_facial_vezes ? `${questionnaire.paralisia_facial_vezes} vezes` : null} />
                         <BooleanRow label="Parte da face paralisada?" value={questionnaire.tem_parte_face_paralisada} conditionalValue={questionnaire.parte_face_paralisada_qual} />
                         <BooleanRow label="Tem enxaqueca?" value={questionnaire.tem_enxaqueca} />
+                        {!isHidden('teve_avc') && <BooleanRow label="Já teve AVC? Quando?" value={questionnaire.teve_avc} conditionalValue={questionnaire.avc_quando} />}
                         <BooleanRow label="Consegue sorrir normalmente?" value={questionnaire.consegue_sorrir_normalmente} />
                         <BooleanRow label="Pode comer normalmente?" value={questionnaire.pode_comer_normalmente} />
                         <BooleanRow label="Pode assoviar?" value={questionnaire.pode_assoviar} />

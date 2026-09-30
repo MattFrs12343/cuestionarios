@@ -50,11 +50,11 @@ export default function DeleteUserForm({ className = '' }) {
     return (
         <section className={`space-y-6 ${className}`}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
                     Excluir conta
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
                     Após a exclusão da sua conta, todos os seus recursos e dados serão excluídos permanentemente. 
                     Antes de excluir sua conta, baixe todos os dados ou informações que deseja manter..
                 </p>
@@ -66,11 +66,11 @@ export default function DeleteUserForm({ className = '' }) {
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <h2 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
                         {t('profile.confirm_delete_account')}
                     </h2>
 
-                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
                         {t('profile.delete_account_warning')}
                     </p>
 

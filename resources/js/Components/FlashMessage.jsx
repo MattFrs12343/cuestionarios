@@ -46,7 +46,7 @@ export default function FlashMessage() {
 
     return (
         <div className="fixed top-4 right-4 z-50 max-w-md w-full animate-slide-in-right">
-            <div className={`${bgColor} ${borderColor} border rounded-lg shadow-lg dark:shadow-gray-900/50 p-4 transition-colors duration-200`}>
+            <div className={`${bgColor} ${borderColor} border rounded-lg shadow-lg dark:shadow-zinc-900/50 p-4 transition-colors duration-200`}>
                 <div className="flex items-start">
                     <div className={`flex-shrink-0 ${iconColor}`}>
                         {icon}

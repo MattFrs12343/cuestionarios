@@ -22,6 +22,7 @@ class TeamSwitchController extends Controller
         }
 
         $request->session()->put('current_team_id', $team->id);
+        $request->session()->put('team_selection_confirmed', true);
 
         return back();
     }

@@ -17,10 +17,10 @@ export default function ShowUser({ auth, user }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.users.view')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Usuários
                         </p>
                     </div>
@@ -31,7 +31,7 @@ export default function ShowUser({ auth, user }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Usuário */}
                         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 px-6 py-4">
                             <div className="flex items-center justify-between">
@@ -73,27 +73,27 @@ export default function ShowUser({ auth, user }) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Información Personal */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Informações Pessoais</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Informações Pessoais</h4>
                                     <div className="space-y-3">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('admin.users.name')}</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">{user.name}</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{t('admin.users.name')}</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">{user.name}</p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('admin.users.email')}</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">{user.email}</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{t('admin.users.email')}</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">{user.email}</p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">{user.phone || 'Não especificado'}</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Telefone</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">{user.phone || 'Não especificado'}</p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Endereço</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">{user.address || 'Não especificado'}</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Endereço</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">{user.address || 'Não especificado'}</p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('admin.users.status')}</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{t('admin.users.status')}</label>
                                             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                                 user.is_active 
                                                     ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' 
@@ -106,24 +106,24 @@ export default function ShowUser({ auth, user }) {
                                 </div>
 
                                 {/* Información del Sistema */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Informações do Sistema</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Informações do Sistema</h4>
                                     <div className="space-y-3">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Data de Registro</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Data de Registro</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">
                                                 {formatDateTime(user.created_at)}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Última Atualização</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Última Atualização</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">
                                                 {formatDateTime(user.updated_at)}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Último Login</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Último Login</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">
                                                 {user.last_login_at 
                                                     ? formatDateTime(user.last_login_at)
                                                     : 'Nunca'
@@ -134,8 +134,8 @@ export default function ShowUser({ auth, user }) {
                                 </div>
 
                                 {/* Roles */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Funções Atribuídas</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Funções Atribuídas</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {user.roles && user.roles.length > 0 ? (
                                             user.roles.map((role) => (
@@ -147,14 +147,14 @@ export default function ShowUser({ auth, user }) {
                                                 </span>
                                             ))
                                         ) : (
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Sem funções atribuídas</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400">Sem funções atribuídas</p>
                                         )}
                                     </div>
                                 </div>
 
                                 {/* Equipos */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Equipes</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Equipes</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {user.teams && user.teams.length > 0 ? (
                                             user.teams.map((team) => (
@@ -166,7 +166,7 @@ export default function ShowUser({ auth, user }) {
                                                 </span>
                                             ))
                                         ) : (
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">Sem equipes atribuídas</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400">Sem equipes atribuídas</p>
                                         )}
                                     </div>
                                 </div>
@@ -174,17 +174,17 @@ export default function ShowUser({ auth, user }) {
 
                             {/* Estadísticas de Cuestionarios */}
                             {(user.created_questionnaires || user.edited_questionnaires) && (
-                                <div className="mt-6 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Atividade em Questionários</h4>
+                                <div className="mt-6 bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Atividade em Questionários</h4>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Questionários Criados</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Questionários Criados</label>
                                             <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                                                 {user.created_questionnaires ? user.created_questionnaires.length : 0}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Questionários Editados</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Questionários Editados</label>
                                             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                                                 {user.edited_questionnaires ? user.edited_questionnaires.length : 0}
                                             </p>

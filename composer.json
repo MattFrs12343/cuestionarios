@@ -1,7 +1,7 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "Cuestionarios NeuroISBE",
+    "description": "Cuestionarios",
     "require": {
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^1.0",

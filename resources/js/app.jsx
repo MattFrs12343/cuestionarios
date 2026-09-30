@@ -15,10 +15,8 @@ if (typeof window !== 'undefined') {
     document.documentElement.classList.add(theme);
 }
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => title,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,
@@ -39,7 +37,7 @@ const loadingOverlay = document.createElement('div');
 loadingOverlay.id = 'app-loading-overlay';
 loadingOverlay.setAttribute('aria-hidden', 'true');
 loadingOverlay.className =
-    'fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200';
+    'fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200';
 loadingOverlay.innerHTML = `
     <div class="relative w-16 h-16" role="status" aria-label="Carregando">
         <svg class="absolute inset-0 w-16 h-16 animate-spin text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none">

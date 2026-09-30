@@ -4,14 +4,16 @@ import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
+import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 
 export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+    const { sees } = useFieldVisibility();
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
 
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
         <div className="mb-4">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</dt>
+            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">{label}</dt>
             <dd className="mt-1 flex items-center">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     value 
@@ -21,7 +23,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                     {value ? 'SIM' : 'NÃO'}
                 </span>
                 {value && conditionalValue && (
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({conditionalValue})</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-zinc-400">({conditionalValue})</span>
                 )}
             </dd>
         </div>
@@ -40,10 +42,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Visualizar Questionário
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Eletroneuromiografia Facial
                             </p>
                         </div>
@@ -55,7 +57,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Questionário */}
                         <div className="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 px-6 py-6">
                             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -95,64 +97,64 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             {/* Dados básicos */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Dados Básicos</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Dados Básicos</h4>
                                 </div>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Clínica</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.clinica}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Clínica</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.clinica}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data do Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data do Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_exame)}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Nome Completo</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.nome}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Nome Completo</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.nome}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data de Nascimento</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data de Nascimento</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">
                                             {formatDateShort(questionnaire.data_nascimento)} ({questionnaire.idade_calculada})
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Sexo</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.sexo}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Sexo</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.sexo}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">RG</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.rg}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">RG</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.rg}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Peso</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.peso ? `${questionnaire.peso} kg` : 'Não informado'}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Peso</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.peso ? `${questionnaire.peso} kg` : 'Não informado'}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Altura</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.altura ? `${questionnaire.altura} m` : 'Não informado'}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Altura</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.altura ? `${questionnaire.altura} m` : 'Não informado'}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Solicitante</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.solicitante}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Solicitante</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.solicitante}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Equipe</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.team?.name}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Equipe</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.team?.name}</dd>
                                     </div>
                                 </dl>
                             </div>
 
                             {/* Questionário Facial */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-red-500 to-pink-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Questionário de Eletroneuromiografia Facial</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Questionário de Eletroneuromiografia Facial</h4>
                                 </div>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="Tem dor na testa?" value={questionnaire.tem_dor_testa} />
@@ -166,6 +168,9 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     <BooleanDisplay label="Já teve paralisia facial?" value={questionnaire.teve_paralisia_facial} conditionalValue={questionnaire.paralisia_facial_vezes ? `${questionnaire.paralisia_facial_vezes} vezes` : null} />
                                     <BooleanDisplay label="Tem alguma parte da face que está paralisada?" value={questionnaire.tem_parte_face_paralisada} conditionalValue={questionnaire.parte_face_paralisada_qual} />
                                     <BooleanDisplay label="Tem enxaqueca?" value={questionnaire.tem_enxaqueca} />
+                                    {sees('teve_avc') && (
+                                        <BooleanDisplay label="Já teve AVC? Quando?" value={questionnaire.teve_avc} conditionalValue={questionnaire.avc_quando} />
+                                    )}
                                     <BooleanDisplay label="Consegue sorrir normalmente?" value={questionnaire.consegue_sorrir_normalmente} />
                                     <BooleanDisplay label="Pode comer normalmente?" value={questionnaire.pode_comer_normalmente} />
                                     <BooleanDisplay label="Pode assoviar?" value={questionnaire.pode_assoviar} />
@@ -176,18 +181,18 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 </dl>
                             </div>
                             {/* Arquivos */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Arquivos</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Arquivos</h4>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Pedido Médico */}
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Pedido Médico</dt>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Pedido Médico</dt>
                                         {questionnaire.pedido_medico ? (
                                             <div 
-                                                className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden cursor-pointer hover:border-orange-500 dark:hover:border-orange-400 transition-colors duration-200"
+                                                className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden cursor-pointer hover:border-orange-500 dark:hover:border-orange-400 transition-colors duration-200"
                                                 onClick={() => setIsPedidoMedicoModalOpen(true)}
                                             >
                                                 <img
@@ -195,26 +200,26 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                     alt="Pedido Médico"
                                                     className="w-full h-auto"
                                                 />
-                                                <div className="bg-gray-50 dark:bg-gray-700 px-3 py-2 text-center">
-                                                    <span className="text-xs text-gray-600 dark:text-gray-400">Clique para ampliar</span>
+                                                <div className="bg-gray-50 dark:bg-zinc-600 px-3 py-2 text-center">
+                                                    <span className="text-xs text-gray-600 dark:text-zinc-400">Clique para ampliar</span>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                                            <div className="border-2 border-dashed border-gray-300 dark:border-zinc-500 rounded-lg p-8 text-center">
                                                 <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
-                                                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Nenhum arquivo anexado</p>
+                                                <p className="mt-2 text-sm text-gray-500 dark:text-zinc-400">Nenhum arquivo anexado</p>
                                             </div>
                                         )}
                                     </div>
 
                                     {/* Assinatura */}
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Assinatura do Paciente</dt>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
                                         {questionnaire.assinatura_paciente ? (
                                             <div 
-                                                className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-orange-500 dark:hover:border-orange-400 transition-colors duration-200"
+                                                className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-orange-500 dark:hover:border-orange-400 transition-colors duration-200"
                                                 onClick={() => setIsImageModalOpen(true)}
                                             >
                                                 <img
@@ -222,16 +227,16 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                     alt="Assinatura do Paciente"
                                                     className="w-full h-auto p-4"
                                                 />
-                                                <div className="bg-gray-50 dark:bg-gray-700 px-3 py-2 text-center">
-                                                    <span className="text-xs text-gray-600 dark:text-gray-400">Clique para ampliar</span>
+                                                <div className="bg-gray-50 dark:bg-zinc-600 px-3 py-2 text-center">
+                                                    <span className="text-xs text-gray-600 dark:text-zinc-400">Clique para ampliar</span>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center bg-white">
+                                            <div className="border-2 border-dashed border-gray-300 dark:border-zinc-500 rounded-lg p-8 text-center bg-white">
                                                 <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
-                                                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Sem assinatura</p>
+                                                <p className="mt-2 text-sm text-gray-500 dark:text-zinc-400">Sem assinatura</p>
                                             </div>
                                         )}
                                     </div>
@@ -239,19 +244,19 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
 
                             {/* Informações de Auditoria */}
-                            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                            <div className="bg-gray-50 dark:bg-zinc-600/50 rounded-lg p-4 border border-gray-200 dark:border-zinc-500">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                     <div>
-                                        <span className="font-medium text-gray-700 dark:text-gray-300">Criado por:</span>
-                                        <span className="ml-2 text-gray-600 dark:text-gray-400">{questionnaire.creator?.name || 'N/A'}</span>
+                                        <span className="font-medium text-gray-700 dark:text-zinc-300">Criado por:</span>
+                                        <span className="ml-2 text-gray-600 dark:text-zinc-400">{questionnaire.creator?.name || 'N/A'}</span>
                                         <br />
-                                        <span className="font-medium text-gray-700 dark:text-gray-300">Data de criação:</span>
-                                        <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(questionnaire.created_at).toLocaleString('pt-BR')}</span>
+                                        <span className="font-medium text-gray-700 dark:text-zinc-300">Data de criação:</span>
+                                        <span className="ml-2 text-gray-600 dark:text-zinc-400">{new Date(questionnaire.created_at).toLocaleString('pt-BR')}</span>
                                     </div>
                                     {questionnaire.updated_by && (
                                         <div>
-                                            <span className="font-medium text-gray-700 dark:text-gray-300">Última modificação:</span>
-                                            <span className="ml-2 text-gray-600 dark:text-gray-400">{questionnaire.last_modified_by}</span>
+                                            <span className="font-medium text-gray-700 dark:text-zinc-300">Última modificação:</span>
+                                            <span className="ml-2 text-gray-600 dark:text-zinc-400">{questionnaire.last_modified_by}</span>
                                         </div>
                                     )}
                                 </div>
@@ -276,7 +281,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                 imageSrc={pedidoMedicoUrl}
                 imageAlt="Pedido Médico"
             />
-        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+        <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="eletroneuromiografia-facial" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
                     </div>
                 </AuthenticatedLayout>

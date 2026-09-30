@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'module.access' => \App\Http\Middleware\CheckModuleAccess::class,
+            'admin.access' => \App\Http\Middleware\EnsureIsAdministrator::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

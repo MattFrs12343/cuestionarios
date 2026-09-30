@@ -8,10 +8,10 @@ import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing }) => (
     <div className="flex flex-col h-full">
         <div className="mb-2 min-h-[5.5rem]">
-            <label className="block text-base font-semibold text-gray-800 dark:text-gray-200">
-                {label} <span className="text-gray-500 dark:text-gray-400 font-normal">(0-{max})</span>
+            <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200">
+                {label} <span className="text-gray-500 dark:text-zinc-400 font-normal">(0-{max})</span>
             </label>
-            {help && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{help}</p>}
+            {help && <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">{help}</p>}
         </div>
         <input
             type="text"
@@ -23,12 +23,12 @@ const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing 
                 if (digits !== '' && parseInt(digits, 10) > max) digits = String(max);
                 onChange(field, digits);
             }}
-            className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm text-lg font-semibold py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-lg font-semibold py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
         />
         {errors[field] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[field]}</div>}
         {drawing && (
             <div className="mt-3">
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Desenho do paciente</label>
+                <label className="block text-xs font-medium text-gray-500 dark:text-zinc-400 mb-1">Desenho do paciente</label>
                 <SignaturePad initialSignature={drawing.value} onSignatureChange={drawing.onChange} title={drawing.title} className="w-full" />
             </div>
         )}
@@ -45,9 +45,9 @@ const APPLICATION_INSTRUCTIONS = [
 ];
 
 const InstructionCard = ({ title, text }) => (
-    <div className="bg-white dark:bg-gray-800 border-l-4 border-sky-500 dark:border-sky-400 border-y border-r border-gray-200 dark:border-gray-600 rounded-lg shadow-sm p-4">
+    <div className="bg-white dark:bg-zinc-700 border-l-4 border-sky-500 dark:border-sky-400 border-y border-r border-gray-200 dark:border-zinc-500 rounded-lg shadow-sm p-4">
         <p className="text-sm font-bold text-sky-700 dark:text-sky-400 uppercase tracking-wide mb-1">{title}</p>
-        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text}</p>
+        <p className="text-sm text-gray-700 dark:text-zinc-300 leading-relaxed">{text}</p>
     </div>
 );
 
@@ -146,13 +146,13 @@ export default function Edit({ auth, questionnaire }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Editar Questionário</h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">Mini Exame do Estado Mental (MEEM)</p>
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Editar Questionário</h2>
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">Mini Exame do Estado Mental (MEEM)</p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.mini-exame-mental.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -166,7 +166,7 @@ export default function Edit({ auth, questionnaire }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         <div className="bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-600 dark:to-blue-700 px-6 py-4">
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,37 +179,37 @@ export default function Edit({ auth, questionnaire }) {
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-sky-500 to-blue-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Dados Básicos</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome do Paciente *</label>
-                                            <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome do Paciente *</label>
+                                            <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RG ou CPF *</label>
-                                            <input type="text" value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG ou CPF *</label>
+                                            <input type="text" value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data de Nascimento *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data de Nascimento *</label>
                                             <BirthDateSelectInput value={data.data_nascimento} onChange={(value) => setData('data_nascimento', value)} required={true} />
-                                            {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Idade: {idadeCalculada}</div>)}
+                                            {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-zinc-400 mt-1">Idade: {idadeCalculada}</div>)}
                                             {errors.data_nascimento && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_nascimento}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sexo *</label>
-                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Sexo *</label>
+                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
                                                 <option value="">Selecione...</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Feminino">Feminino</option>
@@ -218,32 +218,32 @@ export default function Edit({ auth, questionnaire }) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Exame *</label>
-                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data do Exame *</label>
+                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Clínica</label>
-                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica</label>
+                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Escolaridade</label>
-                                            <input type="text" value={data.escolaridade} onChange={(e) => setData('escolaridade', e.target.value)} placeholder="Ex: 4 anos" className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ex: levou 10 anos para concluir a 4ª série, considera-se escolaridade de 4 anos.</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Escolaridade</label>
+                                            <input type="text" value={data.escolaridade} onChange={(e) => setData('escolaridade', e.target.value)} placeholder="Ex: 4 anos" className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <p className="text-xs text-gray-500 dark:text-zinc-400 mt-1">Ex: levou 10 anos para concluir a 4ª série, considera-se escolaridade de 4 anos.</p>
                                             {errors.escolaridade && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.escolaridade}</div>}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Instruções de Aplicação */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-sky-500 to-blue-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Instruções de Aplicação em Tempo Real</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Instruções de Aplicação em Tempo Real</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         {APPLICATION_INSTRUCTIONS.map((item) => (
@@ -253,10 +253,10 @@ export default function Edit({ auth, questionnaire }) {
                                 </div>
 
                                 {/* Folha de Pontuação */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-6">
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Folha de Pontuação</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Folha de Pontuação</h3>
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
@@ -270,8 +270,8 @@ export default function Edit({ auth, questionnaire }) {
                                     </div>
 
                                     {/* Resultado da avaliação */}
-                                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Resultado da Avaliação</h4>
+                                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-zinc-500">
+                                        <h4 className="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-4">Resultado da Avaliação</h4>
 
                                         <div className="flex flex-col sm:flex-row sm:items-center gap-6 bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 rounded-xl p-6 mb-6">
                                             <div className="text-center sm:text-left">
@@ -285,44 +285,44 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* Identificação do avaliador */}
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div>
-                                                <label className="block text-base font-semibold text-gray-800 dark:text-gray-200 mb-1">Nome do Avaliador</label>
-                                                <input type="text" value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                                <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">Nome do Avaliador</label>
+                                                <input type="text" value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                                 {errors.nome_avaliador && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_avaliador}</div>}
                                             </div>
 
                                             <div>
-                                                <label className="block text-base font-semibold text-gray-800 dark:text-gray-200 mb-1">CID</label>
-                                                <input type="text" value={data.cid} onChange={(e) => setData('cid', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                                <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">CID</label>
+                                                <input type="text" value={data.cid} onChange={(e) => setData('cid', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                                 {errors.cid && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.cid}</div>}
                                             </div>
                                         </div>
 
                                         <div className="mt-6">
-                                            <label className="block text-base font-semibold text-gray-800 dark:text-gray-200 mb-1">Comentário</label>
-                                            <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={3} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">Comentário</label>
+                                            <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.comentario && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.comentario}</div>}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Arquivos */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-sky-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Arquivos</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Arquivos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pedido Médico</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Pedido Médico</label>
                                             {questionnaire.pedido_medico && (
-                                                <div className="mb-2 text-sm text-gray-600 dark:text-gray-400">Arquivo atual: mantido salvo se nenhum novo for selecionado.</div>
+                                                <div className="mb-2 text-sm text-gray-600 dark:text-zinc-400">Arquivo atual: mantido salvo se nenhum novo for selecionado.</div>
                                             )}
                                             <AnexosUploader type="mini-exame-mental" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assinatura do Avaliador</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Avaliador</label>
                                             <SignaturePad initialSignature={questionnaire.assinatura_paciente} onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>
@@ -331,7 +331,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                 {/* Botões */}
                                 <div className="flex justify-end space-x-3">
-                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-gray-600 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200">Cancelar</button>
+                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
                                     <button type="submit" disabled={processing} className="px-6 py-2 bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-600 dark:to-blue-700 text-white rounded-lg hover:from-sky-600 hover:to-blue-700 dark:hover:from-sky-700 dark:hover:to-blue-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Alterações'}</button>
                                 </div>
                             </form>

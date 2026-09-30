@@ -22,10 +22,10 @@ export default function RolesIndex({ auth, roles }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.roles.title')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Funções
                         </p>
                     </div>
@@ -36,11 +36,11 @@ export default function RolesIndex({ auth, roles }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm dark:shadow-gray-900/50 sm:rounded-lg transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm dark:shadow-zinc-900/50 sm:rounded-lg transition-colors duration-200">
                         <div className="p-6">
                             {/* Header con botón crear */}
                             <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-orange-500 dark:border-orange-400 pl-4">
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 border-l-4 border-orange-500 dark:border-orange-400 pl-4">
                                     {t('admin.roles.list')}
                                 </h3>
                                 <Link
@@ -55,28 +55,28 @@ export default function RolesIndex({ auth, roles }) {
                             </div>
 
                             {/* Tabla de roles */}
-                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-750">
+                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-zinc-600">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Nome da Função
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 {t('admin.roles.permissions')}
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Usuários
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Ações
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {roles && roles.length > 0 ? (
                                             roles.map((role, index) => (
-                                                <tr key={role.id} className={`hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 dark:hover:from-orange-900/10 dark:hover:to-pink-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/50 dark:bg-gray-850'}`}>
+                                                <tr key={role.id} className={`hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 dark:hover:from-orange-900/10 dark:hover:to-pink-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-zinc-700' : 'bg-gray-50/50 dark:bg-zinc-600/40'}`}>
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center">
                                                             <div className="w-10 h-10 bg-gradient-to-br from-orange-100 to-pink-100 dark:from-orange-900/30 dark:to-pink-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
@@ -84,7 +84,7 @@ export default function RolesIndex({ auth, roles }) {
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                                 </svg>
                                                             </div>
-                                                            <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                            <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                                 {role.name}
                                                             </div>
                                                         </div>
@@ -104,10 +104,10 @@ export default function RolesIndex({ auth, roles }) {
                                                                     </span>
                                                                 ))
                                                             ) : (
-                                                                <span className="text-xs text-gray-400 dark:text-gray-500">Sem permissões</span>
+                                                                <span className="text-xs text-gray-400 dark:text-zinc-400">Sem permissões</span>
                                                             )}
                                                             {role.permissions && role.permissions.length > 3 && (
-                                                                <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-600">
+                                                                <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold bg-gray-100 dark:bg-zinc-600 text-gray-600 dark:text-zinc-400 border border-gray-200 dark:border-zinc-500">
                                                                     +{role.permissions.length - 3} mais
                                                                 </span>
                                                             )}
@@ -155,10 +155,10 @@ export default function RolesIndex({ auth, roles }) {
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                         </svg>
                                                     </div>
-                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                                                    <h3 className="text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1">
                                                         Nenhuma função encontrada
                                                     </h3>
-                                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    <p className="text-sm text-gray-500 dark:text-zinc-400">
                                                         Não há funções registradas no sistema.
                                                     </p>
                                                 </td>

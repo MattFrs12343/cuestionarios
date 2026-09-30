@@ -10,7 +10,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
         <div className="mb-4">
-            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</dt>
+            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">{label}</dt>
             <dd className="mt-1 flex items-center">
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     value 
@@ -20,7 +20,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                     {value ? 'SIM' : 'NÃO'}
                 </span>
                 {value && conditionalValue && (
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({conditionalValue})</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-zinc-400">({conditionalValue})</span>
                 )}
             </dd>
         </div>
@@ -39,10 +39,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Visualizar Questionário
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Eletroencefalograma
                             </p>
                         </div>
@@ -54,7 +54,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Questionário */}
                         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 px-6 py-6">
                             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -94,74 +94,74 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             {/* Dados básicos */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-indigo-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Dados Básicos</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Dados Básicos</h4>
                                 </div>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Clínica</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.clinica}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Clínica</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.clinica}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data do Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{formatDateShort(questionnaire.data_exame)}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data do Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_exame)}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Nome Completo</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.nome_completo}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Nome Completo</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.nome_completo}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Data de Nascimento</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Data de Nascimento</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">
                                             {formatDateShort(questionnaire.data_nascimento)} ({questionnaire.idade})
                                         </dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Sexo</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.sexo}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Sexo</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.sexo}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">RG ou CPF</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.rg_ou_cpf}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">RG ou CPF</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.rg_ou_cpf}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Equipe</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.team.name}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Equipe</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.team.name}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Tipo de Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.tipo_exame || 'Não informado'}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Tipo de Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.tipo_exame || 'Não informado'}</dd>
                                     </div>
                                 </dl>
                             </div>
 
                             {/* Profissionais */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Profissionais</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Profissionais</h4>
                                 </div>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Nome do Profissional que fez o Pedido</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.nome_profissional_pedido}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Nome do Profissional que fez o Pedido</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.nome_profissional_pedido}</dd>
                                     </div>
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Nome do Técnico ou Médico que fez o Exame</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.nome_tecnico_medico_exame}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Nome do Técnico ou Médico que fez o Exame</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.nome_tecnico_medico_exame}</dd>
                                     </div>
                                 </dl>
                             </div>
 
                             {/* Histórico médico */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-red-500 to-pink-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Histórico Médico</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Histórico Médico</h4>
                                 </div>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <BooleanDisplay label="Teve COVID" value={questionnaire.teve_covid} />
@@ -205,20 +205,20 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
 
                             {/* Momento do exame */}
-                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">
                                     <div className="w-1 h-8 bg-gradient-to-b from-yellow-500 to-orange-600 rounded-full mr-3"></div>
-                                    <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Momento do Exame</h4>
+                                    <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Momento do Exame</h4>
                                 </div>
                                 <dl className="space-y-4">
                                     <div>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Como o paciente ficou durante o exame?</dt>
-                                        <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">{questionnaire.momento_exame}</dd>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Como o paciente ficou durante o exame?</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100">{questionnaire.momento_exame}</dd>
                                     </div>
                                     {questionnaire.comentario && (
                                         <div>
-                                            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Comentários</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{questionnaire.comentario}</dd>
+                                            <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">Comentários</dt>
+                                            <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100 whitespace-pre-wrap">{questionnaire.comentario}</dd>
                                         </div>
                                     )}
                                 </dl>
@@ -226,20 +226,20 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                             {/* Arquivos */}
                             {(questionnaire.pedido_medico || questionnaire.assinatura_paciente) && (
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                        <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200">Arquivos</h4>
+                                        <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Arquivos</h4>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {questionnaire.pedido_medico && (
                                             <div>
-                                                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Pedido Médico</dt>
+                                                <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Pedido Médico</dt>
                                                 <dd className="relative group">
                                                     <img 
                                                         src={pedidoMedicoUrl}
                                                         alt="Pedido Médico"
-                                                        className="max-w-full h-auto border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50 cursor-pointer hover:opacity-90 transition-opacity"
+                                                        className="max-w-full h-auto border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50 cursor-pointer hover:opacity-90 transition-opacity"
                                                         onClick={() => setIsImageModalOpen(true)}
                                                     />
                                                     <button
@@ -251,7 +251,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
                                                         </svg>
                                                     </button>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                                                    <p className="text-xs text-gray-500 dark:text-zinc-400 mt-2 text-center">
                                                         Clique na imagem para ampliar
                                                     </p>
                                                 </dd>
@@ -259,12 +259,12 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                         )}
                                         {questionnaire.assinatura_paciente && (
                                             <div>
-                                                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Assinatura do Paciente</dt>
+                                                <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
                                                 <dd>
                                                     <img 
                                                         src={questionnaire.assinatura_paciente}
                                                         alt="Assinatura do Paciente"
-                                                        className="max-w-full h-auto border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50"
+                                                        className="max-w-full h-auto border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50"
                                                     />
                                                 </dd>
                                             </div>
@@ -296,7 +296,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                     </div>
                 </div>
             </div>
-        <div className="mt-6 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg p-6">
+        <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="electroencefalograma" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
                     </div>
                 </AuthenticatedLayout>

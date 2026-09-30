@@ -26,9 +26,9 @@ const SECTIONS = [
 ];
 
 const Toggle = ({ label, checked, onChange }) => (
-    <label className="flex items-center justify-between gap-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-        <span className="text-base text-gray-800 dark:text-gray-200">{label}</span>
-        <input type="checkbox" checked={!!checked} onChange={(e) => onChange(e.target.checked)} className="w-6 h-6 text-violet-600 dark:text-violet-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded focus:ring-violet-500 dark:focus:ring-violet-600 flex-shrink-0" />
+    <label className="flex items-center justify-between gap-4 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-500 rounded-lg p-4">
+        <span className="text-base text-gray-800 dark:text-zinc-200">{label}</span>
+        <input type="checkbox" checked={!!checked} onChange={(e) => onChange(e.target.checked)} className="w-6 h-6 text-violet-600 dark:text-violet-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-violet-500 dark:focus:ring-violet-600 flex-shrink-0" />
     </label>
 );
 
@@ -165,10 +165,10 @@ export default function Create({ auth }) {
         post(route('questionnaires.dinamometro.store'));
     };
 
-    const labelClass = "block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
-    const inputClass = "w-full text-base py-2.5 px-3.5 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-violet-500 dark:focus:ring-violet-600 focus:border-violet-500 dark:focus:border-violet-600";
-    const subLabelClass = "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
-    const subInputClass = "w-full text-sm py-2 px-3 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-violet-500 dark:focus:ring-violet-600 focus:border-violet-500 dark:focus:border-violet-600";
+    const labelClass = "block text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1.5";
+    const inputClass = "w-full text-base py-2.5 px-3.5 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-violet-500 dark:focus:ring-violet-600 focus:border-violet-500 dark:focus:border-violet-600";
+    const subLabelClass = "block text-sm font-semibold text-gray-700 dark:text-zinc-300 mb-1.5";
+    const subInputClass = "w-full text-sm py-2 px-3 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-violet-500 dark:focus:ring-violet-600 focus:border-violet-500 dark:focus:border-violet-600";
     const errorClass = "text-red-600 dark:text-red-400 text-sm mt-1.5";
 
     return (
@@ -183,13 +183,13 @@ export default function Create({ auth }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">Novo Questionário</h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">Dinamômetro - Força de Preensão Manual</p>
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Novo Questionário</h2>
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">Dinamômetro - Força de Preensão Manual</p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.dinamometro.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -207,19 +207,19 @@ export default function Create({ auth }) {
                         <QuestionnaireSectionNav sections={SECTIONS} color="violet" />
 
                         <div className="flex-1 min-w-0 max-w-4xl">
-                            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                            <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                                 <div className="bg-gradient-to-r from-violet-500 to-purple-600 dark:from-violet-600 dark:to-purple-700 px-6 py-5">
                                     <h3 className="text-2xl font-bold text-white">Prontuário — Avaliação de Força de Preensão Manual (Dinamômetro)</h3>
                                     <p className="text-base text-violet-100 mt-1">Questionário Unificado | Neurológico · Ortopédico · Geriátrico · Pediátrico</p>
                                 </div>
 
-                                <div className="p-6 text-gray-900 dark:text-gray-100">
+                                <div className="p-6 text-gray-900 dark:text-zinc-100">
                                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                                         {/* Identificação */}
-                                        <div id="sec-identificacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-identificacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">1. Identificação do Paciente</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">1. Identificação do Paciente</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
@@ -230,7 +230,7 @@ export default function Create({ auth }) {
                                                 <div>
                                                     <label className={labelClass}>Data de Nascimento *</label>
                                                     <BirthDateSelectInput value={data.data_nascimento} onChange={(value) => setData('data_nascimento', value)} required={true} />
-                                                    {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-gray-400 mt-1.5">Idade: {idadeCalculada}</div>)}
+                                                    {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-zinc-400 mt-1.5">Idade: {idadeCalculada}</div>)}
                                                     {errors.data_nascimento && <div className={errorClass}>{errors.data_nascimento}</div>}
                                                 </div>
                                                 <div>
@@ -288,18 +288,18 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Contexto clínico */}
-                                        <div id="sec-contexto" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-contexto" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">2. Contexto Clínico</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">2. Contexto Clínico</h3>
                                             </div>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 {CONTEXTOS.map((c) => (
-                                                    <label key={c.value} className={`flex items-start gap-3 border rounded-lg p-4 cursor-pointer transition-colors ${data.contextos_clinicos.includes(c.value) ? 'bg-violet-50 dark:bg-violet-900/20 border-violet-400 dark:border-violet-600' : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600'}`}>
-                                                        <input type="checkbox" checked={data.contextos_clinicos.includes(c.value)} onChange={() => toggleContexto(c.value)} className="mt-1 w-6 h-6 text-violet-600 dark:text-violet-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded focus:ring-violet-500 dark:focus:ring-violet-600" />
+                                                    <label key={c.value} className={`flex items-start gap-3 border rounded-lg p-4 cursor-pointer transition-colors ${data.contextos_clinicos.includes(c.value) ? 'bg-violet-50 dark:bg-violet-900/20 border-violet-400 dark:border-violet-600' : 'bg-white dark:bg-zinc-700 border-gray-200 dark:border-zinc-500'}`}>
+                                                        <input type="checkbox" checked={data.contextos_clinicos.includes(c.value)} onChange={() => toggleContexto(c.value)} className="mt-1 w-6 h-6 text-violet-600 dark:text-violet-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-violet-500 dark:focus:ring-violet-600" />
                                                         <span>
-                                                            <span className="block text-base font-semibold text-gray-900 dark:text-gray-100">{c.label}</span>
-                                                            <span className="block text-sm text-gray-500 dark:text-gray-400">{c.help}</span>
+                                                            <span className="block text-base font-semibold text-gray-900 dark:text-zinc-100">{c.label}</span>
+                                                            <span className="block text-sm text-gray-500 dark:text-zinc-400">{c.help}</span>
                                                         </span>
                                                     </label>
                                                 ))}
@@ -307,10 +307,10 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Histórico clínico */}
-                                        <div id="sec-historico" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-historico" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">3. Histórico Clínico</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">3. Histórico Clínico</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
                                                 <div>
@@ -346,10 +346,10 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Seções por contexto */}
-                                        <div id="sec-secoes" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-secoes" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">4. Seção Específica por Contexto</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">4. Seção Específica por Contexto</h3>
                                             </div>
                                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                                 <div className="border border-cyan-200 dark:border-cyan-800 rounded-lg p-5 bg-cyan-50/50 dark:bg-cyan-900/10">
@@ -438,10 +438,10 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Condições no dia do teste */}
-                                        <div id="sec-condicoes" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-condicoes" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">5. Condições no Dia do Teste</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">5. Condições no Dia do Teste</h3>
                                             </div>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <Toggle label="Dormiu bem?" checked={data.dormiu_bem} onChange={(v) => setData('dormiu_bem', v)} />
@@ -452,12 +452,12 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Padronização e resultados */}
-                                        <div id="sec-resultados" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-resultados" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">6. Padronização e Resultados</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">6. Padronização e Resultados</h3>
                                             </div>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 italic mb-5">Posição: sentado, cotovelo 90°, punho neutro</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400 italic mb-5">Posição: sentado, cotovelo 90°, punho neutro</p>
                                             <div className="grid grid-cols-2 gap-6 mb-6">
                                                 <div>
                                                     <label className={labelClass}>Tentativas</label>
@@ -469,23 +469,23 @@ export default function Create({ auth }) {
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-5">
-                                                    <h4 className="text-base font-bold text-gray-800 dark:text-gray-200 mb-3">Mão Dominante (kgf)</h4>
+                                                <div className="border border-gray-200 dark:border-zinc-500 rounded-lg p-5">
+                                                    <h4 className="text-base font-bold text-gray-800 dark:text-zinc-200 mb-3">Mão Dominante (kgf)</h4>
                                                     <div className="grid grid-cols-3 gap-2 mb-3">
                                                         <input type="number" step="0.01" placeholder="1ª" value={data.mao_dominante_t1} onChange={(e) => setData('mao_dominante_t1', e.target.value)} className={subInputClass} />
                                                         <input type="number" step="0.01" placeholder="2ª" value={data.mao_dominante_t2} onChange={(e) => setData('mao_dominante_t2', e.target.value)} className={subInputClass} />
                                                         <input type="number" step="0.01" placeholder="3ª" value={data.mao_dominante_t3} onChange={(e) => setData('mao_dominante_t3', e.target.value)} className={subInputClass} />
                                                     </div>
-                                                    <p className="text-base text-gray-700 dark:text-gray-300">Média: <span className="font-bold text-lg text-violet-700 dark:text-violet-300">{data.mao_dominante_media || '-'}</span></p>
+                                                    <p className="text-base text-gray-700 dark:text-zinc-300">Média: <span className="font-bold text-lg text-violet-700 dark:text-violet-300">{data.mao_dominante_media || '-'}</span></p>
                                                 </div>
-                                                <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-5">
-                                                    <h4 className="text-base font-bold text-gray-800 dark:text-gray-200 mb-3">Mão Não Dominante (kgf)</h4>
+                                                <div className="border border-gray-200 dark:border-zinc-500 rounded-lg p-5">
+                                                    <h4 className="text-base font-bold text-gray-800 dark:text-zinc-200 mb-3">Mão Não Dominante (kgf)</h4>
                                                     <div className="grid grid-cols-3 gap-2 mb-3">
                                                         <input type="number" step="0.01" placeholder="1ª" value={data.mao_nao_dominante_t1} onChange={(e) => setData('mao_nao_dominante_t1', e.target.value)} className={subInputClass} />
                                                         <input type="number" step="0.01" placeholder="2ª" value={data.mao_nao_dominante_t2} onChange={(e) => setData('mao_nao_dominante_t2', e.target.value)} className={subInputClass} />
                                                         <input type="number" step="0.01" placeholder="3ª" value={data.mao_nao_dominante_t3} onChange={(e) => setData('mao_nao_dominante_t3', e.target.value)} className={subInputClass} />
                                                     </div>
-                                                    <p className="text-base text-gray-700 dark:text-gray-300">Média: <span className="font-bold text-lg text-violet-700 dark:text-violet-300">{data.mao_nao_dominante_media || '-'}</span></p>
+                                                    <p className="text-base text-gray-700 dark:text-zinc-300">Média: <span className="font-bold text-lg text-violet-700 dark:text-violet-300">{data.mao_nao_dominante_media || '-'}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -516,10 +516,10 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Interpretação e conduta */}
-                                        <div id="sec-interpretacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-interpretacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-violet-500 to-purple-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">8. Interpretação e Conduta</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">8. Interpretação e Conduta</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                 <div>
@@ -556,10 +556,10 @@ export default function Create({ auth }) {
                                         </div>
 
                                         {/* Arquivos */}
-                                        <div id="sec-arquivos" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                        <div id="sec-arquivos" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
                                                 <div className="w-1 h-9 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Arquivos e Assinatura</h3>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">Arquivos e Assinatura</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
@@ -576,7 +576,7 @@ export default function Create({ auth }) {
                                         </div>
 
                                         <div className="flex justify-end space-x-3">
-                                            <button type="button" onClick={() => window.history.back()} className="px-7 py-3 text-base font-semibold bg-gray-500 dark:bg-gray-600 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200">Cancelar</button>
+                                            <button type="button" onClick={() => window.history.back()} className="px-7 py-3 text-base font-semibold bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
                                             <button type="submit" disabled={processing} className="px-7 py-3 text-base font-semibold bg-gradient-to-r from-violet-500 to-purple-600 dark:from-violet-600 dark:to-purple-700 text-white rounded-lg hover:from-violet-600 hover:to-purple-700 dark:hover:from-violet-700 dark:hover:to-purple-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Questionário'}</button>
                                         </div>
                                     </form>

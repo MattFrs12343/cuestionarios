@@ -31,7 +31,7 @@ export default function Index({ auth, users, modules, filters }) {
             case 'tecnico':
                 return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
             default:
-                return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+                return 'bg-gray-100 text-gray-800 dark:bg-zinc-800 dark:text-zinc-300';
         }
     };
 
@@ -48,7 +48,7 @@ export default function Index({ auth, users, modules, filters }) {
             case 'mini_exame_mental':
                 return 'bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300';
             default:
-                return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+                return 'bg-gray-100 text-gray-800 dark:bg-zinc-800 dark:text-zinc-300';
         }
     };
 
@@ -63,10 +63,10 @@ export default function Index({ auth, users, modules, filters }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             Gerenciamento de Módulos de Usuário
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Controle de Acesso aos Módulos
                         </p>
                     </div>
@@ -77,11 +77,11 @@ export default function Index({ auth, users, modules, filters }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             {/* Header interno */}
                             <div className="mb-6">
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-indigo-500 dark:border-indigo-400 pl-4">
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 border-l-4 border-indigo-500 dark:border-indigo-400 pl-4">
                                     Lista de Usuários
                                 </h3>
                             </div>
@@ -111,7 +111,7 @@ export default function Index({ auth, users, modules, filters }) {
                             <div className="mb-6">
                                 <form onSubmit={handleSearch} className="flex flex-wrap gap-4 items-end">
                                     <div className="flex-1 min-w-64">
-                                        <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Pesquisar usuário
                                         </label>
                                         <div className="relative">
@@ -121,7 +121,7 @@ export default function Index({ auth, users, modules, filters }) {
                                                 value={search}
                                                 onChange={(e) => setSearch(e.target.value)}
                                                 placeholder="Nombre o email..."
-                                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-zinc-500 rounded-md leading-5 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 placeholder-gray-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                                             />
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
@@ -130,14 +130,14 @@ export default function Index({ auth, users, modules, filters }) {
                                     </div>
                                     
                                     <div className="min-w-48">
-                                        <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Funçao
                                         </label>
                                         <select
                                             id="role"
                                             value={role}
                                             onChange={(e) => setRole(e.target.value)}
-                                            className="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                            className="block w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 rounded-md bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                                         >
                                             <option value="">Todas as funçoes</option>
                                             <option value="laudador">Laudador</option>
@@ -166,40 +166,40 @@ export default function Index({ auth, users, modules, filters }) {
                             </div>
 
                             {/* Tabla de usuarios */}
-                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-750">
+                            <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-zinc-600">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-700">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Usuario
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Funçao
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Módulos Asignados
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Estado
                                             </th>
-                                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">
                                                 Acões
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {users.data.map((user, index) => (
-                                            <tr key={user.id} className={`hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/10 dark:hover:to-purple-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50/50 dark:bg-gray-850'}`}>
+                                            <tr key={user.id} className={`hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/10 dark:hover:to-purple-900/10 transition-all duration-200 ${index % 2 === 0 ? 'bg-white dark:bg-zinc-700' : 'bg-gray-50/50 dark:bg-zinc-600/40'}`}>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center">
                                                         <div className="w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
                                                             <UserIcon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                                                         </div>
                                                         <div>
-                                                            <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                                            <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                                                                 {user.name}
                                                             </div>
-                                                            <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                            <div className="text-xs text-gray-500 dark:text-zinc-400">
                                                                 {user.email}
                                                             </div>
                                                         </div>
@@ -232,7 +232,7 @@ export default function Index({ auth, users, modules, filters }) {
                                                                 </span>
                                                             ))
                                                         ) : (
-                                                            <span className="text-xs text-gray-400 dark:text-gray-500 italic">
+                                                            <span className="text-xs text-gray-400 dark:text-zinc-400 italic">
                                                                 Sem módulos asignados
                                                             </span>
                                                         )}
@@ -272,7 +272,7 @@ export default function Index({ auth, users, modules, filters }) {
                             {/* Paginación */}
                             {users.links && users.links.length > 3 && (
                                 <div className="mt-6 flex justify-between items-center">
-                                    <div className="text-sm text-gray-700 dark:text-gray-300">
+                                    <div className="text-sm text-gray-700 dark:text-zinc-300">
                                         Mostrando {users.from} a {users.to} de {users.total} resultados
                                     </div>
                                     <div className="flex space-x-1">
@@ -284,8 +284,8 @@ export default function Index({ auth, users, modules, filters }) {
                                                     link.active
                                                         ? 'bg-indigo-600 text-white'
                                                         : link.url
-                                                        ? 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
-                                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                                                        ? 'bg-white dark:bg-zinc-600 text-gray-700 dark:text-zinc-300 hover:bg-gray-50 dark:hover:bg-zinc-500 border border-gray-300 dark:border-zinc-500'
+                                                        : 'bg-gray-100 dark:bg-zinc-700 text-gray-400 dark:text-zinc-400 cursor-not-allowed'
                                                 }`}
                                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                             />
@@ -299,10 +299,10 @@ export default function Index({ auth, users, modules, filters }) {
                                     <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-full mb-3 mx-auto">
                                         <UserIcon className="w-8 h-8 text-indigo-500 dark:text-indigo-400" />
                                     </div>
-                                    <h3 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                                    <h3 className="text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1">
                                         Nenhum usuário encontrado
                                     </h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="text-sm text-gray-500 dark:text-zinc-400">
                                         Não há usuários com funções de LAUDADOR ou TÉCNICO que correspondam aos filtros.
                                     </p>
                                 </div>

@@ -83,7 +83,7 @@ return [
             'slug' => 'mini-exame-mental',
             'label' => 'Mini Exame do Estado Mental (MEEM)',
             'description' => 'Protocolo de rastreio cognitivo breve em consulta',
-            'color' => 'bg-sky-500',
+            'color' => 'bg-blue-500',
             'core' => true,
         ],
         'estesiometria' => [
@@ -99,7 +99,7 @@ return [
             'slug' => 'tdah-infantil',
             'label' => 'TDAH Infantil (SNAP-IV)',
             'description' => 'Escala de autoavaliação para TDAH em crianças',
-            'color' => 'bg-pink-500',
+            'color' => 'bg-violet-500',
             'core' => false,
         ],
         'tdah_adulto' => [

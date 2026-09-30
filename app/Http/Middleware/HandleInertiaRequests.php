@@ -41,6 +41,14 @@ class HandleInertiaRequests extends Middleware
             'switchableTeams' => fn () => $user
                 ? ($user->isSuperAdmin() ? Team::orderBy('name')->get() : $user->teams)
                 : [],
+            // Un usuario no-admin con más de un equipo debe elegir con cuál
+            // trabajar antes de seguir navegando; se pregunta una sola vez por
+            // sesión (se confirma en TeamSwitchController) para no interrumpir
+            // en cada request.
+            'needsTeamSelection' => $user
+                && ! $user->isSuperAdmin()
+                && $user->teams->count() > 1
+                && ! $request->session()->get('team_selection_confirmed', false),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

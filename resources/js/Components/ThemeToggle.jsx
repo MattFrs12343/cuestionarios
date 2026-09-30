@@ -6,7 +6,7 @@ export default function ThemeToggle({ className = '' }) {
     return (
         <button
             onClick={toggleTheme}
-            className={`inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 ${className}`}
+            className={`inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200 hover:bg-gray-100 dark:hover:bg-zinc-600 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-zinc-700 ${className}`}
             aria-label={isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
             title={isDark ? 'Tema Claro' : 'Tema Escuro'}
         >

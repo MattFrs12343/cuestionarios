@@ -40,10 +40,10 @@ export default function EditRole({ auth, role, permissions }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             {t('admin.roles.edit')}
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Gerenciamento de Funções
                         </p>
                     </div>
@@ -82,34 +82,34 @@ export default function EditRole({ auth, role, permissions }) {
                         </div>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm dark:shadow-gray-900/50 sm:rounded-lg transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm dark:shadow-zinc-900/50 sm:rounded-lg transition-colors duration-200">
                         <div className="p-6">
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 {/* Nombre del rol */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                         {t('admin.roles.name')} *
                                     </label>
                                     <input
                                         type="text"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
                                         placeholder="Ex: gerente, supervisor, etc."
                                         required
                                         disabled={role.name === 'administrador'}
                                     />
                                     {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
                                     {role.name === 'administrador' && (
-                                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">O nome da função administrador não pode ser alterado</p>
+                                        <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400">O nome da função administrador não pode ser alterado</p>
                                     )}
                                 </div>
 
                                 {/* Permisos */}
                                 <div>
                                     <div className="flex justify-between items-center mb-4">
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">
                                             Permisos
                                         </label>
                                         <div className="flex space-x-2">
@@ -130,7 +130,7 @@ export default function EditRole({ auth, role, permissions }) {
                                         </div>
                                     </div>
                                     
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto border border-gray-200 dark:border-gray-600 rounded-md p-4 bg-gray-50 dark:bg-gray-700/50">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto border border-gray-200 dark:border-zinc-500 rounded-md p-4 bg-gray-50 dark:bg-zinc-600/50">
                                         {permissions && permissions.map((permission) => (
                                             <div key={permission.id} className="flex items-center">
                                                 <input
@@ -138,9 +138,9 @@ export default function EditRole({ auth, role, permissions }) {
                                                     id={`permission-${permission.id}`}
                                                     checked={data.permissions.includes(permission.id)}
                                                     onChange={() => handlePermissionChange(permission.id)}
-                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded"
+                                                    className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 dark:focus:ring-blue-600 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded"
                                                 />
-                                                <label htmlFor={`permission-${permission.id}`} className="ml-2 block text-sm text-gray-900 dark:text-gray-100">
+                                                <label htmlFor={`permission-${permission.id}`} className="ml-2 block text-sm text-gray-900 dark:text-zinc-100">
                                                     {permission.name}
                                                 </label>
                                             </div>
@@ -149,10 +149,10 @@ export default function EditRole({ auth, role, permissions }) {
                                     {errors.permissions && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.permissions}</p>}
                                 </div>
 
-                                <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-zinc-600">
                                     <Link
                                         href={route('admin.roles.index')}
-                                        className="inline-flex items-center px-6 py-3 bg-gray-500 dark:bg-gray-600 hover:bg-gray-600 dark:hover:bg-gray-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-sm hover:shadow"
+                                        className="inline-flex items-center px-6 py-3 bg-gray-500 dark:bg-zinc-500 hover:bg-gray-600 dark:hover:bg-zinc-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-sm hover:shadow"
                                     >
                                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

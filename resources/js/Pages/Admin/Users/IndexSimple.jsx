@@ -23,17 +23,17 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Gestión de Usuarios</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Gestión de Usuarios</h2>}
         >
             <Head title="Gestión de Usuarios" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm dark:shadow-gray-900/50 sm:rounded-lg transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm dark:shadow-zinc-900/50 sm:rounded-lg transition-colors duration-200">
                         <div className="p-6">
                             {/* Header con botón crear */}
                             <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">Lista de Usuarios</h3>
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">Lista de Usuarios</h3>
                                 <Link
                                     href={route('admin.users.create')}
                                     className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
@@ -44,37 +44,37 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
 
                             {/* Tabla de usuarios */}
                             <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-700/50">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                    <thead className="bg-gray-50 dark:bg-zinc-600/50">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Usuario
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Roles
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Equipos
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Estado
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                 Acciones
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                         {users.data && users.data.length > 0 ? (
                                             users.data.map((user) => (
-                                                <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200">
+                                                <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-zinc-600/50 transition-colors duration-200">
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <div>
-                                                                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                                                <div className="text-sm font-medium text-gray-900 dark:text-zinc-100">
                                                                     {user.name}
                                                                 </div>
-                                                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                                                                <div className="text-sm text-gray-500 dark:text-zinc-400">
                                                                     {user.email}
                                                                 </div>
                                                             </div>
@@ -147,7 +147,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan="5" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                                <td colSpan="5" className="px-6 py-4 text-center text-gray-500 dark:text-zinc-400">
                                                     No hay usuarios registrados
                                                 </td>
                                             </tr>
@@ -158,7 +158,7 @@ export default function UsersIndex({ auth, users, roles = [], teams = [], filter
 
                             {/* Información de paginación simple */}
                             {users.total && (
-                                <div className="mt-6 text-sm text-gray-700 dark:text-gray-300">
+                                <div className="mt-6 text-sm text-gray-700 dark:text-zinc-300">
                                     Total de usuarios: {users.total}
                                 </div>
                             )}

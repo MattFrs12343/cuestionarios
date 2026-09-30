@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, memo } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 
 // Componente BooleanField fuera del componente principal para evitar recreación
 const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFields = [], data, onDataChange, errors }) => {
@@ -14,27 +15,27 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
 
     return (
         <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">{label}</label>
             <div className="flex space-x-4">
-                <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(true)}>
+                <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(true)}>
                     <input
                         type="radio"
                         name={`${field}_radio`}
                         value="true"
                         checked={value === true}
                         onChange={() => {}}
-                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                     />
                     SIM
                 </label>
-                <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(false)}>
+                <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(false)}>
                     <input
                         type="radio"
                         name={`${field}_radio`}
                         value="false"
                         checked={value === false}
                         onChange={() => {}}
-                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                     />
                     NÃO
                 </label>
@@ -48,7 +49,7 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
                         value={data[condField.name] || ''}
                         onChange={(e) => onDataChange(condField.name, e.target.value)}
                         placeholder={condField.placeholder}
-                        className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                        className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                     />
                     {errors[condField.name] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[condField.name]}</div>}
                 </div>
@@ -60,6 +61,8 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
 BooleanField.displayName = 'BooleanField';
 
 export default function Create({ auth }) {
+    const { sees } = useFieldVisibility();
+
     const getCurrentDate = () => {
         const today = new Date();
         return today.toISOString().split('T')[0];
@@ -92,6 +95,8 @@ export default function Create({ auth }) {
         tem_parte_face_paralisada: false,
         parte_face_paralisada_qual: '',
         tem_enxaqueca: false,
+        teve_avc: false,
+        avc_quando: '',
         consegue_sorrir_normalmente: false,
         pode_comer_normalmente: false,
         pode_assoviar: false,
@@ -208,17 +213,17 @@ export default function Create({ auth }) {
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Novo Questionário
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Eletroneuromiografia Facial
                             </p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.eletroneuromiografia-facial.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
                     >
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -232,7 +237,7 @@ export default function Create({ auth }) {
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         <div className="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 px-6 py-4">
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,55 +250,55 @@ export default function Create({ auth }) {
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Dados Básicos</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome *</label>
-                                            <input type="text" value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome *</label>
+                                            <input type="text" value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data de Nascimento *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data de Nascimento *</label>
                                             <BirthDateSelectInput value={data.data_nascimento} onChange={(value) => setData('data_nascimento', value)} required={true} />
-                                            {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Idade: {idadeCalculada}</div>)}
+                                            {idadeCalculada !== null && (<div className="text-sm text-gray-600 dark:text-zinc-400 mt-1">Idade: {idadeCalculada}</div>)}
                                             {errors.data_nascimento && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_nascimento}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peso (kg)</label>
-                                            <input type="number" step="0.01" value={data.peso} onChange={(e) => setData('peso', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Peso (kg)</label>
+                                            <input type="number" step="0.01" value={data.peso} onChange={(e) => setData('peso', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.peso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.peso}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Altura (m)</label>
-                                            <input type="number" step="0.01" value={data.altura} onChange={(e) => setData('altura', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Altura (m)</label>
+                                            <input type="number" step="0.01" value={data.altura} onChange={(e) => setData('altura', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.altura && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.altura}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Exame *</label>
-                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data do Exame *</label>
+                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RG *</label>
-                                            <input type="text" value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG *</label>
+                                            <input type="text" value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sexo *</label>
-                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Sexo *</label>
+                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
                                                 <option value="">Selecione...</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Feminino">Feminino</option>
@@ -302,24 +307,24 @@ export default function Create({ auth }) {
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Solicitante *</label>
-                                            <input type="text" value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Solicitante *</label>
+                                            <input type="text" value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.solicitante && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.solicitante}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Clínica *</label>
-                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica *</label>
+                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
                                     </div>
                                 </div>
                                 {/* Questionário */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-red-500 to-pink-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Questionário de Eletroneuromiografia Facial</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Questionário de Eletroneuromiografia Facial</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Tem dor na testa?" field="tem_dor_testa" value={data.tem_dor_testa} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
@@ -333,6 +338,9 @@ export default function Create({ auth }) {
                                         <BooleanField label="Já teve paralisia facial?" field="teve_paralisia_facial" value={data.teve_paralisia_facial} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'paralisia_facial_vezes', type: 'number', placeholder: 'Quantas vezes teve paralisia facial?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Tem alguma parte da face que está paralisada?" field="tem_parte_face_paralisada" value={data.tem_parte_face_paralisada} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'parte_face_paralisada_qual', placeholder: 'Qual?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Tem enxaqueca?" field="tem_enxaqueca" value={data.tem_enxaqueca} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        {sees('teve_avc') && (
+                                            <BooleanField label="Já teve AVC? Quando?" field="teve_avc" value={data.teve_avc} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'avc_quando', placeholder: 'Quando teve AVC?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        )}
                                         <BooleanField label="Consegue sorrir normalmente?" field="consegue_sorrir_normalmente" value={data.consegue_sorrir_normalmente} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Pode comer normalmente?" field="pode_comer_normalmente" value={data.pode_comer_normalmente} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Pode assoviar?" field="pode_assoviar" value={data.pode_assoviar} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
@@ -343,23 +351,23 @@ export default function Create({ auth }) {
                                     </div>
                                 </div>
                                 {/* Arquivos */}
-                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-600 shadow-sm">
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Arquivos</h3>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Arquivos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pedido Médico</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Pedido Médico</label>
                                             <AnexosUploader type="eletroneuromiografia-facial" files={data.anexos} onFilesChange={(f) => setData('anexos', f)} />
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             {isCompressing && (<div className="mt-2 text-sm text-blue-600 dark:text-blue-400">🔄 Comprimindo imagen...</div>)}
                                             {imageCompressionInfo && (<div className="mt-2 p-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded text-sm"><div className="text-green-800 dark:text-green-300">✅ Imagen comprimida exitosamente</div><div className="text-green-700 dark:text-green-400 mt-1">Tamaño original: {imageCompressionInfo.originalSize} → Comprimido: {imageCompressionInfo.compressedSize} ({imageCompressionInfo.compressionRatio}% reducción)</div></div>)}
-                                            {pedidoMedicoPreview && (<div className="mt-3"><p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pré-visualização:</p><div className="relative"><img src={pedidoMedicoPreview} alt="Pré-visualização do pedido médico" className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50" /><button type="button" onClick={() => {setPedidoMedicoPreview(null); setData('pedido_medico', null); setImageCompressionInfo(null); const fileInput = document.querySelector('input[type="file"][accept="image/*"]'); if (fileInput) fileInput.value = '';}} className="absolute top-2 right-2 bg-red-500 dark:bg-red-600 hover:bg-red-700 dark:hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors duration-200" title="Excluir imagem">×</button></div></div>)}
+                                            {pedidoMedicoPreview && (<div className="mt-3"><p className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Pré-visualização:</p><div className="relative"><img src={pedidoMedicoPreview} alt="Pré-visualização do pedido médico" className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50" /><button type="button" onClick={() => {setPedidoMedicoPreview(null); setData('pedido_medico', null); setImageCompressionInfo(null); const fileInput = document.querySelector('input[type="file"][accept="image/*"]'); if (fileInput) fileInput.value = '';}} className="absolute top-2 right-2 bg-red-500 dark:bg-red-600 hover:bg-red-700 dark:hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors duration-200" title="Excluir imagem">×</button></div></div>)}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Assinatura do Paciente</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Paciente</label>
                                             <SignaturePad onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>
@@ -368,7 +376,7 @@ export default function Create({ auth }) {
 
                                 {/* Botões */}
                                 <div className="flex justify-end space-x-3">
-                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-gray-600 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors duration-200">Cancelar</button>
+                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
                                     <button type="submit" disabled={processing} className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 text-white rounded-lg hover:from-orange-600 hover:to-red-700 dark:hover:from-orange-700 dark:hover:to-red-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Questionário'}</button>
                                 </div>
                             </form>

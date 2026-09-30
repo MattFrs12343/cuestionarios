@@ -264,27 +264,27 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
         return (
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{label}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">{label}</label>
                 <div className="flex space-x-4">
-                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(true)}>
+                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(true)}>
                         <input
                             type="radio"
                             name={`${field}_radio`}
                             value="true"
                             checked={data[field] === true}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600"
+                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
                         />
                         SIM
                     </label>
-                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => handleRadioClick(false)}>
+                    <label className="flex items-center cursor-pointer text-gray-900 dark:text-zinc-100" onClick={() => handleRadioClick(false)}>
                         <input
                             type="radio"
                             name={`${field}_radio`}
                             value="false"
                             checked={data[field] === false}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600"
+                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
                         />
                         NÃO
                     </label>
@@ -297,7 +297,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                             <select
                                 value={data[conditionalField]}
                                 onChange={(e) => setData(conditionalField, e.target.value)}
-                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                             >
                                 <option value="">Selecione o tipo...</option>
                                 <option value="Hemorrágico">Hemorrágico</option>
@@ -311,7 +311,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                 onChange={(e) => setData(conditionalField, e.target.value)}
                                 placeholder="Especifique os medicamentos que está tomando..."
                                 rows="3"
-                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                             />
                         ) : (
                             <input
@@ -319,7 +319,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                 value={data[conditionalField]}
                                 onChange={(e) => setData(conditionalField, e.target.value)}
                                 placeholder="Especifique..."
-                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                             />
                         )}
                         {errors[conditionalField] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[conditionalField]}</div>}
@@ -341,10 +341,10 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                                 Editar Questionário
                             </h2>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Eletroneuromiografia
                             </p>
                         </div>
@@ -356,7 +356,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl dark:shadow-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Formulário */}
                         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 px-6 py-4">
                             <div className="flex items-center justify-between">
@@ -393,93 +393,93 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                             </div>
                         </div>
 
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
 
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Dados Básicos</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome *</label>
                                             <input
                                                 type="text"
                                                 value={data.nome}
                                                 onChange={(e) => setData('nome', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.nome && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data de Nascimento *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data de Nascimento *</label>
                                             <BirthDateSelectInput
                                                 value={data.data_nascimento}
                                                 onChange={(value) => setData('data_nascimento', value)}
                                                 required={true}
                                             />
                                             {idade !== null && (
-                                                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Idade: {idade}</div>
+                                                <div className="text-sm text-gray-600 dark:text-zinc-400 mt-1">Idade: {idade}</div>
                                             )}
                                             {errors.data_nascimento && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_nascimento}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peso</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Peso</label>
                                             <input
                                                 type="text"
                                                 value={data.peso}
                                                 onChange={(e) => setData('peso', e.target.value)}
                                                 placeholder="Ex: 70kg"
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                             />
                                             {errors.peso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.peso}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Altura</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Altura</label>
                                             <input
                                                 type="text"
                                                 value={data.altura}
                                                 onChange={(e) => setData('altura', e.target.value)}
                                                 placeholder="Ex: 1.70m"
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                             />
                                             {errors.altura && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.altura}</div>}
                                         </div>
 
                                         {/* Resto de campos básicos similares al Create */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data do Exame *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data do Exame *</label>
                                             <input
                                                 type="date"
                                                 value={data.data_exame}
                                                 onChange={(e) => setData('data_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RG *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG *</label>
                                             <input
                                                 type="text"
                                                 value={data.rg}
                                                 onChange={(e) => setData('rg', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sexo *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Sexo *</label>
                                             <select
                                                 value={data.sexo}
                                                 onChange={(e) => setData('sexo', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione...</option>
@@ -490,24 +490,24 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Solicitante *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Solicitante *</label>
                                             <input
                                                 type="text"
                                                 value={data.solicitante}
                                                 onChange={(e) => setData('solicitante', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.solicitante && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.solicitante}</div>}
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Clínica *</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica *</label>
                                             <input
                                                 type="text"
                                                 value={data.clinica}
                                                 onChange={(e) => setData('clinica', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
@@ -515,7 +515,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
 
                                         <div className="md:col-span-2">
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tipos de Exame * (selecione um ou mais)</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Tipos de Exame * (selecione um ou mais)</label>
                                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                                 {tiposExameOptions.map((tipo) => (
                                                     <label key={tipo} className="flex items-center">
@@ -523,9 +523,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                             type="checkbox"
                                                             checked={data.tipos_exame.includes(tipo)}
                                                             onChange={() => handleTipoExameChange(tipo)}
-                                                            className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                            className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                         />
-                                                        <span className="text-sm text-gray-900 dark:text-gray-100">{tipo}</span>
+                                                        <span className="text-sm text-gray-900 dark:text-zinc-100">{tipo}</span>
                                                     </label>
                                                 ))}
                                             </div>
@@ -538,7 +538,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                 
                                 {/* Información adicional */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Informação Adicional</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Informação Adicional</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="É primeira vez que vai fazer esse exame?" field="primeira_vez_exame" />
                                         <BooleanField label="Diabético(a)" field="diabetico" />
@@ -550,7 +550,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.tomando_medicamentos && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Especifique os medicamentos que está tomando:
                                                 </label>
                                                 <textarea
@@ -558,7 +558,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     onChange={(e) => setData('medicamentos_detalhes', e.target.value)}
                                                     placeholder="Especifique os medicamentos que está tomando..."
                                                     rows="3"
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.medicamentos_detalhes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.medicamentos_detalhes}</div>}
                                             </div>
@@ -568,13 +568,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.teve_avc && (
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quando foi o último AVC?</label>
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Quando foi o último AVC?</label>
                                                 <input
                                                     type="text"
                                                     value={data.avc_quando}
                                                     onChange={(e) => setData('avc_quando', e.target.value)}
                                                     placeholder="Ex: Janeiro 2023"
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.avc_quando && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.avc_quando}</div>}
                                             </div>
@@ -584,7 +584,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.dor_coluna && (
                                             <div className="md:col-span-2">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Que área da coluna?</label>
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Que área da coluna?</label>
                                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                                     {areasColuna.map((area) => (
                                                         <label key={area} className="flex items-center">
@@ -592,9 +592,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                                 type="checkbox"
                                                                 checked={data.areas_coluna.includes(area)}
                                                                 onChange={() => handleAreaColunaChange(area)}
-                                                                className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                                className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                             />
-                                                            <span className="text-sm text-gray-900 dark:text-gray-100">{area}</span>
+                                                            <span className="text-sm text-gray-900 dark:text-zinc-100">{area}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -606,7 +606,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.trabalha && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Tipo de trabalho:
                                                 </label>
                                                 <input
@@ -614,7 +614,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.tipo_trabalho || ''}
                                                     onChange={(e) => setData('tipo_trabalho', e.target.value)}
                                                     placeholder="Especifique o tipo de trabalho..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.tipo_trabalho && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.tipo_trabalho}</div>}
                                             </div>
@@ -624,7 +624,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.teve_fraturas && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Região das fraturas:
                                                 </label>
                                                 <input
@@ -632,7 +632,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.fraturas_regiao || ''}
                                                     onChange={(e) => setData('fraturas_regiao', e.target.value)}
                                                     placeholder="Especifique a região das fraturas..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.fraturas_regiao && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.fraturas_regiao}</div>}
                                             </div>
@@ -645,7 +645,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.processo_infeccioso && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Detalhes do processo infeccioso:
                                                 </label>
                                                 <input
@@ -653,7 +653,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.processo_infeccioso_detalhes || ''}
                                                     onChange={(e) => setData('processo_infeccioso_detalhes', e.target.value)}
                                                     placeholder="Especifique o processo infeccioso..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.processo_infeccioso_detalhes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.processo_infeccioso_detalhes}</div>}
                                             </div>
@@ -663,7 +663,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consome_alcool && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Frequência do consumo de álcool:
                                                 </label>
                                                 <input
@@ -671,7 +671,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.alcool_frequencia || ''}
                                                     onChange={(e) => setData('alcool_frequencia', e.target.value)}
                                                     placeholder="Ex: Fins de semana, diariamente..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.alcool_frequencia && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.alcool_frequencia}</div>}
                                             </div>
@@ -681,7 +681,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.usa_drogas && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Quais drogas:
                                                 </label>
                                                 <input
@@ -689,7 +689,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.drogas_quais || ''}
                                                     onChange={(e) => setData('drogas_quais', e.target.value)}
                                                     placeholder="Especifique quais drogas..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.drogas_quais && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.drogas_quais}</div>}
                                             </div>
@@ -699,14 +699,14 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
                                 {/* Membros Superiores */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Membros Superiores</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Membros Superiores</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Sente dor nos braços?" field="ms_dor_bracos" />
                                         <BooleanField label="A dor começa nos ombros?" field="ms_dor_comeca_ombros" />
                                         <BooleanField label="Sente dor nas mãos?" field="ms_dor_maos" />
                                         
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">A dor é mais de:</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">A dor é mais de:</label>
                                             <div className="flex space-x-4">
                                                 <label className="flex items-center">
                                                     <input
@@ -717,7 +717,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">DIA</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">DIA</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -728,7 +728,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">NOITE</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">NOITE</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -739,7 +739,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">AMBOS</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
                                                 </label>
                                             </div>
                                             {errors.ms_dor_mais_de && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.ms_dor_mais_de}</div>}
@@ -762,7 +762,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         <BooleanField label="Sente cãibra (braços/mãos)?" field="ms_caibra" />
                                         
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Membro mais afetado:</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Membro mais afetado:</label>
                                             <div className="flex space-x-4">
                                                 <label className="flex items-center">
                                                     <input
@@ -773,7 +773,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">DIREITO</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">DIREITO</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -784,7 +784,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">ESQUERDO</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">ESQUERDO</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -795,7 +795,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">AMBOS</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
                                                 </label>
                                             </div>
                                             {errors.ms_membro_mais_afetado && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.ms_membro_mais_afetado}</div>}
@@ -805,7 +805,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
                                 {/* Membros Inferiores */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Membros Inferiores</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Membros Inferiores</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Sente dor nas pernas?" field="mi_dor_pernas" />
                                         <BooleanField label="A dor começa na bacia?" field="mi_dor_comeca_bacia" />
@@ -828,7 +828,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         <BooleanField label="Sente cãibra (pernas/pés)?" field="mi_caibra" />
                                         
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Membro mais afetado:</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Membro mais afetado:</label>
                                             <div className="flex space-x-4">
                                                 <label className="flex items-center">
                                                     <input
@@ -839,7 +839,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">DIREITO</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">DIREITO</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -850,7 +850,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">ESQUERDO</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">ESQUERDO</span>
                                                 </label>
                                                 <label className="flex items-center">
                                                     <input
@@ -861,7 +861,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
                                                         className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
                                                     />
-                                                    <span className="text-sm text-gray-900 dark:text-gray-100">AMBOS</span>
+                                                    <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
                                                 </label>
                                             </div>
                                             {errors.mi_membro_mais_afetado && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.mi_membro_mais_afetado}</div>}
@@ -871,13 +871,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
                                 {/* Especialistas */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Especialistas</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Especialistas</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Consultou com REUMATOLOGISTA?" field="consultou_reumatologista" />
                                         
                                         {data.consultou_reumatologista && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com reumatologista:
                                                 </label>
                                                 <input
@@ -885,7 +885,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.reumatologista_motivo || ''}
                                                     onChange={(e) => setData('reumatologista_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.reumatologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.reumatologista_motivo}</div>}
                                             </div>
@@ -895,7 +895,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consultou_neurologista && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com neurologista:
                                                 </label>
                                                 <input
@@ -903,7 +903,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.neurologista_motivo || ''}
                                                     onChange={(e) => setData('neurologista_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.neurologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.neurologista_motivo}</div>}
                                             </div>
@@ -913,7 +913,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consultou_neurocirurgiao && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com neurocirurgião:
                                                 </label>
                                                 <input
@@ -921,7 +921,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.neurocirurgiao_motivo || ''}
                                                     onChange={(e) => setData('neurocirurgiao_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.neurocirurgiao_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.neurocirurgiao_motivo}</div>}
                                             </div>
@@ -931,7 +931,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consultou_dermatologista && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com dermatologista:
                                                 </label>
                                                 <input
@@ -939,7 +939,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.dermatologista_motivo || ''}
                                                     onChange={(e) => setData('dermatologista_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.dermatologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.dermatologista_motivo}</div>}
                                             </div>
@@ -949,7 +949,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consultou_geriatra && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com geriatra:
                                                 </label>
                                                 <input
@@ -957,7 +957,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.geriatra_motivo || ''}
                                                     onChange={(e) => setData('geriatra_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.geriatra_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.geriatra_motivo}</div>}
                                             </div>
@@ -967,7 +967,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         
                                         {data.consultou_ortopedista && (
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                                <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Motivo da consulta com ortopedista:
                                                 </label>
                                                 <input
@@ -975,7 +975,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                     value={data.ortopedista_motivo || ''}
                                                     onChange={(e) => setData('ortopedista_motivo', e.target.value)}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
                                                 {errors.ortopedista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.ortopedista_motivo}</div>}
                                             </div>
@@ -985,9 +985,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
                                 {/* Observações */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-gray-100">Observações</h3>
+                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Observações</h3>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">
                                             Observações Gerais:
                                         </label>
                                         <textarea
@@ -995,7 +995,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                             onChange={(e) => setData('observacoes', e.target.value)}
                                             rows="4"
                                             placeholder="Observações adicionais sobre o paciente..."
-                                            className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                         />
                                         {errors.observacoes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.observacoes}</div>}
                                     </div>
@@ -1003,7 +1003,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
 
                                 {/* Arquivos */}
                                 <div className="mb-8 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/10 dark:to-teal-900/10 rounded-xl p-6 border-l-4 border-green-500 dark:border-green-400">
-                                    <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100 flex items-center">
+                                    <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-zinc-100 flex items-center">
                                         <span className="w-8 h-8 bg-green-500 dark:bg-green-600 rounded-lg flex items-center justify-center mr-3">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1013,17 +1013,17 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                     </h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Pedido Médico
                                             </label>
                                             {questionnaire.pedido_medico && !pedidoMedicoPreview && (
                                                 <div className="mb-2">
-                                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Arquivo atual:</p>
+                                                    <p className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Arquivo atual:</p>
                                                     <div className="relative">
                                                         <img 
                                                             src={pedidoMedicoUrl}
                                                             alt="Pedido Médico Atual"
-                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50"
+                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50"
                                                         />
                                                         <button
                                                             type="button"
@@ -1040,7 +1040,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                                 </div>
                                             )}
                                             <AnexosUploader type="electroneuromiografia" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecione um novo arquivo para substituir o atual</p>
+                                            <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">Selecione um novo arquivo para substituir o atual</p>
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
                                             
                                             {/* Indicador de compresión */}
@@ -1067,12 +1067,12 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                             {/* Pré-visualização da nova imagem */}
                                             {pedidoMedicoPreview && (
                                                 <div className="mt-3">
-                                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nova imagem:</p>
+                                                    <p className="text-sm font-medium text-gray-700 dark:text-zinc-300 mb-2">Nova imagem:</p>
                                                     <div className="relative">
                                                         <img 
                                                             src={pedidoMedicoPreview}
                                                             alt="Pré-visualização do novo pedido médico"
-                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm dark:shadow-gray-900/50"
+                                                            className="max-w-full h-auto max-h-64 border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50"
                                                         />
                                                         <button
                                                             type="button"
@@ -1095,7 +1095,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                         </div>
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                 Assinatura do Paciente ou Acompanhante
                                             </label>
                                             <SignaturePad
@@ -1112,7 +1112,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                 <div className="flex justify-end space-x-4">
                                     <Link
                                         href={route('questionnaires.electroneuromiografia.index')}
-                                        className="px-4 py-2 bg-gray-500 dark:bg-gray-600 text-white rounded-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-colors duration-200"
+                                        className="px-4 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-md hover:bg-gray-600 dark:hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-zinc-500 transition-colors duration-200"
                                     >
                                         Cancelar
                                     </Link>

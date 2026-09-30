@@ -31,12 +31,12 @@ export default function Edit({ auth, user, modules, assignedModules }) {
             case 'tecnico':
                 return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
             default:
-                return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+                return 'bg-gray-100 text-gray-800 dark:bg-zinc-800 dark:text-zinc-300';
         }
     };
 
     const getModuleIcon = (moduleName) => (
-        <QuestionnaireTypeIcon type={moduleName} className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+        <QuestionnaireTypeIcon type={moduleName} className="w-6 h-6 text-gray-700 dark:text-zinc-300" />
     );
 
     const getModuleDescription = (moduleName) => {
@@ -67,10 +67,10 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
                             Gerenciar Módulos
                         </h2>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
+                        <p className="text-xs text-gray-600 dark:text-zinc-400">
                             Controle de Acesso aos Módulos
                         </p>
                     </div>
@@ -105,16 +105,16 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                         </div>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 dark:text-zinc-100">
 
                             {/* Formulario de módulos */}
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-6">
-                                    <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                                    <h4 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
                                         Módulos disponíveis
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                                    <p className="text-sm text-gray-600 dark:text-zinc-400 mb-6">
                                         Selecione os módulos aos quais este usuário terá acesso. As alterações serão aplicadas imediatamente..
                                     </p>
 
@@ -129,7 +129,7 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                                     className={`border rounded-lg p-4 transition-colors duration-200 ${
                                                         isAssigned
                                                             ? 'border-green-300 bg-green-50 dark:border-green-600 dark:bg-green-900/20'
-                                                            : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800'
+                                                            : 'border-gray-300 bg-white dark:border-zinc-500 dark:bg-zinc-700'
                                                     }`}
                                                 >
                                                     <div className="flex items-center justify-between">
@@ -138,14 +138,14 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                                                 {getModuleIcon(moduleName)}
                                                             </div>
                                                             <div className="flex-1">
-                                                                <h5 className="text-base font-medium text-gray-900 dark:text-gray-100">
+                                                                <h5 className="text-base font-medium text-gray-900 dark:text-zinc-100">
                                                                     {moduleDisplayName}
                                                                 </h5>
-                                                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                                <p className="text-sm text-gray-500 dark:text-zinc-400">
                                                                     {getModuleDescription(moduleName)}
                                                                 </p>
                                                                 {assignmentInfo && (
-                                                                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                                                                    <p className="text-xs text-gray-400 dark:text-zinc-400 mt-1">
                                                                         Atribuído por: {assignmentInfo.assigned_by?.name} • 
                                                                         {new Date(assignmentInfo.created_at).toLocaleDateString()}
                                                                     </p>
@@ -157,7 +157,7 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                                                 type="button"
                                                                 onClick={() => handleModuleToggle(moduleName)}
                                                                 className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-                                                                    isAssigned ? 'bg-green-600' : 'bg-gray-200 dark:bg-gray-600'
+                                                                    isAssigned ? 'bg-green-600' : 'bg-gray-200 dark:bg-zinc-500'
                                                                 }`}
                                                             >
                                                                 <span
@@ -188,10 +188,10 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                     </div>
                                 )}
 
-                                <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-zinc-600">
                                     <Link
                                         href={route('admin.user-modules.index')}
-                                        className="inline-flex items-center px-6 py-3 bg-gray-500 dark:bg-gray-600 hover:bg-gray-600 dark:hover:bg-gray-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-sm hover:shadow"
+                                        className="inline-flex items-center px-6 py-3 bg-gray-500 dark:bg-zinc-500 hover:bg-gray-600 dark:hover:bg-zinc-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-sm hover:shadow"
                                     >
                                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

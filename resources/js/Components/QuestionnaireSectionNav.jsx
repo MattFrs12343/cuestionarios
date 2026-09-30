@@ -71,7 +71,7 @@ export default function QuestionnaireSectionNav({ sections, color = 'violet', cl
             {/* Desktop: barra lateral fija */}
             <nav className={`hidden lg:block lg:w-64 lg:flex-shrink-0 ${className}`} aria-label="Seções do formulário">
                 <div className="lg:sticky lg:top-24 space-y-1">
-                    <p className="px-3 mb-2 text-xs font-bold uppercase tracking-wide text-gray-400 dark:text-gray-500">Seções</p>
+                    <p className="px-3 mb-2 text-xs font-bold uppercase tracking-wide text-gray-400 dark:text-zinc-400">Seções</p>
                     {sections.map((s) => {
                         const isActive = activeId === s.id;
                         return (
@@ -81,10 +81,10 @@ export default function QuestionnaireSectionNav({ sections, color = 'violet', cl
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold border transition-colors duration-150 ${
                                     isActive
                                         ? `${palette.activeBg} ${palette.activeText} ${palette.activeBorder}`
-                                        : 'text-gray-600 dark:text-gray-400 border-transparent hover:bg-gray-50 dark:hover:bg-gray-800'
+                                        : 'text-gray-600 dark:text-zinc-400 border-transparent hover:bg-gray-50 dark:hover:bg-zinc-700'
                                 }`}
                             >
-                                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isActive ? palette.dot : 'bg-gray-300 dark:bg-gray-600'}`}></span>
+                                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isActive ? palette.dot : 'bg-gray-300 dark:bg-zinc-500'}`}></span>
                                 {s.label}
                             </a>
                         );
@@ -94,7 +94,7 @@ export default function QuestionnaireSectionNav({ sections, color = 'violet', cl
 
             {/* Mobile/tablet: tira de píldoras pegajosa */}
             <nav
-                className="lg:hidden sticky top-16 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 mb-6 bg-gray-50/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-700 overflow-x-auto"
+                className="lg:hidden sticky top-16 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 mb-6 bg-gray-50/95 dark:bg-zinc-800/95 backdrop-blur border-b border-gray-200 dark:border-zinc-600 overflow-x-auto"
                 aria-label="Seções do formulário"
             >
                 <div className="flex gap-2 w-max">
@@ -107,7 +107,7 @@ export default function QuestionnaireSectionNav({ sections, color = 'violet', cl
                                 className={`flex-shrink-0 px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors duration-150 ${
                                     isActive
                                         ? palette.pillActive
-                                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600'
+                                        : 'bg-white dark:bg-zinc-700 text-gray-600 dark:text-zinc-300 border border-gray-200 dark:border-zinc-500'
                                 }`}
                             >
                                 {s.label}

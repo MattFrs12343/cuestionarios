@@ -4,20 +4,24 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import FlashMessage from '@/Components/FlashMessage';
 import ThemeToggle from '@/Components/ThemeToggle';
+import TeamSelectionModal from '@/Components/TeamSelectionModal';
 import { Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { useTranslation } from '@/Hooks/useTranslation';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ header, children, hideNav = false }) {
     const page = usePage();
     const user = page.props.auth.user;
     const currentTeam = page.props.currentTeam;
     const switchableTeams = page.props.switchableTeams || [];
+    const needsTeamSelection = page.props.needsTeamSelection || false;
     const { t } = useTranslation();
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const [showTeamSwitcher, setShowTeamSwitcher] = useState(false);
+    const canSwitchTeams = switchableTeams.length > 1;
 
     const handleTeamSwitch = (e) => {
         const teamId = e.target.value;
@@ -27,9 +31,17 @@ export default function AuthenticatedLayout({ header, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+        <div className="min-h-screen bg-gray-100 dark:bg-zinc-800 transition-colors duration-200">
+            <TeamSelectionModal show={needsTeamSelection} teams={switchableTeams} />
+            <TeamSelectionModal
+                show={showTeamSwitcher}
+                teams={switchableTeams}
+                closeable
+                onClose={() => setShowTeamSwitcher(false)}
+            />
             <FlashMessage />
-            <nav className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-xl border-b border-gray-200/50 dark:border-gray-700/50 transition-all duration-300 sticky top-0 z-50">
+            {!hideNav && (
+            <nav className="bg-white/95 dark:bg-zinc-800/95 backdrop-blur-md shadow-xl border-b border-gray-200/50 dark:border-zinc-600/50 transition-all duration-300 sticky top-0 z-50">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-18 justify-between items-center">
                         <div className="flex items-center">
@@ -45,7 +57,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 border-0 ${
                                         route().current('questionnaires.*')
                                             ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg shadow-purple-500/25'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 dark:hover:from-purple-900/20 dark:hover:to-indigo-900/20 hover:text-purple-600 dark:hover:text-purple-400'
+                                            : 'text-gray-700 dark:text-zinc-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 dark:hover:from-purple-900/20 dark:hover:to-indigo-900/20 hover:text-purple-600 dark:hover:text-purple-400'
                                     }`}
                                 >
                                     <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +71,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 border-0 ${
                                             route().current('admin.*')
                                                 ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
-                                                : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 dark:hover:from-emerald-900/20 dark:hover:to-teal-900/20 hover:text-emerald-600 dark:hover:text-emerald-400'
+                                                : 'text-gray-700 dark:text-zinc-300 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 dark:hover:from-emerald-900/20 dark:hover:to-teal-900/20 hover:text-emerald-600 dark:hover:text-emerald-400'
                                         }`}
                                     >
                                         <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,14 +92,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                         value={currentTeam.id}
                                         onChange={handleTeamSwitch}
                                         title="Equipe atual"
-                                        className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                        className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-gray-50 dark:bg-zinc-600 border border-gray-200 dark:border-zinc-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600"
                                     >
                                         {switchableTeams.map((team) => (
                                             <option key={team.id} value={team.id}>{team.name}</option>
                                         ))}
                                     </select>
                                 ) : (
-                                    <span className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                    <span className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 dark:text-zinc-400 bg-gray-50 dark:bg-zinc-600/50 rounded-lg">
                                         {currentTeam.name}
                                     </span>
                                 )
@@ -101,7 +113,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <Dropdown.Trigger>
                                         <button
                                             type="button"
-                                            className="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-600 dark:hover:to-gray-500 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 transition-all duration-300 border border-gray-200/50 dark:border-gray-600/50 shadow-lg hover:shadow-xl hover:scale-105 backdrop-blur-sm"
+                                            className="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-600 dark:to-zinc-500 hover:from-gray-100 hover:to-gray-200 dark:hover:from-zinc-500 dark:hover:to-zinc-500 rounded-xl text-sm font-medium text-gray-700 dark:text-zinc-300 transition-all duration-300 border border-gray-200/50 dark:border-zinc-500/50 shadow-lg hover:shadow-xl hover:scale-105 backdrop-blur-sm"
                                         >
                                             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3 shadow-lg">
                                                 <span className="text-sm font-bold text-white">
@@ -124,11 +136,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                         </button>
                                     </Dropdown.Trigger>
 
-                                    <Dropdown.Content className="w-64 rounded-2xl shadow-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-md ring-1 ring-black ring-opacity-5 dark:ring-gray-700 border border-gray-200/50 dark:border-gray-700/50">
+                                    <Dropdown.Content className="w-64 rounded-2xl shadow-2xl bg-white/95 dark:bg-zinc-700/95 backdrop-blur-md ring-1 ring-black ring-opacity-5 dark:ring-zinc-600 border border-gray-200/50 dark:border-zinc-600/50">
                                         <div className="py-2">
                                             <Dropdown.Link
                                                 href={route('profile.edit')}
-                                                className="flex items-center px-5 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-300 rounded-xl mx-2"
+                                                className="flex items-center px-5 py-3 text-sm text-gray-700 dark:text-zinc-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-300 rounded-xl mx-2"
                                             >
                                                 <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg flex items-center justify-center mr-3">
                                                     <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,11 +149,25 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 </div>
                                                 <span className="font-medium">{t('navigation.profile')}</span>
                                             </Dropdown.Link>
+                                            {canSwitchTeams && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowTeamSwitcher(true)}
+                                                    className="flex items-center w-full px-5 py-3 text-sm text-gray-700 dark:text-zinc-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 transition-all duration-300 rounded-xl mx-2"
+                                                >
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-lg flex items-center justify-center mr-3">
+                                                        <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a4 4 0 00-3-5.87M9 20H4v-2a4 4 0 013-5.87m6-1a4 4 0 10-4-4 4 4 0 004 4zm6 3.13a4 4 0 000-7.75M5 12.13a4 4 0 010-7.75" />
+                                                        </svg>
+                                                    </div>
+                                                    <span className="font-medium">Cambiar equipo</span>
+                                                </button>
+                                            )}
                                             <Dropdown.Link
                                                 href={route('logout')}
                                                 method="post"
                                                 as="button"
-                                                className="flex items-center w-full px-5 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-gradient-to-r hover:from-red-50 hover:to-rose-50 dark:hover:from-red-900/20 dark:hover:to-rose-900/20 transition-all duration-300 rounded-xl mx-2"
+                                                className="flex items-center px-5 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-gradient-to-r hover:from-red-50 hover:to-rose-50 dark:hover:from-red-900/20 dark:hover:to-rose-900/20 transition-all duration-300 rounded-xl mx-2"
                                             >
                                                 <div className="w-8 h-8 bg-gradient-to-br from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 rounded-lg flex items-center justify-center mr-3">
                                                     <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +192,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         (previousState) => !previousState,
                                     )
                                 }
-                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-400 dark:text-gray-500 transition-all duration-300 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-gray-600 dark:hover:text-gray-300 focus:bg-gray-100 dark:focus:bg-gray-700 focus:text-gray-500 dark:focus:text-gray-400 focus:outline-none shadow-lg hover:shadow-xl hover:scale-105"
+                                className="inline-flex items-center justify-center rounded-xl p-2.5 text-gray-400 dark:text-zinc-400 transition-all duration-300 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200 dark:hover:from-zinc-600 dark:hover:to-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 focus:bg-gray-100 dark:focus:bg-zinc-600 focus:text-gray-500 dark:focus:text-zinc-400 focus:outline-none shadow-lg hover:shadow-xl hover:scale-105"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -205,7 +231,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 <div
                     className={
                         (showingNavigationDropdown ? 'block' : 'hidden') +
-                        ' sm:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-t border-gray-200/50 dark:border-gray-700/50'
+                        ' sm:hidden bg-white/95 dark:bg-zinc-800/95 backdrop-blur-md border-t border-gray-200/50 dark:border-zinc-600/50'
                     }
                 >
                     <div className="space-y-2 pb-4 pt-3 px-4">
@@ -246,8 +272,8 @@ export default function AuthenticatedLayout({ header, children }) {
                         )}
                     </div>
 
-                    <div className="border-t border-gray-200/50 dark:border-gray-700/50 pb-4 pt-4 mx-4">
-                        <div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl">
+                    <div className="border-t border-gray-200/50 dark:border-zinc-600/50 pb-4 pt-4 mx-4">
+                        <div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-700 dark:to-zinc-600 rounded-xl">
                             <div className="flex items-center">
                                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3 shadow-lg">
                                     <span className="text-sm font-bold text-white">
@@ -255,10 +281,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </span>
                                 </div>
                                 <div>
-                                    <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                    <div className="text-sm font-semibold text-gray-800 dark:text-zinc-200">
                                         {user.name}
                                     </div>
-                                    <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                                    <div className="text-xs font-medium text-gray-500 dark:text-zinc-400">
                                         {user.email}
                                     </div>
                                 </div>
@@ -269,6 +295,18 @@ export default function AuthenticatedLayout({ header, children }) {
                             <ResponsiveNavLink href={route('profile.edit')}>
                                 {t('navigation.profile')}
                             </ResponsiveNavLink>
+                            {canSwitchTeams && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setShowingNavigationDropdown(false);
+                                        setShowTeamSwitcher(true);
+                                    }}
+                                    className="flex w-full items-start border-l-4 border-transparent py-2 pe-4 ps-3 text-base font-medium text-gray-600 dark:text-zinc-400 transition duration-150 ease-in-out hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 focus:border-gray-300 focus:bg-gray-50 focus:text-gray-800 focus:outline-none dark:hover:border-zinc-500 dark:hover:bg-zinc-600 dark:hover:text-zinc-200 dark:focus:border-zinc-500 dark:focus:bg-zinc-600 dark:focus:text-zinc-200"
+                                >
+                                    Cambiar equipo
+                                </button>
+                            )}
                             <ResponsiveNavLink
                                 method="post"
                                 href={route('logout')}
@@ -280,9 +318,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </div>
             </nav>
+            )}
 
             {header && (
-                <header className="bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 shadow-lg border-b border-gray-200/50 dark:border-gray-700/50 transition-all duration-300">
+                <header className="bg-gradient-to-r from-white to-gray-50 dark:from-zinc-700 dark:to-zinc-800 shadow-lg border-b border-gray-200/50 dark:border-zinc-600/50 transition-all duration-300">
                     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                         {header}
                     </div>
@@ -291,10 +330,10 @@ export default function AuthenticatedLayout({ header, children }) {
 
             <main>{children}</main>
 
-            <footer className="border-t border-gray-200/50 dark:border-gray-700/50 py-4">
+            <footer className="border-t border-gray-200/50 dark:border-zinc-600/50 py-4">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                        &copy; {new Date().getFullYear()} Cuestionarios NeuroISBE. Todos os direitos reservados.
+                    <p className="text-xs text-gray-500 dark:text-zinc-400">
+                        &copy; {new Date().getFullYear()} Cuestionários. Todos os direitos reservados.
                     </p>
                 </div>
             </footer>

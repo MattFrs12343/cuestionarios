@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import html2canvas from 'html2canvas';
 import QuestionnaireExportView from '@/Components/QuestionnaireExportView';
 
-export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePrefix, patientName) {
+export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePrefix, patientName, hiddenFields = []) {
     const tempContainer = document.createElement('div');
     tempContainer.style.position = 'absolute';
     tempContainer.style.left = '-9999px';
@@ -13,7 +13,7 @@ export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePref
 
     await new Promise((resolve) => {
         root.render(
-            <QuestionnaireExportView questionnaire={questionnaire} type={type} />
+            <QuestionnaireExportView questionnaire={questionnaire} type={type} hiddenFields={hiddenFields} />
         );
         setTimeout(resolve, 1000);
     });
@@ -27,7 +27,9 @@ export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePref
         width: 794,
         height: 1123,
         windowWidth: 794,
-        ignoreElements: (element) => element.tagName === 'IMG' && element.src.includes('storage'),
+        ignoreElements: (element) =>
+            element.tagName === 'IMG' &&
+            (element.src.includes('/anexos/') || element.src.includes('/pedidos-medicos/')),
     });
 
     await new Promise((resolve) => {

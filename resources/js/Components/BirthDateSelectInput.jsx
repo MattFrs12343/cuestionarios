@@ -94,7 +94,7 @@ export default function BirthDateSelectInput({
             <select
                 value={day}
                 onChange={(e) => handleDayChange(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
+                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
                 required={required}
             >
                 <option value="">Dia</option>
@@ -112,7 +112,7 @@ export default function BirthDateSelectInput({
             <select
                 value={month}
                 onChange={(e) => handleMonthChange(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
+                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
                 required={required}
             >
                 <option value="">Mês</option>
@@ -127,7 +127,7 @@ export default function BirthDateSelectInput({
             <select
                 value={year}
                 onChange={(e) => handleYearChange(e.target.value)}
-                className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
+                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 text-sm py-2"
                 required={required}
             >
                 <option value="">Ano</option>

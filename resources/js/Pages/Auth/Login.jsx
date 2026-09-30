@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import GalaxyBackground from '@/Components/GalaxyBackground';
+import ConstellationBackground from '@/Components/ConstellationBackground';
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -39,10 +39,13 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Entrar" />
 
             <div className="relative min-h-screen flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 animate-fade-in transition-colors duration-200">
-                <GalaxyBackground />
+                <ConstellationBackground />
                 <div className="relative z-10 w-full max-w-[1400px]">
                     {/* Two-column layout container */}
-                    <div className="bg-white/25 dark:bg-gray-900/25 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden transition-colors duration-200" role="main">
+                    <div
+                        className="bg-white/5 dark:bg-white/[0.03] backdrop-blur-[2px] backdrop-saturate-150 border border-white/50 dark:border-white/15 rounded-xl sm:rounded-2xl overflow-hidden transition-colors duration-200 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.35),inset_0_1px_0_0_rgba(255,255,255,0.65)]"
+                        role="main"
+                    >
                         <div className="grid md:grid-cols-5 lg:grid-cols-2 min-h-[500px] sm:min-h-[600px] lg:min-h-[650px]">
                             {/* Left Column - Info Panel (hidden on mobile, compact on tablet, full on desktop) */}
                             <Suspense fallback={<div className="hidden md:block md:col-span-2 lg:col-span-1 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" />}>
@@ -73,20 +76,20 @@ export default function Login({ status, canResetPassword }) {
                                             />
                                         </svg>
                                     </div>
-                                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-1 px-4">
+                                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-zinc-100 mb-1 px-4">
                                         Sistema de Gestão de Questionários Médicos
                                     </h2>
-                                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                                    <p className="text-xs sm:text-sm text-gray-600 dark:text-zinc-400">
                                         Plataforma profissional médica
                                     </p>
                                 </div>
 
                                 {/* Welcome Header */}
                                 <div className="mb-6 sm:mb-8">
-                                    <h1 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <h1 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-gray-900 dark:text-zinc-100 mb-2">
                                         Bem-vindo de volta
                                     </h1>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+                                    <p className="text-gray-600 dark:text-zinc-400 text-sm sm:text-base">
                                         Entre para acessar o Sistema de Gestão de Questionários Médicos
                                     </p>
                                 </div>
@@ -121,7 +124,7 @@ export default function Login({ status, canResetPassword }) {
                                         <InputLabel
                                             htmlFor="email"
                                             value="E-mail"
-                                            className="mb-2 text-gray-700 dark:text-gray-300 font-medium"
+                                            className="mb-2 text-gray-700 dark:text-zinc-300 font-medium"
                                         />
                                         <EmailInput
                                             id="email"
@@ -145,7 +148,7 @@ export default function Login({ status, canResetPassword }) {
                                         <InputLabel
                                             htmlFor="password"
                                             value="Senha"
-                                            className="mb-2 text-gray-700 dark:text-gray-300 font-medium"
+                                            className="mb-2 text-gray-700 dark:text-zinc-300 font-medium"
                                         />
                                         <PasswordInput
                                             id="password"
@@ -254,10 +257,10 @@ export default function Login({ status, canResetPassword }) {
                                             </svg>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1 sm:mb-2">
+                                            <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-zinc-100 mb-1 sm:mb-2">
                                                 Precisa de ajuda?
                                             </h3>
-                                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 sm:mb-3">
+                                            <p className="text-xs sm:text-sm text-gray-600 dark:text-zinc-400 mb-2 sm:mb-3">
                                                 Se você está tendo problemas para acessar sua conta, nossa equipe de suporte está disponível para ajudá-lo.
                                             </p>
                                             <div className="space-y-1 sm:space-y-2">
@@ -282,12 +285,14 @@ export default function Login({ status, canResetPassword }) {
                                                     </svg>
                                                     <span className="truncate">sistemasbrasiltech@gmail.com</span>
                                                 </a>
-                                                <span className="block text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                                                <span className="block text-xs sm:text-sm text-gray-500 dark:text-zinc-400">
                                                     Ou escreva para o nosso WhatsApp{' '}
                                                     <a
-                                                        href="https://wa.link/5xzure"
-                                                        className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded transition-colors duration-200 whitespace-nowrap"
-                                                        aria-label="Ligar para o número de suporte técnico"
+                                                        href="https://wa.me/59167708839"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-offset-2 dark:focus:ring-offset-zinc-700 rounded transition-colors duration-200 whitespace-nowrap"
+                                                        aria-label="Falar com o suporte técnico pelo WhatsApp"
                                                     >
                                                         +591 67708839
                                                     </a>

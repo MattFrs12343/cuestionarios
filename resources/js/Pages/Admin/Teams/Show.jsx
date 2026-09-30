@@ -9,16 +9,16 @@ export default function ShowTeam({ auth, team }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{t('admin.teams.view')}</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">{t('admin.teams.view')}</h2>}
         >
             <Head title={`${t('admin.teams.view')}: ${team.name}`} />
 
             <div className="py-12">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm dark:shadow-gray-900/50 sm:rounded-lg transition-colors duration-200">
+                    <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm dark:shadow-zinc-900/50 sm:rounded-lg transition-colors duration-200">
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">Informações da Equipe</h3>
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">Informações da Equipe</h3>
                                 <div className="flex space-x-2">
                                     <Link
                                         href={route('admin.teams.edit', team.id)}
@@ -28,7 +28,7 @@ export default function ShowTeam({ auth, team }) {
                                     </Link>
                                     <Link
                                         href={route('admin.teams.index')}
-                                        className="bg-gray-500 dark:bg-gray-600 hover:bg-gray-700 dark:hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                        className="bg-gray-500 dark:bg-zinc-500 hover:bg-gray-700 dark:hover:bg-zinc-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                     >
                                         {t('common.back')}
                                     </Link>
@@ -37,27 +37,27 @@ export default function ShowTeam({ auth, team }) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Información del Equipo */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Informações Gerais</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Informações Gerais</h4>
                                     <div className="space-y-3">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome da Equipe</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">{team.name}</p>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Nome da Equipe</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">{team.name}</p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Data de Criação</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Data de Criação</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">
                                                 {formatDateTime(team.created_at)}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Última Atualização</label>
-                                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Última Atualização</label>
+                                            <p className="text-sm text-gray-900 dark:text-zinc-100">
                                                 {formatDateTime(team.updated_at)}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Total de Membros</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Total de Membros</label>
                                             <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                                                 {team.users ? team.users.length : 0}
                                             </p>
@@ -66,17 +66,17 @@ export default function ShowTeam({ auth, team }) {
                                 </div>
 
                                 {/* Estadísticas */}
-                                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg transition-colors duration-200">
-                                    <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Estatísticas</h4>
+                                <div className="bg-gray-50 dark:bg-zinc-600/50 p-4 rounded-lg transition-colors duration-200">
+                                    <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Estatísticas</h4>
                                     <div className="space-y-3">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Membros Ativos</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Membros Ativos</label>
                                             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                                                 {team.users ? team.users.filter(user => user.is_active).length : 0}
                                             </p>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Membros Inativos</label>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">Membros Inativos</label>
                                             <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                                                 {team.users ? team.users.filter(user => !user.is_active).length : 0}
                                             </p>
@@ -87,36 +87,36 @@ export default function ShowTeam({ auth, team }) {
 
                             {/* Lista de Miembros */}
                             <div className="mt-6">
-                                <h4 className="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Membros da Equipe</h4>
+                                <h4 className="text-md font-semibold text-gray-900 dark:text-zinc-100 mb-4">Membros da Equipe</h4>
                                 {team.users && team.users.length > 0 ? (
                                     <div className="overflow-x-auto">
-                                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                            <thead className="bg-gray-50 dark:bg-gray-700/50">
+                                        <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
+                                            <thead className="bg-gray-50 dark:bg-zinc-600/50">
                                                 <tr>
-                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                         Usuário
                                                     </th>
-                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                         Funções
                                                     </th>
-                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                         Status
                                                     </th>
-                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-400 uppercase tracking-wider">
                                                         Último Login
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                            <tbody className="bg-white dark:bg-zinc-700 divide-y divide-gray-200 dark:divide-zinc-600">
                                                 {team.users.map((user) => (
-                                                    <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200">
+                                                    <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-zinc-600/50 transition-colors duration-200">
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <div>
-                                                                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                                                    <div className="text-sm font-medium text-gray-900 dark:text-zinc-100">
                                                                         {user.name}
                                                                     </div>
-                                                                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                                                                    <div className="text-sm text-gray-500 dark:text-zinc-400">
                                                                         {user.email}
                                                                     </div>
                                                                 </div>
@@ -143,7 +143,7 @@ export default function ShowTeam({ auth, team }) {
                                                                 {user.is_active ? t('admin.users.active') : t('admin.users.inactive')}
                                                             </span>
                                                         </td>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-zinc-100">
                                                             {user.last_login_at 
                                                                 ? formatDateTime(user.last_login_at)
                                                                 : 'Nunca'
@@ -155,7 +155,7 @@ export default function ShowTeam({ auth, team }) {
                                         </table>
                                     </div>
                                 ) : (
-                                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                                    <div className="text-center py-8 text-gray-500 dark:text-zinc-400">
                                         Esta equipe não possui membros atribuídos
                                     </div>
                                 )}
