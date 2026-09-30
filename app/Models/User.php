@@ -134,17 +134,24 @@ class User extends Authenticatable
 
     /**
      * Verificar si el usuario tiene acceso a un módulo específico.
-     * El módulo tiene que estar habilitado para el equipo del usuario
+     * El módulo tiene que estar habilitado para el equipo ACTUAL del usuario
      * (team_modules, el "plan" del equipo) Y, si no es admin/técnico,
      * asignado individualmente vía UserModule.
+     *
+     * Se evalúa contra un único equipo (el actual, de la sesión) y no contra
+     * la unión de todos los equipos del usuario: alguien en varios equipos
+     * (ej. Rojo + Verde + Azul) solo debe ver lo que corresponde al equipo
+     * con el que está trabajando en este momento, no todo combinado.
      */
-    public function hasModuleAccess(string $moduleName): bool
+    public function hasModuleAccess(string $moduleName, ?Team $team = null): bool
     {
         if ($this->isSuperAdmin()) {
             return true;
         }
 
-        if (! $this->teams->contains(fn (Team $team) => $team->hasModuleEnabled($moduleName))) {
+        $team ??= $this->teams->first();
+
+        if (! $team || ! $this->teams->contains('id', $team->id) || ! $team->hasModuleEnabled($moduleName)) {
             return false;
         }
 
@@ -158,15 +165,23 @@ class User extends Authenticatable
     }
 
     /**
-     * Obtener los nombres de los módulos a los que tiene acceso el usuario.
+     * Obtener los nombres de los módulos a los que tiene acceso el usuario
+     * en el equipo dado (por defecto, el primero si no se especifica).
+     * Ver hasModuleAccess() para el porqué de evaluar un solo equipo.
      */
-    public function getAccessibleModules(): array
+    public function getAccessibleModules(?Team $team = null): array
     {
         if ($this->isSuperAdmin()) {
             return array_keys(config('questionnaires.types'));
         }
 
-        $teamModules = $this->teams->flatMap(fn (Team $team) => $team->activeModuleNames())->unique();
+        $team ??= $this->teams->first();
+
+        if (! $team || ! $this->teams->contains('id', $team->id)) {
+            return [];
+        }
+
+        $teamModules = collect($team->activeModuleNames());
 
         if ($this->isAdmin() || $this->hasRole('tecnico')) {
             return $teamModules->values()->all();

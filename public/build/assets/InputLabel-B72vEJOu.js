@@ -1,0 +1,1 @@
+import{j as s}from"./app-DdG8gDyn.js";function m({value:t,className:e="",children:r,...n}){return s.jsx("label",{...n,className:"block text-sm font-medium text-gray-700 dark:text-zinc-300 "+e,children:t||r})}export{m as I};

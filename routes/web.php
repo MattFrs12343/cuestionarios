@@ -21,9 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Rutas de cuestionarios
-    Route::get('questionnaires', function () {
+    Route::get('questionnaires', function (\Illuminate\Http\Request $request) {
         $user = auth()->user();
-        $accessibleModules = $user->getAccessibleModules();
+        $accessibleModules = $user->getAccessibleModules($request->attributes->get('currentTeam'));
 
         $modules = collect(config('questionnaires.types'))
             ->only($accessibleModules)

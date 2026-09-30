@@ -21,8 +21,8 @@ class CheckModuleAccess
             return redirect()->route('login');
         }
 
-        // Verificar si el usuario tiene acceso al módulo
-        if (!$user->hasModuleAccess($moduleName)) {
+        // Verificar si el usuario tiene acceso al módulo en el equipo actual
+        if (!$user->hasModuleAccess($moduleName, $request->attributes->get('currentTeam'))) {
             abort(403, "No tienes acceso al módulo de {$moduleName}. Contacta con un administrador para solicitar acceso.");
         }
 

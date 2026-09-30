@@ -5,6 +5,7 @@ import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 import GalaxyBackground from '@/Components/GalaxyBackground';
 import ThemeToggle from '@/Components/ThemeToggle';
 import Dropdown from '@/Components/Dropdown';
+import TeamSelectionModal from '@/Components/TeamSelectionModal';
 import { useTranslation } from '@/Hooks/useTranslation';
 import heroBrain from '@/Assets/dashboard/hero-brain.png';
 
@@ -37,23 +38,18 @@ function getColorName(bgClass) {
     return match ? match[1] : 'blue';
 }
 
-function groupModules(modules, hiddenTitles = []) {
-    const hiddenIcons = new Set(
-        CATEGORIES.filter((cat) => hiddenTitles.includes(cat.title)).flatMap((cat) => cat.icons)
-    );
-    const visibleModules = modules.filter((m) => !hiddenIcons.has(m.icon));
-
-    const remaining = new Set(visibleModules.map((m) => m.icon));
+function groupModules(modules) {
+    const remaining = new Set(modules.map((m) => m.icon));
     const groups = CATEGORIES.map((cat) => ({
         title: cat.title,
         items: cat.icons
-            .map((icon) => visibleModules.find((m) => m.icon === icon))
+            .map((icon) => modules.find((m) => m.icon === icon))
             .filter(Boolean),
     })).filter((g) => g.items.length > 0);
 
     groups.forEach((g) => g.items.forEach((i) => remaining.delete(i.icon)));
 
-    const rest = visibleModules.filter((m) => remaining.has(m.icon));
+    const rest = modules.filter((m) => remaining.has(m.icon));
     if (rest.length > 0) groups.push({ title: 'Outros', items: rest });
 
     return groups;
@@ -93,6 +89,10 @@ const ModuleCard = ({ type }) => {
 function DashboardHeader({ user, userRole, isAdmin }) {
     const { t } = useTranslation();
     const searchRef = useRef(null);
+    const { props } = usePage();
+    const switchableTeams = props.switchableTeams || [];
+    const canSwitchTeams = switchableTeams.length > 1;
+    const [showTeamSwitcher, setShowTeamSwitcher] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -107,6 +107,12 @@ function DashboardHeader({ user, userRole, isAdmin }) {
 
     return (
         <div className="flex items-center gap-3 mb-6">
+            <TeamSelectionModal
+                show={showTeamSwitcher}
+                teams={switchableTeams}
+                closeable
+                onClose={() => setShowTeamSwitcher(false)}
+            />
             <div className="relative flex-1 max-w-xl">
                 <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400 dark:text-zinc-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" strokeWidth="1.5" />
@@ -155,6 +161,15 @@ function DashboardHeader({ user, userRole, isAdmin }) {
                             >
                                 {t('navigation.profile')}
                             </Dropdown.Link>
+                            {canSwitchTeams && (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowTeamSwitcher(true)}
+                                    className="block w-full text-left px-5 py-2.5 text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-600 rounded-xl mx-2 transition-colors duration-150"
+                                >
+                                    Cambiar equipo
+                                </button>
+                            )}
                             {isAdmin && (
                                 <Dropdown.Link
                                     href={route('admin.dashboard')}
@@ -227,9 +242,7 @@ function HeroBanner() {
 }
 
 export default function QuestionnairesIndex({ auth, modules = [], userRole, isAdmin }) {
-    const isVerdeTeam = (auth.user.teams || []).some((team) => team.name === 'Verde');
-    const hiddenTitles = isVerdeTeam ? ['Avaliações e Testes Especiais'] : [];
-    const groups = groupModules(modules, hiddenTitles);
+    const groups = groupModules(modules);
 
     return (
         <AuthenticatedLayout user={auth.user} hideNav>
