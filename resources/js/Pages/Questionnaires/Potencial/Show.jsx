@@ -83,6 +83,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 <InfoItem label={t('Sexo')} value={questionnaire.sexo} />
                                 <InfoItem label={t('Solicitante')} value={questionnaire.solicitante} />
                                 <InfoItem label={t('Clínica')} value={questionnaire.clinica} />
+                                {sees('hiperativo') && <InfoItem label={t('Hiperativo?')} value={formatBoolean(questionnaire.hiperativo)} />}
                                 <InfoItem label={t('Equipe')} value={questionnaire.team?.name} />
                             </InfoSection>
 
@@ -161,7 +162,6 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 <InfoItem label={t('Tem labirintite ou tontura?')} value={formatBoolean(questionnaire.tem_labirintite_tontura_auditivo)} />
                                 <InfoItem label={t('Tem hipertensão arterial?')} value={formatBoolean(questionnaire.tem_hipertensao_auditivo)} />
                                 <InfoItem label={t('Tem diabetes?')} value={formatBoolean(questionnaire.tem_diabetes_auditivo)} />
-                                {sees('hiperativo') && <InfoItem label={t('Hiperativo?')} value={formatBoolean(questionnaire.hiperativo)} />}
                             </InfoSection>
 
                             {/* Potencial Evocado Visual */}

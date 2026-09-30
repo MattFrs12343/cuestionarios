@@ -44,7 +44,7 @@ export default function Edit({ auth, user, modules, assignedModules }) {
             case 'electroencefalograma':
                 return 'Fornece acesso ao módulo de questionário de EEG';
             case 'electroneuromiografia':
-                return 'Fornece acesso ao módulo de questionário de eletroneuromiografia';
+                return 'Fornece acesso ao módulo de questionário de electroneuromiografia';
             case 'rastreio_cognitivo':
                 return 'Fornece acesso ao módulo de rastreio cognitivo (MoCA)';
             case 'equilibrio':

@@ -1,1 +1,0 @@
-import{X as d}from"./app-i0rA4oh8.js";function l(){var t;const{props:i}=d(),n=((t=i==null?void 0:i.fieldVisibility)==null?void 0:t.hidden)??[],s=e=>!n.includes(e);return{sees:s,hide:e=>!s(e),hidden:n}}export{l as u};

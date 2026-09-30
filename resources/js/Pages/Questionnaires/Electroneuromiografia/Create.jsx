@@ -294,7 +294,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                 Novo Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                Eletroneuromiografia
+                                Electroneuromiografia
                             </p>
                         </div>
                     </div>
@@ -322,7 +322,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                                 <div>
-                                    <h1 className="text-2xl font-bold text-white">Novo Questionário de Eletroneuromiografia</h1>
+                                    <h1 className="text-2xl font-bold text-white">Novo Questionário de Electroneuromiografia</h1>
                                     <p className="text-cyan-100 text-sm mt-1">Preencha todos os campos obrigatórios para criar um novo registro</p>
                                 </div>
                             </div>

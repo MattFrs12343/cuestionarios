@@ -10,9 +10,11 @@ import TextInput from '@/Components/TextInput';
 import Modal from '@/Components/Modal';
 import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon, EyeIcon, PencilIcon, TrashIcon, CalendarIcon, UserIcon, BuildingOfficeIcon, UserGroupIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
+import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 
-export default function Index({ auth, questionnaires, filters, can, fieldVisibility }) {
+export default function Index({ auth, questionnaires, filters, can }) {
     const { t } = useTranslation();
+    const { hidden: hiddenFields } = useFieldVisibility();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [questionnaireToDelete, setQuestionnaireToDelete] = useState(null);
     const [showFilters, setShowFilters] = useState(false);
@@ -66,7 +68,7 @@ export default function Index({ auth, questionnaires, filters, can, fieldVisibil
     const handleExportToJPG = async (questionnaire) => {
         setExportingId(questionnaire.id);
         try {
-            await exportQuestionnaireToJPG(questionnaire, 'potencial', 'questionario_potencial', questionnaire.nome, fieldVisibility?.hidden ?? []);
+            await exportQuestionnaireToJPG(questionnaire, 'potencial', 'questionario_potencial', questionnaire.nome, hiddenFields);
         } catch (error) {
             console.error('Error al exportar:', error);
             alert('Erro ao exportar o questionário. Por favor, tente novamente.');

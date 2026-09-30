@@ -6,7 +6,7 @@ use App\Models\Attachment;
 use App\Models\AvaliacaoEquilibrio;
 use App\Models\Dinamometro;
 use App\Models\Electroneuromiografia;
-use App\Models\EletroneuromiografiaFacial;
+use App\Models\ElectroneuromiografiaFacial;
 use App\Models\Estesiometria;
 use App\Models\MiniExameMental;
 use App\Models\Potencial;
@@ -34,7 +34,7 @@ class MigrateAttachmentsToPrivateDisk extends Command
     private const PEDIDO_MEDICO_MODELS = [
         Questionnaire::class,
         Electroneuromiografia::class,
-        EletroneuromiografiaFacial::class,
+        ElectroneuromiografiaFacial::class,
         Potencial::class,
         RastreioCognitivo::class,
         AvaliacaoEquilibrio::class,

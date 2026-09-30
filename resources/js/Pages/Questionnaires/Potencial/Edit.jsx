@@ -29,7 +29,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         sexo: questionnaire.sexo || 'Feminino',
         solicitante: questionnaire.solicitante || '',
         clinica: questionnaire.clinica || '',
-        
+        hiperativo: !!questionnaire.hiperativo,
+
         // Potencial Evocado Auditivo
         tem_zumbido_ouvido: questionnaire.tem_zumbido_ouvido === true,
         passou_fonoaudiologo: questionnaire.passou_fonoaudiologo === true,
@@ -64,8 +65,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         tem_labirintite_tontura_auditivo: questionnaire.tem_labirintite_tontura_auditivo === true,
         tem_hipertensao_auditivo: questionnaire.tem_hipertensao_auditivo === true,
         tem_diabetes_auditivo: questionnaire.tem_diabetes_auditivo === true,
-        hiperativo: questionnaire.hiperativo === true,
-        
+
         // Potencial Evocado Visual
         teve_avc: questionnaire.teve_avc === true,
         avc_quando: questionnaire.avc_quando || '',
@@ -294,6 +294,18 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                         />
                                         <InputError message={errors.clinica} className="mt-2" />
                                     </div>
+
+                                    {sees('hiperativo') && (
+                                    <div className="flex items-start gap-3">
+                                        <Checkbox
+                                            id="hiperativo"
+                                            checked={data.hiperativo}
+                                            onChange={(e) => setData('hiperativo', e.target.checked)}
+                                            className="mt-1"
+                                        />
+                                        <InputLabel htmlFor="hiperativo" value={t('Hiperativo?')} className="cursor-pointer" />
+                                    </div>
+                                    )}
 
                                 </div>
                             </div>
@@ -673,18 +685,6 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                         />
                                         <InputLabel htmlFor="tem_diabetes_auditivo" value={t('Tem Diabetes?')} className="cursor-pointer" />
                                     </div>
-
-                                    {sees('hiperativo') && (
-                                        <div className="flex items-start gap-3">
-                                            <Checkbox
-                                                id="hiperativo"
-                                                checked={data.hiperativo}
-                                                onChange={(e) => setData('hiperativo', e.target.checked)}
-                                                className="mt-1"
-                                            />
-                                            <InputLabel htmlFor="hiperativo" value={t('Hiperativo?')} className="cursor-pointer" />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
 

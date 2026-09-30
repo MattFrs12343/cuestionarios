@@ -38,7 +38,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                 Visualizar Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                Eletroneuromiografia
+                                Electroneuromiografia
                             </p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     </div>
                                     <div>
                                         <h1 className="text-2xl font-bold text-white">{questionnaire.nome}</h1>
-                                        <p className="text-indigo-100 text-sm mt-1">Eletroneuromiografia - {formatDateShort(questionnaire.data_exame)}</p>
+                                        <p className="text-indigo-100 text-sm mt-1">Electroneuromiografia - {formatDateShort(questionnaire.data_exame)}</p>
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">

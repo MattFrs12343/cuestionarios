@@ -27,7 +27,7 @@ const GRADIENTS = {
 // Agrupamento por especialidade — ajuda a escanear a tela rapidamente
 // mesmo com muitos tipos de questionário disponíveis.
 const CATEGORIES = [
-    { title: 'Exames Neurológicos', icons: ['electroencefalograma', 'electroneuromiografia', 'potencial', 'eletroneuromiografia_facial'] },
+    { title: 'Exames Neurológicos', icons: ['electroencefalograma', 'electroneuromiografia', 'potencial', 'electroneuromiografia_facial'] },
     { title: 'Avaliações e Testes Especiais', icons: ['rastreio_cognitivo', 'equilibrio', 'mini_exame_mental', 'estesiometria', 'dinamometro'] },
     { title: 'TDAH', icons: ['tdah_infantil', 'tdah_adulto'] },
 ];

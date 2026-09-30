@@ -345,7 +345,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                 Editar Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                Eletroneuromiografia
+                                Electroneuromiografia
                             </p>
                         </div>
                     </div>
@@ -366,7 +366,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                     </svg>
                                     <div>
                                         <h1 className="text-2xl font-bold text-white">Editar Questionário</h1>
-                                        <p className="text-blue-100 text-sm mt-1">Eletroneuromiografia - {questionnaire.nome}</p>
+                                        <p className="text-blue-100 text-sm mt-1">Electroneuromiografia - {questionnaire.nome}</p>
                                     </div>
                                 </div>
                                 <div className="flex space-x-2">

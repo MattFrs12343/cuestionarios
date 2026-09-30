@@ -259,7 +259,7 @@ export default function AuthenticatedLayout({ header, children, hideNav = false 
                         >
                             <span className="inline-flex items-center gap-2">
                                 <QuestionnaireTypeIcon type="electroneuromiografia" className="w-4 h-4" />
-                                Eletroneuromiografia
+                                Electroneuromiografia
                             </span>
                         </ResponsiveNavLink>
                         {user.roles && user.roles.some(role => role.name === 'administrador') && (

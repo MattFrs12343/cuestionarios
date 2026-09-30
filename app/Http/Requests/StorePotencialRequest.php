@@ -32,6 +32,7 @@ class StorePotencialRequest extends FormRequest
             'sexo' => 'required|in:Feminino,Masculino',
             'solicitante' => 'required|string|max:255',
             'clinica' => 'required|string|max:255',
+            'hiperativo' => 'boolean',
 
             // Potencial Evocado Auditivo
             'tem_zumbido_ouvido' => 'boolean',
@@ -67,7 +68,6 @@ class StorePotencialRequest extends FormRequest
             'tem_labirintite_tontura_auditivo' => 'boolean',
             'tem_hipertensao_auditivo' => 'boolean',
             'tem_diabetes_auditivo' => 'boolean',
-            'hiperativo' => 'boolean',
             
             // Potencial Evocado Visual
             'teve_avc' => 'boolean',
@@ -115,7 +115,7 @@ class StorePotencialRequest extends FormRequest
             'tem_patologia_olho', 'usa_oculos', 'cefaleia_visual', 'tem_enxaqueca_visual',
             'incomoda_claridade', 've_pontinhos_coloridos', 'tem_alucinacoes_visuais',
             'tem_labirintite_tontura_visual', 'tem_hipertensao_visual', 'tem_diabetes_visual',
-            'hiperativo'
+            'hiperativo',
         ];
 
         $input = $this->all();

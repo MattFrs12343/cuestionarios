@@ -213,7 +213,7 @@ export default function ElectroneuromiografiaIndex({
                         </div>
                         <div>
                             <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
-                                Eletroneuromiografia
+                                Electroneuromiografia
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Gestão de Exames Neuromusculares
@@ -232,7 +232,7 @@ export default function ElectroneuromiografiaIndex({
                 </div>
             }
         >
-            <Head title="Eletroneuromiografia" />
+            <Head title="Electroneuromiografia" />
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

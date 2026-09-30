@@ -37,7 +37,7 @@ export default function Dashboard({ auth }) {
             },
             {
                 name: 'Novo EMG',
-                description: 'Criar questionário de Eletroneuromiografia',
+                description: 'Criar questionário de Electroneuromiografia',
                 href: route('questionnaires.electroneuromiografia.create'),
                 gradient: 'from-purple-500 to-indigo-600',
                 darkGradient: 'dark:from-purple-600 dark:to-indigo-700',

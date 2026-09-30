@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Models\Team;
+use App\Models\User;
 
 /**
  * Resuelve qué campos de un cuestionario puede ver un equipo, a partir de
@@ -90,22 +91,59 @@ class QuestionnaireFields
      */
     public static function invisibleTo(?Team $team, string $slug): array
     {
-        // Sin equipo no hay nada oculto "declarado" para ese equipo, pero sí
-        // conviene arrastrar los exclusivos de TODOS los equipos: sin equipo no
-        // se puede probar que el usuario sea el destinatario de un campo
-        // exclusivo, así que ninguno se le muestra (fail closed, igual que
-        // exclusiveFor()).
-        $hidden = $team ? static::hiddenFor($team, $slug) : [];
+        return static::invisibleToTeams($team ? [$team->id] : [], $slug);
+    }
+
+    /**
+     * Igual que invisibleTo(), pero resuelto sobre un conjunto de equipos.
+     *
+     * Hace falta en las pantallas donde todavia no hay un equipo concreto: en el
+     * formulario de creacion el equipo se elige dentro del propio formulario, asi
+     * que cuando se renderiza todavia no se sabe. Ahi se decide por pertenencia:
+     * un campo exclusivo se muestra si el usuario pertenece a algun equipo que lo
+     * tenga, y se oculta si solo pertenece a equipos ajenos. Si no se sabe de
+     * que equipos se trata, no se muestra ningun exclusivo (fail closed).
+     *
+     * @param  array<int, int|string>|null  $teamIds
+     * @return array<int, string>
+     */
+    public static function invisibleToTeams(?array $teamIds, string $slug): array
+    {
+        $mine = array_map('intval', $teamIds ?? []);
+
+        $hidden = [];
+        $allExclusive = [];
+        $myExclusive = [];
 
         foreach (static::overrides() as $teamId => $settings) {
-            if ($team && (int) $teamId === (int) $team->id) {
-                continue;
-            }
+            $exclusive = $settings['exclusive'][$slug] ?? [];
+            $allExclusive = array_merge($allExclusive, $exclusive);
 
-            $hidden = array_merge($hidden, $settings['exclusive'][$slug] ?? []);
+            if (in_array((int) $teamId, $mine, true)) {
+                $hidden = array_merge($hidden, $settings['hidden'][$slug] ?? []);
+                $myExclusive = array_merge($myExclusive, $exclusive);
+            }
         }
 
+        // Los exclusivos de los equipos a los que el usuario NO pertenece quedan
+        // ocultos. Sin ningun equipo esto deja todos los exclusivos fuera.
+        $hidden = array_merge($hidden, array_diff($allExclusive, $myExclusive));
+
         return array_values(array_unique($hidden));
+    }
+
+    /**
+     * Prop para Inertia en las pantallas sin equipo concreto.
+     *
+     * @return array{hidden: array<int, string>}
+     */
+    public static function forUser(?User $user, string $slug): array
+    {
+        $teamIds = $user ? $user->teams()->pluck('teams.id')->all() : [];
+
+        return [
+            'hidden' => static::invisibleToTeams($teamIds, $slug),
+        ];
     }
 
     /**

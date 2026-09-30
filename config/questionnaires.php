@@ -3,7 +3,7 @@
 use App\Models\AvaliacaoEquilibrio;
 use App\Models\Dinamometro;
 use App\Models\Electroneuromiografia;
-use App\Models\EletroneuromiografiaFacial;
+use App\Models\ElectroneuromiografiaFacial;
 use App\Models\Estesiometria;
 use App\Models\MiniExameMental;
 use App\Models\Potencial;
@@ -34,7 +34,7 @@ return [
             'model' => Questionnaire::class,
             'slug' => 'electroencefalograma',
             'label' => 'Electroencefalograma',
-            'description' => 'Questionário para exames de eletroencefalograma',
+            'description' => 'Questionário para exames de electroencefalograma',
             'color' => 'bg-blue-500',
             'core' => true,
         ],
@@ -42,7 +42,7 @@ return [
             'model' => Electroneuromiografia::class,
             'slug' => 'electroneuromiografia',
             'label' => 'Electroneuromiografía',
-            'description' => 'Questionário para exames de eletroneuromiografia',
+            'description' => 'Questionário para exames de electroneuromiografia',
             'color' => 'bg-purple-500',
             'core' => true,
         ],
@@ -54,11 +54,11 @@ return [
             'color' => 'bg-green-500',
             'core' => true,
         ],
-        'eletroneuromiografia_facial' => [
-            'model' => EletroneuromiografiaFacial::class,
-            'slug' => 'eletroneuromiografia-facial',
-            'label' => 'Eletroneuromiografia Facial',
-            'description' => 'Questionário para exames de eletroneuromiografia facial',
+        'electroneuromiografia_facial' => [
+            'model' => ElectroneuromiografiaFacial::class,
+            'slug' => 'electroneuromiografia-facial',
+            'label' => 'Electroneuromiografia Facial',
+            'description' => 'Questionário para exames de electroneuromiografia facial',
             'color' => 'bg-orange-500',
             'core' => true,
         ],
@@ -118,6 +118,19 @@ return [
             'color' => 'bg-violet-500',
             'core' => false,
         ],
+    ],
+
+    /**
+     * Slugs retirados -> clave actual de "types".
+     *
+     * El módulo de Electro neuromiografía Facial se renombró de
+     * "eletroneuromiografia-facial" a "electroneuromiografia-facial".
+     * Los enlaces de pedido médico ya compartidos (WhatsApp, email) usan el
+     * slug viejo en la URL, así que se mantiene como alias para que sigan
+     * sirviendo. No hay que sacarlo salvo que se acepte romper esos enlaces.
+     */
+    'legacy_slugs' => [
+        'eletroneuromiografia-facial' => 'electroneuromiografia_facial',
     ],
 
 ];

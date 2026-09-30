@@ -81,17 +81,24 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{potencial}', [App\Http\Controllers\Questionnaires\PotencialController::class, 'destroy'])->name('destroy');
     });
     
-    // Rutas específicas para Eletroneuromiografia Facial
-    Route::prefix('questionnaires/eletroneuromiografia-facial')->name('questionnaires.eletroneuromiografia-facial.')
-        ->middleware('module.access:eletroneuromiografia_facial')->group(function () {
-        Route::get('/', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'index'])->name('index');
-        Route::get('/create', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'create'])->name('create');
-        Route::post('/', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'store'])->name('store');
-        Route::get('/{eletroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'show'])->name('show');
-        Route::get('/{eletroneuromiografiaFacial}/edit', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'edit'])->name('edit');
-        Route::put('/{eletroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'update'])->name('update');
-        Route::delete('/{eletroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\EletroneuromiografiaFacialController::class, 'destroy'])->name('destroy');
+    // Rutas específicas para Electroneuromiografia Facial
+    Route::prefix('questionnaires/electroneuromiografia-facial')->name('questionnaires.electroneuromiografia-facial.')
+        ->middleware('module.access:electroneuromiografia_facial')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'store'])->name('store');
+        Route::get('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'show'])->name('show');
+        Route::get('/{electroneuromiografiaFacial}/edit', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'edit'])->name('edit');
+        Route::put('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'update'])->name('update');
+        Route::delete('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'destroy'])->name('destroy');
     });
+
+    // Redirección del prefijo anterior ("eletroneuromiografia-facial") al actual.
+    // Solo lectura: los enlaces viejos siguen funcionando, las escrituras van al prefijo nuevo.
+    Route::get('questionnaires/eletroneuromiografia-facial', fn () => redirect('questionnaires/electroneuromiografia-facial'));
+    Route::get('questionnaires/eletroneuromiografia-facial/{path}', function (string $path) {
+        return redirect('questionnaires/electroneuromiografia-facial/' . $path);
+    })->where('path', '.*');
 
     // Rutas específicas para Rastreio Cognitivo (MoCA)
     Route::prefix('questionnaires/rastreio-cognitivo')->name('questionnaires.rastreio-cognitivo.')

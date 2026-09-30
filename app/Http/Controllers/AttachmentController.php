@@ -14,12 +14,23 @@ class AttachmentController extends Controller
     /**
      * Mapa slug de tipo -> modelo dueño, derivado de config/questionnaires.php.
      * Público: lo reutiliza PedidoMedicoController.
+     *
+     * Incluye los slugs de "legacy_slugs" (apuntan al mismo modelo) para que
+     * los enlaces ya compartidos con el nombre anterior sigan funcionando.
      */
     public static function types(): array
     {
-        return collect(config('questionnaires.types'))
-            ->mapWithKeys(fn (array $type) => [$type['slug'] => $type['model']])
-            ->all();
+        $types = collect(config('questionnaires.types'))
+            ->mapWithKeys(fn (array $type) => [$type['slug'] => $type['model']]);
+
+        $all = config('questionnaires.types');
+        foreach (config('questionnaires.legacy_slugs', []) as $legacy => $current) {
+            if (isset($all[$current])) {
+                $types->put($legacy, $all[$current]['model']);
+            }
+        }
+
+        return $types->all();
     }
 
     /**

@@ -42,7 +42,7 @@ return [
                 'potencial' => ['hiperativo'],
 
                 // Preguntas agregadas solo para este equipo.
-                'eletroneuromiografia-facial' => ['teve_avc', 'avc_quando'],
+                'electroneuromiografia-facial' => ['teve_avc', 'avc_quando'],
             ],
         ],
 

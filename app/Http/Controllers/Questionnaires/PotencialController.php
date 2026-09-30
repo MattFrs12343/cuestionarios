@@ -16,6 +16,7 @@ class PotencialController extends Controller
 {
     use RestrictsQuestionnaireByTeam, HandlesAttachments;
 
+    /** Slug del cuestionario, para resolver la visibilidad de campos. */
     private const SLUG = 'potencial';
 
     public function index(Request $request): Response
@@ -39,7 +40,6 @@ class PotencialController extends Controller
                 'edit' => $user->can('edit questionnaires'),
                 'delete' => $user->can('delete questionnaires'),
             ],
-            'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),
         ]);
     }
 
@@ -47,15 +47,18 @@ class PotencialController extends Controller
     {
         return Inertia::render('Questionnaires/Potencial/Create', [
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
-            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
+            // En la creación todavía no hay un equipo concreto: se decide por
+            // pertenencia del usuario (ver QuestionnaireFields::forUser).
+            'fieldVisibility' => QuestionnaireFields::forUser($request->user(), self::SLUG),
         ]);
     }
 
     public function store(StorePotencialRequest $request)
     {
-        $data = $request->validated();
         $team = $this->currentTeam($request);
-        $data = QuestionnaireFields::onlyVisible($team, self::SLUG, $data);
+
+        // Descarta los campos que este equipo no debe ver, antes de guardar.
+        $data = QuestionnaireFields::onlyVisible($team, self::SLUG, $request->validated());
         $data['team_id'] = $team->id;
         $data['created_by'] = auth()->id();
 
@@ -80,7 +83,7 @@ class PotencialController extends Controller
             ->with('success', 'Questionário de Potencial criado com sucesso!');
     }
 
-    public function show(Request $request, Potencial $potencial): Response
+    public function show(Potencial $potencial): Response
     {
         $this->authorizeTeamAccess($potencial);
 
@@ -91,15 +94,15 @@ class PotencialController extends Controller
             'pedidoMedicoUrl' => $potencial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
                 : null,
+            'fieldVisibility' => QuestionnaireFields::forInertia($potencial->team, self::SLUG),
             'can' => [
                 'edit' => auth()->user()->can('update', $potencial),
                 'delete' => auth()->user()->can('delete', $potencial),
             ],
-            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
-    public function edit(Request $request, Potencial $potencial): Response
+    public function edit(Potencial $potencial): Response
     {
         $this->authorizeTeamAccess($potencial);
 
@@ -110,8 +113,8 @@ class PotencialController extends Controller
             'pedidoMedicoUrl' => $potencial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
                 : null,
+            'fieldVisibility' => QuestionnaireFields::forInertia($potencial->team, self::SLUG),
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
-            'fieldVisibility' => QuestionnaireFields::forInertia($this->currentTeam($request), self::SLUG),
         ]);
     }
 
@@ -119,8 +122,9 @@ class PotencialController extends Controller
     {
         $this->authorizeTeamAccess($potencial);
 
-        $data = $request->validated();
-        $data = QuestionnaireFields::onlyVisible($this->currentTeam($request), self::SLUG, $data);
+        // Se filtra contra el equipo del registro, no el actual: es el que
+        // determina qué campos puede tener guardados este cuestionario.
+        $data = QuestionnaireFields::onlyVisible($potencial->team, self::SLUG, $request->validated());
         $data['updated_by'] = auth()->id();
 
         // Manejar assinatura (base64)

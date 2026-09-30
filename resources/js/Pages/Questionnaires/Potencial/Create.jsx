@@ -29,7 +29,8 @@ export default function Create({ auth, retardoMentalGraus }) {
         sexo: 'Feminino',
         solicitante: '',
         clinica: '',
-        
+        hiperativo: false,
+
         // Potencial Evocado Auditivo
         tem_zumbido_ouvido: false,
         passou_fonoaudiologo: false,
@@ -64,8 +65,7 @@ export default function Create({ auth, retardoMentalGraus }) {
         tem_labirintite_tontura_auditivo: false,
         tem_hipertensao_auditivo: false,
         tem_diabetes_auditivo: false,
-        hiperativo: false,
-        
+
         // Potencial Evocado Visual
         teve_avc: false,
         avc_quando: '',
@@ -298,6 +298,18 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         />
                                         <InputError message={errors.clinica} className="mt-2" />
                                     </div>
+
+                                    {sees('hiperativo') && (
+                                    <div className="flex items-start gap-3">
+                                        <Checkbox
+                                            id="hiperativo"
+                                            checked={data.hiperativo}
+                                            onChange={(e) => setData('hiperativo', e.target.checked)}
+                                            className="mt-1"
+                                        />
+                                        <InputLabel htmlFor="hiperativo" value={t('Hiperativo?')} className="cursor-pointer" />
+                                    </div>
+                                    )}
 
                                 </div>
                             </div>
@@ -676,18 +688,6 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         />
                                         <InputLabel htmlFor="tem_diabetes_auditivo" value={t('Tem Diabetes?')} className="cursor-pointer" />
                                     </div>
-
-                                    {sees('hiperativo') && (
-                                        <div className="flex items-start gap-3">
-                                            <Checkbox
-                                                id="hiperativo"
-                                                checked={data.hiperativo}
-                                                onChange={(e) => setData('hiperativo', e.target.checked)}
-                                                className="mt-1"
-                                            />
-                                            <InputLabel htmlFor="hiperativo" value={t('Hiperativo?')} className="cursor-pointer" />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
 

@@ -1,7 +1,15 @@
 import { formatDateShort } from '@/Utils/dateFormatter';
 
+/**
+ * `hiddenFields` es la lista de campos que ese equipo no debe ver, resuelta por
+ * el servidor (App\Support\QuestionnaireFields). Viene como prop y no como prop
+ * de Inertia porque el JPG se arma en un html2canvas aparte del render normal:
+ * sin esto, un PDF exportado por un Rojo dejaría ver "Hiperativo?", que en la
+ * pantalla nunca se le muestra.
+ */
 export default function QuestionnaireExportView({ questionnaire, type = 'electroencefalograma', hiddenFields = [] }) {
-    const isHidden = (field) => hiddenFields.includes(field);
+    const sees = (field) => !hiddenFields.includes(field);
+
     const InfoRow = ({ label, value }) => (
         <div className="mb-1">
             <span className="text-xs font-semibold text-gray-700">{label}</span>
@@ -175,12 +183,13 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <InfoRow label="RG ou CPF" value={questionnaire.rg} />
                         <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
                         <InfoRow label="Idade" value={questionnaire.idade} />
-                        {!isHidden('peso') && <InfoRow label="Peso" value={questionnaire.peso} />}
-                        {!isHidden('altura') && <InfoRow label="Altura" value={questionnaire.altura} />}
+                        {sees('peso') && <InfoRow label="Peso" value={questionnaire.peso} />}
+                        {sees('altura') && <InfoRow label="Altura" value={questionnaire.altura} />}
                         <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
                         <InfoRow label="Sexo" value={questionnaire.sexo} />
                         <InfoRow label="Solicitante" value={questionnaire.solicitante} />
                         <InfoRow label="Clínica" value={questionnaire.clinica} />
+                        {sees('hiperativo') && <BooleanRow label="É hiperativo?" value={questionnaire.hiperativo} />}
                     </div>
                 </div>
 
@@ -211,7 +220,6 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <BooleanRow label="Teve infecção de ouvido?" value={questionnaire.teve_infeccao_ouvido} />
                         <BooleanRow label="Teve trauma de ouvido?" value={questionnaire.teve_trauma_ouvido} />
                         <BooleanRow label="Tem labirintite ou tontura?" value={questionnaire.tem_labirintite_tontura_auditivo} />
-                        {!isHidden('hiperativo') && <BooleanRow label="Hiperativo?" value={questionnaire.hiperativo} />}
                     </div>
                 </div>
 
@@ -273,7 +281,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-xs font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - ENMG</h1>
-                            <p style={{ fontSize: '8px', marginBottom: 0, lineHeight: '1.2' }}>Eletroneuromiografia</p>
+                            <p style={{ fontSize: '8px', marginBottom: 0, lineHeight: '1.2' }}>Electroneuromiografia</p>
                         </div>
                         <div className="text-right" style={{ fontSize: '8px', lineHeight: '1.2' }}>
                             <div>Data: {new Date().toLocaleDateString('pt-BR')}</div>
@@ -411,8 +419,8 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
     }
 
-    // Eletroneuromiografia Facial
-    if (type === 'eletroneuromiografia-facial') {
+    // Electroneuromiografia Facial
+    if (type === 'electroneuromiografia-facial') {
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '11px' }}>
                 {/* Header */}
@@ -420,7 +428,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - ENMG Facial</h1>
-                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Eletroneuromiografia Facial</p>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Electroneuromiografia Facial</p>
                         </div>
                         <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
                             <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
@@ -447,7 +455,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
 
                 {/* Questionário Facial */}
                 <div className="mb-2">
-                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Questionário de Eletroneuromiografia Facial</h2>
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Questionário de Electroneuromiografia Facial</h2>
                     <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
                         <BooleanRow label="Tem dor na testa?" value={questionnaire.tem_dor_testa} />
                         <BooleanRow label="Dor nos olhos?" value={questionnaire.tem_dor_olhos} conditionalValue={questionnaire.dor_olhos_lado} />
@@ -460,7 +468,6 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <BooleanRow label="Teve paralisia facial?" value={questionnaire.teve_paralisia_facial} conditionalValue={questionnaire.paralisia_facial_vezes ? `${questionnaire.paralisia_facial_vezes} vezes` : null} />
                         <BooleanRow label="Parte da face paralisada?" value={questionnaire.tem_parte_face_paralisada} conditionalValue={questionnaire.parte_face_paralisada_qual} />
                         <BooleanRow label="Tem enxaqueca?" value={questionnaire.tem_enxaqueca} />
-                        {!isHidden('teve_avc') && <BooleanRow label="Já teve AVC? Quando?" value={questionnaire.teve_avc} conditionalValue={questionnaire.avc_quando} />}
                         <BooleanRow label="Consegue sorrir normalmente?" value={questionnaire.consegue_sorrir_normalmente} />
                         <BooleanRow label="Pode comer normalmente?" value={questionnaire.pode_comer_normalmente} />
                         <BooleanRow label="Pode assoviar?" value={questionnaire.pode_assoviar} />
@@ -468,6 +475,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                         <BooleanRow label="Infecção de ouvido repetida?" value={questionnaire.tem_infeccao_ouvido_repetidamente} />
                         <BooleanRow label="Diabético(a)?" value={questionnaire.diabetico} />
                         <BooleanRow label="Toma medicamento?" value={questionnaire.toma_medicamento} conditionalValue={questionnaire.medicamentos} />
+                        {sees('teve_avc') && <BooleanRow label="Já teve AVC?" value={questionnaire.teve_avc} conditionalValue={questionnaire.avc_quando} />}
                     </div>
                 </div>
 

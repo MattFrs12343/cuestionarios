@@ -26,6 +26,7 @@ class Potencial extends Model
         'sexo',
         'solicitante',
         'clinica',
+        'hiperativo',
         
         // Potencial Evocado Auditivo
         'tem_zumbido_ouvido',
@@ -61,7 +62,6 @@ class Potencial extends Model
         'tem_labirintite_tontura_auditivo',
         'tem_hipertensao_auditivo',
         'tem_diabetes_auditivo',
-        'hiperativo',
         
         // Potencial Evocado Visual
         'teve_avc',
@@ -99,6 +99,7 @@ class Potencial extends Model
     protected $casts = [
         'data_exame' => 'date:Y-m-d',
         'data_nascimento' => 'date:Y-m-d',
+        'hiperativo' => 'boolean',
         
         // Potencial Evocado Auditivo
         'tem_zumbido_ouvido' => 'boolean',
@@ -125,7 +126,6 @@ class Potencial extends Model
         'tem_labirintite_tontura_auditivo' => 'boolean',
         'tem_hipertensao_auditivo' => 'boolean',
         'tem_diabetes_auditivo' => 'boolean',
-        'hiperativo' => 'boolean',
         
         // Potencial Evocado Visual
         'teve_avc' => 'boolean',
