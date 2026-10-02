@@ -4,13 +4,19 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { ArrowLeftIcon, UserIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 
-export default function Edit({ auth, user, modules, assignedModules }) {
+export default function Edit({ auth, user, modules, assignedModules, planDefaults = [], effectiveModules = [] }) {
+    // Parte del acceso efectivo real (no solo de las filas individuales): si un
+    // módulo le llega por el plan de su equipo, el interruptor debe abrirse
+    // encendido, o "guardar" sin tocar nada se lo quitaría.
     const { data, setData, put, processing, errors } = useForm({
         modules: Object.keys(modules).reduce((acc, moduleName) => {
-            acc[moduleName] = assignedModules[moduleName]?.is_active || false;
+            acc[moduleName] = assignedModules[moduleName]?.is_active
+                ?? effectiveModules.includes(moduleName);
             return acc;
         }, {})
     });
+
+    const inPlan = (moduleName) => planDefaults.includes(moduleName);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -112,10 +118,11 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-6">
                                     <h4 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
-                                        Módulos disponíveis
+                                        Módulos de {user.name}
                                     </h4>
                                     <p className="text-sm text-gray-600 dark:text-zinc-400 mb-6">
-                                        Selecione os módulos aos quais este usuário terá acesso. As alterações serão aplicadas imediatamente..
+                                        Lo que enciendas aquí es exactamente lo que esta persona va a ver.
+                                        Lo que dejes apagado, el cuestionario no le aparece y no puede entrar a él.
                                     </p>
 
                                     <div className="space-y-4">
@@ -138,15 +145,22 @@ export default function Edit({ auth, user, modules, assignedModules }) {
                                                                 {getModuleIcon(moduleName)}
                                                             </div>
                                                             <div className="flex-1">
-                                                                <h5 className="text-base font-medium text-gray-900 dark:text-zinc-100">
+                                                                <h5 className="text-base font-medium text-gray-900 dark:text-zinc-100 flex items-center gap-2">
                                                                     {moduleDisplayName}
+                                                                    {inPlan(moduleName) && (
+                                                                        <span className="text-xs font-normal px-2 py-0.5 rounded bg-gray-100 text-gray-600 dark:bg-zinc-600 dark:text-zinc-400">
+                                                                            valor inicial del equipo
+                                                                        </span>
+                                                                    )}
                                                                 </h5>
                                                                 <p className="text-sm text-gray-500 dark:text-zinc-400">
                                                                     {getModuleDescription(moduleName)}
                                                                 </p>
                                                                 {assignmentInfo && (
                                                                     <p className="text-xs text-gray-400 dark:text-zinc-400 mt-1">
-                                                                        Atribuído por: {assignmentInfo.assigned_by?.name} • 
+                                                                        {assignmentInfo.is_active ? 'Asignado' : 'Desasignado'}
+                                                                        {assignmentInfo.assigned_by?.name ? ` por ${assignmentInfo.assigned_by.name}` : ''}
+                                                                        {' · '}
                                                                         {new Date(assignmentInfo.created_at).toLocaleDateString()}
                                                                     </p>
                                                                 )}

@@ -43,16 +43,33 @@ class UserModuleController extends Controller
     }
 
     /**
-     * Módulos (module_name => label) que el equipo del usuario tiene habilitados
-     * en team_modules. Ya no existe una lista fija de "módulos asignables":
-     * depende de qué contrató el equipo, no de un hardcode global.
+     * Catálogo completo de módulos (module_name => label) que se le puede
+     * encender o apagar a este usuario.
+     *
+     * Antes devolvía solo los módulos que el plan (team_modules) de alguno de
+     * sus equipos tuviera habilitados. Eso convertía al plan en un techo y
+     * hacía la decisión del administrador ilusoria: encender un módulo que el
+     * plan no tenía no se reflejaba en el usuario (y el plan sí lo ocultaba,
+     * en silencio, porque la intersección de User::getAccessibleModules()
+     * ganaba siempre). Ahora el plan es solo el valor inicial de los usuarios
+     * nuevos (ver UserModuleProvisioner) y por usuario decide la asignación.
      */
-    private function availableModulesFor(User $user): array
+    private function availableModulesFor(): array
     {
-        $enabled = $user->teams->flatMap(fn ($team) => $team->activeModuleNames())->unique();
+        return UserModule::labels();
+    }
 
-        return collect(UserModule::labels())
-            ->only($enabled->all())
+    /**
+     * Módulos que el plan de alguno de los equipos del usuario tiene
+     * habilitados. No restringen nada: solo se le pasan a la interfaz para que
+     * pueda distinguir "viene del plan del equipo" de "decisión del
+     * administrador", que es información, no un filtro.
+     */
+    private function planDefaultsFor(User $user): array
+    {
+        return $user->teams->flatMap(fn ($team) => $team->activeModuleNames())
+            ->unique()
+            ->values()
             ->all();
     }
 
@@ -65,7 +82,7 @@ class UserModuleController extends Controller
         $role = $request->get('role');
         $teamIds = $this->scopedTeamIds($request->user());
 
-        $users = User::with(['roles', 'activeModules'])
+        $users = User::with(['roles', 'userModules'])
             ->whereHas('roles', function ($query) {
                 $query->whereIn('name', ['laudador', 'tecnico']);
             })
@@ -88,6 +105,13 @@ class UserModuleController extends Controller
             ->orderBy('name')
             ->paginate(15)
             ->withQueryString();
+
+        // Lo que la persona ve de verdad ahora mismo, con el mismo cálculo que
+        // aplica el acceso real (User::getAccessibleModules). Mostrar una cosa
+        // y aplicar otra es lo que hacía que esta pantalla no cuadrase.
+        $users->getCollection()->each(function (User $listed) {
+            $listed->setAttribute('effective_modules', $listed->getAccessibleModules());
+        });
 
         return Inertia::render('Admin/UserModules/Index', [
             'users' => $users,
@@ -125,10 +149,18 @@ class UserModuleController extends Controller
 
         $assignedModules = $user->userModules->keyBy('module_name');
 
+        // El interruptor tiene que abrirse en lo que la persona ve HOY. Para un
+        // técnico, un módulo que solo viene del plan no tiene fila propia, así
+        // que sin esto la pantalla lo mostraría apagado y "guardar" sin tocar
+        // nada se lo quitaría de encima.
+        $effective = $user->getAccessibleModules();
+
         return Inertia::render('Admin/UserModules/Edit', [
             'user' => $user,
-            'modules' => $this->availableModulesFor($user),
+            'modules' => $this->availableModulesFor(),
             'assignedModules' => $assignedModules,
+            'planDefaults' => $this->planDefaultsFor($user),
+            'effectiveModules' => $effective,
         ]);
     }
 
@@ -154,43 +186,61 @@ class UserModuleController extends Controller
                 ->with('error', "El usuario '{$user->name}' no puede ser asignado a módulos. Solo usuarios con roles LAUDADOR o TECNICO pueden ser asignados. Roles actuales: {$userRoles}");
         }
 
+        $catalog = $this->availableModulesFor();
+
         $request->validate([
             'modules' => 'required|array',
             'modules.*' => 'boolean',
         ]);
 
-        $modules = $request->get('modules', []);
+        $requested = $request->input('modules', []);
 
-        DB::transaction(function () use ($user, $modules, $request) {
-            // Obtener módulos actuales del usuario
-            $currentModules = $user->userModules->keyBy('module_name');
+        $activated = 0;
+        $deactivated = 0;
 
-            foreach ($this->availableModulesFor($user) as $moduleName => $moduleDisplayName) {
-                $shouldHaveAccess = isset($modules[$moduleName]) && $modules[$moduleName];
-                $currentlyHasAccess = $currentModules->has($moduleName) && $currentModules[$moduleName]->is_active;
+        DB::transaction(function () use ($user, $catalog, $requested, $request, &$activated, &$deactivated) {
+            $currentModules = $user->userModules()->get()->keyBy('module_name');
 
-                if ($shouldHaveAccess && !$currentlyHasAccess) {
-                    // Asignar o reactivar módulo
-                    UserModule::updateOrCreate(
-                        [
-                            'user_id' => $user->id,
-                            'module_name' => $moduleName,
-                        ],
-                        [
-                            'is_active' => true,
-                            'assigned_by' => $request->user()->id,
-                        ]
-                    );
-                } elseif (!$shouldHaveAccess && $currentlyHasAccess) {
-                    // Desactivar módulo
-                    $currentModules[$moduleName]->update(['is_active' => false]);
+            // Se recorre el catálogo COMPLETO, no solo las claves enviadas: así
+            // un módulo ausente en el payload queda explícitamente apagado y
+            // nunca sobrevive por una omisión del formulario.
+            foreach (array_keys($catalog) as $moduleName) {
+                $shouldHaveAccess = (bool) ($requested[$moduleName] ?? false);
+                $current = $currentModules->get($moduleName);
+                $currentlyHasAccess = (bool) ($current?->is_active);
+
+                if ($shouldHaveAccess === $currentlyHasAccess && $current !== null) {
+                    continue;
                 }
+
+                UserModule::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'module_name' => $moduleName,
+                    ],
+                    [
+                        'is_active' => $shouldHaveAccess,
+                        'assigned_by' => $request->user()->id,
+                    ]
+                );
+
+                $shouldHaveAccess ? $activated++ : $deactivated++;
             }
         });
 
+        $summary = collect([
+            $activated > 0 ? "{$activated} módulo(s) encendido(s)" : null,
+            $deactivated > 0 ? "{$deactivated} módulo(s) apagado(s)" : null,
+        ])->filter()->implode(', ');
+
         return redirect()
             ->route('admin.user-modules.index')
-            ->with('success', 'Módulos actualizados correctamente para ' . $user->name);
+            ->with(
+                'success',
+                $summary !== ''
+                    ? "Módulos actualizados para {$user->name}: {$summary}."
+                    : "No hubo cambios en los módulos de {$user->name}."
+            );
     }
 
     /**
@@ -215,7 +265,7 @@ class UserModuleController extends Controller
         }
 
         $request->validate([
-            'module_name' => 'required|string|in:' . implode(',', array_keys($this->availableModulesFor($user))),
+            'module_name' => 'required|string|in:' . implode(',', array_keys($this->availableModulesFor())),
             'is_active' => 'required|boolean',
         ]);
 

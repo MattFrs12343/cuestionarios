@@ -16,6 +16,8 @@ export default function AuthenticatedLayout({ header, children, hideNav = false 
     const currentTeam = page.props.currentTeam;
     const switchableTeams = page.props.switchableTeams || [];
     const needsTeamSelection = page.props.needsTeamSelection || false;
+    const accessibleModules = page.props.accessibleModules || [];
+    const canOpenModule = (moduleName) => accessibleModules.includes(moduleName);
     const { t } = useTranslation();
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -65,7 +67,7 @@ export default function AuthenticatedLayout({ header, children, hideNav = false 
                                     </svg>
                                     <span className="leading-none">{t('navigation.questionnaires')}</span>
                                 </Link>
-                                {user.roles && user.roles.some(role => role.name === 'administrador') && (
+{(user.roles?.some(role => role.name === 'administrador') || user.is_super_admin) && (
                                     <Link
                                         href={route('admin.dashboard')}
                                         className={`inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 border-0 ${
@@ -244,25 +246,29 @@ export default function AuthenticatedLayout({ header, children, hideNav = false 
                                 {t('questionnaires.list')}
                             </span>
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('questionnaires.electroencefalograma.index')}
-                            active={route().current('questionnaires.electroencefalograma.*')}
-                        >
-                            <span className="inline-flex items-center gap-2">
-                                <QuestionnaireTypeIcon type="electroencefalograma" className="w-4 h-4" />
-                                Eletroencefalograma
-                            </span>
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('questionnaires.electroneuromiografia.index')}
-                            active={route().current('questionnaires.electroneuromiografia.*')}
-                        >
-                            <span className="inline-flex items-center gap-2">
-                                <QuestionnaireTypeIcon type="electroneuromiografia" className="w-4 h-4" />
-                                Electroneuromiografia
-                            </span>
-                        </ResponsiveNavLink>
-                        {user.roles && user.roles.some(role => role.name === 'administrador') && (
+                        {canOpenModule('electroencefalograma') && (
+                            <ResponsiveNavLink
+                                href={route('questionnaires.electroencefalograma.index')}
+                                active={route().current('questionnaires.electroencefalograma.*')}
+                            >
+                                <span className="inline-flex items-center gap-2">
+                                    <QuestionnaireTypeIcon type="electroencefalograma" className="w-4 h-4" />
+                                    Eletroencefalograma
+                                </span>
+                            </ResponsiveNavLink>
+                        )}
+                        {canOpenModule('electroneuromiografia') && (
+                            <ResponsiveNavLink
+                                href={route('questionnaires.electroneuromiografia.index')}
+                                active={route().current('questionnaires.electroneuromiografia.*')}
+                            >
+                                <span className="inline-flex items-center gap-2">
+                                    <QuestionnaireTypeIcon type="electroneuromiografia" className="w-4 h-4" />
+                                    Electroneuromiografia
+                                </span>
+                            </ResponsiveNavLink>
+                        )}
+                        {(user.roles?.some(role => role.name === 'administrador') || user.is_super_admin) && (
                             <ResponsiveNavLink
                                 href={route('admin.dashboard')}
                                 active={route().current('admin.*')}

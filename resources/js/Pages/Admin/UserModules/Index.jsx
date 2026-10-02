@@ -100,8 +100,13 @@ export default function Index({ auth, users, modules, filters }) {
                                         </h3>
                                         <div className="mt-2 text-sm text-blue-700 dark:text-blue-300">
                                             <p>
-                                                Somente usuários com funções <strong>LAUDADOR</strong> e <strong>TECNICO</strong> são mostrados.  
-                                                Os administradores têm acesso total a todos os módulos automaticamente e não exigem atribuição específica.
+                                                Lo que marcas en <strong>Gerenciar Módulos</strong> es exactamente lo que esa persona ve:
+                                                apagado = el cuestionario no le aparece y no puede entrar a él, encendido = le aparece.
+                                            </p>
+                                            <p className="mt-2">
+                                                Solo usuarios com funções <strong>LAUDADOR</strong> e <strong>TÉCNICO</strong> são mostrados.
+                                                Os <strong>administradores</strong> veem automáticamente os módulos do valor inicial do seu
+                                                equipe, por eso não são listados aqui.
                                             </p>
                                         </div>
                                     </div>
@@ -217,23 +222,23 @@ export default function Index({ auth, users, modules, filters }) {
                                                         ))}
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
+<td className="px-6 py-4">
                                                     <div className="flex flex-wrap gap-1">
-                                                        {user.active_modules.length > 0 ? (
-                                                            user.active_modules.map((module) => (
+                                                        {user.effective_modules.length > 0 ? (
+                                                            user.effective_modules.map((moduleName) => (
                                                                 <span
-                                                                    key={module.id}
-                                                                    className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold ${getModuleBadgeColor(module.module_name)} border shadow-sm`}
+                                                                    key={moduleName}
+                                                                    className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold ${getModuleBadgeColor(moduleName)} border shadow-sm`}
                                                                 >
                                                                     <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a6 6 0 01-6 6 6 6 0 01-6-6 6 6 0 016-6z" />
                                                                     </svg>
-                                                                    {modules[module.module_name]}
+                                                                    {modules[moduleName] ?? moduleName}
                                                                 </span>
                                                             ))
                                                         ) : (
                                                             <span className="text-xs text-gray-400 dark:text-zinc-400 italic">
-                                                                Sem módulos asignados
+                                                                Sin módulos
                                                             </span>
                                                         )}
                                                     </div>

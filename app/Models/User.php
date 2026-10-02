@@ -134,14 +134,19 @@ class User extends Authenticatable
 
     /**
      * Verificar si el usuario tiene acceso a un módulo específico.
-     * El módulo tiene que estar habilitado para el equipo ACTUAL del usuario
-     * (team_modules, el "plan" del equipo) Y, si no es admin/técnico,
-     * asignado individualmente vía UserModule.
      *
-     * Se evalúa contra un único equipo (el actual, de la sesión) y no contra
-     * la unión de todos los equipos del usuario: alguien en varios equipos
-     * (ej. Rojo + Verde + Azul) solo debe ver lo que corresponde al equipo
-     * con el que está trabajando en este momento, no todo combinado.
+     * Hay dos regímenes y son independientes:
+     *
+     * - administrador / técnico: no se les asigna módulo por módulo, ven todo
+     *   lo que el plan de su equipo tenga habilitado (team_modules).
+     * - laudador: lo que tenga asignado individualmente (user_modules) y
+     *   nada más. Su decisión de módulo es la única que cuenta: el plan del
+     *   equipo NO la veta, porque el plan solo siembra los valores iniciales
+     *   de los usuarios nuevos (ver UserModuleProvisioner).
+     *
+     * Antes el acceso era la intersección de ambas capas, lo que hacía que
+     * encender un módulo desde el panel no se notara si el plan del equipo no
+     * lo tenía: la decisión del administrador quedaba anulada en silencio.
      */
     public function hasModuleAccess(string $moduleName, ?Team $team = null): bool
     {
@@ -149,25 +154,66 @@ class User extends Authenticatable
             return true;
         }
 
-        $team ??= $this->teams->first();
-
-        if (! $team || ! $this->teams->contains('id', $team->id) || ! $team->hasModuleEnabled($moduleName)) {
-            return false;
+        if ($this->isAdmin()) {
+            return $this->teamPlanGrants($moduleName, $team);
         }
 
-        if ($this->isAdmin() || $this->hasRole('tecnico')) {
-            return true;
+        // Un técnico puede tener fila individual para este módulo: entonces
+        // manda su fila. Sin fila, decide el plan de su equipo.
+        if ($this->hasRole('tecnico')) {
+            $row = $this->moduleRowFor($moduleName);
+
+            if ($row !== null) {
+                return (bool) $row->is_active;
+            }
+
+            return $this->teamPlanGrants($moduleName, $team);
         }
 
+        // Laudador: solo su asignación individual, sin excepciones.
         return $this->activeModules()
             ->forModule($moduleName)
             ->exists();
     }
 
     /**
-     * Obtener los nombres de los módulos a los que tiene acceso el usuario
-     * en el equipo dado (por defecto, el primero si no se especifica).
-     * Ver hasModuleAccess() para el porqué de evaluar un solo equipo.
+     * Fila de asignación individual para este módulo, exista o no (lo que
+     * importa es si el administrador llegó a decidir sobre él).
+     */
+    private function moduleRowFor(string $moduleName): ?UserModule
+    {
+        return $this->userModules->firstWhere('module_name', $moduleName);
+    }
+
+    /**
+     * ¿El plan del equipo habilita este módulo para esta persona?
+     */
+    private function teamPlanGrants(string $moduleName, ?Team $team): bool
+    {
+        $team ??= $this->teams->first();
+
+        return $team !== null
+            && $this->teams->contains('id', $team->id)
+            && $team->hasModuleEnabled($moduleName);
+    }
+
+    /**
+     * Módulos que el administrador tiene asignados a esta persona. Es la lista
+     * autoritativa para un laudador, en el orden del catálogo (config) y sin
+     * claves huérfanas que ya no correspondan a ningún cuestionario.
+     */
+    public function assignedModuleNames(): array
+    {
+        $catalog = array_keys(config('questionnaires.types'));
+
+        $assigned = $this->activeModules()->pluck('module_name')->all();
+
+        return array_values(array_intersect($catalog, $assigned));
+    }
+
+    /**
+     * Obtener los nombres de los módulos a los que tiene acceso el usuario.
+     * Ver hasModuleAccess() para la diferencia entre admin/técnico y laudador.
      */
     public function getAccessibleModules(?Team $team = null): array
     {
@@ -175,21 +221,54 @@ class User extends Authenticatable
             return array_keys(config('questionnaires.types'));
         }
 
+        if ($this->isAdmin()) {
+            return $this->teamPlanModules($team);
+        }
+
+        $catalog = array_keys(config('questionnaires.types'));
+
+        if ($this->hasRole('tecnico')) {
+            $team ??= $this->teams->first();
+            $inTeam = $team !== null && $this->teams->contains('id', $team->id);
+            $plan = $inTeam ? $team->activeModuleNames() : [];
+
+            $rows = $this->userModules
+                ->keyBy('module_name');
+
+            // Módulo por módulo: donde el administrador dejó una fila individual
+            // manda esa fila; donde no la dejó, sigue mandando el plan del
+            // equipo. Así el panel nunca muestra un interruptor que no haga nada.
+            return collect($catalog)
+                ->filter(function (string $moduleName) use ($rows, $plan) {
+                    $row = $rows->get($moduleName);
+
+                    if ($row !== null) {
+                        return (bool) $row->is_active;
+                    }
+
+                    return in_array($moduleName, $plan, true);
+                })
+                ->values()
+                ->all();
+        }
+
+        return $this->assignedModuleNames();
+    }
+
+    /**
+     * Módulos que el plan del equipo de esta persona tiene habilitados.
+     *
+     * @return array<int, string>
+     */
+    private function teamPlanModules(?Team $team): array
+    {
         $team ??= $this->teams->first();
 
         if (! $team || ! $this->teams->contains('id', $team->id)) {
             return [];
         }
 
-        $teamModules = collect($team->activeModuleNames());
-
-        if ($this->isAdmin() || $this->hasRole('tecnico')) {
-            return $teamModules->values()->all();
-        }
-
-        $userModules = $this->activeModules()->pluck('module_name');
-
-        return $teamModules->intersect($userModules)->values()->all();
+        return collect($team->activeModuleNames())->values()->all();
     }
 
     /**

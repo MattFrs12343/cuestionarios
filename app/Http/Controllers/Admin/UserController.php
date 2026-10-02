@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Team;
+use App\Services\UserModuleProvisioner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -219,8 +220,27 @@ class UserController extends Controller
             $user->teams()->sync($request->teams);
         }
 
+        // El plan del equipo siembra los módulos con los que nace la persona.
+        // Después de esto, lo que manda es su asignación individual.
+        $this->provisionModulesFor($user);
+
         return redirect()->route('admin.users.index')
             ->with('success', __('admin.user_created_successfully'));
+    }
+
+    /**
+     * Siembra los módulos del plan de cada equipo al que pertenece el usuario.
+     * Solo crea lo que falta: nunca pisa una asignación previa.
+     */
+    private function provisionModulesFor(User $user): void
+    {
+        $provisioner = app(UserModuleProvisioner::class);
+
+        $user->load('teams');
+
+        foreach ($user->teams as $team) {
+            $provisioner->provisionNewMember($user, $team);
+        }
     }
 
     public function show(Request $request, User $user)
@@ -303,6 +323,10 @@ class UserController extends Controller
 
         if ($request->has('teams')) {
             $user->teams()->sync($request->teams);
+
+            // Un usuario que acaba de entrar a un equipo nace con los módulos
+            // del plan de ese equipo; los que ya tenía de antes no se tocan.
+            $this->provisionModulesFor($user);
         }
 
         return redirect()->route('admin.users.index')

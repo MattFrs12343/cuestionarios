@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserModule;
+use App\Services\UserModuleProvisioner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -162,6 +163,12 @@ class TeamController extends Controller
                 $user->assignRole($data['role']);
                 $user->teams()->attach($team->id);
             }
+
+            // El plan del equipo ya existe (Team::created lo siembra con los
+            // core): se lo aplicamos a todo el equipo recién armado para que
+            // nadie nazca viendo cero cuestionarios.
+            app(UserModuleProvisioner::class)
+                ->applyPlanToCurrentMembers($team, $request->user()->id);
         });
 
         return redirect()->route('admin.teams.index')
@@ -193,37 +200,81 @@ class TeamController extends Controller
             'isSuperAdmin' => $admin->isSuperAdmin(),
             'moduleCatalog' => $admin->isSuperAdmin() ? UserModule::labels() : null,
             'teamModules' => $admin->isSuperAdmin() ? $team->modules()->pluck('is_active', 'module_name') : null,
+            // Cuánta gente tiene hoy cada módulo del plan: para que el
+            // super-admin sepa si "aplicar a los actuales" va a cambiar algo.
+            'planUsage' => $admin->isSuperAdmin() ? $this->planUsageFor($team) : null,
         ]);
     }
 
     /**
-     * Habilita/deshabilita módulos para un equipo (el "plan" comercial).
-     * Solo el super-admin decide qué módulos tiene disponibles cada equipo.
+     * Habilita/deshabilita módulos para un equipo (el "plan" del equipo).
+     *
+     * El plan es el valor INICIAL con el que nacen los miembros del equipo, no
+     * un techo: apagar un módulo acá ya no le quita nada a quien ya lo tenga
+     * asignado, y encenderlo no se lo activa por sí solo a los usuarios
+     * actuales. Eso último es lo que hacía ilusoria esta pantalla: guardar acá
+     * "no se reflejaba en los usuarios" porque el plan competía con su
+     * asignación individual y siempre ganaba la intersección. Para aplicarlo a
+     * los que ya están existe la casilla explícita `apply_to_members`.
+     *
+     * Solo el super-admin decide el plan de cada equipo.
      */
     public function updateModules(Request $request, Team $team)
     {
         abort_unless($request->user()->isSuperAdmin(), 403, 'Solo el super-admin puede gestionar los módulos de un equipo.');
 
-        $validModules = array_keys(UserModule::labels());
-
         $request->validate([
             'modules' => 'required|array',
             'modules.*' => 'boolean',
+            'apply_to_members' => 'boolean',
         ]);
 
-        foreach ($request->input('modules', []) as $moduleName => $isActive) {
-            if (! in_array($moduleName, $validModules, true)) {
-                continue;
-            }
+        $requested = $request->input('modules', []);
+
+        // Se recorre el catálogo completo y no solo las claves del payload: un
+        // módulo ausente queda explícitamente apagado en vez de sobrevivir por
+        // una omisión silenciosa.
+        $enabled = 0;
+        $disabled = 0;
+
+        foreach (array_keys(UserModule::labels()) as $moduleName) {
+            $isActive = (bool) ($requested[$moduleName] ?? false);
 
             $team->modules()->updateOrCreate(
                 ['module_name' => $moduleName],
-                ['is_active' => (bool) $isActive]
+                ['is_active' => $isActive]
             );
+
+            $isActive ? $enabled++ : $disabled++;
+        }
+
+        $applied = null;
+
+        if ($request->boolean('apply_to_members')) {
+            $applied = app(UserModuleProvisioner::class)
+                ->applyPlanToCurrentMembers($team, $request->user()->id);
         }
 
         return redirect()->route('admin.teams.edit', $team->id)
-            ->with('success', 'Módulos del equipo actualizados correctamente.');
+            ->with('success', $this->planUpdateMessage($team, $enabled, $disabled, $applied));
+    }
+
+    /**
+     * El mensaje dice qué pasó de verdad, en vez de un "actualizado
+     * correctamente" que promete un efecto que el plan ya no tiene por sí solo.
+     */
+    private function planUpdateMessage(Team $team, int $enabled, int $disabled, ?array $applied): string
+    {
+        $message = "Plan de [{$team->name}] guardado: {$enabled} módulo(s) de valor inicial habilitado(s)"
+            . ($disabled > 0 ? ", {$disabled} apagado(s)." : '.');
+
+        if ($applied === null) {
+            return $message.' Los usuarios actuales NO cambiaron; puedes aplicarlo a ellos con la casilla de esta misma pantalla.';
+        }
+
+        return $applied['users'] > 0
+            ? $message." Aplicado a los usuarios actuales: {$applied['users']} persona(s), {$applied['modules']} módulo(s) encendido(s)."
+            : $message.' No hizo falta aplicarlo: los usuarios actuales ya tenían esos módulos.';
     }
 
     /**
@@ -277,6 +328,44 @@ class TeamController extends Controller
         }
     }
 
+    /**
+     * Cuántos miembros del equipo tienen activo cada módulo del plan, y cuántos
+     * members son en total. Es solo información para la interfaz: no restringe
+     * nada y no debería leerse como "asignado por el plan", sino "asignado hoy".
+     *
+     * @return array<int, array{module: string, with: int, without: int, members: int}>
+     */
+    private function planUsageFor(Team $team): array
+    {
+        $scope = fn ($query) => $query->whereHas('roles', fn ($q) => $q->whereIn('name', ['laudador', 'tecnico']));
+
+        $members = $scope($team->users())->count();
+
+        if ($members === 0) {
+            return [];
+        }
+
+        // El conteo "con módulo" usa exactamente el mismo universo que
+        // "members": si no, un administrador con filas propias inflaría el
+        // total y el contador quedaría inconsistente con "sin módulo".
+        $with = $scope($team->users())
+            ->whereHas('userModules', fn ($q) => $q->where('is_active', true))
+            ->with(['userModules' => fn ($q) => $q->where('is_active', true)])
+            ->get()
+            ->flatMap(fn ($user) => $user->userModules->pluck('module_name'))
+            ->countBy()
+            ->all();
+
+        return collect(array_keys(UserModule::labels()))
+            ->map(fn ($moduleName) => [
+                'module' => $moduleName,
+                'with' => (int) ($with[$moduleName] ?? 0),
+                'without' => max(0, $members - (int) ($with[$moduleName] ?? 0)),
+                'members' => $members,
+            ])
+            ->all();
+    }
+
     public function update(Request $request, Team $team)
     {
         $admin = $request->user();
@@ -296,7 +385,23 @@ class TeamController extends Controller
             $this->authorizeNoCrossTeamMove($admin, $team, $userIds);
             $this->authorizeTeamKeepsAdministrator($admin, $team, $userIds);
 
+            $previousIds = $team->users()->pluck('users.id')->all();
+
             $team->users()->sync($userIds);
+
+            // El plan es el valor inicial, no un techo: SOLO se siembra a quienes
+            // acaban de entrar. Si se reprovisionara a todo el equipo, guardar
+            // la lista de miembros reactivaría en silencio los módulos que el
+            // super-admin apagó individualmente.
+            $newlyAttached = array_values(array_diff($userIds, $previousIds));
+
+            if ($newlyAttached !== []) {
+                $provisioner = app(UserModuleProvisioner::class);
+
+                User::whereIn('id', $newlyAttached)
+                    ->get()
+                    ->each(fn (User $member) => $provisioner->provisionNewMember($member, $team, $admin->id));
+            }
         }
 
         return redirect()->route('admin.teams.index')
