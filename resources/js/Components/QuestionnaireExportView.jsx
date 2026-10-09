@@ -479,6 +479,14 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                     </div>
                 </div>
 
+                {/* Observações */}
+                {questionnaire.observacoes && (
+                    <div className="mb-2">
+                        <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Observações</h2>
+                        <p className="text-xs px-2 whitespace-pre-wrap" style={{ lineHeight: '1.3' }}>{questionnaire.observacoes}</p>
+                    </div>
+                )}
+
                 {/* Footer */}
                 <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
                     <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
@@ -1140,6 +1148,134 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
                     {questionnaire.comentario && (
                         <div className="px-2 mt-1"><InfoRow label="Observações Clínicas" value={questionnaire.comentario} /></div>
                     )}
+                </div>
+
+                <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>
+                        Criado em: {new Date(questionnaire.created_at).toLocaleDateString('pt-BR')} {new Date(questionnaire.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-0" style={{ lineHeight: '1.2' }}>Por: {questionnaire.creator?.name || 'Sistema'}</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Dinamometria de Membros Inferiores
+    if (type === 'dinamometria_mmii') {
+        const mrc = questionnaire.forca_mrc || [];
+        const din = questionnaire.dinamometria || [];
+        const listLabel = (arr) => (Array.isArray(arr) && arr.length > 0 ? arr.join(', ') : '-');
+        return (
+            <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
+                <div className="bg-cyan-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Dinamometria MMII</h1>
+                            <p className="text-xs mb-0" style={{ lineHeight: '1.2' }}>Avaliação Neurológica e Funcional — Membros Inferiores</p>
+                        </div>
+                        <div className="text-right" style={{ fontSize: '9px', lineHeight: '1.3' }}>
+                            <div>Data de Exportação: {new Date().toLocaleDateString('pt-BR')} {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <div>Paciente: {questionnaire.nome_completo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Dados Básicos</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <InfoRow label="Nome Completo" value={questionnaire.nome_completo} />
+                        <InfoRow label="Sexo" value={questionnaire.sexo} />
+                        <InfoRow label="Data de Nascimento" value={formatDateShort(questionnaire.data_nascimento)} />
+                        <InfoRow label="Idade" value={questionnaire.idade} />
+                        <InfoRow label="Peso / Altura" value={`${questionnaire.peso ?? '-'} kg / ${questionnaire.altura ?? '-'} cm`} />
+                        <InfoRow label="Dominância" value={questionnaire.dominancia || '-'} />
+                        <InfoRow label="Profissão" value={questionnaire.profissao || '-'} />
+                        <InfoRow label="Clínica" value={questionnaire.clinica || '-'} />
+                        <InfoRow label="Data do Exame" value={formatDateShort(questionnaire.data_exame)} />
+                        <InfoRow label="Equipe" value={questionnaire.team?.name} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Anamnese (Resumo)</h2>
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-2">
+                        <BooleanRow label="Fraqueza muscular?" value={questionnaire.fraqueza_muscular} conditionalValue={questionnaire.fraqueza_lado} />
+                        <BooleanRow label="Dor nos membros inferiores?" value={questionnaire.dor_membros} conditionalValue={questionnaire.dor_eva != null ? `EVA ${questionnaire.dor_eva}/10` : null} />
+                        <BooleanRow label="Fadiga muscular?" value={questionnaire.fadiga_muscular} />
+                        <BooleanRow label="Alteração de equilíbrio?" value={questionnaire.alteracao_equilibrio} />
+                        <BooleanRow label="Quedas nos últimos 6 meses?" value={questionnaire.quedas_6meses} conditionalValue={questionnaire.quedas_quantidade} />
+                        <InfoRow label="Dispositivo auxiliar" value={questionnaire.dispositivo_auxiliar || 'Não'} />
+                    </div>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-1" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Força Muscular — Escala MRC (0–5)</h2>
+                    <table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: '9px' }}>
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Movimento</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Direito</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Esquerdo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {mrc.map((row, i) => (
+                                <tr key={i}>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.movimento}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.direito ?? '-'}/5</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.esquerdo ?? '-'}/5</td>
+                                </tr>
+                            ))}
+                            {mrc.length === 0 && (<tr><td colSpan="3" className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Sem dados registrados</td></tr>)}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-1" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Registro da Dinamometria ({questionnaire.unidade || 'kgf'})</h2>
+                    <table className="w-full text-left" style={{ borderCollapse: 'collapse', fontSize: '9px' }}>
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Movimento</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Melh. D</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Méd. D</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Melh. E</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Méd. E</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Assim. %</th>
+                                <th className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Menor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {din.map((row, i) => (
+                                <tr key={i}>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.movimento}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.d_melhor ?? '-'}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.d_media ?? '-'}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.e_melhor ?? '-'}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.e_media ?? '-'}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.assimetria_pct ?? '-'}</td>
+                                    <td className="px-2 py-0.5" style={{ border: '1px solid #e5e7eb' }}>{row.menor || '-'}</td>
+                                </tr>
+                            ))}
+                            {din.length === 0 && (<tr><td colSpan="7" className="px-2 py-1" style={{ border: '1px solid #e5e7eb' }}>Sem dados registrados</td></tr>)}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="mb-2">
+                    <h2 className="text-xs font-bold bg-gray-200 px-2 py-1 mb-2" style={{ borderRadius: '3px', lineHeight: '1.2' }}>Impressão Funcional e Conclusão</h2>
+                    <div className="px-2">
+                        <InfoRow label="Impressão Funcional" value={listLabel(questionnaire.impressao_funcional)} />
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-0">
+                            <InfoRow label="Maior Assimetria" value={questionnaire.maior_assimetria_pct != null ? `${questionnaire.maior_assimetria_pct}% (${questionnaire.maior_assimetria_movimento || '-'})` : '-'} />
+                            <InfoRow label="Menor Força — Lado" value={questionnaire.menor_forca_lado || '-'} />
+                            <InfoRow label="Profissional (Examinador)" value={questionnaire.examinador || '-'} />
+                            <InfoRow label="CREFITO/CRM" value={questionnaire.crm_registro || '-'} />
+                        </div>
+                        {questionnaire.modelo_conclusao && (<div className="mt-1"><InfoRow label="Classificação" value={questionnaire.modelo_conclusao} /></div>)}
+                        {questionnaire.conclusao_final && (<div className="mt-1"><InfoRow label="Conclusão Final" value={questionnaire.conclusao_final} /></div>)}
+                        {questionnaire.comentario && (<div className="mt-1"><InfoRow label="Comentário" value={questionnaire.comentario} /></div>)}
+                    </div>
                 </div>
 
                 <div className="mt-2 pt-2 text-center" style={{ borderTop: '1px solid #d1d5db', position: 'absolute', bottom: '10mm', left: '10mm', right: '10mm' }}>

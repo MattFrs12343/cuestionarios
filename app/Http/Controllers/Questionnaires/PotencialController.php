@@ -32,6 +32,7 @@ class PotencialController extends Controller
 
         return Inertia::render('Questionnaires/Potencial/Index', [
             'questionnaires' => $questionnaires,
+            'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),
             'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),

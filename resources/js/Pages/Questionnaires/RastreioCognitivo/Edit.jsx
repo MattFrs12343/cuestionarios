@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -8,6 +8,7 @@ import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imag
 import leaoImg from '@/Assets/moca/leao.jpg';
 import rinoceronteImg from '@/Assets/moca/rinoceronte.jpg';
 import cameloImg from '@/Assets/moca/camelo.jpg';
+import { upperAll } from '@/Utils/uppercase';
 
 const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing }) => (
     <div className="flex flex-col h-full">
@@ -70,13 +71,13 @@ const NamingStimuli = () => (
 );
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         nome_completo: questionnaire.nome_completo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         sexo: questionnaire.sexo || '',
         clinica: questionnaire.clinica || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         pontuacao_visoespacial: questionnaire.pontuacao_visoespacial ?? '',
         pontuacao_nomeacao: questionnaire.pontuacao_nomeacao ?? '',
         pontuacao_atencao: questionnaire.pontuacao_atencao ?? '',
@@ -98,6 +99,8 @@ export default function Edit({ auth, questionnaire }) {
         anexos: [],
         _method: 'put',
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -156,7 +159,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.rastreio-cognitivo.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.rastreio-cognitivo.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

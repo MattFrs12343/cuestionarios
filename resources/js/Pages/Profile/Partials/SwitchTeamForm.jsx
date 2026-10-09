@@ -30,11 +30,11 @@ export default function SwitchTeamForm({ className = '' }) {
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
-                    Cambiar equipo
+                    Trocar equipe
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
-                    Perteneces a {switchableTeams.length} equipos. Elige con cuál trabajar sin salir de la aplicación.
+                    Você pertence a {switchableTeams.length} equipes. Escolha com qual trabalhar sem sair da aplicação.
                 </p>
             </header>
 

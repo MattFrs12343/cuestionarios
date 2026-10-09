@@ -82,6 +82,14 @@ export default function QuestionnaireTypeIcon({ type, className = "w-6 h-6" }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" />
                 </svg>
             );
+        case 'dinamometria_mmii':
+            // Perna com seta (força de membros inferiores)
+            return (
+                <svg {...common}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4h3l1 5-2 2 1 4-3 5H6l2-5-1-4 2-2-1-5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 9h4m0 0l-2-2m2 2l-2 2" />
+                </svg>
+            );
         case 'mini_exame_mental':
             // Prancheta com check (rastreio cognitivo breve)
             return (

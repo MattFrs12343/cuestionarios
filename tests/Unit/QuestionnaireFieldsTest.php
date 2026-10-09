@@ -18,7 +18,7 @@ class QuestionnaireFieldsTest extends TestCase
     private const OTRO_ID = 1;
 
     private const POTENCIAL = 'potencial';
-    private const FACIAL = 'eletroneuromiografia-facial';
+    private const FACIAL = 'electroneuromiografia-facial';
 
     private function team(int $id): Team
     {

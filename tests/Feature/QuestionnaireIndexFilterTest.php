@@ -52,8 +52,10 @@ class QuestionnaireIndexFilterTest extends TestCase
 
         $names = collect($response->inertiaPage()['props']['questionnaires']['data'])->pluck('nome_completo');
 
-        $this->assertTrue($names->contains('Maria Silva'));
-        $this->assertFalse($names->contains('Joao Souza'));
+        // Los nombres se guardan en MAYÚSCULAS, la búsqueda sigue siendo
+        // insensible a mayúsculas/minúsculas.
+        $this->assertTrue($names->contains(fn ($n) => strcasecmp($n, 'Maria Silva') === 0));
+        $this->assertFalse($names->contains(fn ($n) => strcasecmp($n, 'Joao Souza') === 0));
     }
 
     public function test_clinica_filter_matches_case_insensitively(): void
@@ -66,8 +68,8 @@ class QuestionnaireIndexFilterTest extends TestCase
 
         $clinicas = collect($response->inertiaPage()['props']['questionnaires']['data'])->pluck('clinica');
 
-        $this->assertTrue($clinicas->contains('Clinica Vida'));
-        $this->assertFalse($clinicas->contains('Outra Clinica'));
+        $this->assertTrue($clinicas->contains(fn ($c) => strcasecmp($c, 'Clinica Vida') === 0));
+        $this->assertFalse($clinicas->contains(fn ($c) => strcasecmp($c, 'Outra Clinica') === 0));
     }
 
     public function test_date_range_filters_are_applied(): void

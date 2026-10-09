@@ -18,7 +18,7 @@ class TeamSwitchController extends Controller
         $user = $request->user();
 
         if (! $user->isSuperAdmin() && ! $user->teams->contains('id', $team->id)) {
-            abort(403, 'No tienes permisos para cambiar a este equipo.');
+            abort(403, 'Você não tem permissão para trocar para esta equipe.');
         }
 
         $request->session()->put('current_team_id', $team->id);

@@ -16,6 +16,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
+
+    // Historial de actividad: línea de tiempo de cuestionarios realizados.
+    Route::get('/historial', [App\Http\Controllers\ActivityHistoryController::class, 'index'])
+        ->name('history.index');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -170,6 +176,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/{dinamometro}/edit', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'edit'])->name('edit');
         Route::put('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'update'])->name('update');
         Route::delete('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'destroy'])->name('destroy');
+    });
+
+    // Rutas específicas para Dinamometria de Membros Inferiores (módulo opcional por equipo, ver team_modules)
+    Route::prefix('questionnaires/dinamometria-mmii')->name('questionnaires.dinamometria-mmii.')
+        ->middleware('module.access:dinamometria_mmii')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'store'])->name('store');
+        Route::get('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'show'])->name('show');
+        Route::get('/{dinamometriaMmii}/edit', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'edit'])->name('edit');
+        Route::put('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'update'])->name('update');
+        Route::delete('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'destroy'])->name('destroy');
     });
 
     // Rutas específicas para Mini Exame do Estado Mental (MEEM)

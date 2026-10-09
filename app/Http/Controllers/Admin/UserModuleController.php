@@ -38,7 +38,7 @@ class UserModuleController extends Controller
         $teamIds = $this->scopedTeamIds($admin);
 
         if ($teamIds !== null && ! $target->teams()->whereIn('teams.id', $teamIds)->exists()) {
-            abort(403, 'No tienes permisos para acceder a este usuario.');
+            abort(403, 'Você não tem permissão para acessar este usuário.');
         }
     }
 

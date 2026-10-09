@@ -113,7 +113,7 @@ class AttachmentController extends Controller
         $teamId = $owner->team_id ?? null;
 
         if (! $user->isSuperAdmin() && ! $user->teams->contains('id', $teamId)) {
-            abort(403, 'No tienes permisos para gestionar los anexos de este cuestionario.');
+            abort(403, 'Você não tem permissão para gerenciar os anexos deste questionário.');
         }
     }
 }

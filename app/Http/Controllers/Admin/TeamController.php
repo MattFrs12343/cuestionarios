@@ -31,7 +31,7 @@ class TeamController extends Controller
         }
 
         if (! $admin->teams->contains('id', $team->id)) {
-            abort(403, 'No tienes permisos para acceder a este equipo.');
+            abort(403, 'Você não tem permissão para acessar esta equipe.');
         }
     }
 

@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, Link, router } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { upperAll } from '@/Utils/uppercase';
 
 export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExameOptions, tipoExameOptions }) {
     // Função para formatar datas no formato YYYY-MM-DD
@@ -13,7 +14,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
         return d.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         clinica: questionnaire.clinica || '',
         data_exame: formatDateForInput(questionnaire.data_exame) || '',
         nome_completo: questionnaire.nome_completo || '',
@@ -52,6 +53,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idade, setIdade] = useState(null);
     const [isMobile, setIsMobile] = useState(false);
@@ -95,47 +98,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        console.log('HandleSubmit - data.pedido_medico:', data.pedido_medico);
-        console.log('HandleSubmit - pedidoMedicoPreview:', pedidoMedicoPreview);
-        
-        // Se houver um arquivo, usar POST com _method para simular PUT
+        // Se houver um arquivo, usar PUT com forceFormData para enviar FormData
         if (data.pedido_medico || data.anexos.length > 0) {
-            console.log('Using FormData approach - file detected');
-            const formData = new FormData();
-            
-            // Adicionar todos os campos ao FormData
-            Object.keys(data).forEach(key => {
-                if (data[key] !== null && data[key] !== undefined) {
-                    let value = data[key];
-                    if (key === 'anexos') { value.forEach((f) => formData.append('anexos[]', f)); return; }
-                    // Converter booleanos para strings para FormData
-                    if (typeof value === 'boolean') {
-                        value = value ? '1' : '0';
-                    }
-                    console.log(`Adding to FormData: ${key} =`, value);
-                    formData.append(key, value);
-                }
-            });
-            
-            // Adicionar _method para simular PUT
-            formData.append('_method', 'PUT');
-            
-            console.log('Sending FormData to server');
-            console.log('Route URL:', route('questionnaires.electroencefalograma.update', questionnaire.id));
-            router.post(route('questionnaires.electroencefalograma.update', questionnaire.id), formData, {
+            put(route('questionnaires.electroencefalograma.update', questionnaire.id), {
                 forceFormData: true,
-                onSuccess: () => {
-                    console.log('Request successful');
-                },
-                onError: (errors) => {
-                    console.log('Request errors:', errors);
-                },
-                onFinish: () => {
-                    console.log('Request finished');
-                }
+                preserveScroll: true,
             });
         } else {
-            console.log('Using regular PUT approach - no file detected');
             put(route('questionnaires.electroencefalograma.update', questionnaire.id));
         }
     };

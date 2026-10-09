@@ -23,7 +23,7 @@ class EnsureIsAdministrator
         }
 
         if (! $user->isSuperAdmin() && ! $user->hasRole('administrador')) {
-            abort(403, 'No tienes permisos para acceder a esta sección.');
+            abort(403, 'Você não tem permissão para acessar esta seção.');
         }
 
         return $next($request);

@@ -1,0 +1,74 @@
+﻿PLAN CHECKLIST - Mayúsculas + E2E + Pendientes
+
+## A. MAYÚSCULAS: NOMBRES DE PACIENTES Y DEMÁS ESCRITURAS
+
+### 1. Alcance - ¿Qué quieres que pase a MAYÚSCULAS?
+[ ] A1a. Solo el nombre del paciente (nome) – Recomendado (menos invasivo)
+[ ] A1b. nome + campos relacionados (paciente, nome_paciente)
+[ ] A1c. Campos seleccionados (observaciones, solicitante, clínica, medicamentos...) – Especificar: ___________
+[ ] A1d. Todos los campos de texto libre ingresados por el usuario
+[ ] A1e. Otro: ___________
+
+### 2. Datos existentes en Base de Datos
+[ ] A2a. No normalizar BD. Solo aplicar a nuevos o editados – Recomendado
+[ ] A2b. Sí, normalizar todos los registros existentes en todos los módulos
+[ ] A2c. Sí, normalizar solo módulos específicos: ___________
+[ ] A2d. Otro: ___________
+
+### 3. Manejo de acentos y caracteres UTF-8
+[ ] A3a. Usar mayúsculas con acentos correctos (mb_strtoupper + normalización) – Recomendado
+[ ] A3b. Usar mayúsculas simples (toUpperCase/strtoupper)
+[ ] A3c. Indiferente
+
+### 4. Aplicación Frontend/Backend
+[ ] A4a. Solo Frontend (normalizar antes de enviar post/put)
+[ ] A4b. Solo Backend (Mutators en Modelos Laravel)
+[ ] A4c. Frontend + Backend – Recomendado
+[ ] A4d. Otro: ___________
+
+### 5. Impacto en búsquedas/filtros
+[ ] A5a. Mantener búsquedas case-insensitive – Recomendado
+[ ] A5b. No cambiar lógica de búsquedas
+[ ] A5c. Ajustar filtros para funcionar con nombres en mayúsculas
+[ ] A5d. Otro: ___________
+
+## B. PRUEBA END-TO-END + REPORTE DE BUGS/ANOMALÍAS
+
+### 6. Alcance de la prueba E2E
+[ ] B6a. Solo lo modificado recientemente
+[ ] B6b. Cobertura media (módulos con cambios en git + críticos)
+[ ] B6c. Cobertura completa – Recomendado
+[ ] B6d. Otro: ___________
+
+### 7. Entorno de prueba
+[ ] B7a. Probar con build (npm run build) – Recomendado
+[ ] B7b. Probar con dev (npm run dev)
+[ ] B7c. Ambos
+
+### 8. Áreas prioritarias a testear
+[ ] B8a. Anexos: Cámara + Galería + Edición + 'Usar sin editar' + límite 5
+[ ] B8b. Histórico (botón en Index + navegación + filtros)
+[ ] B8c. Borradores Autosave (banner, restaurar, descartar, limpiar tras submit)
+[ ] B8d. Módulos con cambios recientes (Potencial, Tdah, Rastreio Cognitivo, MiniExameMental)
+[ ] B8e. Field Visibility + Teams (técnico/admin + cambio equipo)
+[ ] B8f. Dark/Light + Responsive (móvil/tablet)
+[ ] B8g. Exports/PDFs
+[ ] B8h. Otro: ___________
+
+### 9. Formato del reporte de bugs
+[ ] B9a. Markdown con Severidad + Ruta + Pasos + Esperado vs Real + Logs/Consola
+[ ] B9b. Formato más resumido (checklist OK/FAIL por módulo)
+[ ] B9c. Ambos – Recomendado
+
+## C. LO PENDIENTE (EJECUCIÓN)
+
+### 10. Orden de ejecución propuesto
+[ ] C10a. 1º Autosave pilot (ElectroneuromiografiaFacial Create/Edit) + verificación local → 2º Mayúsculas → 3º E2E
+[ ] C10b. 1º Mayúsculas → 2º Autosave → 3º E2E
+[ ] C10c. 1º Autosave + validación local → 2º E2E → 3º Mayúsculas
+[ ] C10d. Otro orden: ___________
+
+### 11. Deploy a Producción
+[ ] C11a. No desplegar aún
+[ ] C11b. Preparar pero esperar confirmación explícita antes de ejecutar – Recomendado
+[ ] C11c. Otro: ___________

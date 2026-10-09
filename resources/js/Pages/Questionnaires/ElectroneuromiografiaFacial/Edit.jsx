@@ -1,11 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect, useCallback, memo } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
+import useDraftAutosave from '@/Hooks/useDraftAutosave';
+import DraftRestoreBanner from '@/Components/DraftRestoreBanner';
+import { upperAll } from '@/Utils/uppercase';
 
 // Componente BooleanField fuera del componente principal para evitar recreación
 const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFields = [], data, onDataChange, errors }) => {
@@ -60,21 +63,32 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
 
 BooleanField.displayName = 'BooleanField';
 
+const CONDITIONAL_FIELDS = {
+    dor_olhos_lado: [{ name: 'dor_olhos_lado', placeholder: 'Direito ou esquerdo?' }],
+    espasmos_face_parte: [{ name: 'espasmos_face_parte', placeholder: 'Qual parte?' }],
+    botox_parte_face: [{ name: 'botox_parte_face', placeholder: 'Em qual parte da face foi aplicado o Botox?' }],
+    paralisia_facial_vezes: [{ name: 'paralisia_facial_vezes', type: 'number', placeholder: 'Quantas vezes teve paralisia facial?' }],
+    parte_face_paralisada_qual: [{ name: 'parte_face_paralisada_qual', placeholder: 'Qual?' }],
+    medicamentos: [{ name: 'medicamentos', placeholder: 'Quais?' }],
+    avc_quando: [{ name: 'avc_quando', placeholder: 'Quando?' }],
+};
+
 export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
     const { sees } = useFieldVisibility();
+
 
     const getCurrentDate = () => {
         const today = new Date();
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         nome: questionnaire.nome || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         idade: questionnaire.idade || '',
         peso: questionnaire.peso || '',
         altura: questionnaire.altura || '',
-        data_exame: questionnaire.data_exame || getCurrentDate(),
+        data_exame: questionnaire.data_exame?.slice(0, 10) || getCurrentDate(),
         rg: questionnaire.rg || '',
         solicitante: questionnaire.solicitante || '',
         clinica: questionnaire.clinica || '',
@@ -105,9 +119,18 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         medicamentos: questionnaire.medicamentos || '',
         teve_avc: questionnaire.teve_avc || false,
         avc_quando: questionnaire.avc_quando || '',
+        observacoes: questionnaire.observacoes || '',
         assinatura_paciente: questionnaire.assinatura_paciente || null,
         pedido_medico: null,
         anexos: [],
+    });
+
+    transform(upperAll);
+
+    const draft = useDraftAutosave({
+        key: { type: 'electroneuromiografia-facial', mode: 'edit', id: questionnaire?.id },
+        data,
+        enabled: !processing,
     });
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
@@ -178,12 +201,19 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         }
         
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
+                onSuccess: () => {
+                    if (draft && draft.clear) draft.clear();
+                },
             });
         } else {
-            put(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id));
+            put(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
+            onSuccess: () => {
+                if (draft && draft.clear) draft.clear();
+            },
+        });
         }
     };
 
@@ -258,7 +288,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
                         </div>
 
                         <div className="p-6 text-gray-900 dark:text-zinc-100">
-                            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                            <DraftRestoreBanner draft={draft} onRestore={(r)=>{ Object.keys(r).forEach(k=>{ const dv=r[k]; if(dv===undefined) return; const dvEmpty=dv===''||dv===null||(Array.isArray(dv)&&dv.length===0); const cur=data[k]; const curEmpty=cur===''||cur===null||cur===undefined||(Array.isArray(cur)&&cur.length===0); if(dvEmpty&&!curEmpty) return; setData(k,dv); }); }} />
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
@@ -335,15 +366,15 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Tem dor na testa?" field="tem_dor_testa" value={data.tem_dor_testa} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Está com dor nos olhos? (Direito ou esquerdo)" field="tem_dor_olhos" value={data.tem_dor_olhos} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'dor_olhos_lado', placeholder: 'Direito ou esquerdo?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Está com dor nos olhos? (Direito ou esquerdo)" field="tem_dor_olhos" value={data.tem_dor_olhos} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.dor_olhos_lado} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Está com dor na mandíbula?" field="tem_dor_mandibula" value={data.tem_dor_mandibula} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Quando toma água gelada, tem dor nos dentes?" field="tem_dor_dentes_agua_gelada" value={data.tem_dor_dentes_agua_gelada} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Tem espasmos na face? Qual parte?" field="tem_espasmos_face" value={data.tem_espasmos_face} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'espasmos_face_parte', placeholder: 'Qual parte?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Alguma vez aplicou Botox?" field="aplicou_botox" value={data.aplicou_botox} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'botox_parte_face', placeholder: 'Em qual parte da face foi aplicado o Botox?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Tem espasmos na face? Qual parte?" field="tem_espasmos_face" value={data.tem_espasmos_face} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.espasmos_face_parte} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Alguma vez aplicou Botox?" field="aplicou_botox" value={data.aplicou_botox} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.botox_parte_face} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Tem implante dentário?" field="tem_implante_dentario" value={data.tem_implante_dentario} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Depois que colocou o implante, apresentou dores de dente ou da face?" field="tem_dores_apos_implante" value={data.tem_dores_apos_implante} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Já teve paralisia facial?" field="teve_paralisia_facial" value={data.teve_paralisia_facial} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'paralisia_facial_vezes', type: 'number', placeholder: 'Quantas vezes teve paralisia facial?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Tem alguma parte da face que está paralisada?" field="tem_parte_face_paralisada" value={data.tem_parte_face_paralisada} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'parte_face_paralisada_qual', placeholder: 'Qual?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Já teve paralisia facial?" field="teve_paralisia_facial" value={data.teve_paralisia_facial} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.paralisia_facial_vezes} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Tem alguma parte da face que está paralisada?" field="tem_parte_face_paralisada" value={data.tem_parte_face_paralisada} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.parte_face_paralisada_qual} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Tem enxaqueca?" field="tem_enxaqueca" value={data.tem_enxaqueca} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Consegue sorrir normalmente?" field="consegue_sorrir_normalmente" value={data.consegue_sorrir_normalmente} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Pode comer normalmente?" field="pode_comer_normalmente" value={data.pode_comer_normalmente} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
@@ -351,10 +382,28 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
                                         <BooleanField label="Consegue encher uma bexiga?" field="consegue_encher_bexiga" value={data.consegue_encher_bexiga} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Tem infecção de ouvido repetidamente?" field="tem_infeccao_ouvido_repetidamente" value={data.tem_infeccao_ouvido_repetidamente} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
                                         <BooleanField label="Diabético (a)" field="diabetico" value={data.diabetico} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
-                                        <BooleanField label="Toma algum tipo de medicamento?" field="toma_medicamento" value={data.toma_medicamento} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'medicamentos', placeholder: 'Quais?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Toma algum tipo de medicamento?" field="toma_medicamento" value={data.toma_medicamento} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.medicamentos} data={data} onDataChange={handleDataChange} errors={errors} />
                                         {sees('teve_avc') && (
-                                        <BooleanField label="Já teve AVC?" field="teve_avc" value={data.teve_avc} onBooleanChange={handleBooleanChange} conditionalFields={[{name: 'avc_quando', placeholder: 'Quando?'}]} data={data} onDataChange={handleDataChange} errors={errors} />
+                                        <BooleanField label="Já teve AVC?" field="teve_avc" value={data.teve_avc} onBooleanChange={handleBooleanChange} conditionalFields={CONDITIONAL_FIELDS.avc_quando} data={data} onDataChange={handleDataChange} errors={errors} />
                                         )}
+                                    </div>
+                                </div>
+                                {/* Observações */}
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-1 h-8 bg-gradient-to-b from-amber-500 to-orange-600 rounded-full mr-3"></div>
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Observações</h3>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Observações Gerais</label>
+                                        <textarea
+                                            value={data.observacoes}
+                                            onChange={(e) => setData('observacoes', e.target.value)}
+                                            rows={4}
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-orange-500 dark:focus:ring-orange-600 focus:border-orange-500 dark:focus:border-orange-600 transition-colors duration-200"
+                                            placeholder="Observações adicionais..."
+                                        />
+                                        {errors.observacoes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.observacoes}</div>}
                                     </div>
                                 </div>
                                 {/* Arquivos */}

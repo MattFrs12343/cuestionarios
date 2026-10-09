@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
+import { upperAll } from '@/Utils/uppercase';
 
 const SCALE_OPTIONS = [
     { value: 0, label: 'Nunca' },
@@ -62,11 +63,11 @@ const ScaleSection = ({ title, perguntas, respostas, onChange, colorFrom, colorT
 );
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         clinica: questionnaire.clinica || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         nome_completo: questionnaire.nome_completo || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         rg: questionnaire.rg || '',
         peso: questionnaire.peso ?? '',
         altura: questionnaire.altura ?? '',
@@ -83,6 +84,8 @@ export default function Edit({ auth, questionnaire }) {
         anexos: [],
         _method: 'put',
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
 
@@ -123,7 +126,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.tdah-adulto.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.tdah-adulto.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

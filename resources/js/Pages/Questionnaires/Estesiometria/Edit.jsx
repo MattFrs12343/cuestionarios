@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
+import { upperAll } from '@/Utils/uppercase';
 
 const FOOT_POINTS = ['Hallux', '1º Metatarso', '3º Metatarso', '5º Metatarso', 'Região Medial', 'Região Central', 'Região Lateral', 'Calcâneo', 'Dorso', 'Medial Pé'];
 const HAND_POINTS = ['Polegar', 'Indicador', 'Médio', 'Mínimo', 'Tenar', 'Hipotenar', 'Dorso'];
@@ -65,11 +66,11 @@ const PRE_EXAM_QUESTIONS = [
 ];
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         clinica: questionnaire.clinica || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         nome_completo: questionnaire.nome_completo || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         sexo: questionnaire.sexo || '',
         nome_avaliador: questionnaire.nome_avaliador || '',
         crm_rg: questionnaire.crm_rg || '',
@@ -94,6 +95,8 @@ export default function Edit({ auth, questionnaire }) {
         anexos: [],
         _method: 'put',
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
 
@@ -121,7 +124,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.estesiometria.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.estesiometria.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

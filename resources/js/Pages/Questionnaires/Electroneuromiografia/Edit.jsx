@@ -1,10 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, Link, router } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { useState, useEffect, useCallback } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { upperAll } from '@/Utils/uppercase';
 
 export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameOptions, areasColuna, momentoExameOptions }) {
     // Función para formatar datas no formato YYYY-MM-DD
@@ -14,7 +15,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
         return d.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, post, processing, errors } = useForm({
+    const { data, setData, put, post, processing, errors, transform } = useForm({
         // Datos básicos
         nome: questionnaire.nome || '',
         data_nascimento: formatDateForInput(questionnaire.data_nascimento) || '',
@@ -121,12 +122,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
         anexos: [],
     });
 
+    transform(upperAll);
+
     const [idade, setIdade] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);
     const [pedidoMedicoPreview, setPedidoMedicoPreview] = useState(null);
     const [imageCompressionInfo, setImageCompressionInfo] = useState(null);
     const [isCompressing, setIsCompressing] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         // Detectar solo dispositivos móviles (no tablets) para la cámara
@@ -167,51 +169,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
         console.log('HandleSubmit - data.pedido_medico:', data.pedido_medico);
         console.log('HandleSubmit - pedidoMedicoPreview:', pedidoMedicoPreview);
         
-        // Se houver um arquivo, usar router.post com FormData
+        // Se houver um arquivo, usar PUT com forceFormData para enviar FormData
         if (data.pedido_medico || data.anexos.length > 0) {
-            console.log('Using FormData approach - file detected');
-            setIsSubmitting(true);
-            
-            const formData = new FormData();
-            
-            // Adicionar todos os campos do formulário
-            Object.keys(data).forEach(key => {
-                if (data[key] !== null && data[key] !== undefined) {
-                    let value = data[key];
-                    if (key === 'anexos') { value.forEach((f) => formData.append('anexos[]', f)); return; }
-                    // Converter booleanos para strings para FormData
-                    if (typeof value === 'boolean') {
-                        value = value ? '1' : '0';
-                    }
-                    // Converter arrays para JSON strings
-                    else if (Array.isArray(value)) {
-                        value = JSON.stringify(value);
-                    }
-                    console.log(`Adding to FormData: ${key} =`, value);
-                    formData.append(key, value);
-                }
-            });
-            
-            // Adicionar _method para simular PUT
-            formData.append('_method', 'PUT');
-            
-            // Usar router.post com FormData
-            router.post(route('questionnaires.electroneuromiografia.update', questionnaire.id), formData, {
+            put(route('questionnaires.electroneuromiografia.update', questionnaire.id), {
                 forceFormData: true,
-                onSuccess: () => {
-                    console.log('Form submitted successfully');
-                    setIsSubmitting(false);
-                },
-                onError: (errors) => {
-                    console.error('Form submission errors:', errors);
-                    setIsSubmitting(false);
-                },
-                onFinish: () => {
-                    setIsSubmitting(false);
-                }
+                preserveScroll: true,
             });
         } else {
-            console.log('Using regular PUT approach - no file');
             put(route('questionnaires.electroneuromiografia.update', questionnaire.id));
         }
     };
@@ -1118,10 +1082,10 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
                                     </Link>
                                     <button
                                         type="submit"
-                                        disabled={processing || isSubmitting}
+                                        disabled={processing}
                                         className="px-4 py-2 bg-purple-500 dark:bg-purple-600 text-white rounded-md hover:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 disabled:opacity-50 transition-colors duration-200"
                                     >
-                                        {(processing || isSubmitting) ? 'Salvando...' : 'Salvar Alterações'}
+                                        {processing ? 'Salvando...' : 'Salvar Alterações'}
                                     </button>
                                 </div>
                             </form>

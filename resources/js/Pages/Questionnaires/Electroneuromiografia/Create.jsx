@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { upperAll } from '@/Utils/uppercase';
 
 export default function Create({ auth, tiposExameOptions, areasColuna, momentoExameOptions }) {
     // Obter data atual no formato YYYY-MM-DD
@@ -13,7 +14,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Datos básicos
         nome: '',
         data_nascimento: '',
@@ -119,6 +120,8 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idade, setIdade] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);

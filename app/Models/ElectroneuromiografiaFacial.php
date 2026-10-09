@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAttachments;
+use App\Models\Concerns\UppercasesTextAttributes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ use Carbon\Carbon;
 
 class ElectroneuromiografiaFacial extends Model
 {
-    use HasFactory, HasAttachments;
+    use HasFactory, HasAttachments, UppercasesTextAttributes;
 
     protected $table = 'electroneuromiografia_facial';
 
@@ -52,6 +53,7 @@ class ElectroneuromiografiaFacial extends Model
         'diabetico',
         'toma_medicamento',
         'medicamentos',
+        'observacoes',
         'assinatura_paciente',
         'pedido_medico',
         'team_id',

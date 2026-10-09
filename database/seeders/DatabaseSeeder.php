@@ -50,7 +50,12 @@ class DatabaseSeeder extends Seeder
         $roles = [
             'administrador' => $permissions,
             'sistema' => $permissions,
-            'laudador' => ['view questionnaires'],
+            // "create"/"edit" son el gate grueso de UI (mostrar el botón,
+            // permitir el POST/PUT); cuál módulo puede usar realmente lo
+            // decide user_modules vía hasModuleAccess(), no esto. Antes el
+            // laudador no los tenía, lo que ocultaba el botón "Novo
+            // Questionário" y bloqueaba el guardado en TODOS los tipos.
+            'laudador' => ['view questionnaires', 'create questionnaires', 'edit questionnaires'],
             'tecnico' => [
                 'view questionnaires',
                 'create questionnaires',

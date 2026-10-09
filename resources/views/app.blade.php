@@ -15,9 +15,9 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         {{-- Hero do painel de exames: só faz sentido na página que o exibe, para não
-             baixar 1,5 MB à toa nas demais. --}}
+             baixar a imagem à toa nas demais. --}}
         @if (request()->routeIs('questionnaires.index'))
-            <link rel="preload" as="image" href="{{ \Illuminate\Support\Facades\Vite::asset('resources/js/Assets/dashboard/hero-brain.png') }}" fetchpriority="high">
+            <link rel="preload" as="image" type="image/webp" href="{{ \Illuminate\Support\Facades\Vite::asset('resources/js/Assets/dashboard/hero-brain.webp') }}" fetchpriority="high">
         @endif
 
         <!-- Theme Script - Must run before page renders -->

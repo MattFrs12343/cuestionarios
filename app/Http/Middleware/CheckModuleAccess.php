@@ -23,7 +23,7 @@ class CheckModuleAccess
 
         // Verificar si el usuario tiene acceso al módulo en el equipo actual
         if (!$user->hasModuleAccess($moduleName, $request->attributes->get('currentTeam'))) {
-            abort(403, "No tienes acceso al módulo de {$moduleName}. Contacta con un administrador para solicitar acceso.");
+            abort(403, "Você não tem acesso ao módulo de {$moduleName}. Contate um administrador para solicitar acesso.");
         }
 
         return $next($request);

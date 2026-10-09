@@ -278,14 +278,16 @@ class TeamAndUserProvisioningTest extends TestCase
 
     public function test_team_admin_cannot_delete_a_user_who_is_the_last_admin_of_one_of_their_teams(): void
     {
-        // El actor administra el equipo A y el B. El objetivo es admin solo
-        // del equipo B: borrarlo dejaría al B sin nadie que lo gobierne.
+        // El actor administra el equipo A. El objetivo es miembro de A (para
+        // que el actor tenga permiso para gestionarlo) y admin único del
+        // equipo B, al que el actor NO pertenece: borrarlo dejaría al B sin
+        // nadie que lo gobierne.
         $teamA = Team::factory()->create();
         $teamB = Team::factory()->create();
         $actor = $this->makeTeamAdmin($teamA);
-        $actor->teams()->attach($teamB);
 
         $target = $this->makeTeamAdmin($teamB);
+        $target->teams()->attach($teamA);
 
         $this->actingAs($actor)
             ->delete(route('admin.users.destroy', $target))

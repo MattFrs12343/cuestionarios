@@ -80,6 +80,7 @@ export const translations = {
   navigation: {
     dashboard: 'Painel',
     questionnaires: 'Questionários',
+    history: 'Histórico',
     admin: 'Administração',
     profile: 'Perfil',
     settings: 'Configurações',
@@ -138,6 +139,18 @@ export const translations = {
     draft: 'Rascunho',
     completed: 'Concluído',
     pending: 'Pendente',
+  },
+
+  // Histórico de atividade
+  history: {
+    title: 'Histórico de Atividade',
+    subtitle_team: 'Questionários realizados pela equipe {team}',
+    subtitle_self: 'Veja os questionários que você realizou',
+    total_records: 'Registros',
+    from: 'De',
+    to: 'Até',
+    apply: 'Aplicar',
+    empty: 'Nenhum questionário realizado neste período.',
   },
 
   // Administração

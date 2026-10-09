@@ -1,13 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 import GalaxyBackground from '@/Components/GalaxyBackground';
 import ThemeToggle from '@/Components/ThemeToggle';
 import Dropdown from '@/Components/Dropdown';
 import TeamSelectionModal from '@/Components/TeamSelectionModal';
 import { useTranslation } from '@/Hooks/useTranslation';
-import heroBrain from '@/Assets/dashboard/hero-brain.png';
+import heroBrain from '@/Assets/dashboard/hero-brain.webp';
 
 // Gradiente propio de cada tipo, alineado con la identidad visual que ya tiene
 // cada formulário (ex.: Dinamômetro é violeta, Estesiometria é vermelho, etc.).
@@ -29,7 +29,7 @@ const GRADIENTS = {
 // mesmo com muitos tipos de questionário disponíveis.
 const CATEGORIES = [
     { title: 'Exames Neurológicos', icons: ['electroencefalograma', 'electroneuromiografia', 'potencial', 'electroneuromiografia_facial'] },
-    { title: 'Avaliações e Testes Especiais', icons: ['rastreio_cognitivo', 'equilibrio', 'mini_exame_mental', 'estesiometria', 'dinamometro'] },
+    { title: 'Avaliações e Testes Especiais', icons: ['rastreio_cognitivo', 'equilibrio', 'mini_exame_mental', 'estesiometria', 'dinamometro', 'dinamometria_mmii'] },
     { title: 'TDAH', icons: ['tdah_infantil', 'tdah_adulto'] },
 ];
 
@@ -89,10 +89,17 @@ const ModuleCard = ({ type }) => {
 function DashboardHeader({ user, userRole, isAdmin }) {
     const { t } = useTranslation();
     const searchRef = useRef(null);
+    const searchBoxRef = useRef(null);
     const { props } = usePage();
     const switchableTeams = props.switchableTeams || [];
     const canSwitchTeams = switchableTeams.length > 1;
     const [showTeamSwitcher, setShowTeamSwitcher] = useState(false);
+
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [searching, setSearching] = useState(false);
+    const [searched, setSearched] = useState(false);
+    const [showResults, setShowResults] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -100,10 +107,50 @@ function DashboardHeader({ user, userRole, isAdmin }) {
                 e.preventDefault();
                 searchRef.current?.focus();
             }
+            if (e.key === 'Escape') {
+                setShowResults(false);
+                searchRef.current?.blur();
+            }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+                setShowResults(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        const term = query.trim();
+        if (term.length < 2) {
+            setResults([]);
+            setSearched(false);
+            setSearching(false);
+            return;
+        }
+
+        setSearching(true);
+        const timeout = setTimeout(() => {
+            window.axios.get(route('search'), { params: { q: term } })
+                .then((response) => {
+                    setResults(response.data.results || []);
+                    setSearched(true);
+                })
+                .catch(() => {
+                    setResults([]);
+                    setSearched(true);
+                })
+                .finally(() => setSearching(false));
+        }, 300);
+
+        return () => clearTimeout(timeout);
+    }, [query]);
 
     return (
         <div className="flex items-center gap-3 mb-6">
@@ -113,20 +160,84 @@ function DashboardHeader({ user, userRole, isAdmin }) {
                 closeable
                 onClose={() => setShowTeamSwitcher(false)}
             />
-            <div className="relative flex-1 max-w-xl">
+            <div className="relative flex-1 max-w-xl" ref={searchBoxRef}>
                 <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400 dark:text-zinc-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="8.5" strokeWidth="1.5" />
                 </svg>
                 <input
                     ref={searchRef}
                     type="text"
+                    value={query}
+                    onChange={(e) => { setQuery(e.target.value); setShowResults(true); }}
+                    onFocus={() => setShowResults(true)}
                     placeholder="Buscar paciente, exame ou documento..."
+                    autoComplete="off"
                     className="w-full pl-10 pr-16 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-md text-sm text-gray-700 dark:text-zinc-200 placeholder-gray-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-colors duration-200"
                 />
-                <kbd className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 text-[11px] font-medium text-gray-400 dark:text-zinc-400 bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/10 rounded px-1.5 py-0.5">
-                    Ctrl + K
-                </kbd>
+                {query ? (
+                    <button
+                        type="button"
+                        onClick={() => { setQuery(''); setResults([]); setSearched(false); searchRef.current?.focus(); }}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-zinc-400 hover:text-gray-600 dark:hover:text-zinc-200"
+                        aria-label="Limpar busca"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                ) : (
+                    <kbd className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 text-[11px] font-medium text-gray-400 dark:text-zinc-400 bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/10 rounded px-1.5 py-0.5">
+                        Ctrl + K
+                    </kbd>
+                )}
+
+                {showResults && query.trim().length >= 2 && (
+                    <div className="absolute z-50 mt-2 w-full rounded-xl border border-gray-200 dark:border-zinc-600 bg-white dark:bg-zinc-700 shadow-2xl overflow-hidden">
+                        {searching ? (
+                            <div className="px-4 py-4 text-sm text-gray-500 dark:text-zinc-400 flex items-center gap-2">
+                                <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Buscando...
+                            </div>
+                        ) : results.length > 0 ? (
+                            <ul className="max-h-96 overflow-y-auto divide-y divide-gray-100 dark:divide-zinc-600">
+                                {results.map((r) => (
+                                    <li key={`${r.tipo}-${r.id}`}>
+                                        <Link
+                                            href={r.url}
+                                            className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-colors duration-150"
+                                            onClick={() => setShowResults(false)}
+                                        >
+                                            <div className="min-w-0">
+                                                <p className="text-sm font-semibold text-gray-800 dark:text-zinc-100 truncate">{r.nome}</p>
+                                                <p className="text-xs text-gray-500 dark:text-zinc-400">{r.tipo}{r.data_exame ? ` · ${r.data_exame}` : ''}</p>
+                                            </div>
+                                            <svg className="w-4 h-4 text-gray-300 dark:text-zinc-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : searched ? (
+                            <div className="px-4 py-4 text-sm text-gray-500 dark:text-zinc-400">Nenhum resultado para "{query.trim()}".</div>
+                        ) : null}
+                    </div>
+                )}
             </div>
+
+            <Link
+                href={route('history.index')}
+                aria-label="Histórico"
+                className="inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-md text-sm font-medium text-gray-700 dark:text-zinc-200 hover:bg-white dark:hover:bg-white/10 transition-colors duration-200 shadow-sm hover:shadow flex-shrink-0"
+            >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="hidden sm:inline leading-none">{t('navigation.history')}</span>
+            </Link>
 
             <div className="flex items-center gap-3 flex-shrink-0">
                 <ThemeToggle />
@@ -167,7 +278,7 @@ function DashboardHeader({ user, userRole, isAdmin }) {
                                     onClick={() => setShowTeamSwitcher(true)}
                                     className="block w-full text-left px-5 py-2.5 text-sm text-gray-700 dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-600 rounded-xl mx-2 transition-colors duration-150"
                                 >
-                                    Cambiar equipo
+                                    Trocar equipe
                                 </button>
                             )}
                             {isAdmin && (
@@ -201,7 +312,11 @@ function HeroBanner() {
             <img
                 src={heroBrain}
                 alt=""
+                width="1600"
+                height="512"
+                loading="eager"
                 decoding="async"
+                fetchpriority="high"
                 className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
             />
             {/* Difuminado: la foto se funde con la card en todos los bordes */}
@@ -242,7 +357,7 @@ function HeroBanner() {
 }
 
 export default function QuestionnairesIndex({ auth, modules = [], userRole, isAdmin }) {
-    const groups = groupModules(modules);
+    const groups = useMemo(() => groupModules(modules), [modules]);
 
     return (
         <AuthenticatedLayout user={auth.user} hideNav>

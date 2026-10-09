@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
+import { upperAll } from '@/Utils/uppercase';
 
 const SCALE_OPTIONS = [
     { value: 0, label: 'Nunca' },
@@ -64,7 +65,7 @@ const ScaleSection = ({ title, perguntas, respostas, onChange, colorFrom, colorT
 export default function Create({ auth }) {
     const getCurrentDate = () => new Date().toISOString().split('T')[0];
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         clinica: '',
         data_exame: getCurrentDate(),
         nome_completo: '',
@@ -84,6 +85,8 @@ export default function Create({ auth }) {
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
 

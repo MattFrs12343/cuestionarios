@@ -30,6 +30,7 @@ class ElectroneuromiografiaFacialController extends Controller
 
         return Inertia::render('Questionnaires/ElectroneuromiografiaFacial/Index', [
             'questionnaires' => $questionnaires,
+            'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),
             'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
                 return $value !== null && $value !== '';
             }),
@@ -93,6 +94,7 @@ class ElectroneuromiografiaFacialController extends Controller
             'diabetico' => 'boolean',
             'toma_medicamento' => 'boolean',
             'medicamentos' => 'nullable|string',
+            'observacoes' => 'nullable|string',
             'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
         ]);
@@ -211,6 +213,7 @@ class ElectroneuromiografiaFacialController extends Controller
             'diabetico' => 'boolean',
             'toma_medicamento' => 'boolean',
             'medicamentos' => 'nullable|string',
+            'observacoes' => 'nullable|string',
             'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
         ]);

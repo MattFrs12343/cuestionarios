@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { upperAll } from '@/Utils/uppercase';
 
 const BERG_ITEMS = [
     { field: 'berg_sentado_para_pe', label: '1. Sentado para de pé', help: 'Consegue levantar sem ajuda das mãos?' },
@@ -50,7 +51,7 @@ export default function Create({ auth }) {
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         nome_completo: '',
         rg_ou_cpf: '',
         data_nascimento: '',
@@ -80,6 +81,8 @@ export default function Create({ auth }) {
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);

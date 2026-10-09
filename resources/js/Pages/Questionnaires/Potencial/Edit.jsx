@@ -12,19 +12,20 @@ import Checkbox from '@/Components/Checkbox';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
+import { upperAll } from '@/Utils/uppercase';
 
 export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMentalGraus }) {
     const { t } = useTranslation();
     const { sees } = useFieldVisibility();
     const [signatureData, setSignatureData] = useState(questionnaire.assinatura_paciente || '');
 
-    const { data, setData, put, post, processing, errors } = useForm({
+    const { data, setData, put, post, processing, errors, transform } = useForm({
         // Datos básicos
         nome: questionnaire.nome || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         peso: questionnaire.peso || '',
         altura: questionnaire.altura || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         rg: questionnaire.rg || '',
         sexo: questionnaire.sexo || 'Feminino',
         solicitante: questionnaire.solicitante || '',
@@ -95,42 +96,22 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         anexos: [],
     });
 
+    transform(upperAll);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Preparar los datos para envío
-        let submitData = { ...data };
-        
-        // Manejar la firma digital
         if (signatureData) {
-            submitData.assinatura_paciente = signatureData;
+            setData('assinatura_paciente', signatureData);
         }
         
-        // Si hay archivo, usar post con _method: PUT (Laravel standard)
         if (data.pedido_medico || data.anexos.length > 0) {
-            // Convertir booleanos a strings para FormData
-            submitData = Object.keys(submitData).reduce((acc, key) => {
-                let value = submitData[key];
-                // Convertir booleanos a strings '0' o '1'
-                if (typeof value === 'boolean') {
-                    acc[key] = value ? '1' : '0';
-                } else {
-                    acc[key] = value;
-                }
-                return acc;
-            }, {});
-            
-            // Agregar _method para simular PUT
-            submitData._method = 'PUT';
-            
-            post(route('questionnaires.potencial.update', questionnaire.id), submitData, {
+            put(route('questionnaires.potencial.update', questionnaire.id), {
+                forceFormData: true,
                 preserveScroll: true,
             });
         } else {
-            // Sin archivo, usar put normal
-            put(route('questionnaires.potencial.update', questionnaire.id), submitData, {
-                preserveScroll: true,
-            });
+            put(route('questionnaires.potencial.update', questionnaire.id));
         }
     };
 

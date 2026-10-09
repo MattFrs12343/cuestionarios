@@ -7,6 +7,7 @@ import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import ImageZoomModal from '@/Components/ImageZoomModal';
+import { formatDateShort } from '@/Utils/dateFormatter';
 
 export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
     const { t } = useTranslation();
@@ -75,11 +76,11 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             <InfoSection title={t('Dados Básicos')}>
                                 <InfoItem label={t('Nome')} value={questionnaire.nome} />
                                 <InfoItem label={t('RG ou CPF')} value={questionnaire.rg} />
-                                <InfoItem label={t('Data de Nascimento')} value={new Date(questionnaire.data_nascimento).toLocaleDateString('pt-BR')} />
+                                <InfoItem label={t('Data de Nascimento')} value={formatDateShort(questionnaire.data_nascimento)} />
                                 <InfoItem label={t('Idade')} value={questionnaire.idade} />
                                 {sees('peso') && <InfoItem label={t('Peso')} value={questionnaire.peso} />}
                                 {sees('altura') && <InfoItem label={t('Altura')} value={questionnaire.altura} />}
-                                <InfoItem label={t('Data do Exame')} value={new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')} />
+                                <InfoItem label={t('Data do Exame')} value={formatDateShort(questionnaire.data_exame)} />
                                 <InfoItem label={t('Sexo')} value={questionnaire.sexo} />
                                 <InfoItem label={t('Solicitante')} value={questionnaire.solicitante} />
                                 <InfoItem label={t('Clínica')} value={questionnaire.clinica} />

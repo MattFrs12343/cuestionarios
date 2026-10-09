@@ -9,7 +9,10 @@ class UpdateElectroneuromiografiaRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('edit questionnaires');
+        // Ver StoreQuestionnaireRequest::authorize(): la autorización real es
+        // el middleware module.access; el permiso genérico de Spatie no se
+        // le da al laudador a propósito.
+        return true;
     }
 
     protected function prepareForValidation()

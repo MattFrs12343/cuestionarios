@@ -1,10 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
+import { upperAll } from '@/Utils/uppercase';
 
 const BERG_ITEMS = [
     { field: 'berg_sentado_para_pe', label: '1. Sentado para de pé', help: 'Consegue levantar sem ajuda das mãos?' },
@@ -45,13 +46,13 @@ const BergField = ({ item, value, onChange, errors }) => (
 );
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         nome_completo: questionnaire.nome_completo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         sexo: questionnaire.sexo || '',
         clinica: questionnaire.clinica || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         tug_tempo_segundos: questionnaire.tug_tempo_segundos ?? '',
         berg_sentado_para_pe: questionnaire.berg_sentado_para_pe ?? '',
         berg_permanecer_pe_sem_apoio: questionnaire.berg_permanecer_pe_sem_apoio ?? '',
@@ -76,6 +77,8 @@ export default function Edit({ auth, questionnaire }) {
         anexos: [],
         _method: 'put',
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -115,7 +118,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.equilibrio.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.equilibrio.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

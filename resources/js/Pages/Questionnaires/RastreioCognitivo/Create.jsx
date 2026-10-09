@@ -8,6 +8,7 @@ import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imag
 import leaoImg from '@/Assets/moca/leao.jpg';
 import rinoceronteImg from '@/Assets/moca/rinoceronte.jpg';
 import cameloImg from '@/Assets/moca/camelo.jpg';
+import { upperAll } from '@/Utils/uppercase';
 
 const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing }) => (
     <div className="flex flex-col h-full">
@@ -75,7 +76,7 @@ export default function Create({ auth }) {
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         nome_completo: '',
         rg_ou_cpf: '',
         data_nascimento: '',
@@ -102,6 +103,8 @@ export default function Create({ auth }) {
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);

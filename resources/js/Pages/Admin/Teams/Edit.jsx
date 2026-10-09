@@ -5,7 +5,7 @@ import UserSearchSelect from '@/Components/UserSearchSelect';
 
 export default function EditTeam({ auth, team, users, isSuperAdmin, moduleCatalog, teamModules, planUsage }) {
     const { t } = useTranslation();
-    const [data, setData] = useForm({
+    const { data, setData, put, processing, errors } = useForm({
         name: team.name || '',
         users: team.users ? team.users.map(user => user.id) : []
     });

@@ -33,6 +33,14 @@ const COLOR_MAP = {
         dotDone: 'bg-emerald-500',
         pillActive: 'bg-indigo-600 text-white',
     },
+    cyan: {
+        activeBg: 'bg-cyan-50 dark:bg-cyan-900/20',
+        activeText: 'text-cyan-700 dark:text-cyan-300',
+        activeBorder: 'border-cyan-300 dark:border-cyan-700',
+        dot: 'bg-cyan-500',
+        dotDone: 'bg-emerald-500',
+        pillActive: 'bg-cyan-600 text-white',
+    },
 };
 
 /**

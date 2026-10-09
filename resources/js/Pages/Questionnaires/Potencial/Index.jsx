@@ -2,15 +2,35 @@ import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
-import FlashMessage from '@/Components/FlashMessage';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import DangerButton from '@/Components/DangerButton';
 import TextInput from '@/Components/TextInput';
 import Modal from '@/Components/Modal';
 import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon, EyeIcon, PencilIcon, TrashIcon, CalendarIcon, UserIcon, BuildingOfficeIcon, UserGroupIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
-import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
 import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
+import { formatDateShort } from '@/Utils/dateFormatter';
+
+function ExportButton({ questionnaire, className, children, exportingId, onExport }) {
+    return (
+        <button
+            type="button"
+            onClick={() => onExport(questionnaire)}
+            disabled={exportingId === questionnaire.id}
+            className={className}
+        >
+            {exportingId === questionnaire.id ? (
+                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            ) : (
+                <ArrowDownTrayIcon className="h-4 w-4" />
+            )}
+            {children}
+        </button>
+    );
+}
 
 export default function Index({ auth, questionnaires, filters, can }) {
     const { t } = useTranslation();
@@ -68,6 +88,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
     const handleExportToJPG = async (questionnaire) => {
         setExportingId(questionnaire.id);
         try {
+            const { exportQuestionnaireToJPG } = await import('@/Utils/exportQuestionnaire');
             await exportQuestionnaireToJPG(questionnaire, 'potencial', 'questionario_potencial', questionnaire.nome, hiddenFields);
         } catch (error) {
             console.error('Error al exportar:', error);
@@ -76,25 +97,6 @@ export default function Index({ auth, questionnaires, filters, can }) {
             setExportingId(null);
         }
     };
-
-    const ExportButton = ({ questionnaire, className, children }) => (
-        <button
-            type="button"
-            onClick={() => handleExportToJPG(questionnaire)}
-            disabled={exportingId === questionnaire.id}
-            className={className}
-        >
-            {exportingId === questionnaire.id ? (
-                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            ) : (
-                <ArrowDownTrayIcon className="h-4 w-4" />
-            )}
-            {children}
-        </button>
-    );
 
     const getSortIcon = (field) => {
         if (searchFilters.sort !== field) return '↕️';
@@ -136,8 +138,6 @@ export default function Index({ auth, questionnaires, filters, can }) {
 
             <div className="py-6 sm:py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <FlashMessage />
-                    
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl sm:rounded-2xl">
                         {/* Header con búsqueda rápida */}
                         <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-zinc-600">
@@ -320,7 +320,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-zinc-300">
                                                 <div className="flex items-center">
                                                     <CalendarIcon className="h-4 w-4 mr-2 text-gray-400" />
-                                                    {new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')}
+                                                    {formatDateShort(questionnaire.data_exame)}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-600 dark:text-zinc-300 max-w-[160px]">
@@ -345,6 +345,8 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                     </Link>
                                                     <ExportButton
                                                         questionnaire={questionnaire}
+                                                        exportingId={exportingId}
+                                                        onExport={handleExportToJPG}
                                                         className="inline-flex items-center px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-lg hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                                     />
                                                     {can.edit && (
@@ -415,7 +417,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                     {t('Data do Exame')}
                                                 </p>
                                                 <p className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
-                                                    {new Date(questionnaire.data_exame).toLocaleDateString('pt-BR')}
+                                                    {formatDateShort(questionnaire.data_exame)}
                                                 </p>
                                             </div>
                                         </div>
@@ -455,6 +457,8 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                             </Link>
                                             <ExportButton
                                                 questionnaire={questionnaire}
+                                                exportingId={exportingId}
+                                                onExport={handleExportToJPG}
                                                 className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
                                                 <span className="ml-2">{t('Exportar')}</span>

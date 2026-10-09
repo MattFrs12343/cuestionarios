@@ -12,13 +12,14 @@ import TextInput from '@/Components/TextInput';
 import Checkbox from '@/Components/Checkbox';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import SignaturePad from '@/Components/SignaturePad';
+import { upperAll } from '@/Utils/uppercase';
 
 export default function Create({ auth, retardoMentalGraus }) {
     const { t } = useTranslation();
     const { sees } = useFieldVisibility();
     const [signatureData, setSignatureData] = useState('');
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, transform } = useForm({
         // Datos básicos
         nome: '',
         data_nascimento: '',
@@ -95,46 +96,24 @@ export default function Create({ auth, retardoMentalGraus }) {
         anexos: [],
     });
 
+    transform(upperAll);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Preparar los datos para envío
-        const submitData = { ...data };
-        
-        // Manejar la firma digital
+        // Actualizar firma si hay
         if (signatureData) {
-            submitData.assinatura_paciente = signatureData;
+            setData('assinatura_paciente', signatureData);
         }
         
-        // Si hay archivo, usar FormData
+        // Enviar con put/post según corresponda (post para create)
         if (data.pedido_medico || data.anexos.length > 0) {
-            const formData = new FormData();
-            
-            // Agregar todos los campos del formulario
-            Object.keys(submitData).forEach(key => {
-                if (key === 'pedido_medico') {
-                    if (data[key]) formData.append(key, data[key]);
-                } else if (key === 'anexos') {
-                    submitData.anexos.forEach((f) => formData.append('anexos[]', f));
-                } else if (submitData[key] !== null && submitData[key] !== undefined) {
-                    let value = submitData[key];
-                    // Converter booleanos para strings para FormData
-                    if (typeof value === 'boolean') {
-                        value = value ? '1' : '0';
-                    }
-                    formData.append(key, value);
-                }
-            });
-
             post(route('questionnaires.potencial.store'), {
-                data: formData,
                 forceFormData: true,
+                preserveScroll: true,
             });
         } else {
-            // Sin archivo, enviar como objeto normal
-            post(route('questionnaires.potencial.store'), {
-                data: submitData,
-            });
+            post(route('questionnaires.potencial.store'));
         }
     };
 

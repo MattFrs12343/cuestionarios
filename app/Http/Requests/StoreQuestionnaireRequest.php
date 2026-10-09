@@ -9,7 +9,12 @@ class StoreQuestionnaireRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create questionnaires');
+        // La autorización real ya la hace el middleware module.access (por
+        // módulo asignado al usuario); el permiso genérico "create
+        // questionnaires" de Spatie nunca se le da al rol laudador a
+        // propósito (ver DatabaseSeeder), así que exigirlo aquí bloqueaba a
+        // todos los laudadores sin excepción.
+        return true;
     }
 
     protected function prepareForValidation(): void

@@ -2,7 +2,54 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
-import { exportQuestionnaireToJPG } from '@/Utils/exportQuestionnaire';
+
+function ExportButton({ questionnaire, className, exportingId, onExport }) {
+    return (
+        <button
+            type="button"
+            onClick={() => onExport(questionnaire)}
+            disabled={exportingId === questionnaire.id}
+            className={className}
+            title="Exportar questionário como imagem JPG"
+        >
+            {exportingId === questionnaire.id ? (
+                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            )}
+        </button>
+    );
+}
+
+function SortableHeader({ field, children, sortField, sortDirection, onSort }) {
+    const isActive = sortField === field;
+    const isAsc = isActive && sortDirection === 'asc';
+    const isDesc = isActive && sortDirection === 'desc';
+
+    return (
+        <th
+            className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-500 transition-colors duration-200"
+            onClick={() => onSort(field)}
+        >
+            <div className="flex items-center space-x-1">
+                <span>{children}</span>
+                <div className="flex flex-col">
+                    <svg className={`w-3 h-3 ${isAsc ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                    </svg>
+                    <svg className={`w-3 h-3 -mt-1 ${isDesc ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </th>
+    );
+}
 
 export default function AvaliacaoEquilibrioIndex({
     auth,
@@ -89,6 +136,7 @@ export default function AvaliacaoEquilibrioIndex({
     const handleExportToJPG = async (questionnaire) => {
         setExportingId(questionnaire.id);
         try {
+            const { exportQuestionnaireToJPG } = await import('@/Utils/exportQuestionnaire');
             await exportQuestionnaireToJPG(questionnaire, 'avaliacao-equilibrio', 'questionario_equilibrio', questionnaire.nome_completo);
         } catch (error) {
             console.error('Error al exportar:', error);
@@ -96,52 +144,6 @@ export default function AvaliacaoEquilibrioIndex({
         } finally {
             setExportingId(null);
         }
-    };
-
-    const ExportButton = ({ questionnaire, className }) => (
-        <button
-            type="button"
-            onClick={() => handleExportToJPG(questionnaire)}
-            disabled={exportingId === questionnaire.id}
-            className={className}
-            title="Exportar questionário como imagem JPG"
-        >
-            {exportingId === questionnaire.id ? (
-                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-            )}
-        </button>
-    );
-
-    const SortableHeader = ({ field, children }) => {
-        const isActive = sortField === field;
-        const isAsc = isActive && sortDirection === 'asc';
-        const isDesc = isActive && sortDirection === 'desc';
-
-        return (
-            <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-500 transition-colors duration-200"
-                onClick={() => handleSort(field)}
-            >
-                <div className="flex items-center space-x-1">
-                    <span>{children}</span>
-                    <div className="flex flex-col">
-                        <svg className={`w-3 h-3 ${isAsc ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                        </svg>
-                        <svg className={`w-3 h-3 -mt-1 ${isDesc ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-            </th>
-        );
     };
 
     return (
@@ -289,6 +291,8 @@ export default function AvaliacaoEquilibrioIndex({
                                                     </Link>
                                                     <ExportButton
                                                         questionnaire={questionnaire}
+                                                        exportingId={exportingId}
+                                                        onExport={handleExportToJPG}
                                                         className="flex items-center justify-center w-10 h-10 bg-teal-600 dark:bg-teal-700 text-white rounded-full hover:bg-teal-700 dark:hover:bg-teal-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                                     />
                                                     {can.edit && (
@@ -319,10 +323,10 @@ export default function AvaliacaoEquilibrioIndex({
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600">
                                     <thead className="bg-gray-50 dark:bg-zinc-600">
                                         <tr>
-                                            <SortableHeader field="nome_completo">Paciente</SortableHeader>
-                                            <SortableHeader field="rg_ou_cpf">RG/CPF</SortableHeader>
-                                            <SortableHeader field="data_exame">Data Exame</SortableHeader>
-                                            <SortableHeader field="clinica">Clínica</SortableHeader>
+                                            <SortableHeader field="nome_completo" sortField={sortField} sortDirection={sortDirection} onSort={handleSort}>Paciente</SortableHeader>
+                                            <SortableHeader field="rg_ou_cpf" sortField={sortField} sortDirection={sortDirection} onSort={handleSort}>RG/CPF</SortableHeader>
+                                            <SortableHeader field="data_exame" sortField={sortField} sortDirection={sortDirection} onSort={handleSort}>Data Exame</SortableHeader>
+                                            <SortableHeader field="clinica" sortField={sortField} sortDirection={sortDirection} onSort={handleSort}>Clínica</SortableHeader>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">Berg / TUG</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">Equipe</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-zinc-300 uppercase tracking-wider">Ações</th>
@@ -374,6 +378,8 @@ export default function AvaliacaoEquilibrioIndex({
                                                             </Link>
                                                             <ExportButton
                                                                 questionnaire={questionnaire}
+                                                                exportingId={exportingId}
+                                                                onExport={handleExportToJPG}
                                                                 className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                                                             />
                                                             {can.edit && (

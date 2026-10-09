@@ -8,35 +8,62 @@
  * - 'time': HH:mm
  */
 
+const MESES_PT = [
+  'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+  'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
+];
+
+/**
+ * Extrai ano/mês/dia de uma data "pura" (sem hora) sem passar por `Date`,
+ * que interpreta strings "YYYY-MM-DD" como meia-noite UTC. Em um navegador
+ * com fuso horário atrás de UTC (ex. America/Sao_Paulo, -03:00), isso faz o
+ * dia exibido retroceder um dia em relação ao que foi realmente salvo —
+ * mesmo quando o backend manda a data com hora/offset (ex.
+ * "2024-01-15T03:00:00.000000Z"), já que o prefixo YYYY-MM-DD segue sendo o
+ * dia correto no fuso do servidor (America/Sao_Paulo, sempre atrás de UTC).
+ */
+const parseDateOnly = (date) => {
+  const match = String(date).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+
+  return { year: +match[1], month: +match[2], day: +match[3] };
+};
+
 /**
  * Formata uma data para o padrão brasileiro
- * 
+ *
  * @param {string|Date} date - Data a ser formatada
  * @param {string} format - Formato desejado ('short', 'long', 'datetime', 'time')
  * @returns {string} Data formatada ou string vazia se data inválida
  */
 export const formatDate = (date, format = 'short') => {
   if (!date) return '';
-  
+
+  // 'short'/'long' representam uma data de calendário (data_exame,
+  // data_nascimento): parse direto do texto, sem Date/fuso horário.
+  if (format === 'short' || format === 'long') {
+    const parsed = parseDateOnly(date);
+    if (!parsed) return '';
+
+    const { year, month, day } = parsed;
+
+    if (format === 'long') {
+      return `${String(day).padStart(2, '0')} de ${MESES_PT[month - 1]} de ${year}`;
+    }
+
+    return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+  }
+
+  // 'datetime'/'time' representam um instante real (created_at, etc.):
+  // aí sim a hora local do navegador é a informação correta a mostrar.
   const d = new Date(date);
-  
-  // Verifica se a data é válida
+
   if (isNaN(d.getTime())) return '';
-  
+
   const options = {
-    short: { 
-      day: '2-digit', 
-      month: '2-digit', 
-      year: 'numeric' 
-    },
-    long: { 
-      day: '2-digit', 
-      month: 'long', 
-      year: 'numeric' 
-    },
-    datetime: { 
-      day: '2-digit', 
-      month: '2-digit', 
+    datetime: {
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
@@ -48,9 +75,9 @@ export const formatDate = (date, format = 'short') => {
       hour12: false
     }
   };
-  
-  const selectedOptions = options[format] || options.short;
-  
+
+  const selectedOptions = options[format] || options.datetime;
+
   return new Intl.DateTimeFormat('pt-BR', selectedOptions).format(d);
 };
 

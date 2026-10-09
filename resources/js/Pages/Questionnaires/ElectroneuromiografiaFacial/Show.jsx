@@ -178,6 +178,16 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     {sees('teve_avc') && <BooleanDisplay label="Já teve AVC?" value={questionnaire.teve_avc} conditionalValue={questionnaire.avc_quando} />}
                                 </dl>
                             </div>
+                            {/* Observações */}
+                            {questionnaire.observacoes && (
+                                <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-1 h-8 bg-gradient-to-b from-amber-500 to-orange-600 rounded-full mr-3"></div>
+                                        <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200">Observações</h4>
+                                    </div>
+                                    <p className="text-sm text-gray-900 dark:text-zinc-100 whitespace-pre-wrap">{questionnaire.observacoes}</p>
+                                </div>
+                            )}
                             {/* Arquivos */}
                             <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <div className="flex items-center mb-4">

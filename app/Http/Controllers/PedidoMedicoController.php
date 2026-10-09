@@ -22,7 +22,7 @@ class PedidoMedicoController extends Controller
         $user = auth()->user();
 
         if (! $user->isSuperAdmin() && ! $user->teams->contains('id', $model->team_id ?? null)) {
-            abort(403, 'No tienes permisos para acceder a este pedido médico.');
+            abort(403, 'Você não tem permissão para acessar este pedido médico.');
         }
 
         abort_unless(Storage::disk('private')->exists($model->pedido_medico), 404);

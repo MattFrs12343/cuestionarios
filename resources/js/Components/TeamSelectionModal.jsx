@@ -38,16 +38,16 @@ export default function TeamSelectionModal({ show, teams, closeable = false, onC
                     </div>
                     <div>
                         <h2 className="text-lg font-semibold text-gray-900 dark:text-zinc-100">
-                            Elige el equipo con el que quieres trabajar
+                            Escolha a equipe com a qual deseja trabalhar
                         </h2>
                         <p className="text-xs font-medium text-gray-400 dark:text-zinc-500">
-                            Perteneces a {teams.length} equipos
+                            Você pertence a {teams.length} equipes
                         </p>
                     </div>
                 </div>
 
                 <p className="mb-4 text-sm text-gray-500 dark:text-zinc-400">
-                    Selecciona uno para continuar; podrás cambiarlo luego desde tu perfil o el menú superior.
+                    Selecione uma para continuar; você poderá trocá-la depois pelo seu perfil ou pelo menu superior.
                 </p>
 
                 <div className="max-h-80 space-y-2 overflow-y-auto">

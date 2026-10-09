@@ -21,12 +21,26 @@ trait RestrictsQuestionnaireByTeam
      * Equipo "actual" resuelto por el middleware CurrentTeam para esta sesión.
      * El team_id de los cuestionarios se fuerza a este valor en servidor: el
      * usuario ya no lo elige por formulario ni por query string.
+     *
+     * En escrituras (POST, ej. store()) exige que un usuario con más de un
+     * equipo haya confirmado explícitamente con cuál trabaja (TeamSelectionModal).
+     * Sin esto, CurrentTeam cae en silencio al primer equipo de la relación
+     * (orden no determinado) y un cuestionario podía quedar guardado en un
+     * equipo distinto al que el usuario pensaba estar usando.
      */
     private function currentTeam(\Illuminate\Http\Request $request): \App\Models\Team
     {
         $team = $request->attributes->get('currentTeam');
 
-        abort_if(! $team, 403, 'No tienes ningún equipo asignado. Contactá a un administrador.');
+        abort_if(! $team, 403, 'Você não tem nenhuma equipe atribuída. Contate um administrador.');
+
+        if ($request->isMethod('post') && ! $this->bypassesTeamRestriction()) {
+            $user = auth()->user();
+
+            if ($user && $user->teams->count() > 1 && ! $request->session()->get('team_selection_confirmed', false)) {
+                abort(409, 'Confirme com qual equipe você vai trabalhar antes de salvar um questionário.');
+            }
+        }
 
         return $team;
     }
@@ -43,7 +57,7 @@ trait RestrictsQuestionnaireByTeam
         $user = auth()->user();
 
         if (! $user->teams->contains('id', $model->team_id)) {
-            abort(403, 'No tienes permisos para acceder a este cuestionario.');
+            abort(403, 'Você não tem permissão para acessar este questionário.');
         }
     }
 

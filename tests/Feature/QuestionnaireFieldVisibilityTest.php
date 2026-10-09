@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\EletroneuromiografiaFacial;
+use App\Models\ElectroneuromiografiaFacial;
 use App\Models\Potencial;
 use App\Models\Team;
 use App\Models\User;
@@ -173,7 +173,7 @@ class QuestionnaireFieldVisibilityTest extends TestCase
 
         $this->assertSame('80', $potencial->peso);
         $this->assertSame('1,75', $potencial->altura);
-        $this->assertSame('Nombre Actualizado', $potencial->nome);
+        $this->assertSame('NOMBRE ACTUALIZADO', $potencial->nome);
     }
 
     public function test_potencial_prop_de_visibilidad_por_vista(): void
@@ -217,14 +217,14 @@ class QuestionnaireFieldVisibilityTest extends TestCase
     public function test_facial_azul_persiste_avc(): void
     {
         $team = $this->azul();
-        $user = $this->makeUserForTeam($team, 'eletroneuromiografia_facial');
+        $user = $this->makeUserForTeam($team, 'electroneuromiografia_facial');
 
         $this->actingAs($user)->post(
-            route('questionnaires.eletroneuromiografia-facial.store'),
+            route('questionnaires.electroneuromiografia-facial.store'),
             $this->facialPayload(['teve_avc' => '1', 'avc_quando' => '2019'])
         )->assertRedirect();
 
-        $facial = EletroneuromiografiaFacial::firstOrFail();
+        $facial = ElectroneuromiografiaFacial::firstOrFail();
 
         $this->assertTrue($facial->teve_avc);
         $this->assertSame('2019', $facial->avc_quando);
@@ -233,10 +233,10 @@ class QuestionnaireFieldVisibilityTest extends TestCase
     public function test_facial_otro_equipo_no_persiste_avc_manipulado(): void
     {
         $team = $this->otro();
-        $user = $this->makeUserForTeam($team, 'eletroneuromiografia_facial');
+        $user = $this->makeUserForTeam($team, 'electroneuromiografia_facial');
 
         $this->actingAs($user)->post(
-            route('questionnaires.eletroneuromiografia-facial.store'),
+            route('questionnaires.electroneuromiografia-facial.store'),
             $this->facialPayload([
                 'teve_avc' => '1',
                 'avc_quando' => '2019',
@@ -244,7 +244,7 @@ class QuestionnaireFieldVisibilityTest extends TestCase
             ])
         )->assertRedirect();
 
-        $facial = EletroneuromiografiaFacial::firstOrFail();
+        $facial = ElectroneuromiografiaFacial::firstOrFail();
 
         $this->assertNull($facial->teve_avc);
         $this->assertNull($facial->avc_quando);
@@ -256,14 +256,14 @@ class QuestionnaireFieldVisibilityTest extends TestCase
     public function test_facial_prop_de_visibilidad_por_vista(): void
     {
         $team = $this->azul();
-        $user = $this->makeUserForTeam($team, 'eletroneuromiografia_facial');
-        $facial = EletroneuromiografiaFacial::factory()->create(['team_id' => $team->id]);
+        $user = $this->makeUserForTeam($team, 'electroneuromiografia_facial');
+        $facial = ElectroneuromiografiaFacial::factory()->create(['team_id' => $team->id]);
 
         $vistas = [
-            'index' => route('questionnaires.eletroneuromiografia-facial.index'),
-            'create' => route('questionnaires.eletroneuromiografia-facial.create'),
-            'show' => route('questionnaires.eletroneuromiografia-facial.show', $facial),
-            'edit' => route('questionnaires.eletroneuromiografia-facial.edit', $facial),
+            'index' => route('questionnaires.electroneuromiografia-facial.index'),
+            'create' => route('questionnaires.electroneuromiografia-facial.create'),
+            'show' => route('questionnaires.electroneuromiografia-facial.show', $facial),
+            'edit' => route('questionnaires.electroneuromiografia-facial.edit', $facial),
         ];
 
         foreach ($vistas as $nombre => $url) {
@@ -278,9 +278,9 @@ class QuestionnaireFieldVisibilityTest extends TestCase
     public function test_facial_otro_equipo_recibe_lista_oculta_con_avc(): void
     {
         $team = $this->otro();
-        $user = $this->makeUserForTeam($team, 'eletroneuromiografia_facial');
+        $user = $this->makeUserForTeam($team, 'electroneuromiografia_facial');
 
-        $this->actingAs($user)->get(route('questionnaires.eletroneuromiografia-facial.create'))
+        $this->actingAs($user)->get(route('questionnaires.electroneuromiografia-facial.create'))
             ->assertOk()
             ->assertInertia(fn ($page) => $page
                 ->where('fieldVisibility.hidden', fn ($hidden) => collect($hidden)->contains('teve_avc') && collect($hidden)->contains('avc_quando'))

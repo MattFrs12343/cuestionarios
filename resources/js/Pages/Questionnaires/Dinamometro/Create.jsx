@@ -5,6 +5,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import QuestionnaireSectionNav from '@/Components/QuestionnaireSectionNav';
+import { upperAll } from '@/Utils/uppercase';
 
 const CONTEXTOS = [
     { value: 'neurologico', label: 'Neurológico', help: 'AVC, Parkinson, neuropatia...' },
@@ -35,7 +36,7 @@ const Toggle = ({ label, checked, onChange }) => (
 export default function Create({ auth }) {
     const getCurrentDate = () => new Date().toISOString().split('T')[0];
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         clinica: '',
         data_exame: getCurrentDate(),
         nome_completo: '',
@@ -111,6 +112,8 @@ export default function Create({ auth }) {
         pedido_medico: null,
         anexos: [],
     });
+
+    transform(upperAll);
 
     const [idadeCalculada, setIdadeCalculada] = useState(null);
 
@@ -203,7 +206,7 @@ export default function Create({ auth }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="lg:flex lg:gap-8 lg:items-start">
+                    <div className="lg:flex lg:gap-8">
                         <QuestionnaireSectionNav sections={SECTIONS} color="violet" />
 
                         <div className="flex-1 min-w-0 max-w-4xl">

@@ -1,10 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import SignaturePad from '@/Components/SignaturePad';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
 import QuestionnaireSectionNav from '@/Components/QuestionnaireSectionNav';
+import { upperAll } from '@/Utils/uppercase';
 
 const CONTEXTOS = [
     { value: 'neurologico', label: 'Neurológico', help: 'AVC, Parkinson, neuropatia...' },
@@ -33,11 +34,11 @@ const Toggle = ({ label, checked, onChange }) => (
 );
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, transform } = useForm({
         clinica: questionnaire.clinica || '',
-        data_exame: questionnaire.data_exame || '',
+        data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         nome_completo: questionnaire.nome_completo || '',
-        data_nascimento: questionnaire.data_nascimento || '',
+        data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         sexo: questionnaire.sexo || '',
         peso: questionnaire.peso ?? '',
         altura: questionnaire.altura ?? '',
@@ -111,6 +112,8 @@ export default function Edit({ auth, questionnaire }) {
         _method: 'put',
     });
 
+    transform(upperAll);
+
     const [idadeCalculada, setIdadeCalculada] = useState(null);
 
     useEffect(() => {
@@ -161,7 +164,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            router.post(route('questionnaires.dinamometro.update', questionnaire.id), { ...data, _method: 'PUT' }, {
+            put(route('questionnaires.dinamometro.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });
@@ -206,7 +209,7 @@ export default function Edit({ auth, questionnaire }) {
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="lg:flex lg:gap-8 lg:items-start">
+                    <div className="lg:flex lg:gap-8">
                         <QuestionnaireSectionNav sections={SECTIONS} color="violet" />
 
                         <div className="flex-1 min-w-0 max-w-4xl">

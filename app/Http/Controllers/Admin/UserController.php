@@ -41,7 +41,7 @@ class UserController extends Controller
         }
 
         if (! $target->teams()->whereIn('teams.id', $teamIds)->exists()) {
-            abort(403, 'No tienes permisos para acceder a este usuario.');
+            abort(403, 'Você não tem permissão para acessar este usuário.');
         }
     }
 
