@@ -51,16 +51,35 @@ loadingOverlay.innerHTML = `
 `;
 document.body.appendChild(loadingOverlay);
 
+// Contador de visitas Inertia en vuelo (en vez de un único timeout
+// compartido): con dos navegações/submits superpostos, a segunda "start"
+// pisava o id do primeiro setTimeout e esse timer órfão nunca era
+// cancelado — disparava sozinho depois, tirando "pointer-events-none" do
+// overlay para sempre (nenhum "finish" futuro voltava a escondê-lo). Isso
+// deixava um <div> invisível fixed inset-0 z-[9999] bloqueando todo clique
+// na página sem nenhum aviso visual.
+let activeVisits = 0;
 let loadingShowTimeout = null;
 
 function showLoadingOverlay() {
+    activeVisits += 1;
+    if (loadingShowTimeout !== null) return;
     loadingShowTimeout = window.setTimeout(() => {
-        loadingOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        loadingShowTimeout = null;
+        if (activeVisits > 0) {
+            loadingOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        }
     }, 150);
 }
 
 function hideLoadingOverlay() {
-    window.clearTimeout(loadingShowTimeout);
+    activeVisits = Math.max(0, activeVisits - 1);
+    if (activeVisits > 0) return;
+
+    if (loadingShowTimeout !== null) {
+        window.clearTimeout(loadingShowTimeout);
+        loadingShowTimeout = null;
+    }
     loadingOverlay.classList.add('opacity-0', 'pointer-events-none');
 }
 
