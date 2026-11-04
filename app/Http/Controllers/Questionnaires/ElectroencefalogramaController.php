@@ -7,9 +7,11 @@ use App\Http\Requests\StoreQuestionnaireRequest;
 use App\Http\Requests\UpdateQuestionnaireRequest;
 use App\Models\Questionnaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 class ElectroencefalogramaController extends Controller
 {
@@ -18,6 +20,34 @@ class ElectroencefalogramaController extends Controller
     public function __construct()
     {
         // Removido authorizeResource para usar permisos de Spatie directamente
+    }
+
+    /**
+     * Este questionário costuma chegar com várias fotos + assinatura no mesmo
+     * envio, o que faz dele o questionário com a requisição mais pesada da
+     * plataforma. Um arquivo fora do padrão (ex.: foto HEIC do iPhone que não
+     * foi comprimida no navegador) pode fazer o corpo da requisição passar do
+     * limite do servidor (ModSecurity/Apache) antes de chegar ao Laravel, o
+     * que aparece pro usuário como tela em branco / "Not Acceptable". Baixamos
+     * a margem por imagem aqui (só neste controller, não afeta os outros
+     * questionários) para rejeitar esse arquivo com uma mensagem clara em vez
+     * de arriscar travar a requisição inteira no servidor.
+     */
+    protected function attachmentRules(): array
+    {
+        return [
+            'anexos' => ['nullable', 'array', "max:{$this->maxAttachments}"],
+            'anexos.*' => ['file', 'image', 'max:3072'], // 3 MB por imagem (padrão da plataforma é 10 MB)
+        ];
+    }
+
+    protected function attachmentMessages(): array
+    {
+        return [
+            'anexos.max' => 'Você pode enviar no máximo ' . $this->maxAttachments . ' fotos.',
+            'anexos.*.image' => 'Cada anexo deve ser uma imagem.',
+            'anexos.*.max' => 'Cada foto deve ter no máximo 3MB. Tente tirar a foto novamente ou escolher uma imagem menor.',
+        ];
     }
 
     public function index(Request $request): Response
@@ -85,13 +115,28 @@ class ElectroencefalogramaController extends Controller
         }
 
         \Log::info('Data before create:', ['pedido_medico' => $data['pedido_medico'] ?? 'NULL']);
-        
-        $request->validate($this->attachmentRules());
 
-        $questionnaire = Questionnaire::create($data);
+        $request->validate($this->attachmentRules(), $this->attachmentMessages());
 
-        $this->storeAttachments($questionnaire, $request);
-        
+        try {
+            $questionnaire = DB::transaction(function () use ($data, $request) {
+                $questionnaire = Questionnaire::create($data);
+                $this->storeAttachments($questionnaire, $request);
+
+                return $questionnaire;
+            });
+        } catch (Throwable $e) {
+            // Se o anexo falhar depois de criar o registro, desfazemos tudo:
+            // antes disso, o questionário ficava salvo SEM a foto, sem nenhum aviso.
+            \Log::error('Falha ao salvar questionário de Electroencefalograma com anexos', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Não foi possível salvar o questionário com as fotos enviadas. Tente novamente (se persistir, tente com fotos menores ou uma por vez).');
+        }
+
         \Log::info('Questionnaire created:', [
             'id' => $questionnaire->id,
             'pedido_medico_saved' => $questionnaire->pedido_medico
@@ -180,13 +225,27 @@ class ElectroencefalogramaController extends Controller
         }
 
         \Log::info('Data before update:', ['pedido_medico' => $data['pedido_medico'] ?? 'NOT_SET']);
-        
-        $request->validate($this->attachmentRules());
 
-        $questionnaire->update($data);
+        $request->validate($this->attachmentRules(), $this->attachmentMessages());
 
-        $this->storeAttachments($questionnaire, $request);
-        
+        try {
+            DB::transaction(function () use ($data, $questionnaire, $request) {
+                $questionnaire->update($data);
+                $this->storeAttachments($questionnaire, $request);
+            });
+        } catch (Throwable $e) {
+            // Mesma lógica do store(): se o anexo falhar, desfazemos a atualização
+            // também, para não deixar o registro atualizado sem a foto nova.
+            \Log::error('Falha ao atualizar questionário de Electroencefalograma com anexos', [
+                'questionnaire_id' => $questionnaire->id,
+                'message' => $e->getMessage(),
+            ]);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Não foi possível salvar as alterações com as fotos enviadas. Tente novamente (se persistir, tente com fotos menores ou uma por vez).');
+        }
+
         \Log::info('Questionnaire updated:', [
             'id' => $questionnaire->id,
             'pedido_medico_saved' => $questionnaire->fresh()->pedido_medico

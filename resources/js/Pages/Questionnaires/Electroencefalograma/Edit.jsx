@@ -562,6 +562,12 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                             <AnexosUploader type="electroencefalograma" id={questionnaire.id} files={data.anexos} onFilesChange={(f) => setData('anexos', f)} existing={questionnaire.attachments || []} />
                                             <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">Selecione um novo arquivo para substituir o atual</p>
                                             {errors.pedido_medico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.pedido_medico}</div>}
+                                            {errors.anexos && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.anexos}</div>}
+                                            {data.anexos.map((_, i) => errors[`anexos.${i}`] && (
+                                                <div key={i} className="text-red-600 dark:text-red-400 text-sm mt-1">
+                                                    Foto {i + 1}: {errors[`anexos.${i}`]}
+                                                </div>
+                                            ))}
                                             
                                             {/* Indicador de compresión */}
                                             {isCompressing && (

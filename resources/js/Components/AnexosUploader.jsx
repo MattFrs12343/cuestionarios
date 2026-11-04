@@ -31,6 +31,7 @@ export default function AnexosUploader({
     const galleryInputRef = useRef(null);
     const [previews, setPreviews] = useState([]);
     const [busy, setBusy] = useState(false);
+    const [error, setError] = useState(null);
 
     const [isEditing, setIsEditing] = useState(false);
     const [editingUrl, setEditingUrl] = useState(null);
@@ -70,6 +71,8 @@ export default function AnexosUploader({
         if (galleryInputRef.current) galleryInputRef.current.value = '';
         if (selected.length === 0 || remaining === 0) return;
 
+        setError(null);
+
         const toAdd = selected.slice(0, remaining);
 
         if (toAdd.length === 1) {
@@ -91,7 +94,8 @@ export default function AnexosUploader({
 
         setBusy(true);
         try {
-            const compressed = await compressImage(croppedFile).catch(() => croppedFile);
+            const compressed = await compressImage(croppedFile);
+            setError(null);
             if (editIndex >= 0) {
                 const updated = [...files];
                 updated[editIndex] = compressed;
@@ -101,6 +105,12 @@ export default function AnexosUploader({
             }
             onFilesChange([...files, compressed]);
             if (advanceQueue()) return;
+        } catch (e) {
+            // No compress -> no sube el archivo original sin procesar (podía ser
+            // varios MB, p.ej. HEIC de iPhone, y hacía fallar el envío del formulario).
+            setError('Não foi possível processar uma das fotos (formato não suportado). Tente tirá-la novamente ou escolher outro arquivo.');
+            setEditIndex(-1);
+            advanceQueue();
         } finally {
             setBusy(false);
         }
@@ -119,8 +129,11 @@ export default function AnexosUploader({
         if (editingFile) {
             setBusy(true);
             try {
-                const compressed = await compressImage(editingFile).catch(() => editingFile);
+                const compressed = await compressImage(editingFile);
+                setError(null);
                 onFilesChange([...files, compressed]);
+            } catch (e) {
+                setError('Não foi possível processar uma das fotos (formato não suportado). Tente tirá-la novamente ou escolher outro arquivo.');
             } finally {
                 setBusy(false);
                 setEditingFile(null);
@@ -160,6 +173,10 @@ export default function AnexosUploader({
                 <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{label}</label>
                 <span className="text-xs text-gray-500 dark:text-zinc-400">{total} / {max}</span>
             </div>
+
+            {error && (
+                <p className="text-sm text-red-600 dark:text-red-400 mb-2">{error}</p>
+            )}
 
             {(existing.length > 0 || previews.length > 0) && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-3">
