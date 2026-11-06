@@ -174,7 +174,7 @@ export default function Create({ auth }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome do Paciente *</label>
-                                            <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600 uppercase" required />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
                                         </div>
                                         <div>
@@ -199,22 +199,22 @@ export default function Create({ auth }) {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica</label>
-                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600 uppercase" />
+                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600 uppercase" />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Profissional (Avaliador)</label>
-                                            <input type="text" value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
+                                            <input type="text" spellCheck={false} value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
                                             {errors.nome_avaliador && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_avaliador}</div>}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">CRM/RG</label>
-                                            <input type="text" value={data.crm_rg} onChange={(e) => setData('crm_rg', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
+                                            <input type="text" spellCheck={false} value={data.crm_rg} onChange={(e) => setData('crm_rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
                                             {errors.crm_rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.crm_rg}</div>}
                                         </div>
                                         <div className="md:col-span-2">
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Diagnóstico</label>
-                                            <input type="text" value={data.diagnostico} onChange={(e) => setData('diagnostico', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
+                                            <input type="text" spellCheck={false} value={data.diagnostico} onChange={(e) => setData('diagnostico', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
                                             {errors.diagnostico && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.diagnostico}</div>}
                                         </div>
                                     </div>
@@ -297,7 +297,7 @@ export default function Create({ auth }) {
                                     </div>
                                     <div className="mt-6">
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Observações Clínicas</label>
-                                        <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
+                                        <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-red-500 dark:focus:ring-red-600 focus:border-red-500 dark:focus:border-red-600" />
                                     </div>
                                 </div>
 

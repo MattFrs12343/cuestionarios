@@ -29,7 +29,7 @@ const BergField = ({ item, value, onChange, errors }) => (
         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300">{item.label}</label>
         <p className="text-xs text-gray-500 dark:text-zinc-400 mb-2">{item.help}</p>
         <input
-            type="text"
+            type="text" spellCheck={false}
             inputMode="numeric"
             pattern="[0-9]*"
             value={value}
@@ -183,13 +183,13 @@ export default function Edit({ auth, questionnaire }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome do Paciente *</label>
-                                            <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG ou CPF *</label>
-                                            <input type="text" value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
                                         </div>
 
@@ -218,7 +218,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica</label>
-                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
+                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
@@ -236,7 +236,7 @@ export default function Edit({ auth, questionnaire }) {
                                     <div className="max-w-xs">
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Tempo Registrado (segundos)</label>
                                         <input
-                                            type="text"
+                                            type="text" spellCheck={false}
                                             inputMode="decimal"
                                             value={data.tug_tempo_segundos}
                                             onChange={(e) => {
@@ -278,17 +278,17 @@ export default function Edit({ auth, questionnaire }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome do Avaliador</label>
-                                            <input type="text" value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <input type="text" spellCheck={false} value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.nome_avaliador && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_avaliador}</div>}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">CID</label>
-                                            <input type="text" value={data.cid} onChange={(e) => setData('cid', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <input type="text" spellCheck={false} value={data.cid} onChange={(e) => setData('cid', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.cid && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.cid}</div>}
                                         </div>
                                         <div className="md:col-span-2">
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Comentário</label>
-                                            <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
                                             {errors.comentario && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.comentario}</div>}
                                         </div>
                                     </div>

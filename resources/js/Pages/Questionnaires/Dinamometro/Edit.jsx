@@ -229,7 +229,7 @@ export default function Edit({ auth, questionnaire }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
                                                     <label className={labelClass}>Nome *</label>
-                                                    <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} required />
+                                                    <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} required />
                                                     {errors.nome_completo && <div className={errorClass}>{errors.nome_completo}</div>}
                                                 </div>
                                                 <div>
@@ -271,23 +271,23 @@ export default function Edit({ auth, questionnaire }) {
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Profissão</label>
-                                                    <input type="text" value={data.profissao} onChange={(e) => setData('profissao', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.profissao} onChange={(e) => setData('profissao', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Responsável (se menor)</label>
-                                                    <input type="text" value={data.responsavel_menor} onChange={(e) => setData('responsavel_menor', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.responsavel_menor} onChange={(e) => setData('responsavel_menor', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Diagnóstico Principal</label>
-                                                    <input type="text" value={data.diagnostico_principal} onChange={(e) => setData('diagnostico_principal', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.diagnostico_principal} onChange={(e) => setData('diagnostico_principal', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Clínica</label>
-                                                    <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
+                                                    <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
                                                 </div>
                                                 <div className="md:col-span-2">
                                                     <label className={labelClass}>Indicação da Avaliação</label>
-                                                    <textarea value={data.indicacao_avaliacao} onChange={(e) => setData('indicacao_avaliacao', e.target.value)} rows={2} className={inputClass} />
+                                                    <textarea spellCheck={false} value={data.indicacao_avaliacao} onChange={(e) => setData('indicacao_avaliacao', e.target.value.toUpperCase())} rows={2} className={inputClass} />
                                                 </div>
                                             </div>
                                         </div>
@@ -320,15 +320,15 @@ export default function Edit({ auth, questionnaire }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
                                                 <div>
                                                     <label className={labelClass}>Doenças Crônicas / Comorbidades</label>
-                                                    <input type="text" value={data.doencas_cronicas} onChange={(e) => setData('doencas_cronicas', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.doencas_cronicas} onChange={(e) => setData('doencas_cronicas', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Cirurgias Membro Superior</label>
-                                                    <input type="text" value={data.cirurgias_membro_superior} onChange={(e) => setData('cirurgias_membro_superior', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.cirurgias_membro_superior} onChange={(e) => setData('cirurgias_membro_superior', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Medicações em Uso</label>
-                                                    <input type="text" value={data.medicacoes_uso} onChange={(e) => setData('medicacoes_uso', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.medicacoes_uso} onChange={(e) => setData('medicacoes_uso', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Dor Atual (0-10)</label>
@@ -336,11 +336,11 @@ export default function Edit({ auth, questionnaire }) {
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Localização da Dor</label>
-                                                    <input type="text" value={data.localizacao_dor} onChange={(e) => setData('localizacao_dor', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.localizacao_dor} onChange={(e) => setData('localizacao_dor', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Se houve lesão, qual?</label>
-                                                    <input type="text" value={data.lesao_previa_atual_qual} onChange={(e) => setData('lesao_previa_atual_qual', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.lesao_previa_atual_qual} onChange={(e) => setData('lesao_previa_atual_qual', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -430,7 +430,7 @@ export default function Edit({ auth, questionnaire }) {
                                                     <h4 className="text-base font-bold text-purple-700 dark:text-purple-300 uppercase mb-4">Pediátrico</h4>
                                                     <div className="mb-4">
                                                         <label className={subLabelClass}>Idade Cronológica vs. Desenvolvimento</label>
-                                                        <input type="text" value={data.pedi_idade_cronologica_vs_desenvolvimento} onChange={(e) => setData('pedi_idade_cronologica_vs_desenvolvimento', e.target.value)} className={subInputClass} />
+                                                        <input type="text" spellCheck={false} value={data.pedi_idade_cronologica_vs_desenvolvimento} onChange={(e) => setData('pedi_idade_cronologica_vs_desenvolvimento', e.target.value.toUpperCase())} className={subInputClass} />
                                                     </div>
                                                     <div className="space-y-2.5">
                                                         <Toggle label="Dominância ainda não definida" checked={data.pedi_dominancia_nao_definida} onChange={(v) => setData('pedi_dominancia_nao_definida', v)} />
@@ -529,7 +529,7 @@ export default function Edit({ auth, questionnaire }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                 <div>
                                                     <label className={labelClass}>Classificação</label>
-                                                    <input type="text" value={data.classificacao} onChange={(e) => setData('classificacao', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.classificacao} onChange={(e) => setData('classificacao', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Assimetria % (&gt;15% relevante)</label>
@@ -537,26 +537,26 @@ export default function Edit({ auth, questionnaire }) {
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Profissional (Avaliador)</label>
-                                                    <input type="text" value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>CREFITO/CRM</label>
-                                                    <input type="text" value={data.crefito_crm} onChange={(e) => setData('crefito_crm', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.crefito_crm} onChange={(e) => setData('crefito_crm', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
                                                     <label className={labelClass}>Conclusão</label>
-                                                    <textarea value={data.conclusao} onChange={(e) => setData('conclusao', e.target.value)} rows={3} className={inputClass} />
+                                                    <textarea spellCheck={false} value={data.conclusao} onChange={(e) => setData('conclusao', e.target.value.toUpperCase())} rows={3} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Conduta</label>
-                                                    <textarea value={data.conduta} onChange={(e) => setData('conduta', e.target.value)} rows={3} className={inputClass} />
+                                                    <textarea spellCheck={false} value={data.conduta} onChange={(e) => setData('conduta', e.target.value.toUpperCase())} rows={3} className={inputClass} />
                                                 </div>
                                             </div>
                                             <div className="mt-6">
                                                 <label className={labelClass}>Comentário</label>
-                                                <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={2} className={inputClass} />
+                                                <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={2} className={inputClass} />
                                             </div>
                                         </div>
 

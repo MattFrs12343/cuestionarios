@@ -333,7 +333,7 @@ export default function Create({ auth }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
                                                     <label className={labelClass}>Nome *</label>
-                                                    <input type="text" value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} required />
+                                                    <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} required />
                                                     {errors.nome_completo && <div className={errorClass}>{errors.nome_completo}</div>}
                                                 </div>
                                                 <div>
@@ -374,15 +374,15 @@ export default function Create({ auth }) {
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Profissão</label>
-                                                    <input type="text" value={data.profissao} onChange={(e) => setData('profissao', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.profissao} onChange={(e) => setData('profissao', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Clínica</label>
-                                                    <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
+                                                    <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className={`${inputClass} uppercase`} />
                                                 </div>
                                                 <div className="md:col-span-2">
                                                     <label className={labelClass}>Indicação Clínica para Realização da Dinamometria</label>
-                                                    <textarea value={data.indicacao_clinica} onChange={(e) => setData('indicacao_clinica', e.target.value)} rows={2} className={inputClass} />
+                                                    <textarea spellCheck={false} value={data.indicacao_clinica} onChange={(e) => setData('indicacao_clinica', e.target.value.toUpperCase())} rows={2} className={inputClass} />
                                                 </div>
                                             </div>
                                         </div>
@@ -438,7 +438,7 @@ export default function Create({ auth }) {
                                                     <>
                                                         <div>
                                                             <label className={subLabelClass}>Localização</label>
-                                                            <input type="text" value={data.dor_localizacao} onChange={(e) => setData('dor_localizacao', e.target.value)} className={subInputClass} />
+                                                            <input type="text" spellCheck={false} value={data.dor_localizacao} onChange={(e) => setData('dor_localizacao', e.target.value.toUpperCase())} className={subInputClass} />
                                                         </div>
                                                         <div>
                                                             <label className={subLabelClass}>Intensidade EVA (0–10)</label>
@@ -455,7 +455,7 @@ export default function Create({ auth }) {
                                                 {data.parestesias && (
                                                     <div>
                                                         <label className={subLabelClass}>Localização</label>
-                                                        <input type="text" value={data.parestesias_localizacao} onChange={(e) => setData('parestesias_localizacao', e.target.value)} className={subInputClass} />
+                                                        <input type="text" spellCheck={false} value={data.parestesias_localizacao} onChange={(e) => setData('parestesias_localizacao', e.target.value.toUpperCase())} className={subInputClass} />
                                                     </div>
                                                 )}
                                             </div>
@@ -488,7 +488,7 @@ export default function Create({ auth }) {
                                                 {data.dispositivo_auxiliar === 'Outro' && (
                                                     <div>
                                                         <label className={subLabelClass}>Qual?</label>
-                                                        <input type="text" value={data.dispositivo_auxiliar_outro} onChange={(e) => setData('dispositivo_auxiliar_outro', e.target.value)} className={subInputClass} />
+                                                        <input type="text" spellCheck={false} value={data.dispositivo_auxiliar_outro} onChange={(e) => setData('dispositivo_auxiliar_outro', e.target.value.toUpperCase())} className={subInputClass} />
                                                     </div>
                                                 )}
                                             </div>
@@ -503,7 +503,7 @@ export default function Create({ auth }) {
                                             <CheckboxGroup options={ANTECEDENTES} selected={data.antecedentes_clinicos} onToggle={(v) => toggleInArray('antecedentes_clinicos', v)} cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
                                             <div className="mt-5">
                                                 <label className={labelClass}>Outra condição neurológica/ortopédica</label>
-                                                <input type="text" value={data.antecedentes_outra} onChange={(e) => setData('antecedentes_outra', e.target.value)} className={inputClass} />
+                                                <input type="text" spellCheck={false} value={data.antecedentes_outra} onChange={(e) => setData('antecedentes_outra', e.target.value.toUpperCase())} className={inputClass} />
                                             </div>
                                         </div>
 
@@ -516,7 +516,7 @@ export default function Create({ auth }) {
                                             <CheckboxGroup options={SEGURANCA} selected={data.seguranca_teste} onToggle={(v) => toggleInArray('seguranca_teste', v)} cols="grid-cols-1 sm:grid-cols-2" />
                                             <div className="mt-5">
                                                 <label className={labelClass}>Observações</label>
-                                                <textarea value={data.seguranca_observacoes} onChange={(e) => setData('seguranca_observacoes', e.target.value)} rows={2} className={inputClass} />
+                                                <textarea spellCheck={false} value={data.seguranca_observacoes} onChange={(e) => setData('seguranca_observacoes', e.target.value.toUpperCase())} rows={2} className={inputClass} />
                                             </div>
                                         </div>
 
@@ -585,7 +585,7 @@ export default function Create({ auth }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                 <div>
                                                     <label className={labelClass}>Posição/Protocolo Utilizado</label>
-                                                    <input type="text" value={data.posicao_protocolo} onChange={(e) => setData('posicao_protocolo', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.posicao_protocolo} onChange={(e) => setData('posicao_protocolo', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-3">
                                                     <div>
@@ -599,7 +599,7 @@ export default function Create({ auth }) {
                                                     {data.unidade === 'Outra' && (
                                                         <div>
                                                             <label className={labelClass}>Qual?</label>
-                                                            <input type="text" value={data.unidade_outra} onChange={(e) => setData('unidade_outra', e.target.value)} className={inputClass} />
+                                                            <input type="text" spellCheck={false} value={data.unidade_outra} onChange={(e) => setData('unidade_outra', e.target.value.toUpperCase())} className={inputClass} />
                                                         </div>
                                                     )}
                                                 </div>
@@ -658,7 +658,7 @@ export default function Create({ auth }) {
                                                 {data.valor_analise === 'Outro' && (
                                                     <div>
                                                         <label className={labelClass}>Qual?</label>
-                                                        <input type="text" value={data.valor_analise_outro} onChange={(e) => setData('valor_analise_outro', e.target.value)} className={inputClass} />
+                                                        <input type="text" spellCheck={false} value={data.valor_analise_outro} onChange={(e) => setData('valor_analise_outro', e.target.value.toUpperCase())} className={inputClass} />
                                                     </div>
                                                 )}
                                                 <div>
@@ -691,7 +691,7 @@ export default function Create({ auth }) {
 
                                             <div className="mb-5">
                                                 <label className={labelClass}>Observações e Correlação Clínico-Funcional</label>
-                                                <textarea value={data.observacoes_correlacao} onChange={(e) => setData('observacoes_correlacao', e.target.value)} rows={3} className={inputClass} />
+                                                <textarea spellCheck={false} value={data.observacoes_correlacao} onChange={(e) => setData('observacoes_correlacao', e.target.value.toUpperCase())} rows={3} className={inputClass} />
                                             </div>
 
                                             <div className="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 rounded-xl p-5 mb-6">
@@ -711,7 +711,7 @@ export default function Create({ auth }) {
                                                     </div>
                                                     <div>
                                                         <label className={subLabelClass}>Movimento</label>
-                                                        <input type="text" value={data.maior_assimetria_movimento} onChange={(e) => setData('maior_assimetria_movimento', e.target.value)} className={subInputClass} />
+                                                        <input type="text" spellCheck={false} value={data.maior_assimetria_movimento} onChange={(e) => setData('maior_assimetria_movimento', e.target.value.toUpperCase())} className={subInputClass} />
                                                     </div>
                                                     <div>
                                                         <label className={subLabelClass}>Menor Força Observada no Lado</label>
@@ -732,21 +732,21 @@ export default function Create({ auth }) {
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                 <div className="md:col-span-2">
                                                     <label className={labelClass}>Conclusão Final</label>
-                                                    <textarea value={data.conclusao_final} onChange={(e) => setData('conclusao_final', e.target.value)} rows={3} className={inputClass} />
+                                                    <textarea spellCheck={false} value={data.conclusao_final} onChange={(e) => setData('conclusao_final', e.target.value.toUpperCase())} rows={3} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Examinador</label>
-                                                    <input type="text" value={data.examinador} onChange={(e) => setData('examinador', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.examinador} onChange={(e) => setData('examinador', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>CRM/Registro Profissional</label>
-                                                    <input type="text" value={data.crm_registro} onChange={(e) => setData('crm_registro', e.target.value)} className={inputClass} />
+                                                    <input type="text" spellCheck={false} value={data.crm_registro} onChange={(e) => setData('crm_registro', e.target.value.toUpperCase())} className={inputClass} />
                                                 </div>
                                             </div>
 
                                             <div>
                                                 <label className={labelClass}>Comentário</label>
-                                                <textarea value={data.comentario} onChange={(e) => setData('comentario', e.target.value)} rows={2} className={inputClass} />
+                                                <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={2} className={inputClass} />
                                             </div>
                                         </div>
 

@@ -299,7 +299,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome *</label>
-                                            <input type="text" value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome}</div>}
                                         </div>
 
@@ -330,7 +330,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG *</label>
-                                            <input type="text" value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg}</div>}
                                         </div>
 
@@ -346,13 +346,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Solicitante *</label>
-                                            <input type="text" value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.solicitante && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.solicitante}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica *</label>
-                                            <input type="text" value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
@@ -396,9 +396,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Observações Gerais</label>
-                                        <textarea
+                                        <textarea spellCheck={false}
                                             value={data.observacoes}
-                                            onChange={(e) => setData('observacoes', e.target.value)}
+                                            onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
                                             rows={4}
                                             className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-orange-500 dark:focus:ring-orange-600 focus:border-orange-500 dark:focus:border-orange-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."

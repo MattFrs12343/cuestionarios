@@ -162,10 +162,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         <InputLabel htmlFor="nome" value={t('Nome')} />
                                         <TextInput
                                             id="nome"
-                                            type="text"
+                                            type="text" spellCheck={false}
                                             className="mt-1 block w-full"
                                             value={data.nome}
-                                            onChange={(e) => setData('nome', e.target.value)}
+                                            onChange={(e) => setData('nome', e.target.value.toUpperCase())}
                                             required
                                         />
                                         <InputError message={errors.nome} className="mt-2" />
@@ -175,10 +175,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         <InputLabel htmlFor="rg" value={t('RG ou CPF')} />
                                         <TextInput
                                             id="rg"
-                                            type="text"
+                                            type="text" spellCheck={false}
                                             className="mt-1 block w-full"
                                             value={data.rg}
-                                            onChange={(e) => setData('rg', e.target.value)}
+                                            onChange={(e) => setData('rg', e.target.value.toUpperCase())}
                                             required
                                         />
                                         <InputError message={errors.rg} className="mt-2" />
@@ -212,7 +212,7 @@ export default function Create({ auth, retardoMentalGraus }) {
                                             <InputLabel htmlFor="peso" value={t('Peso')} />
                                             <TextInput
                                                 id="peso"
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 className="mt-1 block w-full"
                                                 value={data.peso}
                                                 onChange={(e) => setData('peso', e.target.value)}
@@ -227,7 +227,7 @@ export default function Create({ auth, retardoMentalGraus }) {
                                             <InputLabel htmlFor="altura" value={t('Altura')} />
                                             <TextInput
                                                 id="altura"
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 className="mt-1 block w-full"
                                                 value={data.altura}
                                                 onChange={(e) => setData('altura', e.target.value)}
@@ -256,10 +256,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         <InputLabel htmlFor="solicitante" value={t('Solicitante')} />
                                         <TextInput
                                             id="solicitante"
-                                            type="text"
+                                            type="text" spellCheck={false}
                                             className="mt-1 block w-full"
                                             value={data.solicitante}
-                                            onChange={(e) => setData('solicitante', e.target.value)}
+                                            onChange={(e) => setData('solicitante', e.target.value.toUpperCase())}
                                             required
                                         />
                                         <InputError message={errors.solicitante} className="mt-2" />
@@ -269,10 +269,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         <InputLabel htmlFor="clinica" value={t('Clínica')} />
                                         <TextInput
                                             id="clinica"
-                                            type="text"
+                                            type="text" spellCheck={false}
                                             className="mt-1 block w-full"
                                             value={data.clinica}
-                                            onChange={(e) => setData('clinica', e.target.value)}
+                                            onChange={(e) => setData('clinica', e.target.value.toUpperCase())}
                                             required
                                         />
                                         <InputError message={errors.clinica} className="mt-2" />
@@ -323,10 +323,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passou_fonoaudiologo && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.fonoaudiologo_motivo}
-                                                    onChange={(e) => setData('fonoaudiologo_motivo', e.target.value)}
+                                                    onChange={(e) => setData('fonoaudiologo_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -347,10 +347,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passou_otorrino && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.otorrino_motivo}
-                                                    onChange={(e) => setData('otorrino_motivo', e.target.value)}
+                                                    onChange={(e) => setData('otorrino_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -371,10 +371,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passa_neurologista && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.neurologista_motivo}
-                                                    onChange={(e) => setData('neurologista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('neurologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -395,10 +395,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passa_neuropediatra && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.neuropediatra_motivo}
-                                                    onChange={(e) => setData('neuropediatra_motivo', e.target.value)}
+                                                    onChange={(e) => setData('neuropediatra_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -419,10 +419,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passa_psiquiatra && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.psiquiatra_motivo}
-                                                    onChange={(e) => setData('psiquiatra_motivo', e.target.value)}
+                                                    onChange={(e) => setData('psiquiatra_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -559,10 +559,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.familiar_perda_auditiva && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.familiar_perda_auditiva_quem}
-                                                    onChange={(e) => setData('familiar_perda_auditiva_quem', e.target.value)}
+                                                    onChange={(e) => setData('familiar_perda_auditiva_quem', e.target.value.toUpperCase())}
                                                     placeholder="Quem?"
                                                 />
                                             </div>
@@ -607,10 +607,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.teve_perda_audicao && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.perda_audicao_ouvido}
-                                                    onChange={(e) => setData('perda_audicao_ouvido', e.target.value)}
+                                                    onChange={(e) => setData('perda_audicao_ouvido', e.target.value.toUpperCase())}
                                                     placeholder="Se sim, de qual ouvido?"
                                                 />
                                             </div>
@@ -690,10 +690,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.teve_avc && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.avc_quando}
-                                                    onChange={(e) => setData('avc_quando', e.target.value)}
+                                                    onChange={(e) => setData('avc_quando', e.target.value.toUpperCase())}
                                                     placeholder="Quando teve AVC?"
                                                 />
                                             </div>
@@ -733,10 +733,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.passou_oftalmologista && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.oftalmologista_motivo}
-                                                    onChange={(e) => setData('oftalmologista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('oftalmologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Por quê?"
                                                 />
                                             </div>
@@ -757,10 +757,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.tem_patologia_olho && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.patologia_olho_detalhes}
-                                                    onChange={(e) => setData('patologia_olho_detalhes', e.target.value)}
+                                                    onChange={(e) => setData('patologia_olho_detalhes', e.target.value.toUpperCase())}
                                                     placeholder="Qual patologia?"
                                                 />
                                             </div>
@@ -781,10 +781,10 @@ export default function Create({ auth, retardoMentalGraus }) {
                                         {data.usa_oculos && (
                                             <div className="ml-7">
                                                 <TextInput
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     className="mt-1 block w-full"
                                                     value={data.grau_oculos}
-                                                    onChange={(e) => setData('grau_oculos', e.target.value)}
+                                                    onChange={(e) => setData('grau_oculos', e.target.value.toUpperCase())}
                                                     placeholder="Qual grau de cada olho?"
                                                 />
                                             </div>
@@ -881,12 +881,12 @@ export default function Create({ auth, retardoMentalGraus }) {
                                 
                                 <div>
                                     <InputLabel htmlFor="observacoes" value={t('Observações')} />
-                                    <textarea
+                                    <textarea spellCheck={false}
                                         id="observacoes"
                                         className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                                         rows="4"
                                         value={data.observacoes}
-                                        onChange={(e) => setData('observacoes', e.target.value)}
+                                        onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
                                     />
                                     <InputError message={errors.observacoes} className="mt-2" />
                                 </div>

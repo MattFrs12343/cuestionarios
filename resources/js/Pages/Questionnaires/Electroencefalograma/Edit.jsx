@@ -165,9 +165,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                 {conditionalField && data[field] && (
                     <div className="mt-2">
                         <input
-                            type="text"
+                            type="text" spellCheck={false}
                             value={data[conditionalField]}
-                            onChange={(e) => setData(conditionalField, e.target.value)}
+                            onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                             placeholder={getPlaceholder()}
                             className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                         />
@@ -242,9 +242,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 Clínica *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.clinica}
-                                                onChange={(e) => setData('clinica', e.target.value)}
+                                                onChange={(e) => setData('clinica', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                                 required
                                             />
@@ -270,9 +270,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 Nome Completo *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.nome_completo}
-                                                onChange={(e) => setData('nome_completo', e.target.value)}
+                                                onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                                 required
                                             />
@@ -318,9 +318,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 RG ou CPF *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.rg_ou_cpf}
-                                                onChange={(e) => setData('rg_ou_cpf', e.target.value)}
+                                                onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                                 required
                                             />
@@ -369,7 +369,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                     Quando teve AVC?
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.quando_teve_avc || ''}
                                                     onChange={(e) => setData('quando_teve_avc', e.target.value)}
                                                     placeholder="Quando teve AVC?"
@@ -387,7 +387,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                     Quando teve convulsão?
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.quando_teve_convulsao || ''}
                                                     onChange={(e) => setData('quando_teve_convulsao', e.target.value)}
                                                     placeholder="Quando teve convulsão?"
@@ -412,7 +412,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                     Que medicamento usa para hipertensão?
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.hipertensao_faz_uso || ''}
                                                     onChange={(e) => setData('hipertensao_faz_uso', e.target.value)}
                                                     placeholder="Que medicamento usa?"
@@ -430,7 +430,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                     Que medicamento usa para diabetes?
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.diabetes_faz_uso || ''}
                                                     onChange={(e) => setData('diabetes_faz_uso', e.target.value)}
                                                     placeholder="Que medicamento usa?"
@@ -459,9 +459,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 Nome do Profissional que fez o Pedido *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.nome_profissional_pedido}
-                                                onChange={(e) => setData('nome_profissional_pedido', e.target.value)}
+                                                onChange={(e) => setData('nome_profissional_pedido', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                                 required
                                             />
@@ -473,9 +473,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 Nome do Técnico ou Médico que fez o Exame *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.nome_tecnico_medico_exame}
-                                                onChange={(e) => setData('nome_tecnico_medico_exame', e.target.value)}
+                                                onChange={(e) => setData('nome_tecnico_medico_exame', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                                 required
                                             />
@@ -514,9 +514,9 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Comentários
                                         </label>
-                                        <textarea
+                                        <textarea spellCheck={false}
                                             value={data.comentario}
-                                            onChange={(e) => setData('comentario', e.target.value)}
+                                            onChange={(e) => setData('comentario', e.target.value.toUpperCase())}
                                             rows={4}
                                             className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."

@@ -258,18 +258,18 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                 <option value="Não Sabe">Não Sabe</option>
                             </select>
                         ) : conditionalType === 'textarea' ? (
-                            <textarea
+                            <textarea spellCheck={false}
                                 value={data[conditionalField]}
-                                onChange={(e) => setData(conditionalField, e.target.value)}
+                                onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                                 placeholder="Especifique os medicamentos que está tomando..."
                                 rows="3"
                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                             />
                         ) : (
                             <input
-                                type="text"
+                                type="text" spellCheck={false}
                                 value={data[conditionalField]}
-                                onChange={(e) => setData(conditionalField, e.target.value)}
+                                onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                                 placeholder="Especifique..."
                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                             />
@@ -349,9 +349,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 Nome *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.nome}
-                                                onChange={(e) => setData('nome', e.target.value)}
+                                                onChange={(e) => setData('nome', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
@@ -378,7 +378,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 Peso
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.peso}
                                                 onChange={(e) => setData('peso', e.target.value)}
                                                 placeholder="Ex: 70kg"
@@ -392,7 +392,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 Altura
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.altura}
                                                 onChange={(e) => setData('altura', e.target.value)}
                                                 placeholder="Ex: 1.70m"
@@ -420,9 +420,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 RG *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.rg}
-                                                onChange={(e) => setData('rg', e.target.value)}
+                                                onChange={(e) => setData('rg', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
@@ -451,9 +451,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 Solicitante *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.solicitante}
-                                                onChange={(e) => setData('solicitante', e.target.value)}
+                                                onChange={(e) => setData('solicitante', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
@@ -465,9 +465,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 Clínica *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="text" spellCheck={false}
                                                 value={data.clinica}
-                                                onChange={(e) => setData('clinica', e.target.value)}
+                                                onChange={(e) => setData('clinica', e.target.value.toUpperCase())}
                                                 className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 required
                                             />
@@ -514,9 +514,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                                     Especifique os medicamentos que está tomando:
                                                 </label>
-                                                <textarea
+                                                <textarea spellCheck={false}
                                                     value={data.medicamentos_detalhes || ''}
-                                                    onChange={(e) => setData('medicamentos_detalhes', e.target.value)}
+                                                    onChange={(e) => setData('medicamentos_detalhes', e.target.value.toUpperCase())}
                                                     placeholder="Especifique os medicamentos que está tomando..."
                                                     rows="3"
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
@@ -533,9 +533,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Quando foi o último AVC?
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.avc_quando}
-                                                    onChange={(e) => setData('avc_quando', e.target.value)}
+                                                    onChange={(e) => setData('avc_quando', e.target.value.toUpperCase())}
                                                     placeholder="Ex: Janeiro 2023"
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -575,9 +575,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Tipo de trabalho:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.tipo_trabalho || ''}
-                                                    onChange={(e) => setData('tipo_trabalho', e.target.value)}
+                                                    onChange={(e) => setData('tipo_trabalho', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o tipo de trabalho..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -593,9 +593,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Região das fraturas:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.fraturas_regiao || ''}
-                                                    onChange={(e) => setData('fraturas_regiao', e.target.value)}
+                                                    onChange={(e) => setData('fraturas_regiao', e.target.value.toUpperCase())}
                                                     placeholder="Especifique a região das fraturas..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -614,9 +614,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Detalhes do processo infeccioso:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.processo_infeccioso_detalhes || ''}
-                                                    onChange={(e) => setData('processo_infeccioso_detalhes', e.target.value)}
+                                                    onChange={(e) => setData('processo_infeccioso_detalhes', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o processo infeccioso..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -632,9 +632,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Frequência do consumo de álcool:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.alcool_frequencia || ''}
-                                                    onChange={(e) => setData('alcool_frequencia', e.target.value)}
+                                                    onChange={(e) => setData('alcool_frequencia', e.target.value.toUpperCase())}
                                                     placeholder="Ex: Fins de semana, diariamente..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -650,9 +650,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Quais drogas:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.drogas_quais || ''}
-                                                    onChange={(e) => setData('drogas_quais', e.target.value)}
+                                                    onChange={(e) => setData('drogas_quais', e.target.value.toUpperCase())}
                                                     placeholder="Especifique quais drogas..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -852,9 +852,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com reumatologista:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.reumatologista_motivo || ''}
-                                                    onChange={(e) => setData('reumatologista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('reumatologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -870,9 +870,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com neurologista:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.neurologista_motivo || ''}
-                                                    onChange={(e) => setData('neurologista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('neurologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -888,9 +888,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com neurocirurgião:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.neurocirurgiao_motivo || ''}
-                                                    onChange={(e) => setData('neurocirurgiao_motivo', e.target.value)}
+                                                    onChange={(e) => setData('neurocirurgiao_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -906,9 +906,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com dermatologista:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.dermatologista_motivo || ''}
-                                                    onChange={(e) => setData('dermatologista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('dermatologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -924,9 +924,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com geriatra:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.geriatra_motivo || ''}
-                                                    onChange={(e) => setData('geriatra_motivo', e.target.value)}
+                                                    onChange={(e) => setData('geriatra_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -942,9 +942,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     Motivo da consulta com ortopedista:
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="text" spellCheck={false}
                                                     value={data.ortopedista_motivo || ''}
-                                                    onChange={(e) => setData('ortopedista_motivo', e.target.value)}
+                                                    onChange={(e) => setData('ortopedista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
                                                     className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                                 />
@@ -961,9 +961,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Observações Gerais
                                         </label>
-                                        <textarea
+                                        <textarea spellCheck={false}
                                             value={data.observacoes}
-                                            onChange={(e) => setData('observacoes', e.target.value)}
+                                            onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
                                             rows={4}
                                             className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."
