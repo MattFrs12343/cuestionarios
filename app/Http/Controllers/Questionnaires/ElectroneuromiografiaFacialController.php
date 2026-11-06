@@ -28,6 +28,11 @@ class ElectroneuromiografiaFacialController extends Controller
 
         $questionnaires = $query->paginate(15);
 
+        // No mandamos al listado la firma (LONGTEXT base64) ni el pedido
+        // medico: no se muestran en la tabla y engordaban el payload de
+        // cada pagina (el EEG, con mas registros/fotos, era el que mas sufria).
+        $questionnaires->through(fn ($q) => $q->makeHidden(['assinatura_paciente', 'pedido_medico']));
+
         return Inertia::render('Questionnaires/ElectroneuromiografiaFacial/Index', [
             'questionnaires' => $questionnaires,
             'fieldVisibility' => QuestionnaireFields::forInertia($team, self::SLUG),

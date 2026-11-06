@@ -61,6 +61,11 @@ class ElectroencefalogramaController extends Controller
 
         $questionnaires = $query->paginate(15);
 
+        // No mandamos al listado la firma (LONGTEXT base64) ni el pedido
+        // medico: no se muestran en la tabla y engordaban el payload de
+        // cada pagina (el EEG, con mas registros/fotos, era el que mas sufria).
+        $questionnaires->through(fn ($q) => $q->makeHidden(['assinatura_paciente', 'pedido_medico']));
+
         return Inertia::render('Questionnaires/Electroencefalograma/Index', [
             'questionnaires' => $questionnaires,
             'filters' => array_filter($request->only(['search', 'date_from', 'date_to', 'clinica', 'sort', 'direction']), function($value) {
@@ -92,16 +97,6 @@ class ElectroencefalogramaController extends Controller
         $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
 
-        // Debug logging
-        \Log::info('Store Questionnaire - Request data:', [
-            'has_file' => $request->hasFile('pedido_medico'),
-            'file_info' => $request->hasFile('pedido_medico') ? [
-                'name' => $request->file('pedido_medico')->getClientOriginalName(),
-                'size' => $request->file('pedido_medico')->getSize(),
-                'mime' => $request->file('pedido_medico')->getMimeType()
-            ] : null
-        ]);
-
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -111,10 +106,7 @@ class ElectroencefalogramaController extends Controller
             $filePath = $request->file('pedido_medico')
                 ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
-            \Log::info('File stored at:', ['path' => $filePath]);
         }
-
-        \Log::info('Data before create:', ['pedido_medico' => $data['pedido_medico'] ?? 'NULL']);
 
         $request->validate($this->attachmentRules(), $this->attachmentMessages());
 
@@ -136,11 +128,6 @@ class ElectroencefalogramaController extends Controller
                 ->withInput()
                 ->with('error', 'Não foi possível salvar o questionário com as fotos enviadas. Tente novamente (se persistir, tente com fotos menores ou uma por vez).');
         }
-
-        \Log::info('Questionnaire created:', [
-            'id' => $questionnaire->id,
-            'pedido_medico_saved' => $questionnaire->pedido_medico
-        ]);
 
         return redirect()->route('questionnaires.electroencefalograma.index')
             ->with('success', __('questionnaires.created_successfully'));
@@ -191,18 +178,6 @@ class ElectroencefalogramaController extends Controller
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
 
-        // Debug logging
-        \Log::info('Update Questionnaire - Request data:', [
-            'questionnaire_id' => $questionnaire->id,
-            'has_file' => $request->hasFile('pedido_medico'),
-            'current_pedido_medico' => $questionnaire->pedido_medico,
-            'file_info' => $request->hasFile('pedido_medico') ? [
-                'name' => $request->file('pedido_medico')->getClientOriginalName(),
-                'size' => $request->file('pedido_medico')->getSize(),
-                'mime' => $request->file('pedido_medico')->getMimeType()
-            ] : null
-        ]);
-
         // Manejar assinatura (base64)
         if ($request->filled('assinatura_paciente')) {
             $data['assinatura_paciente'] = $request->assinatura_paciente;
@@ -212,19 +187,14 @@ class ElectroencefalogramaController extends Controller
             // Eliminar archivo anterior si existe
             if ($questionnaire->pedido_medico) {
                 Storage::disk('private')->delete($questionnaire->pedido_medico);
-                \Log::info('Deleted old file:', ['path' => $questionnaire->pedido_medico]);
             }
             $filePath = $request->file('pedido_medico')
                 ->store('medical_requests', 'private');
             $data['pedido_medico'] = $filePath;
-            \Log::info('New file stored at:', ['path' => $filePath]);
         } else {
             // Si no hay archivo nuevo, mantener el archivo actual
             unset($data['pedido_medico']);
-            \Log::info('No new file uploaded, keeping current file:', ['current' => $questionnaire->pedido_medico]);
         }
-
-        \Log::info('Data before update:', ['pedido_medico' => $data['pedido_medico'] ?? 'NOT_SET']);
 
         $request->validate($this->attachmentRules(), $this->attachmentMessages());
 
@@ -245,11 +215,6 @@ class ElectroencefalogramaController extends Controller
                 ->withInput()
                 ->with('error', 'Não foi possível salvar as alterações com as fotos enviadas. Tente novamente (se persistir, tente com fotos menores ou uma por vez).');
         }
-
-        \Log::info('Questionnaire updated:', [
-            'id' => $questionnaire->id,
-            'pedido_medico_saved' => $questionnaire->fresh()->pedido_medico
-        ]);
 
         return redirect()->route('questionnaires.electroencefalograma.index')
             ->with('success', __('questionnaires.updated_successfully'));

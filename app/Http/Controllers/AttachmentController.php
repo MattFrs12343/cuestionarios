@@ -98,7 +98,15 @@ class AttachmentController extends Controller
 
         abort_unless(Storage::disk('private')->exists($attachment->path), 404);
 
-        return Storage::disk('private')->response($attachment->path);
+        // Caché en el navegador del propio usuario (nunca en proxies: 'private').
+        // El anexo es inmutable: borrar uno no reutiliza su id, y reemplazarlo
+        // crea un id/URL nuevos. Por eso podemos cachear agresivo sin servir
+        // nada desactualizado. Antes se re-descargaba la foto completa en cada
+        // visita a Ver/Editar (hasta 5 por cuestionário), lo que hacía lenta
+        // justamente la pantalla del EEG.
+        return Storage::disk('private')->response($attachment->path, null, [
+            'Cache-Control' => 'private, max-age=604800', // 7 días
+        ]);
     }
 
     /**

@@ -27,6 +27,12 @@ class PedidoMedicoController extends Controller
 
         abort_unless(Storage::disk('private')->exists($model->pedido_medico), 404);
 
-        return Storage::disk('private')->response($model->pedido_medico);
+        // Caché en el navegador del propio usuario (nunca en proxies: 'private').
+        // A diferencia de los anexos, esta URL es estable aunque reemplacen el
+        // pedido médico (misma id de cuestionário), así que usamos una ventana
+        // corta para acotar cuánto podría verse una copia vieja tras un cambio.
+        return Storage::disk('private')->response($model->pedido_medico, null, [
+            'Cache-Control' => 'private, max-age=3600', // 1 hora
+        ]);
     }
 }

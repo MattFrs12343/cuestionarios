@@ -88,16 +88,8 @@ router.on('finish', hideLoadingOverlay);
 router.on('cancel', hideLoadingOverlay);
 router.on('error', hideLoadingOverlay);
 
-// Add smooth page transition effect
-router.on('start', () => {
-    document.body.style.opacity = '1';
-});
-
-router.on('finish', () => {
-    // Add fade-in effect when navigating to a new page
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.3s ease-in-out';
-        document.body.style.opacity = '1';
-    }, 10);
-});
+// Nota: antes había un "fade" que ponía body.opacity=0 y lo subía a 1 en 0.3s
+// en CADA 'finish'. Eso agregaba ~300ms de retraso percibido a toda navegación
+// (y a cada submit), haciendo sentir lenta la app aunque los datos ya estuvieran
+// listos. El overlay de carga de arriba ya da feedback suficiente, así que se
+// eliminó el fade.
