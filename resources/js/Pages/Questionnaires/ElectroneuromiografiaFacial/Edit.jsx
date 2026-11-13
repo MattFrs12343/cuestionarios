@@ -82,7 +82,11 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, processing, errors, transform } = useForm({
+    const { data, setData, put, post, processing, errors, transform } = useForm({
+        // Laravel no puede parsear multipart/form-data en PUT: al enviar
+        // fotos se hace un POST real con este campo para que el método
+        // efectivo siga siendo PUT (ver handleSubmit).
+        _method: 'put',
         nome: questionnaire.nome || '',
         data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
         idade: questionnaire.idade || '',
@@ -201,7 +205,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         }
         
         if (data.anexos.length > 0) {
-            put(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
+            post(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
                 onSuccess: () => {

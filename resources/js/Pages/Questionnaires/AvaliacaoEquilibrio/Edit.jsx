@@ -46,7 +46,11 @@ const BergField = ({ item, value, onChange, errors }) => (
 );
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors, transform } = useForm({
+    const { data, setData, put, post, processing, errors, transform } = useForm({
+        // Laravel no puede parsear multipart/form-data en PUT: al enviar
+        // fotos se hace un POST real con este campo para que el método
+        // efectivo siga siendo PUT (ver handleSubmit).
+        _method: 'put',
         nome_completo: questionnaire.nome_completo || '',
         rg_ou_cpf: questionnaire.rg_ou_cpf || '',
         data_nascimento: questionnaire.data_nascimento?.slice(0, 10) || '',
@@ -118,7 +122,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            put(route('questionnaires.equilibrio.update', questionnaire.id), {
+            post(route('questionnaires.equilibrio.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

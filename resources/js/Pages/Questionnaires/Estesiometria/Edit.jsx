@@ -66,7 +66,11 @@ const PRE_EXAM_QUESTIONS = [
 ];
 
 export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, processing, errors, transform } = useForm({
+    const { data, setData, put, post, processing, errors, transform } = useForm({
+        // Laravel no puede parsear multipart/form-data en PUT: al enviar
+        // fotos se hace un POST real con este campo para que el método
+        // efectivo siga siendo PUT (ver handleSubmit).
+        _method: 'put',
         clinica: questionnaire.clinica || '',
         data_exame: questionnaire.data_exame?.slice(0, 10) || '',
         nome_completo: questionnaire.nome_completo || '',
@@ -124,7 +128,7 @@ export default function Edit({ auth, questionnaire }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.anexos.length > 0) {
-            put(route('questionnaires.estesiometria.update', questionnaire.id), {
+            post(route('questionnaires.estesiometria.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });

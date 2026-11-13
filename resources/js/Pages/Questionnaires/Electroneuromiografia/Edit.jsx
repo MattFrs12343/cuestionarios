@@ -16,6 +16,10 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
     };
 
     const { data, setData, put, post, processing, errors, transform } = useForm({
+        // Laravel no puede parsear multipart/form-data en PUT: al enviar
+        // fotos se hace un POST real con este campo para que el método
+        // efectivo siga siendo PUT (ver handleSubmit).
+        _method: 'put',
         // Datos básicos
         nome: questionnaire.nome || '',
         data_nascimento: formatDateForInput(questionnaire.data_nascimento) || '',
@@ -171,7 +175,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, tiposExameO
         
         // Se houver um arquivo, usar PUT com forceFormData para enviar FormData
         if (data.pedido_medico || data.anexos.length > 0) {
-            put(route('questionnaires.electroneuromiografia.update', questionnaire.id), {
+            post(route('questionnaires.electroneuromiografia.update', questionnaire.id), {
                 forceFormData: true,
                 preserveScroll: true,
             });
