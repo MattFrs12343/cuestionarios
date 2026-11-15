@@ -1,169 +1,162 @@
 {
-  "_AnexosUploader-xRsIThXl.js": {
-    "file": "assets/AnexosUploader-xRsIThXl.js",
+  "_AnexosUploader-Ca5w8gpj.js": {
+    "file": "assets/AnexosUploader-Ca5w8gpj.js",
     "name": "AnexosUploader",
     "imports": [
       "resources/js/app.jsx",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
     ]
   },
-  "_AuthenticatedLayout-CNlp572E.js": {
-    "file": "assets/AuthenticatedLayout-CNlp572E.js",
+  "_AuthenticatedLayout--PFF8MlR.js": {
+    "file": "assets/AuthenticatedLayout--PFF8MlR.js",
     "name": "AuthenticatedLayout",
     "imports": [
       "resources/js/app.jsx",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
     ]
   },
-  "_BirthDateSelectInput-AYmP96tc.js": {
-    "file": "assets/BirthDateSelectInput-AYmP96tc.js",
+  "_BirthDateSelectInput-CCY70vvT.js": {
+    "file": "assets/BirthDateSelectInput-CCY70vvT.js",
     "name": "BirthDateSelectInput",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_Checkbox-D0QpxF8F.js": {
-    "file": "assets/Checkbox-D0QpxF8F.js",
+  "_Checkbox-6NVvWpiD.js": {
+    "file": "assets/Checkbox-6NVvWpiD.js",
     "name": "Checkbox",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_ConstellationStars-BBrDyQ-D.js": {
-    "file": "assets/ConstellationStars-BBrDyQ-D.js",
+  "_ConstellationStars-B5PqJdKJ.js": {
+    "file": "assets/ConstellationStars-B5PqJdKJ.js",
     "name": "ConstellationStars",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_DangerButton-BX8wOnFq.js": {
-    "file": "assets/DangerButton-BX8wOnFq.js",
+  "_DangerButton-CF_gRSHK.js": {
+    "file": "assets/DangerButton-CF_gRSHK.js",
     "name": "DangerButton",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_DraftRestoreBanner-07f50OlP.js": {
-    "file": "assets/DraftRestoreBanner-07f50OlP.js",
+  "_DraftRestoreBanner-DdtumfOP.js": {
+    "file": "assets/DraftRestoreBanner-DdtumfOP.js",
     "name": "DraftRestoreBanner",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_EyeIcon-BkkTG-fV.js": {
-    "file": "assets/EyeIcon-BkkTG-fV.js",
+  "_EyeIcon-ByNIV6S1.js": {
+    "file": "assets/EyeIcon-ByNIV6S1.js",
     "name": "EyeIcon",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_FlashMessage-4Wwnugmj.js": {
-    "file": "assets/FlashMessage-4Wwnugmj.js",
+  "_FlashMessage-gzSuRvi1.js": {
+    "file": "assets/FlashMessage-gzSuRvi1.js",
     "name": "FlashMessage",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_GalaxyBackground-DuD-oiG3.js": {
-    "file": "assets/GalaxyBackground-DuD-oiG3.js",
+  "_GalaxyBackground-D_zHqjKX.js": {
+    "file": "assets/GalaxyBackground-D_zHqjKX.js",
     "name": "GalaxyBackground",
     "imports": [
       "resources/js/app.jsx",
-      "_ConstellationStars-BBrDyQ-D.js"
+      "_ConstellationStars-B5PqJdKJ.js"
     ]
   },
-  "_GuestLayout-BTqNpzBj.js": {
-    "file": "assets/GuestLayout-BTqNpzBj.js",
+  "_GuestLayout-CvFs-m_a.js": {
+    "file": "assets/GuestLayout-CvFs-m_a.js",
     "name": "GuestLayout",
     "imports": [
       "resources/js/app.jsx",
-      "_FlashMessage-4Wwnugmj.js",
-      "_GalaxyBackground-DuD-oiG3.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_GalaxyBackground-D_zHqjKX.js"
     ]
   },
-  "_ImageZoomModal-DiN1a2FE.js": {
-    "file": "assets/ImageZoomModal-DiN1a2FE.js",
+  "_ImageZoomModal-CD6awe8q.js": {
+    "file": "assets/ImageZoomModal-CD6awe8q.js",
     "name": "ImageZoomModal",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_InputError-XEcDwxfI.js": {
-    "file": "assets/InputError-XEcDwxfI.js",
+  "_InputError-XTepQLit.js": {
+    "file": "assets/InputError-XTepQLit.js",
     "name": "InputError",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_InputLabel-Bte7JABg.js": {
-    "file": "assets/InputLabel-Bte7JABg.js",
+  "_InputLabel-Dk9JqIzm.js": {
+    "file": "assets/InputLabel-Dk9JqIzm.js",
     "name": "InputLabel",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_PencilIcon-Bsj1uDoG.js": {
-    "file": "assets/PencilIcon-Bsj1uDoG.js",
+  "_PencilIcon-68Aqu6SQ.js": {
+    "file": "assets/PencilIcon-68Aqu6SQ.js",
     "name": "PencilIcon",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_PrimaryButton-DvQylX0_.js": {
-    "file": "assets/PrimaryButton-DvQylX0_.js",
+  "_PrimaryButton-DB9Srye6.js": {
+    "file": "assets/PrimaryButton-DB9Srye6.js",
     "name": "PrimaryButton",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_QuestionnaireSectionNav-DYuF1ehX.js": {
-    "file": "assets/QuestionnaireSectionNav-DYuF1ehX.js",
+  "_QuestionnaireSectionNav-CyTNhTKf.js": {
+    "file": "assets/QuestionnaireSectionNav-CyTNhTKf.js",
     "name": "QuestionnaireSectionNav",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_SecondaryButton-dntaKW8e.js": {
-    "file": "assets/SecondaryButton-dntaKW8e.js",
-    "name": "SecondaryButton",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_TextInput-CIQTa6Yl.js": {
-    "file": "assets/TextInput-CIQTa6Yl.js",
+  "_TextInput-BCHUHOPo.js": {
+    "file": "assets/TextInput-BCHUHOPo.js",
     "name": "TextInput",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_UserGroupIcon-DAH180zW.js": {
-    "file": "assets/UserGroupIcon-DAH180zW.js",
+  "_UserGroupIcon-C6XyCjfe.js": {
+    "file": "assets/UserGroupIcon-C6XyCjfe.js",
     "name": "UserGroupIcon",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_UserIcon-CbVfRIQV.js": {
-    "file": "assets/UserIcon-CbVfRIQV.js",
+  "_UserIcon-D-WFrvK9.js": {
+    "file": "assets/UserIcon-D-WFrvK9.js",
     "name": "UserIcon",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_UserSearchSelect-7QQr1Kj6.js": {
-    "file": "assets/UserSearchSelect-7QQr1Kj6.js",
+  "_UserSearchSelect-aqQTs5Em.js": {
+    "file": "assets/UserSearchSelect-aqQTs5Em.js",
     "name": "UserSearchSelect",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_XMarkIcon-BXsVfv7V.js": {
-    "file": "assets/XMarkIcon-BXsVfv7V.js",
+  "_XMarkIcon-qKTHXlA3.js": {
+    "file": "assets/XMarkIcon-qKTHXlA3.js",
     "name": "XMarkIcon",
     "imports": [
       "resources/js/app.jsx"
@@ -182,33 +175,48 @@
     "file": "assets/dateFormatter-Dn0_eFuj.js",
     "name": "dateFormatter"
   },
-  "_transition-C78kQ9Ak.js": {
-    "file": "assets/transition-C78kQ9Ak.js",
+  "_definitions-DD-JYZ0N.js": {
+    "file": "assets/definitions-DD-JYZ0N.js",
+    "name": "definitions"
+  },
+  "_html2canvas.esm-Cd_m6xXs.js": {
+    "file": "assets/html2canvas.esm-Cd_m6xXs.js",
+    "name": "html2canvas.esm"
+  },
+  "_presentation-3HSO8qWu.js": {
+    "file": "assets/presentation-3HSO8qWu.js",
+    "name": "presentation",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_transition-B2WFRsWx.js": {
+    "file": "assets/transition-B2WFRsWx.js",
     "name": "transition",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_uppercase-GZsLCFC_.js": {
-    "file": "assets/uppercase-GZsLCFC_.js",
+  "_uppercase-BgxHUu3f.js": {
+    "file": "assets/uppercase-BgxHUu3f.js",
     "name": "uppercase",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_useFieldVisibility-D5rdjY94.js": {
-    "file": "assets/useFieldVisibility-D5rdjY94.js",
+  "_useFieldVisibility-B1WUq034.js": {
+    "file": "assets/useFieldVisibility-B1WUq034.js",
     "name": "useFieldVisibility",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_useTranslation-Cs0fRFs7.js": {
-    "file": "assets/useTranslation-Cs0fRFs7.js",
+  "_useTranslation-Cx4dJ6yB.js": {
+    "file": "assets/useTranslation-Cx4dJ6yB.js",
     "name": "useTranslation",
     "imports": [
       "resources/js/app.jsx",
-      "_transition-C78kQ9Ak.js"
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Assets/dashboard/hero-brain.webp": {
@@ -228,7 +236,7 @@
     "src": "resources/js/Assets/moca/rinoceronte.jpg"
   },
   "resources/js/Components/Auth/ErrorMessage.jsx": {
-    "file": "assets/ErrorMessage-CKki3yvG.js",
+    "file": "assets/ErrorMessage-Ck_lQ6Po.js",
     "name": "ErrorMessage",
     "src": "resources/js/Components/Auth/ErrorMessage.jsx",
     "isDynamicEntry": true,
@@ -237,277 +245,277 @@
     ]
   },
   "resources/js/Components/Auth/InfoPanel.jsx": {
-    "file": "assets/InfoPanel-CtkDKLuH.js",
+    "file": "assets/InfoPanel-6HkUDYz2.js",
     "name": "InfoPanel",
     "src": "resources/js/Components/Auth/InfoPanel.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_UserGroupIcon-DAH180zW.js"
+      "_UserGroupIcon-C6XyCjfe.js"
     ]
   },
   "resources/js/Pages/Admin/Dashboard.jsx": {
-    "file": "assets/Dashboard-MGvwdGd6.js",
+    "file": "assets/Dashboard-eKThFJHx.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Admin/Dashboard.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Roles/Create.jsx": {
-    "file": "assets/Create-DBiMqk0x.js",
+    "file": "assets/Create-By1qJJQ0.js",
     "name": "Create",
     "src": "resources/js/Pages/Admin/Roles/Create.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Roles/Edit.jsx": {
-    "file": "assets/Edit-DwojnA2M.js",
+    "file": "assets/Edit-Cq2975Tw.js",
     "name": "Edit",
     "src": "resources/js/Pages/Admin/Roles/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Roles/Index.jsx": {
-    "file": "assets/Index--fF6Z7vH.js",
+    "file": "assets/Index-BmZU17FI.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Roles/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Teams/Create.jsx": {
-    "file": "assets/Create-CST8lQcb.js",
+    "file": "assets/Create-C8G44xQl.js",
     "name": "Create",
     "src": "resources/js/Pages/Admin/Teams/Create.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_UserSearchSelect-7QQr1Kj6.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_UserSearchSelect-aqQTs5Em.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Teams/Edit.jsx": {
-    "file": "assets/Edit-Dp-xXq-Z.js",
+    "file": "assets/Edit-e8iEfRZU.js",
     "name": "Edit",
     "src": "resources/js/Pages/Admin/Teams/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_UserSearchSelect-7QQr1Kj6.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_UserSearchSelect-aqQTs5Em.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Teams/Index.jsx": {
-    "file": "assets/Index-CmjyURXf.js",
+    "file": "assets/Index-kmtyps0R.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Teams/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Teams/Show.jsx": {
-    "file": "assets/Show-DoRnGGlW.js",
+    "file": "assets/Show-BFCc9e2w.js",
     "name": "Show",
     "src": "resources/js/Pages/Admin/Teams/Show.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/UserModules/Edit.jsx": {
-    "file": "assets/Edit-CdAmOYmP.js",
+    "file": "assets/Edit-Q8xSQXyn.js",
     "name": "Edit",
     "src": "resources/js/Pages/Admin/UserModules/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_UserIcon-CbVfRIQV.js",
-      "_XMarkIcon-BXsVfv7V.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_UserIcon-D-WFrvK9.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
     ]
   },
   "resources/js/Pages/Admin/UserModules/Index.jsx": {
-    "file": "assets/Index-gDknW7lM.js",
+    "file": "assets/Index-C6LaxSWP.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/UserModules/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_PencilIcon-Bsj1uDoG.js",
-      "_UserIcon-CbVfRIQV.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_PencilIcon-68Aqu6SQ.js",
+      "_UserIcon-D-WFrvK9.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
     ]
   },
   "resources/js/Pages/Admin/Users/Create.jsx": {
-    "file": "assets/Create-cFmgNXNT.js",
+    "file": "assets/Create-BSUFJQy4.js",
     "name": "Create",
     "src": "resources/js/Pages/Admin/Users/Create.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Users/Edit.jsx": {
-    "file": "assets/Edit-B_pAkPqD.js",
+    "file": "assets/Edit-CKu_cKsk.js",
     "name": "Edit",
     "src": "resources/js/Pages/Admin/Users/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Users/Index.jsx": {
-    "file": "assets/Index-DmOEDXUU.js",
+    "file": "assets/Index-CrJSkUSh.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Users/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Users/IndexSimple.jsx": {
-    "file": "assets/IndexSimple-CWJorW7L.js",
+    "file": "assets/IndexSimple-V89TJznP.js",
     "name": "IndexSimple",
     "src": "resources/js/Pages/Admin/Users/IndexSimple.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Users/IndexWithFilters.jsx": {
-    "file": "assets/IndexWithFilters-nCfSQsem.js",
+    "file": "assets/IndexWithFilters-qPvNfWmp.js",
     "name": "IndexWithFilters",
     "src": "resources/js/Pages/Admin/Users/IndexWithFilters.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Admin/Users/Show.jsx": {
-    "file": "assets/Show-95itEpwC.js",
+    "file": "assets/Show-CxNBc03C.js",
     "name": "Show",
     "src": "resources/js/Pages/Admin/Users/Show.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Auth/ConfirmPassword.jsx": {
-    "file": "assets/ConfirmPassword-ADLxpC4_.js",
+    "file": "assets/ConfirmPassword-Dm3zcndk.js",
     "name": "ConfirmPassword",
     "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_GuestLayout-BTqNpzBj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_GalaxyBackground-DuD-oiG3.js",
-      "_ConstellationStars-BBrDyQ-D.js"
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_TextInput-BCHUHOPo.js",
+      "_GuestLayout-CvFs-m_a.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_GalaxyBackground-D_zHqjKX.js",
+      "_ConstellationStars-B5PqJdKJ.js"
     ]
   },
   "resources/js/Pages/Auth/ForgotPassword.jsx": {
-    "file": "assets/ForgotPassword-CqAsViQl.js",
+    "file": "assets/ForgotPassword-DVBWl1Sw.js",
     "name": "ForgotPassword",
     "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-XEcDwxfI.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_GuestLayout-BTqNpzBj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_GalaxyBackground-DuD-oiG3.js",
-      "_ConstellationStars-BBrDyQ-D.js"
+      "_InputError-XTepQLit.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_TextInput-BCHUHOPo.js",
+      "_GuestLayout-CvFs-m_a.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_GalaxyBackground-D_zHqjKX.js",
+      "_ConstellationStars-B5PqJdKJ.js"
     ]
   },
   "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login-DooIMKXB.js",
+    "file": "assets/Login-BR0GlSL9.js",
     "name": "Login",
     "src": "resources/js/Pages/Auth/Login.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_ConstellationStars-BBrDyQ-D.js",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_EyeIcon-BkkTG-fV.js"
+      "_ConstellationStars-B5PqJdKJ.js",
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_EyeIcon-ByNIV6S1.js"
     ],
     "dynamicImports": [
       "resources/js/Components/Auth/InfoPanel.jsx",
@@ -515,104 +523,102 @@
     ]
   },
   "resources/js/Pages/Auth/ResetPassword.jsx": {
-    "file": "assets/ResetPassword-CWxDVeRU.js",
+    "file": "assets/ResetPassword-DEM5Jm6Y.js",
     "name": "ResetPassword",
     "src": "resources/js/Pages/Auth/ResetPassword.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_GuestLayout-BTqNpzBj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_GalaxyBackground-DuD-oiG3.js",
-      "_ConstellationStars-BBrDyQ-D.js"
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_TextInput-BCHUHOPo.js",
+      "_GuestLayout-CvFs-m_a.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_GalaxyBackground-D_zHqjKX.js",
+      "_ConstellationStars-B5PqJdKJ.js"
     ]
   },
   "resources/js/Pages/Auth/VerifyEmail.jsx": {
-    "file": "assets/VerifyEmail-pBykNgiP.js",
+    "file": "assets/VerifyEmail-CU1MdHZH.js",
     "name": "VerifyEmail",
     "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_PrimaryButton-DvQylX0_.js",
-      "_GuestLayout-BTqNpzBj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_GalaxyBackground-DuD-oiG3.js",
-      "_ConstellationStars-BBrDyQ-D.js"
+      "_PrimaryButton-DB9Srye6.js",
+      "_GuestLayout-CvFs-m_a.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_GalaxyBackground-D_zHqjKX.js",
+      "_ConstellationStars-B5PqJdKJ.js"
     ]
   },
   "resources/js/Pages/Dashboard.jsx": {
-    "file": "assets/Dashboard-DQGXB1Pa.js",
+    "file": "assets/Dashboard-CSYBV37V.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Dashboard.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/History/Index.jsx": {
-    "file": "assets/Index-B77nx0pc.js",
+    "file": "assets/Index-C-HuVqh4.js",
     "name": "Index",
     "src": "resources/js/Pages/History/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Profile/Edit.jsx": {
-    "file": "assets/Edit-DGY4NqyR.js",
+    "file": "assets/Edit-BvBzw70e.js",
     "name": "Edit",
     "src": "resources/js/Pages/Profile/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
       "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
       "resources/js/Pages/Profile/Partials/SwitchTeamForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_DangerButton-BX8wOnFq.js",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_PrimaryButton-DvQylX0_.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_DangerButton-CF_gRSHK.js",
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_TextInput-BCHUHOPo.js",
+      "_PrimaryButton-DB9Srye6.js"
     ]
   },
   "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
-    "file": "assets/DeleteUserForm-DJGr08Vo.js",
+    "file": "assets/DeleteUserForm-DCvR5x47.js",
     "name": "DeleteUserForm",
     "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_DangerButton-BX8wOnFq.js",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_transition-C78kQ9Ak.js"
+      "_DangerButton-CF_gRSHK.js",
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_TextInput-BCHUHOPo.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Profile/Partials/SwitchTeamForm.jsx": {
-    "file": "assets/SwitchTeamForm-BF9EZq0u.js",
+    "file": "assets/SwitchTeamForm-BFv_t7jd.js",
     "name": "SwitchTeamForm",
     "src": "resources/js/Pages/Profile/Partials/SwitchTeamForm.jsx",
     "isDynamicEntry": true,
@@ -621,930 +627,1796 @@
     ]
   },
   "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
-    "file": "assets/UpdatePasswordForm-BlooAfBZ.js",
+    "file": "assets/UpdatePasswordForm-CJYbFTbr.js",
     "name": "UpdatePasswordForm",
     "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_transition-C78kQ9Ak.js"
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_TextInput-BCHUHOPo.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
-    "file": "assets/UpdateProfileInformationForm-zvCVKYYA.js",
+    "file": "assets/UpdateProfileInformationForm-CFKLs5kl.js",
     "name": "UpdateProfileInformationForm",
     "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_transition-C78kQ9Ak.js"
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_PrimaryButton-DB9Srye6.js",
+      "_TextInput-BCHUHOPo.js",
+      "_transition-B2WFRsWx.js"
     ]
   },
   "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Create.jsx": {
-    "file": "assets/Create-BzO5X8V1.js",
+    "file": "assets/Create-TFv6ePf0.js",
     "name": "Create",
     "src": "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Create.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
     ]
   },
   "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Edit.jsx": {
-    "file": "assets/Edit-CS0yWdW4.js",
+    "file": "assets/Edit-CSCkfZE1.js",
     "name": "Edit",
     "src": "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Edit.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
     ]
   },
   "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Index.jsx": {
-    "file": "assets/Index-bfFcsyBV.js",
+    "file": "assets/Index-CQfaSOoX.js",
     "name": "Index",
     "src": "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
     ],
     "dynamicImports": [
       "resources/js/Utils/exportQuestionnaire.jsx"
     ]
   },
   "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Show.jsx": {
-    "file": "assets/Show-ivGfUry2.js",
+    "file": "assets/Show-D8pNfDP3.js",
     "name": "Show",
     "src": "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Show.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
       "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
     ]
   },
-  "resources/js/Pages/Questionnaires/Create.jsx": {
-    "file": "assets/Create-DtECf9Nf.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/DinamometriaMmii/Create.jsx": {
-    "file": "assets/Create-C8kEWHE_.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_QuestionnaireSectionNav-DYuF1ehX.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx": {
-    "file": "assets/Edit-bbw1C2oG.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_QuestionnaireSectionNav-DYuF1ehX.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/DinamometriaMmii/Index.jsx": {
-    "file": "assets/Index-C3BqPVSb.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/DinamometriaMmii/Show.jsx": {
-    "file": "assets/Show-CheE-vut.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Dinamometro/Create.jsx": {
-    "file": "assets/Create-jlJYjjDp.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Dinamometro/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_QuestionnaireSectionNav-DYuF1ehX.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Dinamometro/Edit.jsx": {
-    "file": "assets/Edit-De5b7npJ.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/Dinamometro/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_QuestionnaireSectionNav-DYuF1ehX.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Dinamometro/Index.jsx": {
-    "file": "assets/Index-VPExzuq_.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Dinamometro/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Dinamometro/Show.jsx": {
-    "file": "assets/Show-D30btLGI.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/Dinamometro/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroencefalograma/Create.jsx": {
-    "file": "assets/Create-BsnM40Kq.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroencefalograma/Edit.jsx": {
-    "file": "assets/Edit-DUkFjnmz.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroencefalograma/Index.jsx": {
-    "file": "assets/Index-y9csTCQe.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroencefalograma/Show.jsx": {
-    "file": "assets/Show-C2DBywGC.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroneuromiografia/Create.jsx": {
-    "file": "assets/Create-CLWjqhF8.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroneuromiografia/Edit.jsx": {
-    "file": "assets/Edit-CSDgJJun.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroneuromiografia/Index.jsx": {
-    "file": "assets/Index-BFDOpjxs.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Electroneuromiografia/Show.jsx": {
-    "file": "assets/Show-Z0AsqncP.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Create.jsx": {
-    "file": "assets/Create-D6NLewma.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_DraftRestoreBanner-07f50OlP.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Edit.jsx": {
-    "file": "assets/Edit-Dj0OtD-j.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_DraftRestoreBanner-07f50OlP.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Index.jsx": {
-    "file": "assets/Index-CRTM3BeT.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Show.jsx": {
-    "file": "assets/Show-yoC3MPrH.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Estesiometria/Create.jsx": {
-    "file": "assets/Create-DJv2HkuQ.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Estesiometria/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx": {
-    "file": "assets/Edit-CYq8-YVO.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Estesiometria/Index.jsx": {
-    "file": "assets/Index-CH3wLyt8.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Estesiometria/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Estesiometria/Show.jsx": {
-    "file": "assets/Show-B6K79-BE.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/Estesiometria/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Index.jsx": {
-    "file": "assets/Index-sv3iO7X9.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_GalaxyBackground-DuD-oiG3.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_ConstellationStars-BBrDyQ-D.js"
-    ],
-    "assets": [
-      "assets/hero-brain-B8T4XV0l.webp"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/MiniExameMental/Create.jsx": {
-    "file": "assets/Create-Cu2vprWn.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx": {
-    "file": "assets/Edit-B1mL4Das.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/MiniExameMental/Index.jsx": {
-    "file": "assets/Index-IMon5R5-.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/MiniExameMental/Show.jsx": {
-    "file": "assets/Show-zBIeRkN9.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Potencial/Create.jsx": {
-    "file": "assets/Create-CyvPohhR.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/Potencial/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AnexosUploader-xRsIThXl.js",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_Checkbox-D0QpxF8F.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_uppercase-GZsLCFC_.js",
-      "_transition-C78kQ9Ak.js",
-      "_XMarkIcon-BXsVfv7V.js",
-      "_FlashMessage-4Wwnugmj.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Potencial/Edit.jsx": {
-    "file": "assets/Edit-bSLTpAYd.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/Potencial/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_InputError-XEcDwxfI.js",
-      "_InputLabel-Bte7JABg.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_Checkbox-D0QpxF8F.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Potencial/Index.jsx": {
-    "file": "assets/Index-BONvQQTy.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/Potencial/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_DangerButton-BX8wOnFq.js",
-      "_TextInput-CIQTa6Yl.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_PencilIcon-Bsj1uDoG.js",
-      "_XMarkIcon-BXsVfv7V.js",
-      "_UserIcon-CbVfRIQV.js",
-      "_UserGroupIcon-DAH180zW.js",
-      "_EyeIcon-BkkTG-fV.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/Potencial/Show.jsx": {
-    "file": "assets/Show-BiJZdz0p.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/Potencial/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_useFieldVisibility-D5rdjY94.js",
-      "_PrimaryButton-DvQylX0_.js",
-      "_SecondaryButton-dntaKW8e.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/RastreioCognitivo/Create.jsx": {
-    "file": "assets/Create--HklWl0t.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_camelo-hmG3n4fU.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx": {
-    "file": "assets/Edit-CLCHfVam.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_uppercase-GZsLCFC_.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_camelo-hmG3n4fU.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/RastreioCognitivo/Index.jsx": {
-    "file": "assets/Index-C-F3TA_v.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/RastreioCognitivo/Show.jsx": {
-    "file": "assets/Show-BY4MVeh2.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahAdulto/Create.jsx": {
-    "file": "assets/Create-DZ1dBH9U.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahAdulto/Edit.jsx": {
-    "file": "assets/Edit-BKRl3puP.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahAdulto/Index.jsx": {
-    "file": "assets/Index-BK_O8Lg0.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahAdulto/Show.jsx": {
-    "file": "assets/Show-CV6l8uxJ.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahInfantil/Create.jsx": {
-    "file": "assets/Create-BqS7dPz2.js",
-    "name": "Create",
-    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Create.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx": {
-    "file": "assets/Edit-drXH_SP2.js",
-    "name": "Edit",
-    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_uppercase-GZsLCFC_.js",
-      "_BirthDateSelectInput-AYmP96tc.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahInfantil/Index.jsx": {
-    "file": "assets/Index-BXGfJUkV.js",
-    "name": "Index",
-    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js"
-    ],
-    "dynamicImports": [
-      "resources/js/Utils/exportQuestionnaire.jsx"
-    ]
-  },
-  "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx": {
-    "file": "assets/Show-D2h2Md1i.js",
-    "name": "Show",
-    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-CNlp572E.js",
-      "_AnexosUploader-xRsIThXl.js",
-      "_dateFormatter-Dn0_eFuj.js",
-      "_ImageZoomModal-DiN1a2FE.js",
-      "_FlashMessage-4Wwnugmj.js",
-      "_transition-C78kQ9Ak.js",
-      "_useTranslation-Cs0fRFs7.js",
-      "_XMarkIcon-BXsVfv7V.js"
-    ]
-  },
-  "resources/js/Utils/exportQuestionnaire.jsx": {
-    "file": "assets/exportQuestionnaire-AYBjMyOW.js",
-    "name": "exportQuestionnaire",
-    "src": "resources/js/Utils/exportQuestionnaire.jsx",
+  "resources/js/Pages/Questionnaires/Barre/Content.jsx": {
+    "file": "assets/Content-DbnzV_JK.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/Barre/Content.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
       "_dateFormatter-Dn0_eFuj.js"
     ]
   },
+  "resources/js/Pages/Questionnaires/Barre/Create.jsx": {
+    "file": "assets/Create-BCejQjOH.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Barre/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Barre/Edit.jsx": {
+    "file": "assets/Edit-DR3tfS4x.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Barre/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Form.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Create.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Barre/Export.jsx": {
+    "file": "assets/Export-BkUNfK2n.js",
+    "name": "Export",
+    "src": "resources/js/Pages/Questionnaires/Barre/Export.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Barre/Form.jsx": {
+    "file": "assets/Form-BgVD9ppQ.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/Barre/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Barre/Index.jsx": {
+    "file": "assets/Index-BN4vcPEL.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Barre/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Barre/Show.jsx": {
+    "file": "assets/Show-DpKU-qSr.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Barre/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Create.jsx": {
+    "file": "assets/Create-CYhIuEhY.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/DinamometriaMmii/Create.jsx": {
+    "file": "assets/Create-B_JDMe5X.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_QuestionnaireSectionNav-CyTNhTKf.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx": {
+    "file": "assets/Edit-Vgw7J0Ay.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_QuestionnaireSectionNav-CyTNhTKf.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/DinamometriaMmii/Index.jsx": {
+    "file": "assets/Index-DOyNh_g8.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/DinamometriaMmii/Show.jsx": {
+    "file": "assets/Show-DmQG5BzE.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/DinamometriaMmii/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Dinamometro/Create.jsx": {
+    "file": "assets/Create-Ckj0ORkl.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Dinamometro/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_QuestionnaireSectionNav-CyTNhTKf.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Dinamometro/Edit.jsx": {
+    "file": "assets/Edit-BRhCh6vK.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Dinamometro/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_QuestionnaireSectionNav-CyTNhTKf.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Dinamometro/Index.jsx": {
+    "file": "assets/Index-BY-M9CuF.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Dinamometro/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Dinamometro/Show.jsx": {
+    "file": "assets/Show-B55CK-C8.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Dinamometro/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroencefalograma/Create.jsx": {
+    "file": "assets/Create-DEp9cGwN.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroencefalograma/Edit.jsx": {
+    "file": "assets/Edit-DS5DpLrE.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroencefalograma/Index.jsx": {
+    "file": "assets/Index-BL97wcI9.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroencefalograma/Show.jsx": {
+    "file": "assets/Show-DlCzc8a6.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Electroencefalograma/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroneuromiografia/Create.jsx": {
+    "file": "assets/Create-DLh-_JqQ.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroneuromiografia/Edit.jsx": {
+    "file": "assets/Edit-DoIzXQTg.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroneuromiografia/Index.jsx": {
+    "file": "assets/Index-uUvnVT05.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Electroneuromiografia/Show.jsx": {
+    "file": "assets/Show-0SIdGs6U.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Electroneuromiografia/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Create.jsx": {
+    "file": "assets/Create-3jy2NAj9.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Edit.jsx": {
+    "file": "assets/Edit-BxTmr6Ea.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Index.jsx": {
+    "file": "assets/Index-CYDPiHcC.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Show.jsx": {
+    "file": "assets/Show-BicxvEVR.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Content.jsx": {
+    "file": "assets/Content-BLdKbx0B.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Create.jsx": {
+    "file": "assets/Create-C7rbRkPy.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Epley/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Edit.jsx": {
+    "file": "assets/Edit-BvHPQC-I.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Epley/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Form.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Create.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Export.jsx": {
+    "file": "assets/Export-CbVy6gmk.js",
+    "name": "Export",
+    "src": "resources/js/Pages/Questionnaires/Epley/Export.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Form.jsx": {
+    "file": "assets/Form-DMaxdJd1.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/Epley/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Index.jsx": {
+    "file": "assets/Index-DDojSrc8.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Epley/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Epley/Show.jsx": {
+    "file": "assets/Show-CqG7ZH_P.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Epley/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Estesiometria/Create.jsx": {
+    "file": "assets/Create-Dj2GtAEJ.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Estesiometria/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx": {
+    "file": "assets/Edit-DU_Fiycw.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Estesiometria/Index.jsx": {
+    "file": "assets/Index-jfOnfOga.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Estesiometria/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Estesiometria/Show.jsx": {
+    "file": "assets/Show-C5FBrlR6.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Estesiometria/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Content.jsx": {
+    "file": "assets/Content-fUuGnFav.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Content.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Create.jsx": {
+    "file": "assets/Create-ByxkAkgJ.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Form.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Edit.jsx": {
+    "file": "assets/Edit-CRGcEHWu.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Form.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Create.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Form.jsx": {
+    "file": "assets/Form-BiPsqvjt.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Index.jsx": {
+    "file": "assets/Index-Qvp0uuxL.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/FingerTapping/Show.jsx": {
+    "file": "assets/Show-BD5j2Xbk.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/FingerTapping/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/FingerTapping/Content.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Index.jsx": {
+    "file": "assets/Index-CnI6xDhm.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_GalaxyBackground-D_zHqjKX.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_ConstellationStars-B5PqJdKJ.js"
+    ],
+    "assets": [
+      "assets/hero-brain-B8T4XV0l.webp"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Content.jsx": {
+    "file": "assets/Content-CtrIMsvD.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Content.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Create.jsx": {
+    "file": "assets/Create-DWO7rjs1.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Form.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Edit.jsx": {
+    "file": "assets/Edit-CGGm40qT.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Form.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Create.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Form.jsx": {
+    "file": "assets/Form-DhWwQVgX.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Index.jsx": {
+    "file": "assets/Index-B0o-Idwm.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Mingazzini/Show.jsx": {
+    "file": "assets/Show-DHQP6MYW.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Mingazzini/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/Mingazzini/Content.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MiniExameMental/Create.jsx": {
+    "file": "assets/Create-tKkuU6Nx.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx": {
+    "file": "assets/Edit-C8bSybtN.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MiniExameMental/Index.jsx": {
+    "file": "assets/Index-DVRAEjvB.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MiniExameMental/Show.jsx": {
+    "file": "assets/Show-DJFpZLrC.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/MiniExameMental/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MotorManeuvers/Export.jsx": {
+    "file": "assets/Export-C4WJqFiv.js",
+    "name": "Export",
+    "src": "resources/js/Pages/Questionnaires/MotorManeuvers/Export.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx": {
+    "file": "assets/Fields-D2gDI6Ct.js",
+    "name": "Fields",
+    "src": "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx": {
+    "file": "assets/Form-BtNCl_X_.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx": {
+    "file": "assets/PatientDetails-MQvYWGfr.js",
+    "name": "PatientDetails",
+    "src": "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Potencial/Create.jsx": {
+    "file": "assets/Create-BqeYD7-q.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Potencial/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_TextInput-BCHUHOPo.js",
+      "_Checkbox-6NVvWpiD.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_transition-B2WFRsWx.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_FlashMessage-gzSuRvi1.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Potencial/Edit.jsx": {
+    "file": "assets/Edit-DPtL8PVt.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Potencial/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_InputError-XTepQLit.js",
+      "_InputLabel-Dk9JqIzm.js",
+      "_TextInput-BCHUHOPo.js",
+      "_Checkbox-6NVvWpiD.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Potencial/Index.jsx": {
+    "file": "assets/Index-CTQs6tL9.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Potencial/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_DangerButton-CF_gRSHK.js",
+      "_TextInput-BCHUHOPo.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_PencilIcon-68Aqu6SQ.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_UserIcon-D-WFrvK9.js",
+      "_UserGroupIcon-C6XyCjfe.js",
+      "_EyeIcon-ByNIV6S1.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Potencial/Show.jsx": {
+    "file": "assets/Show-BAmdKCvB.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Potencial/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_useFieldVisibility-B1WUq034.js",
+      "_presentation-3HSO8qWu.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Content.jsx": {
+    "file": "assets/Content-INHvacT6.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Content.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Create.jsx": {
+    "file": "assets/Create-aJ2MfJhA.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Form.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Edit.jsx": {
+    "file": "assets/Edit-CYmCoouz.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Form.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Create.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Form.jsx": {
+    "file": "assets/Form-D-t8Eh-P.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Index.jsx": {
+    "file": "assets/Index-FVJq1RyF.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Raimiste/Show.jsx": {
+    "file": "assets/Show-Dil5m2RV.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Raimiste/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/Raimiste/Content.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/RastreioCognitivo/Create.jsx": {
+    "file": "assets/Create-DF18qMdy.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_camelo-hmG3n4fU.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx": {
+    "file": "assets/Edit-D818snXz.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_camelo-hmG3n4fU.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/RastreioCognitivo/Index.jsx": {
+    "file": "assets/Index-CLI_uPxm.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/RastreioCognitivo/Show.jsx": {
+    "file": "assets/Show-ClsySQe9.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/RastreioCognitivo/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahAdulto/Create.jsx": {
+    "file": "assets/Create-ypsHs4Ya.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahAdulto/Edit.jsx": {
+    "file": "assets/Edit-BtRbnVKN.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahAdulto/Index.jsx": {
+    "file": "assets/Index-CdtEpe-c.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahAdulto/Show.jsx": {
+    "file": "assets/Show-CONFKkk6.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/TdahAdulto/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahInfantil/Create.jsx": {
+    "file": "assets/Create-Dcp_-lf4.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx": {
+    "file": "assets/Edit-Dj0urUEG.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_uppercase-BgxHUu3f.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahInfantil/Index.jsx": {
+    "file": "assets/Index-sTZLy7AT.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportQuestionnaire.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx": {
+    "file": "assets/Show-B-AmlQI2.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Content.jsx": {
+    "file": "assets/Content-B6tYFswY.js",
+    "name": "Content",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Content.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Create.jsx": {
+    "file": "assets/Create-DB1zhaiX.js",
+    "name": "Create",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Create.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Form.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Edit.jsx": {
+    "file": "assets/Edit-6QlQytMw.js",
+    "name": "Edit",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Form.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Create.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_definitions-DD-JYZ0N.js"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Form.jsx": {
+    "file": "assets/Form-BkcIItgV.js",
+    "name": "Form",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Form.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_BirthDateSelectInput-CCY70vvT.js",
+      "_uppercase-BgxHUu3f.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_DraftRestoreBanner-DdtumfOP.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Index.jsx": {
+    "file": "assets/Index-CzNvr48s.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_dateFormatter-Dn0_eFuj.js",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Pages/Questionnaires/Wartenberg/Show.jsx": {
+    "file": "assets/Show-D_csFV-7.js",
+    "name": "Show",
+    "src": "resources/js/Pages/Questionnaires/Wartenberg/Show.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_presentation-3HSO8qWu.js",
+      "_AuthenticatedLayout--PFF8MlR.js",
+      "_AnexosUploader-Ca5w8gpj.js",
+      "_ImageZoomModal-CD6awe8q.js",
+      "resources/js/Pages/Questionnaires/Wartenberg/Content.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_FlashMessage-gzSuRvi1.js",
+      "_transition-B2WFRsWx.js",
+      "_useTranslation-Cx4dJ6yB.js",
+      "_XMarkIcon-qKTHXlA3.js",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "_dateFormatter-Dn0_eFuj.js"
+    ],
+    "dynamicImports": [
+      "resources/js/Utils/exportMotorManeuver.jsx"
+    ]
+  },
+  "resources/js/Utils/exportMotorManeuver.jsx": {
+    "file": "assets/exportMotorManeuver-CEIXcSnj.js",
+    "name": "exportMotorManeuver",
+    "src": "resources/js/Utils/exportMotorManeuver.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_html2canvas.esm-Cd_m6xXs.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Export.jsx",
+      "_definitions-DD-JYZ0N.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
+      "_dateFormatter-Dn0_eFuj.js",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx"
+    ]
+  },
+  "resources/js/Utils/exportQuestionnaire.jsx": {
+    "file": "assets/exportQuestionnaire-BgrjVAi6.js",
+    "name": "exportQuestionnaire",
+    "src": "resources/js/Utils/exportQuestionnaire.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_html2canvas.esm-Cd_m6xXs.js",
+      "_presentation-3HSO8qWu.js",
+      "resources/js/Pages/Questionnaires/Barre/Export.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Export.jsx",
+      "_dateFormatter-Dn0_eFuj.js",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx"
+    ]
+  },
   "resources/js/app.jsx": {
-    "file": "assets/app-45EqPxPK.js",
+    "file": "assets/app-krHUfgxD.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -1581,6 +2453,13 @@
       "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Edit.jsx",
       "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Index.jsx",
       "resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Show.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Content.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Create.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Edit.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Export.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Form.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Index.jsx",
+      "resources/js/Pages/Questionnaires/Barre/Show.jsx",
       "resources/js/Pages/Questionnaires/Create.jsx",
       "resources/js/Pages/Questionnaires/DinamometriaMmii/Create.jsx",
       "resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx",
@@ -1602,19 +2481,48 @@
       "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Edit.jsx",
       "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Index.jsx",
       "resources/js/Pages/Questionnaires/ElectroneuromiografiaFacial/Show.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Content.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Create.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Edit.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Export.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Form.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Index.jsx",
+      "resources/js/Pages/Questionnaires/Epley/Show.jsx",
       "resources/js/Pages/Questionnaires/Estesiometria/Create.jsx",
       "resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx",
       "resources/js/Pages/Questionnaires/Estesiometria/Index.jsx",
       "resources/js/Pages/Questionnaires/Estesiometria/Show.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Content.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Create.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Edit.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Form.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Index.jsx",
+      "resources/js/Pages/Questionnaires/FingerTapping/Show.jsx",
       "resources/js/Pages/Questionnaires/Index.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Content.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Create.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Edit.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Form.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Index.jsx",
+      "resources/js/Pages/Questionnaires/Mingazzini/Show.jsx",
       "resources/js/Pages/Questionnaires/MiniExameMental/Create.jsx",
       "resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx",
       "resources/js/Pages/Questionnaires/MiniExameMental/Index.jsx",
       "resources/js/Pages/Questionnaires/MiniExameMental/Show.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Export.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx",
+      "resources/js/Pages/Questionnaires/MotorManeuvers/PatientDetails.jsx",
       "resources/js/Pages/Questionnaires/Potencial/Create.jsx",
       "resources/js/Pages/Questionnaires/Potencial/Edit.jsx",
       "resources/js/Pages/Questionnaires/Potencial/Index.jsx",
       "resources/js/Pages/Questionnaires/Potencial/Show.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Content.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Create.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Edit.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Form.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Index.jsx",
+      "resources/js/Pages/Questionnaires/Raimiste/Show.jsx",
       "resources/js/Pages/Questionnaires/RastreioCognitivo/Create.jsx",
       "resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx",
       "resources/js/Pages/Questionnaires/RastreioCognitivo/Index.jsx",
@@ -1626,10 +2534,16 @@
       "resources/js/Pages/Questionnaires/TdahInfantil/Create.jsx",
       "resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx",
       "resources/js/Pages/Questionnaires/TdahInfantil/Index.jsx",
-      "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx"
+      "resources/js/Pages/Questionnaires/TdahInfantil/Show.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Content.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Create.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Edit.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Form.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Index.jsx",
+      "resources/js/Pages/Questionnaires/Wartenberg/Show.jsx"
     ],
     "css": [
-      "assets/app-7N2CCsvc.css"
+      "assets/app-BcZFyT23.css"
     ]
   }
 }

@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { Head, Link } from '@inertiajs/react';
@@ -27,11 +28,11 @@ export default function Show({ auth, questionnaire, can }) {
             user={auth.user}
             header={
                 <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg shadow-lg">
+                    <div className={QT.dinamometro.header + " p-2 rounded-lg shadow-lg"}>
                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5a6 6 0 1112 0V14m-12-2.5V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v1.5m0 0V9a1.5 1.5 0 013 0v3.5M7 14v3a4 4 0 004 4h1a4 4 0 004-4v-3" /></svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Visualizar Questionário</h2>
+                        <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">Visualizar Questionário</h2>
                         <p className="text-xs text-gray-600 dark:text-zinc-400">Dinamômetro - Força de Preensão Manual</p>
                     </div>
                 </div>
@@ -40,22 +41,22 @@ export default function Show({ auth, questionnaire, can }) {
             <Head title="Visualizar Questionário - Dinamômetro" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
-                        <div className="bg-gradient-to-r from-violet-500 to-purple-600 dark:from-violet-600 dark:to-purple-700 px-6 py-6">
+                        <div className={QT.dinamometro.header + " px-6 py-6"}>
                             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                                 <div>
                                     <h3 className="text-2xl font-bold text-white">{questionnaire.nome_completo}</h3>
-                                    <p className="text-sm text-violet-100 mt-1">Idade: {questionnaire.idade}</p>
+                                    <p className={QT.dinamometro.caption + " text-sm mt-1"}>Idade: {questionnaire.idade}</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Link href={route('questionnaires.dinamometro.index')} className="inline-flex items-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg shadow-md transition-all duration-200">
-                                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                                    <Link href={route('questionnaires.dinamometro.index')} className={QA.neutral}>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                                         Voltar
                                     </Link>
                                     {can.edit && (
-                                        <Link href={route('questionnaires.dinamometro.edit', questionnaire.id)} className="inline-flex items-center px-4 py-2 bg-white hover:bg-gray-100 text-violet-600 font-semibold rounded-lg shadow-md transition-all duration-200">
-                                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                        <Link href={route('questionnaires.dinamometro.edit', questionnaire.id)} className={QA.primary}>
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                             Editar
                                         </Link>
                                     )}
@@ -65,7 +66,7 @@ export default function Show({ auth, questionnaire, can }) {
 
                         <div className="p-6 text-gray-900 dark:text-zinc-100 space-y-8">
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Identificação</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Identificação</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Data de Nascimento</dt><dd className="text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_nascimento)}</dd></div>
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Sexo</dt><dd className="text-gray-900 dark:text-zinc-100">{questionnaire.sexo}</dd></div>
@@ -81,7 +82,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Histórico Clínico</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Histórico Clínico</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Doenças Crônicas</dt><dd className="text-gray-900 dark:text-zinc-100">{questionnaire.doencas_cronicas || '-'}</dd></div>
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Dor Atual (0-10)</dt><dd className="text-gray-900 dark:text-zinc-100">{questionnaire.dor_atual ?? '-'}</dd></div>
@@ -94,7 +95,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Padronização e Resultados</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Padronização e Resultados</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                                     <div>
                                         <p className="font-semibold text-gray-800 dark:text-zinc-200 mb-1">Mão Dominante (kgf)</p>
@@ -110,7 +111,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Interpretação e Conduta</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Interpretação e Conduta</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Classificação</dt><dd className="text-gray-900 dark:text-zinc-100 font-semibold">{questionnaire.classificacao || '-'}</dd></div>
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Assimetria %</dt><dd className="text-gray-900 dark:text-zinc-100 font-semibold">{questionnaire.assimetria_percentual ?? '-'}</dd></div>
@@ -123,7 +124,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Assinatura do Paciente</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Assinatura do Paciente</h4>
                                 {questionnaire.assinatura_paciente ? (
                                     <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer max-w-md" onClick={() => setZoomSignature(true)}>
                                         <img src={questionnaire.assinatura_paciente} alt="Assinatura" className="w-full h-auto p-4" />

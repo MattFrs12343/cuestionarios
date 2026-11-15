@@ -29,7 +29,7 @@ const GRADIENTS = {
 // mesmo com muitos tipos de questionário disponíveis.
 const CATEGORIES = [
     { title: 'Exames Neurológicos', icons: ['electroencefalograma', 'electroneuromiografia', 'potencial', 'electroneuromiografia_facial'] },
-    { title: 'Avaliações e Testes Especiais', icons: ['rastreio_cognitivo', 'equilibrio', 'mini_exame_mental', 'estesiometria', 'dinamometro', 'dinamometria_mmii'] },
+    { title: 'Avaliações e Testes Especiais', icons: ['rastreio_cognitivo', 'equilibrio', 'mini_exame_mental', 'estesiometria', 'dinamometro', 'dinamometria_mmii', 'finger_tapping', 'mingazzini', 'raimiste', 'wartenberg', 'epley', 'barre'] },
     { title: 'TDAH', icons: ['tdah_infantil', 'tdah_adulto'] },
 ];
 

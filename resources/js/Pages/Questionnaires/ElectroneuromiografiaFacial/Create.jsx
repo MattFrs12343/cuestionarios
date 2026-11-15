@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -27,7 +28,7 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
                         value="true"
                         checked={value === true}
                         onChange={() => {}}
-                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                        className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                     />
                     SIM
                 </label>
@@ -38,7 +39,7 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
                         value="false"
                         checked={value === false}
                         onChange={() => {}}
-                        className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                        className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                     />
                     NÃO
                 </label>
@@ -52,7 +53,7 @@ const BooleanField = memo(({ label, field, value, onBooleanChange, conditionalFi
                         value={data[condField.name] || ''}
                         onChange={(e) => onDataChange(condField.name, e.target.value)}
                         placeholder={condField.placeholder}
-                        className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                        className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                     />
                     {errors[condField.name] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[condField.name]}</div>}
                 </div>
@@ -233,15 +234,15 @@ export default function Create({ auth }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg shadow-lg">
+                        <div className={QT.electroneuromiografia_facial.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
                                 Novo Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
@@ -251,9 +252,9 @@ export default function Create({ auth }) {
                     </div>
                     <Link
                         href={route('questionnaires.electroneuromiografia-facial.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -264,16 +265,16 @@ export default function Create({ auth }) {
             <Head title="Novo Questionário - Electroneuromiografia Facial" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
-                        <div className="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 px-6 py-4">
+                        <div className={QT.electroneuromiografia_facial.header + " px-6 py-4"}>
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                                 <div>
                                     <h3 className="text-xl font-bold text-white">Formulário de Registro</h3>
-                                    <p className="text-sm text-orange-100">Preencha as informações do paciente</p>
+                                    <p className={QT.electroneuromiografia_facial.caption + " text-sm"}>Preencha as informações do paciente</p>
                                 </div>
                             </div>
                         </div>
@@ -284,13 +285,13 @@ export default function Create({ auth }) {
                                 {/* Dados básicos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
+                                        <div className={QT.electroneuromiografia_facial.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Dados Básicos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome *</label>
-                                            <input type="text" spellCheck={false} value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.nome} onChange={(e) => setData('nome', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome}</div>}
                                         </div>
 
@@ -303,31 +304,31 @@ export default function Create({ auth }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Peso (kg)</label>
-                                            <input type="number" step="0.01" value={data.peso} onChange={(e) => setData('peso', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <input type="number" step="0.01" value={data.peso} onChange={(e) => setData('peso', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" />
                                             {errors.peso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.peso}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Altura (m)</label>
-                                            <input type="number" step="0.01" value={data.altura} onChange={(e) => setData('altura', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <input type="number" step="0.01" value={data.altura} onChange={(e) => setData('altura', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" />
                                             {errors.altura && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.altura}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data do Exame *</label>
-                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
+                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" required />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG *</label>
-                                            <input type="text" spellCheck={false} value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.rg} onChange={(e) => setData('rg', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Sexo *</label>
-                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
+                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" required>
                                                 <option value="">Selecione...</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Feminino">Feminino</option>
@@ -337,13 +338,13 @@ export default function Create({ auth }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Solicitante *</label>
-                                            <input type="text" spellCheck={false} value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.solicitante} onChange={(e) => setData('solicitante', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.solicitante && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.solicitante}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica *</label>
-                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
@@ -352,8 +353,8 @@ export default function Create({ auth }) {
                                 {/* Questionário */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-red-500 to-pink-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Questionário de Electroneuromiografia Facial</h3>
+                                        <div className={QT.electroneuromiografia_facial.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Questionário de Electroneuromiografia Facial</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Tem dor na testa?" field="tem_dor_testa" value={data.tem_dor_testa} onBooleanChange={handleBooleanChange} data={data} onDataChange={handleDataChange} errors={errors} />
@@ -382,8 +383,8 @@ export default function Create({ auth }) {
                                 {/* Observações */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-amber-500 to-orange-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Observações</h3>
+                                        <div className={QT.electroneuromiografia_facial.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Observações</h3>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Observações Gerais</label>
@@ -391,7 +392,7 @@ export default function Create({ auth }) {
                                             value={data.observacoes}
                                             onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
                                             rows={4}
-                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-orange-500 dark:focus:ring-orange-600 focus:border-orange-500 dark:focus:border-orange-600 transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."
                                         />
                                         {errors.observacoes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.observacoes}</div>}
@@ -400,8 +401,8 @@ export default function Create({ auth }) {
                                 {/* Arquivos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Arquivos</h3>
+                                        <div className={QT.electroneuromiografia_facial.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Arquivos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -422,9 +423,9 @@ export default function Create({ auth }) {
                                 </div>
 
                                 {/* Botões */}
-                                <div className="flex justify-end space-x-3">
-                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
-                                    <button type="submit" disabled={processing} className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 text-white rounded-lg hover:from-orange-600 hover:to-red-700 dark:hover:from-orange-700 dark:hover:to-red-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Questionário'}</button>
+                                <div className="flex justify-end flex-wrap items-center gap-3">
+                                    <button type="button" onClick={() => window.history.back()} className={QA.neutral}>Cancelar</button>
+                                    <button type="submit" disabled={processing} className={QA.primary}>{processing ? 'Salvando...' : 'Salvar Questionário'}</button>
                                 </div>
                             </form>
                         </div>

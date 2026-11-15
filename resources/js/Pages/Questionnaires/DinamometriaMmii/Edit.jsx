@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
@@ -94,7 +95,7 @@ const emptyDinamometria = () => MOVIMENTOS.map((movimento) => ({
 const Toggle = ({ label, checked, onChange }) => (
     <label className="flex items-center justify-between gap-4 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-500 rounded-lg p-4">
         <span className="text-base text-gray-800 dark:text-zinc-200">{label}</span>
-        <input type="checkbox" checked={!!checked} onChange={(e) => onChange(e.target.checked)} className="w-6 h-6 text-cyan-600 dark:text-cyan-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-cyan-500 dark:focus:ring-cyan-600 flex-shrink-0" />
+        <input type="checkbox" checked={!!checked} onChange={(e) => onChange(e.target.checked)} className="w-6 h-6 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-blue-600 dark:focus:ring-blue-600 flex-shrink-0" />
     </label>
 );
 
@@ -102,7 +103,7 @@ const CheckboxGroup = ({ options, selected, onToggle, cols = 'grid-cols-1 sm:gri
     <div className={`grid ${cols} gap-2`}>
         {options.map((opt) => (
             <label key={opt} className={`flex items-start gap-2 border rounded-lg px-3 py-2.5 text-sm cursor-pointer transition-colors ${selected.includes(opt) ? 'bg-cyan-50 dark:bg-cyan-900/20 border-cyan-400 dark:border-cyan-600 text-cyan-900 dark:text-cyan-200' : 'bg-white dark:bg-zinc-700 border-gray-200 dark:border-zinc-500 text-gray-700 dark:text-zinc-300'}`}>
-                <input type="checkbox" checked={selected.includes(opt)} onChange={() => onToggle(opt)} className="mt-0.5 w-5 h-5 text-cyan-600 dark:text-cyan-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-cyan-500 dark:focus:ring-cyan-600 flex-shrink-0" />
+                <input type="checkbox" checked={selected.includes(opt)} onChange={() => onToggle(opt)} className="mt-0.5 w-5 h-5 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-blue-600 dark:focus:ring-blue-600 flex-shrink-0" />
                 <span>{opt}</span>
             </label>
         ))}
@@ -279,31 +280,31 @@ export default function Edit({ auth, questionnaire }) {
     };
 
     const labelClass = "block text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1.5";
-    const inputClass = "w-full text-base py-2.5 px-3.5 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-cyan-500 dark:focus:ring-cyan-600 focus:border-cyan-500 dark:focus:border-cyan-600";
+    const inputClass = "w-full text-base py-2.5 px-3.5 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600";
     const subLabelClass = "block text-sm font-semibold text-gray-700 dark:text-zinc-300 mb-1.5";
-    const subInputClass = "w-full text-sm py-2 px-3 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-cyan-500 dark:focus:ring-cyan-600 focus:border-cyan-500 dark:focus:border-cyan-600";
+    const subInputClass = "w-full text-sm py-2 px-3 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600";
     const errorClass = "text-red-600 dark:text-red-400 text-sm mt-1.5";
-    const tdInputClass = "w-16 text-xs py-1.5 px-1.5 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded focus:ring-cyan-500 dark:focus:ring-cyan-600 focus:border-cyan-500 dark:focus:border-cyan-600";
+    const tdInputClass = "w-16 text-xs py-1.5 px-1.5 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600";
 
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-cyan-500 to-sky-600 rounded-lg shadow-lg">
+                        <div className={QT.dinamometria_mmii.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Editar Questionário</h2>
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">Editar Questionário</h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">Dinamometria de Membros Inferiores</p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.dinamometria-mmii.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -320,9 +321,9 @@ export default function Edit({ auth, questionnaire }) {
 
                         <div className="flex-1 min-w-0">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
-                                <div className="bg-gradient-to-r from-cyan-500 to-sky-600 dark:from-cyan-600 dark:to-sky-700 px-6 py-5">
+                                <div className={QT.dinamometria_mmii.header + " px-6 py-5"}>
                                     <h3 className="text-2xl font-bold text-white">Formulário de Avaliação Neurológica e Funcional</h3>
-                                    <p className="text-base text-cyan-100 mt-1">Dinamometria de Membros Inferiores</p>
+                                    <p className={QT.dinamometria_mmii.caption + " text-base mt-1"}>Dinamometria de Membros Inferiores</p>
                                 </div>
 
                                 <div className="p-6 text-gray-900 dark:text-zinc-100">
@@ -330,8 +331,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 1. Identificação */}
                                         <div id="sec-identificacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">1. Identificação do Paciente</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">1. Identificação do Paciente</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
@@ -393,8 +394,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 2. Anamnese */}
                                         <div id="sec-anamnese" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">2. Anamnese Neurológica e Musculoesquelética</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">2. Anamnese Neurológica e Musculoesquelética</h3>
                                             </div>
 
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
@@ -500,8 +501,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 3. Antecedentes Clínicos */}
                                         <div id="sec-antecedentes" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">3. Antecedentes Clínicos</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">3. Antecedentes Clínicos</h3>
                                             </div>
                                             <CheckboxGroup options={ANTECEDENTES} selected={data.antecedentes_clinicos} onToggle={(v) => toggleInArray('antecedentes_clinicos', v)} cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" />
                                             <div className="mt-5">
@@ -513,8 +514,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 4. Segurança do Teste */}
                                         <div id="sec-seguranca" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">4. Segurança para Realização do Teste</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">4. Segurança para Realização do Teste</h3>
                                             </div>
                                             <CheckboxGroup options={SEGURANCA} selected={data.seguranca_teste} onToggle={(v) => toggleInArray('seguranca_teste', v)} cols="grid-cols-1 sm:grid-cols-2" />
                                             <div className="mt-5">
@@ -526,8 +527,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 5. Exame Motor Pré-Dinamometria */}
                                         <div id="sec-exame-motor" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">5. Exame Motor Pré-Dinamometria</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">5. Exame Motor Pré-Dinamometria</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                                 <div>
@@ -550,7 +551,7 @@ export default function Edit({ auth, questionnaire }) {
                                                 </div>
                                             </div>
 
-                                            <h4 className="text-base font-bold text-gray-800 dark:text-zinc-200 mb-3">Força Muscular — Escala MRC (0–5)</h4>
+                                            <h4 className="text-base text-gray-800 dark:text-zinc-200 mb-3 font-semibold">Força Muscular — Escala MRC (0–5)</h4>
                                             <div className="overflow-x-auto">
                                                 <table className="min-w-full text-sm text-center border border-gray-200 dark:border-zinc-500">
                                                     <thead>
@@ -580,8 +581,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 6. Registro da Dinamometria */}
                                         <div id="sec-dinamometria" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">6. Registro da Dinamometria</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">6. Registro da Dinamometria</h3>
                                             </div>
                                             <p className="text-sm text-gray-500 dark:text-zinc-400 italic mb-5">Método: dinamometria digital com sistema de ancoragem e contração isométrica. Melhor valor e média são calculados automaticamente a partir das 3 medidas.</p>
 
@@ -684,8 +685,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* 7. Impressão Funcional */}
                                         <div id="sec-interpretacao" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-cyan-500 to-sky-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">7. Impressão Funcional</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">7. Impressão Funcional</h3>
                                             </div>
 
                                             <div className="mb-5">
@@ -702,7 +703,7 @@ export default function Edit({ auth, questionnaire }) {
                                                 <div className="space-y-2 mb-4">
                                                     {MODELO_CONCLUSAO.map((opt) => (
                                                         <label key={opt} className={`flex items-start gap-2 border rounded-lg px-3 py-2.5 text-sm cursor-pointer transition-colors ${data.modelo_conclusao === opt ? 'bg-white dark:bg-zinc-700 border-cyan-400 dark:border-cyan-600 font-semibold' : 'bg-white/60 dark:bg-zinc-700/60 border-cyan-100 dark:border-cyan-900'}`}>
-                                                            <input type="checkbox" checked={data.modelo_conclusao === opt} onChange={() => setData('modelo_conclusao', data.modelo_conclusao === opt ? '' : opt)} className="mt-0.5 w-5 h-5 text-cyan-600 dark:text-cyan-500 border-gray-300 dark:border-zinc-500 rounded focus:ring-cyan-500 dark:focus:ring-cyan-600 flex-shrink-0" />
+                                                            <input type="checkbox" checked={data.modelo_conclusao === opt} onChange={() => setData('modelo_conclusao', data.modelo_conclusao === opt ? '' : opt)} className="mt-0.5 w-5 h-5 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 rounded focus:ring-blue-600 dark:focus:ring-blue-600 flex-shrink-0" />
                                                             <span>{opt}</span>
                                                         </label>
                                                     ))}
@@ -756,8 +757,8 @@ export default function Edit({ auth, questionnaire }) {
                                         {/* Arquivos */}
                                         <div id="sec-arquivos" className="scroll-mt-24 mb-10 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                             <div className="flex items-center mb-5">
-                                                <div className="w-1 h-9 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100">Arquivos e Assinatura</h3>
+                                                <div className={QT.dinamometria_mmii.accent + " w-1 h-9 rounded-full mr-3"}></div>
+                                                <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">Arquivos e Assinatura</h3>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div>
@@ -773,9 +774,9 @@ export default function Edit({ auth, questionnaire }) {
                                             </div>
                                         </div>
 
-                                        <div className="flex justify-end space-x-3">
-                                            <button type="button" onClick={() => window.history.back()} className="px-7 py-3 text-base font-semibold bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
-                                            <button type="submit" disabled={processing} className="px-7 py-3 text-base font-semibold bg-gradient-to-r from-cyan-500 to-sky-600 dark:from-cyan-600 dark:to-sky-700 text-white rounded-lg hover:from-cyan-600 hover:to-sky-700 dark:hover:from-cyan-700 dark:hover:to-sky-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Alterações'}</button>
+                                        <div className="flex justify-end flex-wrap items-center gap-3">
+                                            <button type="button" onClick={() => window.history.back()} className={QA.neutral}>Cancelar</button>
+                                            <button type="submit" disabled={processing} className={QA.primary}>{processing ? 'Salvando...' : 'Salvar Alterações'}</button>
                                         </div>
                                     </form>
                                 </div>

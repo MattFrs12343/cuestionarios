@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -136,7 +137,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                             value="true"
                             checked={data[field] === true}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                            className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                         />
                         SIM
                     </label>
@@ -147,7 +148,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                             value="false"
                             checked={data[field] === false}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                            className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                         />
                         NÃO
                     </label>
@@ -161,7 +162,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                             value={data[conditionalField]}
                             onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                             placeholder={getPlaceholder()}
-                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                         />
                         {errors[conditionalField] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[conditionalField]}</div>}
                     </div>
@@ -174,15 +175,15 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg shadow-lg">
+                        <div className={QT.electroencefalograma.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
                                 Novo Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
@@ -192,9 +193,9 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                     </div>
                     <Link
                         href={route('questionnaires.electroencefalograma.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -205,17 +206,17 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
             <Head title="Novo Questionário - EEG" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Formulário */}
-                        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 px-6 py-4">
+                        <div className={QT.electroencefalograma.header + " px-6 py-4"}>
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                                 <div>
                                     <h3 className="text-xl font-bold text-white">Formulário de Registro</h3>
-                                    <p className="text-sm text-purple-100">Preencha as informações do paciente</p>
+                                    <p className={QT.electroencefalograma.caption + " text-sm"}>Preencha as informações do paciente</p>
                                 </div>
                             </div>
                         </div>
@@ -225,8 +226,8 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 {/* Dados básicos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-indigo-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
+                                        <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Dados Básicos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -237,7 +238,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="text" spellCheck={false}
                                                 value={data.clinica}
                                                 onChange={(e) => setData('clinica', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase"
                                                 required
                                             />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
@@ -251,7 +252,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="date"
                                                 value={data.data_exame}
                                                 onChange={(e) => setData('data_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
@@ -265,7 +266,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="text" spellCheck={false}
                                                 value={data.nome_completo}
                                                 onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase"
                                                 required
                                             />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
@@ -293,7 +294,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                             <select
                                                 value={data.sexo}
                                                 onChange={(e) => setData('sexo', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione...</option>
@@ -311,7 +312,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="text" spellCheck={false}
                                                 value={data.rg_ou_cpf}
                                                 onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase"
                                                 required
                                             />
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
@@ -325,7 +326,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                             <select
                                                 value={data.tipo_exame}
                                                 onChange={(e) => setData('tipo_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione o tipo de exame...</option>
@@ -343,8 +344,8 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 {/* Histórico médico */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-red-500 to-pink-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Histórico Médico</h3>
+                                        <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Histórico Médico</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Teve COVID" field="teve_covid" />
@@ -363,7 +364,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                     value={data.quando_teve_avc || ''}
                                                     onChange={(e) => setData('quando_teve_avc', e.target.value)}
                                                     placeholder="Quando teve AVC?"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.quando_teve_avc && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.quando_teve_avc}</div>}
                                             </div>
@@ -381,7 +382,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                     value={data.quando_teve_convulsao || ''}
                                                     onChange={(e) => setData('quando_teve_convulsao', e.target.value)}
                                                     placeholder="Quando teve convulsão?"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.quando_teve_convulsao && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.quando_teve_convulsao}</div>}
                                             </div>
@@ -406,7 +407,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                     value={data.hipertensao_faz_uso || ''}
                                                     onChange={(e) => setData('hipertensao_faz_uso', e.target.value)}
                                                     placeholder="Que medicamento usa?"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.hipertensao_faz_uso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.hipertensao_faz_uso}</div>}
                                             </div>
@@ -424,7 +425,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                     value={data.diabetes_faz_uso || ''}
                                                     onChange={(e) => setData('diabetes_faz_uso', e.target.value)}
                                                     placeholder="Que medicamento usa?"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.diabetes_faz_uso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.diabetes_faz_uso}</div>}
                                             </div>
@@ -440,8 +441,8 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 {/* Profissionais */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Profissionais</h3>
+                                        <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Profissionais</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -452,7 +453,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="text" spellCheck={false}
                                                 value={data.nome_profissional_pedido}
                                                 onChange={(e) => setData('nome_profissional_pedido', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase"
                                                 required
                                             />
                                             {errors.nome_profissional_pedido && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_profissional_pedido}</div>}
@@ -466,7 +467,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                                 type="text" spellCheck={false}
                                                 value={data.nome_tecnico_medico_exame}
                                                 onChange={(e) => setData('nome_tecnico_medico_exame', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase"
                                                 required
                                             />
                                             {errors.nome_tecnico_medico_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_tecnico_medico_exame}</div>}
@@ -477,8 +478,8 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 {/* Momento do exame */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-yellow-500 to-orange-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Momento do Exame</h3>
+                                        <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Momento do Exame</h3>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
@@ -487,7 +488,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                         <select
                                             value={data.momento_exame}
                                             onChange={(e) => setData('momento_exame', e.target.value)}
-                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             required
                                         >
                                             <option value="">Selecione...</option>
@@ -508,7 +509,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                             value={data.comentario}
                                             onChange={(e) => setData('comentario', e.target.value.toUpperCase())}
                                             rows={4}
-                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."
                                         />
                                         {errors.comentario && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.comentario}</div>}
@@ -518,8 +519,8 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 {/* Arquivos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Arquivos</h3>
+                                        <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Arquivos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -600,13 +601,13 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                 </div>
 
                                 {/* Botões */}
-                                <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-zinc-600">
+                                <div className="flex justify-end pt-6 border-t border-gray-200 dark:border-zinc-600 flex-wrap items-center gap-3">
                                     <button
                                         type="button"
                                         onClick={() => window.history.back()}
-                                        className="inline-flex items-center px-6 py-3 bg-gray-500 dark:bg-zinc-500 hover:bg-gray-600 dark:hover:bg-zinc-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                                        className={QA.neutral}
                                     >
-                                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                         Cancelar
@@ -614,11 +615,11 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 hover:from-green-600 hover:to-emerald-700 dark:hover:from-green-700 dark:hover:to-emerald-800 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                        className={QA.primary}
                                     >
                                         {processing ? (
                                             <>
-                                                <svg className="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
+                                                <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
@@ -626,7 +627,7 @@ export default function Create({ auth, momentoExameOptions, tipoExameOptions }) 
                                             </>
                                         ) : (
                                             <>
-                                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                 </svg>
                                                 Salvar Questionário

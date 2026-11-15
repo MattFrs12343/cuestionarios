@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
  * - un tipo de config/questionnaires.php no tiene el bloque "precio";
  * - el JSX del cuestionario no existe;
  * - las secciones detectadas en el código no coinciden con las declaradas;
- * - el nivel/precio no respetan la regla 3-4 → C/250, 5-6 → B/350, 7+ → A/450.
+ * - el nivel/precio no respetan la regla 3-4 → C/300, 5-6 → B/400, 7+ → A/500.
  *
  * Uso: php artisan laudos:clasificar
  */
@@ -23,7 +23,7 @@ class ClasificarLaudos extends Command
 {
     protected $signature = 'laudos:clasificar';
 
-    protected $description = 'Analiza las secciones de cada cuestionario y valida su clasificación de precios (3-4 → C Bs 250, 5-6 → B Bs 350, 7+ → A Bs 450)';
+    protected $description = 'Analiza las secciones de cada cuestionario y valida su clasificación de precios (3-4 → C Bs 300, 5-6 → B Bs 400, 7+ → A Bs 500)';
 
     public function handle(QuestionnaireSectionCounter $counter): int
     {

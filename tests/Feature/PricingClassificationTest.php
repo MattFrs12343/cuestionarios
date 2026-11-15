@@ -11,8 +11,8 @@ use Tests\TestCase;
  * Esta es la alerta que corre antes de construir nuevos cuestionarios: si
  * alguien agrega un tipo a config/questionnaires.php sin clasificarlo, le
  * cambia el formulario sin actualizar las secciones, o declara un nivel/precio
- * que no sigue la regla comercial (3-4 → C Bs 250, 5-6 → B Bs 350, 7+ → A
- * Bs 450), este test falla y bloquea la corrida de phpunit.
+ * que no sigue la regla comercial (3-4 → C Bs 300, 5-6 → B Bs 400, 7+ → A
+ * Bs 500), este test falla y bloquea la corrida de phpunit.
  *
  * La misma lógica está disponible como alerta manual con
  * `php artisan laudos:clasificar`.
@@ -102,23 +102,23 @@ class PricingClassificationTest extends TestCase
 
     public function test_regla_de_precios_en_los_limites(): void
     {
-        // 3-4 secciones → nivel C, Bs 250
+        // 3-4 secciones → nivel C, Bs 300
         $this->assertSame('C', QuestionnaireSectionCounter::levelFor(3));
         $this->assertSame('C', QuestionnaireSectionCounter::levelFor(4));
-        $this->assertSame(250, QuestionnaireSectionCounter::priceFor(3));
-        $this->assertSame(250, QuestionnaireSectionCounter::priceFor(4));
+        $this->assertSame(300, QuestionnaireSectionCounter::priceFor(3));
+        $this->assertSame(300, QuestionnaireSectionCounter::priceFor(4));
 
-        // 5-6 secciones → nivel B, Bs 350
+        // 5-6 secciones → nivel B, Bs 400
         $this->assertSame('B', QuestionnaireSectionCounter::levelFor(5));
         $this->assertSame('B', QuestionnaireSectionCounter::levelFor(6));
-        $this->assertSame(350, QuestionnaireSectionCounter::priceFor(5));
-        $this->assertSame(350, QuestionnaireSectionCounter::priceFor(6));
+        $this->assertSame(400, QuestionnaireSectionCounter::priceFor(5));
+        $this->assertSame(400, QuestionnaireSectionCounter::priceFor(6));
 
-        // 7 o más → nivel A, Bs 450
+        // 7 o más → nivel A, Bs 500
         $this->assertSame('A', QuestionnaireSectionCounter::levelFor(7));
         $this->assertSame('A', QuestionnaireSectionCounter::levelFor(12));
-        $this->assertSame(450, QuestionnaireSectionCounter::priceFor(7));
-        $this->assertSame(450, QuestionnaireSectionCounter::priceFor(12));
+        $this->assertSame(500, QuestionnaireSectionCounter::priceFor(7));
+        $this->assertSame(500, QuestionnaireSectionCounter::priceFor(12));
 
         // Fuera de la tabla: sin nivel ni precio.
         $this->assertNull(QuestionnaireSectionCounter::levelFor(2));

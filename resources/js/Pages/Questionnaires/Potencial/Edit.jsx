@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA } from '@/Components/Questionnaires/presentation';
 import React, { useState, useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -5,8 +6,8 @@ import { useTranslation } from '@/Hooks/useTranslation';
 import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import SecondaryButton from '@/Components/SecondaryButton';
+import { QuestionnairePrimaryButton as PrimaryButton } from '@/Components/Questionnaires/presentation';
+import { QuestionnaireSecondaryButton as SecondaryButton } from '@/Components/Questionnaires/presentation';
 import TextInput from '@/Components/TextInput';
 import Checkbox from '@/Components/Checkbox';
 import BirthDateSelectInput from '@/Components/BirthDateSelectInput';
@@ -131,15 +132,15 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
+                <div className="flex justify-between items-center flex-wrap gap-4">
+                    <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
                         {t('Editar Questionário de Potencial Evocado')} - {questionnaire.nome}
                     </h2>
                     <Link
                         href={route('questionnaires.potencial.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -149,13 +150,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         >
             <Head title={`Editar Questionário - ${questionnaire.nome}`} />
 
-            <div className="py-12">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div className="py-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-sm sm:rounded-lg">
                         <form onSubmit={handleSubmit} className="p-6 space-y-6">
                             {/* Dados Básicos */}
                             <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-4 font-semibold text-xl">
                                     {t('Dados Básicos')}
                                 </h3>
                                 
@@ -243,7 +244,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                         <InputLabel htmlFor="sexo" value={t('Sexo')} />
                                         <select
                                             id="sexo"
-                                            className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                            className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-blue-600 dark:focus:border-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600 rounded-md shadow-sm"
                                             value={data.sexo}
                                             onChange={(e) => setData('sexo', e.target.value)}
                                             required
@@ -297,7 +298,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
 
                             {/* Potencial Evocado Auditivo */}
                             <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-4 font-semibold text-xl">
                                     {t('Questionário de Potencial Evocado Auditivo')}
                                 </h3>
                                 
@@ -445,7 +446,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                         {data.tem_retardo_mental && (
                                             <div className="ml-7">
                                                 <select
-                                                    className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                                    className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-blue-600 dark:focus:border-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600 rounded-md shadow-sm"
                                                     value={data.retardo_mental_grau}
                                                     onChange={(e) => setData('retardo_mental_grau', e.target.value)}
                                                 >
@@ -675,7 +676,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
 
                             {/* Potencial Evocado Visual */}
                             <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-4 font-semibold text-xl">
                                     {t('Questionário de Potencial Evocado Visual')}
                                 </h3>
                                 
@@ -879,7 +880,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
 
                             {/* Observações */}
                             <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-4 font-semibold text-xl">
                                     {t('Observações')}
                                 </h3>
                                 
@@ -887,7 +888,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                     <InputLabel htmlFor="observacoes" value={t('Observações')} />
                                     <textarea spellCheck={false}
                                         id="observacoes"
-                                        className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                                        className="mt-1 block w-full border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 focus:border-blue-600 dark:focus:border-blue-600 focus:ring-blue-600 dark:focus:ring-blue-600 rounded-md shadow-sm"
                                         rows="4"
                                         value={data.observacoes}
                                         onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
@@ -898,7 +899,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
 
                             {/* Assinatura e Pedido Médico */}
                             <div className="bg-gray-50 dark:bg-zinc-600 p-4 rounded-lg">
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-4">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-4 font-semibold text-xl">
                                     {t('Assinatura e Documentos')}
                                 </h3>
                                 
@@ -940,7 +941,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                             </div>
 
                             {/* Botões */}
-                            <div className="flex items-center justify-end space-x-4">
+                            <div className="flex items-center justify-end flex-wrap gap-3">
                                 <SecondaryButton
                                     type="button"
                                     onClick={() => window.history.back()}

@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
@@ -225,7 +226,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                             value="true"
                             checked={data[field] === true}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                            className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                         />
                         SIM
                     </label>
@@ -236,7 +237,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                             value="false"
                             checked={data[field] === false}
                             onChange={() => {}}
-                            className="mr-2 pointer-events-none text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                            className="mr-2 pointer-events-none text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                         />
                         NÃO
                     </label>
@@ -249,7 +250,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                             <select
                                 value={data[conditionalField]}
                                 onChange={(e) => setData(conditionalField, e.target.value)}
-                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                             >
                                 <option value="">Selecione o tipo...</option>
                                 <option value="Hemorrágico">Hemorrágico</option>
@@ -263,7 +264,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                 onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                                 placeholder="Especifique os medicamentos que está tomando..."
                                 rows="3"
-                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                             />
                         ) : (
                             <input
@@ -271,7 +272,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                 value={data[conditionalField]}
                                 onChange={(e) => setData(conditionalField, e.target.value.toUpperCase())}
                                 placeholder="Especifique..."
-                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                             />
                         )}
                         {errors[conditionalField] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[conditionalField]}</div>}
@@ -285,15 +286,15 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg">
+                        <div className={QT.electroneuromiografia.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
                                 Novo Questionário
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
@@ -303,9 +304,9 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                     </div>
                     <Link
                         href={route('questionnaires.electroneuromiografia.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -316,17 +317,17 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
             <Head title="Novo Questionário - ENMG" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
                         {/* Header do Formulário */}
-                        <div className="bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-600 dark:to-blue-700 px-6 py-4">
+                        <div className={QT.electroneuromiografia.header + " px-6 py-4"}>
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                                 <div>
                                     <h1 className="text-2xl font-bold text-white">Novo Questionário de Electroneuromiografia</h1>
-                                    <p className="text-cyan-100 text-sm mt-1">Preencha todos os campos obrigatórios para criar um novo registro</p>
+                                    <p className={QT.electroneuromiografia.caption + " text-sm mt-1"}>Preencha todos os campos obrigatórios para criar um novo registro</p>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +336,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                             <form onSubmit={handleSubmit} encType="multipart/form-data">
                                 {/* Dados básicos */}
                                 <div className="mb-8 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/10 dark:to-blue-900/10 rounded-xl p-6 border-l-4 border-cyan-500 dark:border-cyan-400">
-                                    <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-zinc-100 flex items-center">
+                                    <h3 className="text-xl mb-4 text-gray-900 dark:text-zinc-100 flex items-center font-semibold">
                                         <span className="w-8 h-8 bg-cyan-500 dark:bg-cyan-600 rounded-lg flex items-center justify-center mr-3">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -352,7 +353,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 type="text" spellCheck={false}
                                                 value={data.nome}
                                                 onChange={(e) => setData('nome', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.nome && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome}</div>}
@@ -382,7 +383,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 value={data.peso}
                                                 onChange={(e) => setData('peso', e.target.value)}
                                                 placeholder="Ex: 70kg"
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             />
                                             {errors.peso && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.peso}</div>}
                                         </div>
@@ -396,7 +397,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 value={data.altura}
                                                 onChange={(e) => setData('altura', e.target.value)}
                                                 placeholder="Ex: 1.70m"
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             />
                                             {errors.altura && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.altura}</div>}
                                         </div>
@@ -409,7 +410,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 type="date"
                                                 value={data.data_exame}
                                                 onChange={(e) => setData('data_exame', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
@@ -423,7 +424,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 type="text" spellCheck={false}
                                                 value={data.rg}
                                                 onChange={(e) => setData('rg', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.rg && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg}</div>}
@@ -436,7 +437,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                             <select
                                                 value={data.sexo}
                                                 onChange={(e) => setData('sexo', e.target.value)}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             >
                                                 <option value="">Selecione...</option>
@@ -454,7 +455,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 type="text" spellCheck={false}
                                                 value={data.solicitante}
                                                 onChange={(e) => setData('solicitante', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.solicitante && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.solicitante}</div>}
@@ -468,7 +469,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                 type="text" spellCheck={false}
                                                 value={data.clinica}
                                                 onChange={(e) => setData('clinica', e.target.value.toUpperCase())}
-                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 required
                                             />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
@@ -486,7 +487,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                             type="checkbox"
                                                             checked={data.tipos_exame.includes(tipo)}
                                                             onChange={() => handleTipoExameChange(tipo)}
-                                                            className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                            className="mr-2 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         />
                                                         <span className="text-sm text-gray-900 dark:text-zinc-100">{tipo}</span>
                                                     </label>
@@ -499,7 +500,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Información adicional */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Informação Adicional</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Informação Adicional</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="É primeira vez que vai fazer esse exame?" field="primeira_vez_exame" />
                                         <BooleanField label="Diabético(a)" field="diabetico" />
@@ -519,7 +520,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     onChange={(e) => setData('medicamentos_detalhes', e.target.value.toUpperCase())}
                                                     placeholder="Especifique os medicamentos que está tomando..."
                                                     rows="3"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.medicamentos_detalhes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.medicamentos_detalhes}</div>}
                                             </div>
@@ -537,7 +538,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.avc_quando}
                                                     onChange={(e) => setData('avc_quando', e.target.value.toUpperCase())}
                                                     placeholder="Ex: Janeiro 2023"
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.avc_quando && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.avc_quando}</div>}
                                             </div>
@@ -557,7 +558,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                                 type="checkbox"
                                                                 checked={data.areas_coluna.includes(area)}
                                                                 onChange={() => handleAreaColunaChange(area)}
-                                                                className="mr-2 text-purple-600 dark:text-purple-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                                className="mr-2 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                             />
                                                             <span className="text-sm text-gray-900 dark:text-zinc-100">{area}</span>
                                                         </label>
@@ -579,7 +580,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.tipo_trabalho || ''}
                                                     onChange={(e) => setData('tipo_trabalho', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o tipo de trabalho..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.tipo_trabalho && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.tipo_trabalho}</div>}
                                             </div>
@@ -597,7 +598,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.fraturas_regiao || ''}
                                                     onChange={(e) => setData('fraturas_regiao', e.target.value.toUpperCase())}
                                                     placeholder="Especifique a região das fraturas..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.fraturas_regiao && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.fraturas_regiao}</div>}
                                             </div>
@@ -618,7 +619,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.processo_infeccioso_detalhes || ''}
                                                     onChange={(e) => setData('processo_infeccioso_detalhes', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o processo infeccioso..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.processo_infeccioso_detalhes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.processo_infeccioso_detalhes}</div>}
                                             </div>
@@ -636,7 +637,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.alcool_frequencia || ''}
                                                     onChange={(e) => setData('alcool_frequencia', e.target.value.toUpperCase())}
                                                     placeholder="Ex: Fins de semana, diariamente..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.alcool_frequencia && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.alcool_frequencia}</div>}
                                             </div>
@@ -654,7 +655,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.drogas_quais || ''}
                                                     onChange={(e) => setData('drogas_quais', e.target.value.toUpperCase())}
                                                     placeholder="Especifique quais drogas..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.drogas_quais && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.drogas_quais}</div>}
                                             </div>
@@ -664,7 +665,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Membros Superiores */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Membros Superiores</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Membros Superiores</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Sente dor nos braços?" field="ms_dor_bracos" />
                                         <BooleanField label="A dor começa nos ombros?" field="ms_dor_comeca_ombros" />
@@ -680,7 +681,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="DIA"
                                                         checked={data.ms_dor_mais_de === 'DIA'}
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">DIA</span>
                                                 </label>
@@ -691,7 +692,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="NOITE"
                                                         checked={data.ms_dor_mais_de === 'NOITE'}
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">NOITE</span>
                                                 </label>
@@ -702,7 +703,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="AMBOS"
                                                         checked={data.ms_dor_mais_de === 'AMBOS'}
                                                         onChange={(e) => setData('ms_dor_mais_de', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
                                                 </label>
@@ -736,7 +737,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="DIREITO"
                                                         checked={data.ms_membro_mais_afetado === 'DIREITO'}
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">DIREITO</span>
@@ -748,7 +749,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="ESQUERDO"
                                                         checked={data.ms_membro_mais_afetado === 'ESQUERDO'}
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">ESQUERDO</span>
@@ -760,7 +761,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="AMBOS"
                                                         checked={data.ms_membro_mais_afetado === 'AMBOS'}
                                                         onChange={(e) => setData('ms_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
@@ -773,7 +774,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Membros Inferiores */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Membros Inferiores</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Membros Inferiores</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Sente dor nas pernas?" field="mi_dor_pernas" />
                                         <BooleanField label="A dor começa na bacia?" field="mi_dor_comeca_bacia" />
@@ -805,7 +806,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="DIREITO"
                                                         checked={data.mi_membro_mais_afetado === 'DIREITO'}
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">DIREITO</span>
@@ -817,7 +818,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="ESQUERDO"
                                                         checked={data.mi_membro_mais_afetado === 'ESQUERDO'}
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">ESQUERDO</span>
@@ -829,7 +830,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                         value="AMBOS"
                                                         checked={data.mi_membro_mais_afetado === 'AMBOS'}
                                                         onChange={(e) => setData('mi_membro_mais_afetado', e.target.value)}
-                                                        className="mr-2 text-purple-600 dark:text-purple-500 focus:ring-purple-500 dark:focus:ring-purple-600"
+                                                        className="mr-2 text-blue-700 text-blue-700 focus:ring-blue-600 dark:focus:ring-blue-600"
                                                         required
                                                     />
                                                     <span className="text-sm text-gray-900 dark:text-zinc-100">AMBOS</span>
@@ -842,7 +843,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Especialistas */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Especialistas</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Especialistas</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <BooleanField label="Consultou com REUMATOLOGISTA?" field="consultou_reumatologista" />
                                         
@@ -856,7 +857,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.reumatologista_motivo || ''}
                                                     onChange={(e) => setData('reumatologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.reumatologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.reumatologista_motivo}</div>}
                                             </div>
@@ -874,7 +875,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.neurologista_motivo || ''}
                                                     onChange={(e) => setData('neurologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.neurologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.neurologista_motivo}</div>}
                                             </div>
@@ -892,7 +893,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.neurocirurgiao_motivo || ''}
                                                     onChange={(e) => setData('neurocirurgiao_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.neurocirurgiao_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.neurocirurgiao_motivo}</div>}
                                             </div>
@@ -910,7 +911,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.dermatologista_motivo || ''}
                                                     onChange={(e) => setData('dermatologista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.dermatologista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.dermatologista_motivo}</div>}
                                             </div>
@@ -928,7 +929,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.geriatra_motivo || ''}
                                                     onChange={(e) => setData('geriatra_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.geriatra_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.geriatra_motivo}</div>}
                                             </div>
@@ -946,7 +947,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                                     value={data.ortopedista_motivo || ''}
                                                     onChange={(e) => setData('ortopedista_motivo', e.target.value.toUpperCase())}
                                                     placeholder="Especifique o motivo..."
-                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                                    className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                                 />
                                                 {errors.ortopedista_motivo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.ortopedista_motivo}</div>}
                                             </div>
@@ -956,7 +957,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Observações */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Observações</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Observações</h3>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
                                             Observações Gerais
@@ -965,7 +966,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                             value={data.observacoes}
                                             onChange={(e) => setData('observacoes', e.target.value.toUpperCase())}
                                             rows={4}
-                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 focus:border-purple-500 dark:focus:border-purple-600 transition-colors duration-200"
+                                            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
                                             placeholder="Observações adicionais..."
                                         />
                                         {errors.observacoes && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.observacoes}</div>}
@@ -974,7 +975,7 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
 
                                 {/* Arquivos */}
                                 <div className="mb-8">
-                                    <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-zinc-100">Arquivos</h3>
+                                    <h3 className="mb-4 text-gray-900 dark:text-zinc-100 font-semibold text-xl">Arquivos</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">
@@ -1021,18 +1022,18 @@ export default function Create({ auth, tiposExameOptions, areasColuna, momentoEx
                                 </div>
 
                                 {/* Botões */}
-                                <div className="flex justify-end space-x-4">
+                                <div className="flex justify-end flex-wrap items-center gap-3">
                                     <button
                                         type="button"
                                         onClick={() => window.history.back()}
-                                        className="px-4 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-md hover:bg-gray-600 dark:hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-zinc-500 transition-colors duration-200"
+                                        className={QA.neutral}
                                     >
                                         Cancelar
                                     </button>
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="px-4 py-2 bg-purple-500 dark:bg-purple-600 text-white rounded-md hover:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-600 disabled:opacity-50 transition-colors duration-200"
+                                        className={QA.primary}
                                     >
                                         {processing ? 'Salvando...' : 'Salvar Questionário'}
                                     </button>

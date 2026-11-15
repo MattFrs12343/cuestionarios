@@ -90,6 +90,12 @@ export default function QuestionnaireTypeIcon({ type, className = "w-6 h-6" }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 9h4m0 0l-2-2m2 2l-2 2" />
                 </svg>
             );
+        case 'finger_tapping':
+        case 'mingazzini':
+        case 'raimiste':
+        case 'wartenberg':
+        case 'barre':
+        case 'epley':
         case 'mini_exame_mental':
             // Prancheta com check (rastreio cognitivo breve)
             return (

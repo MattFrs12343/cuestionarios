@@ -51,6 +51,72 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('questionnaires.index');
     
+    Route::prefix('questionnaires/barre')->name('questionnaires.barre.')
+        ->middleware('module.access:barre')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\BarreController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\BarreController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\BarreController::class, 'store'])->name('store');
+        Route::get('/{barre}', [App\Http\Controllers\Questionnaires\BarreController::class, 'show'])->name('show');
+        Route::get('/{barre}/edit', [App\Http\Controllers\Questionnaires\BarreController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{barre}', [App\Http\Controllers\Questionnaires\BarreController::class, 'update'])->name('update');
+        Route::delete('/{barre}', [App\Http\Controllers\Questionnaires\BarreController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('questionnaires/finger-tapping')->name('questionnaires.finger-tapping.')
+        ->middleware('module.access:finger_tapping')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'store'])->name('store');
+        Route::get('/{fingerTapping}', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'show'])->name('show');
+        Route::get('/{fingerTapping}/edit', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{fingerTapping}', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'update'])->name('update');
+        Route::delete('/{fingerTapping}', [App\Http\Controllers\Questionnaires\FingerTappingController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('questionnaires/mingazzini')->name('questionnaires.mingazzini.')
+        ->middleware('module.access:mingazzini')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'store'])->name('store');
+        Route::get('/{mingazzini}', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'show'])->name('show');
+        Route::get('/{mingazzini}/edit', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{mingazzini}', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'update'])->name('update');
+        Route::delete('/{mingazzini}', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('questionnaires/raimiste')->name('questionnaires.raimiste.')
+        ->middleware('module.access:raimiste')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'store'])->name('store');
+        Route::get('/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'show'])->name('show');
+        Route::get('/{raimiste}/edit', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'update'])->name('update');
+        Route::delete('/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('questionnaires/wartenberg')->name('questionnaires.wartenberg.')
+        ->middleware('module.access:wartenberg')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'store'])->name('store');
+        Route::get('/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'show'])->name('show');
+        Route::get('/{wartenberg}/edit', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'update'])->name('update');
+        Route::delete('/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('questionnaires/epley')->name('questionnaires.epley.')
+        ->middleware('module.access:epley')->group(function () {
+        Route::get('/', [App\Http\Controllers\Questionnaires\EpleyController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Questionnaires\EpleyController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Questionnaires\EpleyController::class, 'store'])->name('store');
+        Route::get('/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'show'])->name('show');
+        Route::get('/{epley}/edit', [App\Http\Controllers\Questionnaires\EpleyController::class, 'edit'])->name('edit');
+        Route::match(['put', 'post'], '/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'update'])->name('update');
+        Route::delete('/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'destroy'])->name('destroy');
+    });
+
     // Rutas específicas para Electroencefalograma
     Route::prefix('questionnaires/electroencefalograma')->name('questionnaires.electroencefalograma.')
         ->middleware('module.access:electroencefalograma')->group(function () {

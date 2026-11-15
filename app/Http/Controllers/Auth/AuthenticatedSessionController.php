@@ -33,7 +33,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Every login starts at the questionnaire catalog, even after a session expires.
+        $request->session()->forget('url.intended');
+
+        return redirect()->route('questionnaires.index');
     }
 
     /**

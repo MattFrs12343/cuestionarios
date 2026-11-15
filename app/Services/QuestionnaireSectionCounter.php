@@ -8,7 +8,7 @@ use RuntimeException;
  * Cuenta las secciones de un cuestionario leyendo su formulario JSX.
  *
  * Es la fuente de verdad que sostiene la regla comercial de los laudos:
- * 3-4 secciones → nivel C (Bs 250), 5-6 → B (Bs 350), 7+ → A (Bs 450).
+ * 3-4 secciones → nivel C (Bs 300), 5-6 → B (Bs 400), 7+ → A (Bs 500).
  *
  * Reglas de conteo (verificadas contra los 12 cuestionarios actuales):
  *
@@ -87,9 +87,9 @@ class QuestionnaireSectionCounter
     public static function priceFor(int $sections): ?int
     {
         return match (self::levelFor($sections)) {
-            'C' => 250,
-            'B' => 350,
-            'A' => 450,
+            'C' => 300,
+            'B' => 400,
+            'A' => 500,
             default => null,
         };
     }

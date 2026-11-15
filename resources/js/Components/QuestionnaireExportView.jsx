@@ -1,3 +1,6 @@
+import { QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
+import BarreExport from '@/Pages/Questionnaires/Barre/Export';
+import EpleyExport from '@/Pages/Questionnaires/Epley/Export';
 import { formatDateShort } from '@/Utils/dateFormatter';
 
 /**
@@ -29,11 +32,15 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         </div>
     );
 
+    if (type === 'barre') return <BarreExport questionnaire={questionnaire} />;
+
+    if (type === 'epley') return <EpleyExport questionnaire={questionnaire} />;
+
     if (type === 'electroencefalograma') {
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '11px' }}>
                 {/* Header */}
-                <div className="bg-blue-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.electroencefalograma.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - EEG</h1>
@@ -162,7 +169,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '6mm 8mm 8mm 8mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
                 {/* Header */}
-                <div className="bg-purple-600 text-white px-3 py-1 mb-1.5" style={{ borderRadius: '3px' }}>
+                <div className={QT.potencial.header + " px-3 py-1 mb-1.5"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Potencial Evocado</h1>
@@ -277,7 +284,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '7mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
                 {/* Header */}
-                <div className="bg-indigo-600 text-white px-2 py-1 mb-2" style={{ borderRadius: '3px' }}>
+                <div className={QT.electroneuromiografia.header + " px-2 py-1 mb-2"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-xs font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - ENMG</h1>
@@ -424,7 +431,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '11px' }}>
                 {/* Header */}
-                <div className="bg-orange-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.electroneuromiografia_facial.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - ENMG Facial</h1>
@@ -520,7 +527,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
                 {/* Header */}
-                <div className="bg-yellow-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                <div className={QT.equilibrio.header + " px-3 py-2 mb-2"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Avaliação do Equilíbrio</h1>
@@ -600,7 +607,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
                 {/* Header */}
-                <div className="bg-teal-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                <div className={QT.rastreio_cognitivo.header + " px-3 py-2 mb-2"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Rastreio Cognitivo</h1>
@@ -677,7 +684,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '8mm', fontFamily: 'Arial, sans-serif', fontSize: '9px' }}>
                 {/* Header */}
-                <div className="bg-sky-600 text-white px-3 py-2 mb-2" style={{ borderRadius: '3px' }}>
+                <div className={QT.mini_exame_mental.header + " px-3 py-2 mb-2"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Mini Exame do Estado Mental</h1>
@@ -792,7 +799,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
-                <div className="bg-indigo-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.tdah_adulto.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - TDAH</h1>
@@ -896,7 +903,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
-                <div className="bg-pink-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.tdah_infantil.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - TDAH</h1>
@@ -968,7 +975,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         const boolVal = (v) => (v ? 'Sim' : 'Não');
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
-                <div className="bg-violet-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.dinamometro.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Dinamômetro</h1>
@@ -1095,7 +1102,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         );
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
-                <div className="bg-red-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.estesiometria.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Estesiometria</h1>
@@ -1167,7 +1174,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         const listLabel = (arr) => (Array.isArray(arr) && arr.length > 0 ? arr.join(', ') : '-');
         return (
             <div className="bg-white" style={{ width: '210mm', height: '297mm', padding: '10mm', fontFamily: 'Arial, sans-serif', fontSize: '10px' }}>
-                <div className="bg-cyan-600 text-white px-3 py-2 mb-3" style={{ borderRadius: '3px' }}>
+                <div className={QT.dinamometria_mmii.header + " px-3 py-2 mb-3"} style={{ borderRadius: '3px' }}>
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-sm font-bold mb-0" style={{ lineHeight: '1.2' }}>Sistema de Questionários - Dinamometria MMII</h1>

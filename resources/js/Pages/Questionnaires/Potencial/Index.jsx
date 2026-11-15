@@ -1,9 +1,10 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
-import PrimaryButton from '@/Components/PrimaryButton';
-import SecondaryButton from '@/Components/SecondaryButton';
+import { QuestionnairePrimaryButton as PrimaryButton } from '@/Components/Questionnaires/presentation';
+import { QuestionnaireSecondaryButton as SecondaryButton } from '@/Components/Questionnaires/presentation';
 import DangerButton from '@/Components/DangerButton';
 import TextInput from '@/Components/TextInput';
 import Modal from '@/Components/Modal';
@@ -109,16 +110,16 @@ export default function Index({ auth, questionnaires, filters, can }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-zinc-200 leading-tight">
+                <div className="flex justify-between items-center flex-wrap gap-4">
+                    <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
                         {t('Questionários de Potencial Evocado')}
                     </h2>
                     <div className="flex items-center gap-2">
                         <Link
                             href={route('questionnaires.index')}
-                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                            className={QA.neutral}
                         >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>
                             Voltar
@@ -152,7 +153,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                             onChange={(e) => setSearchFilters(prev => ({ ...prev, search: e.target.value }))}
                                             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                                             placeholder={t('Buscar por nombre o RG...')}
-                                            className="w-full pl-10 pr-4 py-2.5 rounded-lg border-gray-300 dark:border-zinc-500 focus:ring-2 focus:ring-indigo-500 dark:bg-zinc-800"
+                                            className="w-full pl-10 pr-4 py-2.5 rounded-lg border-gray-300 dark:border-zinc-500 focus:ring-2 focus:ring-blue-600 dark:bg-zinc-800"
                                         />
                                     </div>
                                 </div>
@@ -226,7 +227,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                     </div>
                                     
                                     {hasActiveFilters && (
-                                        <div className="mt-4 flex justify-end">
+                                        <div className="mt-4 flex justify-end flex-wrap items-center gap-3">
                                             <button
                                                 onClick={() => {
                                                     setSearchFilters({
@@ -336,10 +337,10 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <div className="flex justify-end gap-2">
+                                                <div className="flex justify-end flex-wrap items-center gap-3">
                                                     <Link
                                                         href={route('questionnaires.potencial.show', questionnaire.id)}
-                                                        className="inline-flex items-center px-3 py-1.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-colors"
+                                                        className={QA.view}
                                                     >
                                                         <EyeIcon className="h-4 w-4" />
                                                     </Link>
@@ -347,12 +348,12 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                         questionnaire={questionnaire}
                                                         exportingId={exportingId}
                                                         onExport={handleExportToJPG}
-                                                        className="inline-flex items-center px-3 py-1.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-lg hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                                        className={QA.iconExport}
                                                     />
                                                     {can.edit && (
                                                         <Link
                                                             href={route('questionnaires.potencial.edit', questionnaire.id)}
-                                                            className="inline-flex items-center px-3 py-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors"
+                                                            className={QA.primary}
                                                         >
                                                             <PencilIcon className="h-4 w-4" />
                                                         </Link>
@@ -391,7 +392,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                     <h3 className="text-lg font-bold text-white">
                                                         {questionnaire.nome}
                                                     </h3>
-                                                    <p className="text-sm text-indigo-100">
+                                                    <p className={QT.potencial.caption + " text-sm"}>
                                                         {questionnaire.idade} {t('anos')}
                                                     </p>
                                                 </div>
@@ -450,7 +451,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                         <div className="flex gap-2">
                                             <Link
                                                 href={route('questionnaires.potencial.show', questionnaire.id)}
-                                                className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm"
+                                                className={QA.view}
                                             >
                                                 <EyeIcon className="h-4 w-4 mr-2" />
                                                 {t('Ver')}
@@ -459,14 +460,14 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                                 questionnaire={questionnaire}
                                                 exportingId={exportingId}
                                                 onExport={handleExportToJPG}
-                                                className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                                className={QA.iconExport}
                                             >
                                                 <span className="ml-2">{t('Exportar')}</span>
                                             </ExportButton>
                                             {can.edit && (
                                                 <Link
                                                     href={route('questionnaires.potencial.edit', questionnaire.id)}
-                                                    className="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-medium transition-colors shadow-sm"
+                                                    className={QA.primary}
                                                 >
                                                     <PencilIcon className="h-4 w-4 mr-2" />
                                                     {t('Editar')}
@@ -492,7 +493,7 @@ export default function Index({ auth, questionnaires, filters, can }) {
                                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-zinc-600 rounded-full mb-4">
                                     <MagnifyingGlassIcon className="h-8 w-8 text-gray-400" />
                                 </div>
-                                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-2">
+                                <h3 className="text-gray-900 dark:text-zinc-100 mb-2 font-semibold text-xl">
                                     {t('Nenhum questionário encontrado')}
                                 </h3>
                                 <p className="text-gray-500 dark:text-zinc-400">
@@ -539,13 +540,13 @@ export default function Index({ auth, questionnaires, filters, can }) {
             {/* Modal de confirmação de exclusão */}
             <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
                 <div className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
+                    <h2 className="text-gray-900 dark:text-zinc-100 text-xl font-semibold">
                         {t('Confirmar Exclusão')}
                     </h2>
                     <p className="mt-1 text-sm text-gray-600 dark:text-zinc-400">
                         {t('Tem certeza que deseja excluir este questionário? Esta ação não pode ser desfeita.')}
                     </p>
-                    <div className="mt-6 flex justify-end space-x-3">
+                    <div className="mt-6 flex justify-end flex-wrap items-center gap-3">
                         <SecondaryButton onClick={() => setShowDeleteModal(false)}>
                             {t('Cancelar')}
                         </SecondaryButton>

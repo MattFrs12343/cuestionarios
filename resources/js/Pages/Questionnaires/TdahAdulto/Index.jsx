@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
@@ -127,18 +128,18 @@ export default function TdahAdultoIndex({
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg shadow-lg">
+                        <div className={QT.tdah_adulto.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">TDAH Adulto</h2>
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">TDAH Adulto</h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">Escala ASRS-18</p>
                         </div>
                     </div>
-                    <Link href={route('questionnaires.index')} className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                    <Link href={route('questionnaires.index')} className={QA.neutral}>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                         Voltar
                     </Link>
                 </div>
@@ -149,12 +150,12 @@ export default function TdahAdultoIndex({
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 dark:from-indigo-600 dark:to-indigo-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-                            <p className="text-indigo-100 text-xs font-medium uppercase tracking-wide">Total de Exames</p>
+                        <div className={QT.tdah_adulto.header + " rounded-xl shadow-lg p-5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200"}>
+                            <p className={QT.tdah_adulto.caption + " text-xs font-medium uppercase tracking-wide"}>Total de Exames</p>
                             <p className="text-3xl font-bold mt-2">{stats.total}</p>
                         </div>
-                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg p-5 text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
-                            <p className="text-blue-100 text-xs font-medium uppercase tracking-wide">Este Mês</p>
+                        <div className={QT.tdah_adulto.header + " rounded-xl shadow-lg p-5 hover:-translate-y-1 hover:shadow-xl transition-all duration-200"}>
+                            <p className={QT.tdah_adulto.caption + " text-xs font-medium uppercase tracking-wide"}>Este Mês</p>
                             <p className="text-3xl font-bold mt-2">{stats.thisMonth}</p>
                         </div>
                     </div>
@@ -163,14 +164,14 @@ export default function TdahAdultoIndex({
                         <div className="p-6">
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-zinc-100 flex items-center">
+                                    <h3 className="text-gray-900 dark:text-zinc-100 flex items-center font-semibold text-xl">
                                         <span className="w-1 h-8 bg-gradient-to-b from-indigo-500 to-blue-600 rounded-full mr-3"></span>
                                         Questionários TDAH Adulto (ASRS-18)
                                     </h3>
                                 </div>
                                 {can.create && (
-                                    <Link href={route('questionnaires.tdah-adulto.create')} className="inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-blue-600 dark:from-indigo-600 dark:to-blue-700 hover:from-indigo-600 hover:to-blue-700 dark:hover:from-indigo-700 dark:hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                                    <Link href={route('questionnaires.tdah-adulto.create')} className={QA.primary}>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
                                         Novo Questionário
                                     </Link>
                                 )}
@@ -182,13 +183,13 @@ export default function TdahAdultoIndex({
                                     <h4 className="text-sm font-semibold text-gray-700 dark:text-zinc-300 uppercase tracking-wide">Filtros de Busca</h4>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                                    <input type="text" placeholder="Buscar por nome..." value={search} onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
-                                    <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
-                                    <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
-                                    <input type="text" placeholder="Buscar por clínica..." value={clinica} onChange={(e) => setClinica(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 text-sm transition-colors" />
+                                    <input type="text" placeholder="Buscar por nome..." value={search} onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 text-sm transition-colors" />
+                                    <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 text-sm transition-colors" />
+                                    <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 text-sm transition-colors" />
+                                    <input type="text" placeholder="Buscar por clínica..." value={clinica} onChange={(e) => setClinica(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSearch()} className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 text-sm transition-colors" />
                                     <div className="flex gap-2">
-                                        <button onClick={handleSearch} className="flex-1 px-4 py-2 bg-indigo-500 dark:bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 transition-colors duration-200">Buscar</button>
-                                        <button onClick={clearFilters} className="flex-1 px-4 py-2 bg-gray-500 dark:bg-zinc-500 text-white text-sm font-medium rounded-md hover:bg-gray-600 dark:hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-zinc-500 transition-colors duration-200">Limpar</button>
+                                        <button onClick={handleSearch} className={QA.primary}>Buscar</button>
+                                        <button onClick={clearFilters} className={QA.neutral}>Limpar</button>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +202,7 @@ export default function TdahAdultoIndex({
                                             <div className="p-4">
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div className="flex-1">
-                                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-zinc-100">{questionnaire.nome_completo}</h3>
+                                                        <h3 className="text-gray-900 dark:text-zinc-100 font-semibold text-xl">{questionnaire.nome_completo}</h3>
                                                         <p className="text-sm text-gray-600 dark:text-zinc-400 mt-1">{questionnaire.sexo} - {questionnaire.data_nascimento ? formatDateShort(questionnaire.data_nascimento) : 'Não especificada'}</p>
                                                     </div>
                                                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
@@ -213,22 +214,22 @@ export default function TdahAdultoIndex({
                                                     <div className="flex items-center text-sm"><span className="font-medium text-gray-700 dark:text-zinc-300 w-24">Clínica:</span><span className="text-gray-900 dark:text-zinc-100">{questionnaire.clinica || '-'}</span></div>
                                                 </div>
                                                 <div className="flex justify-center gap-3 pt-3 border-t border-gray-200 dark:border-zinc-600">
-                                                    <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-indigo-600 dark:bg-indigo-700 text-white rounded-full hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors duration-200" title="Ver questionário">
+                                                    <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className={QA.iconView} title="Ver questionário">
                                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                                     </Link>
                                                     <ExportButton
                                                         questionnaire={questionnaire}
                                                         exportingId={exportingId}
                                                         onExport={handleExportToJPG}
-                                                        className="flex items-center justify-center w-10 h-10 bg-teal-600 dark:bg-teal-700 text-white rounded-full hover:bg-teal-700 dark:hover:bg-teal-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                        className={QA.iconExport}
                                                     />
                                                     {can.edit && (
-                                                        <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className="flex items-center justify-center w-10 h-10 bg-purple-600 dark:bg-purple-700 text-white rounded-full hover:bg-purple-700 dark:hover:bg-purple-800 transition-colors duration-200" title="Editar questionário">
+                                                        <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className={QA.iconPrimary} title="Editar questionário">
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                         </Link>
                                                     )}
                                                     {can.delete && (
-                                                        <button onClick={() => deleteQuestionnaire(questionnaire)} className="flex items-center justify-center w-10 h-10 bg-red-600 dark:bg-red-700 text-white rounded-full hover:bg-red-700 dark:hover:bg-red-800 transition-colors duration-200" title="Excluir questionário">
+                                                        <button onClick={() => deleteQuestionnaire(questionnaire)} className={QA.iconDelete} title="Excluir questionário">
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                                         </button>
                                                     )}
@@ -276,22 +277,22 @@ export default function TdahAdultoIndex({
                                                     </td>
                                                     <td className="px-6 py-4 text-sm font-medium">
                                                         <div className="flex space-x-2">
-                                                            <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-indigo-600 dark:text-indigo-400 hover:text-white bg-indigo-50 dark:bg-indigo-900/20 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-indigo-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Ver questionário">
+                                                            <Link href={route('questionnaires.tdah-adulto.show', questionnaire.id)} className={QA.iconView} title="Ver questionário">
                                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                                             </Link>
                                                             <ExportButton
                                                                 questionnaire={questionnaire}
                                                                 exportingId={exportingId}
                                                                 onExport={handleExportToJPG}
-                                                                className="inline-flex items-center justify-center w-9 h-9 text-teal-600 dark:text-teal-400 hover:text-white bg-teal-50 dark:bg-teal-900/20 hover:bg-gradient-to-br hover:from-teal-500 hover:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 rounded-lg transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                                className={QA.iconExport}
                                                             />
                                                             {can.edit && (
-                                                                <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className="inline-flex items-center justify-center w-9 h-9 text-blue-600 dark:text-blue-400 hover:text-white bg-blue-50 dark:bg-blue-900/20 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Editar questionário">
+                                                                <Link href={route('questionnaires.tdah-adulto.edit', questionnaire.id)} className={QA.iconPrimary} title="Editar questionário">
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                                 </Link>
                                                             )}
                                                             {can.delete && (
-                                                                <button onClick={() => deleteQuestionnaire(questionnaire)} className="inline-flex items-center justify-center w-9 h-9 text-red-600 dark:text-red-400 hover:text-white bg-red-50 dark:bg-red-900/20 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 rounded-lg transition-all duration-200 hover:shadow-md" title="Excluir questionário">
+                                                                <button onClick={() => deleteQuestionnaire(questionnaire)} className={QA.iconDelete} title="Excluir questionário">
                                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                                                 </button>
                                                             )}

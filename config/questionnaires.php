@@ -29,8 +29,8 @@ use App\Models\TdahInfantil;
  *   en team_modules (reemplaza el hack de "equipo Rojo").
  * - "jsx" = ruta relativa a resources/js/Pages del formulario del cuestionario.
  * - "precio" = clasificación comercial del laudo: cuántas secciones tiene ese
- *   formulario, su nivel y su precio en Bs. Regla: 3-4 secciones → C (Bs 250),
- *   5-6 → B (Bs 350), 7+ → A (Bs 450). El test PricingClassificationTest y el
+ *   formulario, su nivel y su precio en Bs. Regla: 3-4 secciones → C (Bs 300),
+ *   5-6 → B (Bs 400), 7+ → A (Bs 500). El test PricingClassificationTest y el
  *   comando `php artisan laudos:clasificar` fallan si un tipo nuevo no tiene
  *   "precio", si el JSX detectado no coincide con "secciones" o si nivel/precio
  *   no respetan la regla: la alerta que corre antes de construir nuevos
@@ -39,6 +39,72 @@ use App\Models\TdahInfantil;
 return [
 
     'types' => [
+        'wartenberg' => [
+            'model' => \App\Models\Wartenberg::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'wartenberg',
+            'label' => 'Teste de Wartenberg',
+            'description' => 'Avaliação do sinal do dedo mínimo e da função motora do nervo ulnar',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/Wartenberg/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
+        'raimiste' => [
+            'model' => \App\Models\Raimiste::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'raimiste',
+            'label' => 'Manobra de Raimiste',
+            'description' => 'Avaliação da sustentação e controle motor dos membros superiores',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/Raimiste/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
+        'mingazzini' => [
+            'model' => \App\Models\Mingazzini::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'mingazzini',
+            'label' => 'Manobra de Mingazzini — MMSS e MMII',
+            'description' => 'Avaliação conjunta da força e sustentação de membros inferiores e superiores',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/Mingazzini/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
+        'finger_tapping' => [
+            'model' => \App\Models\FingerTapping::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'finger-tapping',
+            'label' => 'Manobra de Finger Tapping',
+            'description' => 'Avaliação da velocidade, amplitude, ritmo e coordenação dos dedos',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/FingerTapping/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
+        'barre' => [
+            'model' => \App\Models\Barre::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'barre',
+            'label' => 'Manobra de Barré',
+            'description' => 'Avaliação da força e sustentação dos membros inferiores',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/Barre/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
+        'epley' => [
+            'model' => \App\Models\Epley::class,
+            'name_field' => 'nome_completo',
+            'slug' => 'epley',
+            'label' => 'Manobra de Epley',
+            'description' => 'Avaliação vestibular e registro da manobra de Epley',
+            'color' => 'bg-teal-500',
+            'core' => false,
+            'jsx' => 'Questionnaires/Epley/Create.jsx',
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
+        ],
         'electroencefalograma' => [
             'model' => Questionnaire::class,
             'name_field' => 'nome_completo',
@@ -48,7 +114,7 @@ return [
             'color' => 'bg-blue-500',
             'core' => true,
             'jsx' => 'Questionnaires/Electroencefalograma/Create.jsx',
-            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 350],
+            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 400],
         ],
         'electroneuromiografia' => [
             'model' => Electroneuromiografia::class,
@@ -59,7 +125,7 @@ return [
             'color' => 'bg-purple-500',
             'core' => true,
             'jsx' => 'Questionnaires/Electroneuromiografia/Create.jsx',
-            'precio' => ['secciones' => 7, 'nivel' => 'A', 'bs' => 450],
+            'precio' => ['secciones' => 7, 'nivel' => 'A', 'bs' => 500],
         ],
         'potencial' => [
             'model' => Potencial::class,
@@ -70,7 +136,7 @@ return [
             'color' => 'bg-green-500',
             'core' => true,
             'jsx' => 'Questionnaires/Potencial/Create.jsx',
-            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 350],
+            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 400],
         ],
         'electroneuromiografia_facial' => [
             'model' => ElectroneuromiografiaFacial::class,
@@ -81,7 +147,7 @@ return [
             'color' => 'bg-orange-500',
             'core' => true,
             'jsx' => 'Questionnaires/ElectroneuromiografiaFacial/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 250],
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
         ],
         'rastreio_cognitivo' => [
             'model' => RastreioCognitivo::class,
@@ -92,7 +158,7 @@ return [
             'color' => 'bg-teal-500',
             'core' => true,
             'jsx' => 'Questionnaires/RastreioCognitivo/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 250],
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
         ],
         'equilibrio' => [
             'model' => AvaliacaoEquilibrio::class,
@@ -103,7 +169,7 @@ return [
             'color' => 'bg-yellow-500',
             'core' => true,
             'jsx' => 'Questionnaires/AvaliacaoEquilibrio/Create.jsx',
-            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 350],
+            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 400],
         ],
         'mini_exame_mental' => [
             'model' => MiniExameMental::class,
@@ -114,7 +180,7 @@ return [
             'color' => 'bg-blue-500',
             'core' => true,
             'jsx' => 'Questionnaires/MiniExameMental/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 250],
+            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
         ],
         'estesiometria' => [
             'model' => Estesiometria::class,
@@ -125,7 +191,7 @@ return [
             'color' => 'bg-red-500',
             'core' => false,
             'jsx' => 'Questionnaires/Estesiometria/Create.jsx',
-            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 350],
+            'precio' => ['secciones' => 5, 'nivel' => 'B', 'bs' => 400],
         ],
         'tdah_infantil' => [
             'model' => TdahInfantil::class,
@@ -136,7 +202,7 @@ return [
             'color' => 'bg-violet-500',
             'core' => false,
             'jsx' => 'Questionnaires/TdahInfantil/Create.jsx',
-            'precio' => ['secciones' => 3, 'nivel' => 'C', 'bs' => 250],
+            'precio' => ['secciones' => 3, 'nivel' => 'C', 'bs' => 300],
         ],
         'tdah_adulto' => [
             'model' => TdahAdulto::class,
@@ -147,7 +213,7 @@ return [
             'color' => 'bg-indigo-500',
             'core' => false,
             'jsx' => 'Questionnaires/TdahAdulto/Create.jsx',
-            'precio' => ['secciones' => 3, 'nivel' => 'C', 'bs' => 250],
+            'precio' => ['secciones' => 3, 'nivel' => 'C', 'bs' => 300],
         ],
         'dinamometro' => [
             'model' => Dinamometro::class,
@@ -158,7 +224,7 @@ return [
             'color' => 'bg-violet-500',
             'core' => false,
             'jsx' => 'Questionnaires/Dinamometro/Create.jsx',
-            'precio' => ['secciones' => 9, 'nivel' => 'A', 'bs' => 450],
+            'precio' => ['secciones' => 9, 'nivel' => 'A', 'bs' => 500],
         ],
         'dinamometria_mmii' => [
             'model' => DinamometriaMmii::class,
@@ -169,7 +235,7 @@ return [
             'color' => 'bg-cyan-500',
             'core' => false,
             'jsx' => 'Questionnaires/DinamometriaMmii/Create.jsx',
-            'precio' => ['secciones' => 8, 'nivel' => 'A', 'bs' => 450],
+            'precio' => ['secciones' => 8, 'nivel' => 'A', 'bs' => 500],
         ],
     ],
 

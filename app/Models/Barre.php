@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Concerns\HasAttachments;
+use App\Models\Concerns\UppercasesTextAttributes;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Barre extends Model
+{
+    use HasAttachments, HasFactory, UppercasesTextAttributes;
+
+    public const ALTERACOES = [
+        'queda_progressiva_direita', 'queda_progressiva_esquerda',
+        'queda_subita_direita', 'queda_subita_esquerda',
+        'perda_flexao_direita', 'perda_flexao_esquerda',
+        'tremor_oscilacao', 'fadiga', 'dor', 'incapacidade', 'sem_alteracoes',
+    ];
+
+    protected $table = 'barres';
+
+    protected $fillable = [
+        'nome_completo',
+        'rg_ou_cpf',
+        'data_nascimento',
+        'sexo',
+        'clinica',
+        'data_exame',
+        'sustenta_60_segundos',
+        'queda_progressiva',
+        'queda_lados',
+        'tremor_oscilacao',
+        'tremor_lados',
+        'assimetria',
+        'assimetria_lado',
+        'interrupcao',
+        'interrupcao_lados',
+        'tempo_direito_segundos',
+        'tempo_esquerdo_segundos',
+        'alteracoes',
+        'nome_avaliador',
+        'cid',
+        'comentario',
+        'assinatura_paciente',
+        'pedido_medico',
+        'team_id',
+        'created_by',
+        'updated_by',
+    ];
+
+    protected $casts = [
+        'data_nascimento' => 'date',
+        'data_exame' => 'date',
+        'sustenta_60_segundos' => 'boolean',
+        'queda_progressiva' => 'boolean',
+        'queda_lados' => 'array',
+        'tremor_oscilacao' => 'boolean',
+        'tremor_lados' => 'array',
+        'assimetria' => 'boolean',
+        'interrupcao' => 'boolean',
+        'interrupcao_lados' => 'array',
+        'tempo_direito_segundos' => 'integer',
+        'tempo_esquerdo_segundos' => 'integer',
+        'alteracoes' => 'array',
+    ];
+
+    protected $appends = [
+        'idade',
+        'last_modified_by',
+    ];
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    protected function idade(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (! $this->data_nascimento) {
+                    return null;
+                }
+
+                $birthDate = Carbon::parse($this->data_nascimento);
+                $examDate = $this->data_exame ? Carbon::parse($this->data_exame) : Carbon::now();
+
+                if ($examDate->lt($birthDate)) {
+                    return '0 anos';
+                }
+
+                $years = $examDate->year - $birthDate->year;
+
+                if ($examDate->month < $birthDate->month ||
+                    ($examDate->month == $birthDate->month && $examDate->day < $birthDate->day)) {
+                    $years--;
+                }
+
+                if ($years < 1) {
+                    $months = 0;
+                    $tempDate = $birthDate->copy();
+
+                    while ($tempDate->addMonth()->lte($examDate)) {
+                        $months++;
+                    }
+
+                    return $months.($months == 1 ? ' mês' : ' meses');
+                }
+
+                return $years.($years == 1 ? ' ano' : ' anos');
+            }
+        );
+    }
+
+    public function getLastModifiedByAttribute(): string
+    {
+        if ($this->updated_by && $this->editor) {
+            return "{$this->updated_at->format('d/m/Y H:i')} por {$this->editor->name}";
+        }
+
+        if ($this->creator) {
+            return "{$this->created_at->format('d/m/Y H:i')} por {$this->creator->name}";
+        }
+
+        return $this->created_at->format('d/m/Y H:i');
+    }
+}

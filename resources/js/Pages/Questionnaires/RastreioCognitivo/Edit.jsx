@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
@@ -28,7 +29,7 @@ const ScoreField = ({ label, field, max, help, value, onChange, errors, drawing 
                 if (digits !== '' && parseInt(digits, 10) > max) digits = String(max);
                 onChange(field, digits);
             }}
-            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-lg font-semibold py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200"
+            className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-lg font-semibold py-2.5 px-4 focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200"
         />
         {errors[field] && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors[field]}</div>}
         {drawing && (
@@ -176,23 +177,23 @@ export default function Edit({ auth, questionnaire }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-4">
                     <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg shadow-lg">
+                        <div className={QT.rastreio_cognitivo.header + " p-2 rounded-lg shadow-lg"}>
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                         </div>
                         <div>
-                            <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Editar Questionário</h2>
+                            <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">Editar Questionário</h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">Rastreio Cognitivo (MoCA)</p>
                         </div>
                     </div>
                     <Link
                         href={route('questionnaires.rastreio-cognitivo.index')}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-gray-300 dark:border-zinc-500 rounded-lg hover:bg-gray-50 dark:hover:bg-zinc-600 transition-all duration-200 shadow-sm hover:shadow"
+                        className={QA.neutral}
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -203,16 +204,16 @@ export default function Edit({ auth, questionnaire }) {
             <Head title="Editar Questionário - Rastreio Cognitivo" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
-                        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 dark:from-teal-600 dark:to-cyan-700 px-6 py-4">
+                        <div className={QT.rastreio_cognitivo.header + " px-6 py-4"}>
                             <div className="flex items-center">
                                 <svg className="w-8 h-8 text-white mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                                 <div>
                                     <h3 className="text-xl font-bold text-white">Editar Rastreio Cognitivo</h3>
-                                    <p className="text-sm text-teal-100">MoCA - Folha de Pontuação Rápida</p>
+                                    <p className={QT.rastreio_cognitivo.caption + " text-sm"}>MoCA - Folha de Pontuação Rápida</p>
                                 </div>
                             </div>
                         </div>
@@ -222,19 +223,19 @@ export default function Edit({ auth, questionnaire }) {
                                 {/* Dados básicos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-teal-500 to-cyan-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Dados Básicos</h3>
+                                        <div className={QT.rastreio_cognitivo.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Dados Básicos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Nome do Paciente *</label>
-                                            <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.nome_completo} onChange={(e) => setData('nome_completo', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.nome_completo && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_completo}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">RG ou CPF *</label>
-                                            <input type="text" spellCheck={false} value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" required />
+                                            <input type="text" spellCheck={false} value={data.rg_ou_cpf} onChange={(e) => setData('rg_ou_cpf', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" required />
                                             {errors.rg_ou_cpf && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.rg_ou_cpf}</div>}
                                         </div>
 
@@ -247,7 +248,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Sexo *</label>
-                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required>
+                                            <select value={data.sexo} onChange={(e) => setData('sexo', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" required>
                                                 <option value="">Selecione...</option>
                                                 <option value="Masculino">Masculino</option>
                                                 <option value="Feminino">Feminino</option>
@@ -257,13 +258,13 @@ export default function Edit({ auth, questionnaire }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Data do Exame *</label>
-                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" required />
+                                            <input type="date" value={data.data_exame} onChange={(e) => setData('data_exame', e.target.value)} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" required />
                                             {errors.data_exame && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.data_exame}</div>}
                                         </div>
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Clínica</label>
-                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200 uppercase" />
+                                            <input type="text" spellCheck={false} value={data.clinica} onChange={(e) => setData('clinica', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-md shadow-sm focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200 uppercase" />
                                             {errors.clinica && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.clinica}</div>}
                                         </div>
 
@@ -273,8 +274,8 @@ export default function Edit({ auth, questionnaire }) {
                                 {/* Instruções de Aplicação */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-teal-500 to-cyan-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Instruções de Aplicação em Tempo Real</h3>
+                                        <div className={QT.rastreio_cognitivo.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Instruções de Aplicação em Tempo Real</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         {APPLICATION_INSTRUCTIONS.map((item) => (
@@ -286,8 +287,8 @@ export default function Edit({ auth, questionnaire }) {
                                 {/* Folha de Pontuação Rápida */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-6">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Folha de Pontuação Rápida</h3>
+                                        <div className={QT.rastreio_cognitivo.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Folha de Pontuação Rápida</h3>
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
@@ -309,7 +310,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                     {/* Resultado da avaliação */}
                                     <div className="mt-6 pt-6 border-t border-gray-200 dark:border-zinc-500">
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-4">Resultado da Avaliação</h4>
+                                        <h4 className="text-lg text-gray-900 dark:text-zinc-100 mb-4 font-semibold">Resultado da Avaliação</h4>
                                         {/* Card destacado: pontuação total + ajuste de escolaridade */}
                                         <div className="flex flex-col sm:flex-row sm:items-center gap-6 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-xl p-6 mb-6">
                                             <div className="text-center sm:text-left">
@@ -324,7 +325,7 @@ export default function Edit({ auth, questionnaire }) {
                                                     type="checkbox"
                                                     checked={data.ajuste_escolaridade}
                                                     onChange={(e) => setData('ajuste_escolaridade', e.target.checked)}
-                                                    className="mr-3 w-5 h-5 text-indigo-600 dark:text-indigo-500 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                                                    className="mr-3 w-5 h-5 text-blue-700 text-blue-700 border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 rounded focus:ring-blue-600 dark:focus:ring-blue-600"
                                                 />
                                                 Ajuste de escolaridade: +1 ponto (≤12 anos de estudo formal)
                                             </label>
@@ -334,20 +335,20 @@ export default function Edit({ auth, questionnaire }) {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div>
                                                 <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">Nome do Avaliador</label>
-                                                <input type="text" spellCheck={false} value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                                <input type="text" spellCheck={false} value={data.nome_avaliador} onChange={(e) => setData('nome_avaliador', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" />
                                                 {errors.nome_avaliador && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.nome_avaliador}</div>}
                                             </div>
 
                                             <div>
                                                 <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">CID</label>
-                                                <input type="text" spellCheck={false} value={data.cid} onChange={(e) => setData('cid', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                                <input type="text" spellCheck={false} value={data.cid} onChange={(e) => setData('cid', e.target.value.toUpperCase())} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" />
                                                 {errors.cid && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.cid}</div>}
                                             </div>
                                         </div>
 
                                         <div className="mt-6">
                                             <label className="block text-base font-semibold text-gray-800 dark:text-zinc-200 mb-1">Comentário</label>
-                                            <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-600 focus:border-indigo-500 dark:focus:border-indigo-600 transition-colors duration-200" />
+                                            <textarea spellCheck={false} value={data.comentario} onChange={(e) => setData('comentario', e.target.value.toUpperCase())} rows={3} className="w-full border-gray-300 dark:border-zinc-500 bg-white dark:bg-zinc-600 text-gray-900 dark:text-zinc-100 rounded-lg shadow-sm text-base py-2.5 px-4 focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-600 focus:border-blue-600 dark:focus:border-blue-600 transition-colors duration-200" />
                                             {errors.comentario && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.comentario}</div>}
                                         </div>
                                     </div>
@@ -356,8 +357,8 @@ export default function Edit({ auth, questionnaire }) {
                                 {/* Arquivos */}
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-3"></div>
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-zinc-100">Arquivos</h3>
+                                        <div className={QT.rastreio_cognitivo.accent + " w-1 h-8 rounded-full mr-3"}></div>
+                                        <h3 className="text-xl text-gray-900 dark:text-zinc-100 font-semibold">Arquivos</h3>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -381,9 +382,9 @@ export default function Edit({ auth, questionnaire }) {
                                 </div>
 
                                 {/* Botões */}
-                                <div className="flex justify-end space-x-3">
-                                    <button type="button" onClick={() => window.history.back()} className="px-6 py-2 bg-gray-500 dark:bg-zinc-500 text-white rounded-lg hover:bg-gray-600 dark:hover:bg-zinc-600 transition-colors duration-200">Cancelar</button>
-                                    <button type="submit" disabled={processing} className="px-6 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 dark:from-teal-600 dark:to-cyan-700 text-white rounded-lg hover:from-teal-600 hover:to-cyan-700 dark:hover:from-teal-700 dark:hover:to-cyan-800 transition-colors duration-200 disabled:opacity-50">{processing ? 'Salvando...' : 'Salvar Alterações'}</button>
+                                <div className="flex justify-end flex-wrap items-center gap-3">
+                                    <button type="button" onClick={() => window.history.back()} className={QA.neutral}>Cancelar</button>
+                                    <button type="submit" disabled={processing} className={QA.primary}>{processing ? 'Salvando...' : 'Salvar Alterações'}</button>
                                 </div>
                             </form>
                         </div>

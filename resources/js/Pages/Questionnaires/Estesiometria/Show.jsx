@@ -1,3 +1,4 @@
+import { QUESTIONNAIRE_ACTIONS as QA, QUESTIONNAIRE_THEMES as QT } from '@/Components/Questionnaires/presentation';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { Head, Link } from '@inertiajs/react';
@@ -7,7 +8,7 @@ import ImageZoomModal from '@/Components/ImageZoomModal';
 
 const PointsSummary = ({ title, points, sideLabels, sideFields }) => (
     <div className="overflow-x-auto">
-        <h4 className="text-base font-bold text-gray-900 dark:text-zinc-100 mb-2">{title}</h4>
+        <h4 className="text-base text-gray-900 dark:text-zinc-100 mb-2 font-semibold">{title}</h4>
         <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-600 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm">
             <thead className="bg-gray-50 dark:bg-zinc-600">
                 <tr>
@@ -48,14 +49,14 @@ export default function Show({ auth, questionnaire, can }) {
             user={auth.user}
             header={
                 <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-br from-red-500 to-rose-600 rounded-lg shadow-lg">
+                    <div className={QT.estesiometria.header + " p-2 rounded-lg shadow-lg"}>
                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="9" strokeWidth={2} />
                             <circle cx="12" cy="12" r="3" strokeWidth={2} />
                         </svg>
                     </div>
                     <div>
-                        <h2 className="font-bold text-xl text-gray-800 dark:text-zinc-200 leading-tight">Visualizar Questionário</h2>
+                        <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">Visualizar Questionário</h2>
                         <p className="text-xs text-gray-600 dark:text-zinc-400">Estesiometria - Avaliação Sensitiva</p>
                     </div>
                 </div>
@@ -64,22 +65,22 @@ export default function Show({ auth, questionnaire, can }) {
             <Head title="Visualizar Questionário - Estesiometria" />
 
             <div className="py-8">
-                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 px-4">
                     <div className="bg-white dark:bg-zinc-700 overflow-hidden shadow-xl dark:shadow-zinc-900/50 rounded-xl border border-gray-200 dark:border-zinc-600 transition-colors duration-200">
-                        <div className="bg-gradient-to-r from-red-500 to-rose-600 dark:from-red-600 dark:to-rose-700 px-6 py-6">
+                        <div className={QT.estesiometria.header + " px-6 py-6"}>
                             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                                 <div>
                                     <h3 className="text-2xl font-bold text-white">{questionnaire.nome_completo}</h3>
-                                    <p className="text-sm text-red-100 mt-1">Idade: {questionnaire.idade}</p>
+                                    <p className={QT.estesiometria.caption + " text-sm mt-1"}>Idade: {questionnaire.idade}</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Link href={route('questionnaires.estesiometria.index')} className="inline-flex items-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg shadow-md transition-all duration-200">
-                                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                                    <Link href={route('questionnaires.estesiometria.index')} className={QA.neutral}>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                                         Voltar
                                     </Link>
                                     {can.edit && (
-                                        <Link href={route('questionnaires.estesiometria.edit', questionnaire.id)} className="inline-flex items-center px-4 py-2 bg-white hover:bg-gray-100 text-red-600 font-semibold rounded-lg shadow-md transition-all duration-200">
-                                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                        <Link href={route('questionnaires.estesiometria.edit', questionnaire.id)} className={QA.primary}>
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                             Editar
                                         </Link>
                                     )}
@@ -89,7 +90,7 @@ export default function Show({ auth, questionnaire, can }) {
 
                         <div className="p-6 text-gray-900 dark:text-zinc-100 space-y-8">
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Dados Básicos</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Dados Básicos</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Data de Nascimento</dt><dd className="text-gray-900 dark:text-zinc-100">{formatDateShort(questionnaire.data_nascimento)}</dd></div>
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Sexo</dt><dd className="text-gray-900 dark:text-zinc-100">{questionnaire.sexo}</dd></div>
@@ -103,7 +104,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Questionário Pré-Exame</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Questionário Pré-Exame</h4>
                                 <ul className="space-y-1 text-sm">
                                     {PRE_EXAM_QUESTIONS.map((q) => (
                                         <li key={q.field} className="flex justify-between border-b border-gray-100 dark:border-zinc-600 py-1">
@@ -120,7 +121,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Resultado e Classificação</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Resultado e Classificação</h4>
                                 <dl className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Pés — % Acerto D / E</dt><dd className="text-gray-900 dark:text-zinc-100">{questionnaire.pes_percent_acerto_d ?? '-'} / {questionnaire.pes_percent_acerto_e ?? '-'}</dd></div>
                                     <div><dt className="text-gray-500 dark:text-zinc-400">Pés — Classificação</dt><dd className="text-gray-900 dark:text-zinc-100 font-semibold">{questionnaire.pes_classificacao || '-'}</dd></div>
@@ -136,7 +137,7 @@ export default function Show({ auth, questionnaire, can }) {
                             </div>
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
-                                <h4 className="text-xl font-bold text-gray-800 dark:text-zinc-200 mb-4">Assinatura</h4>
+                                <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Assinatura</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <dt className="text-sm text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
