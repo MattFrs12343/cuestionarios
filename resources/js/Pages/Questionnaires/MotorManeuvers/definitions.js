@@ -171,6 +171,8 @@ export const definitions = {
     "description": "Avaliação conjunta da força e sustentação de membros inferiores e superiores",
     "groups": [
       {
+        "key": "mmii",
+        "optional": true,
         "title": "Membros inferiores — MMII",
         "objective": "Avaliar a força muscular e identificar paresias discretas dos membros inferiores (MMII), especialmente relacionadas ao comprometimento da via corticoespinal.",
         "steps": [
@@ -343,6 +345,8 @@ export const definitions = {
         ]
       },
       {
+        "key": "mmss",
+        "optional": true,
         "title": "Membros superiores — MMSS",
         "objective": "Avaliar a força muscular, o controle postural e a presença de paresias discretas nos membros superiores, especialmente associadas ao comprometimento da via corticoespinal.",
         "steps": [

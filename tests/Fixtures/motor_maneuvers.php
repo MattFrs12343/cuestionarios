@@ -2,8 +2,6 @@
 
 use App\Models\FingerTapping;
 use App\Models\Mingazzini;
-use App\Models\Raimiste;
-use App\Models\Wartenberg;
 
 return [
     'finger_tapping' => [[
@@ -56,43 +54,5 @@ return [
         'booleans' => ['mmii_sustenta_posicao', 'mmii_queda', 'mmii_tremor', 'mmii_assimetria', 'mmii_interrupcao', 'mmss_sustenta_posicao', 'mmss_queda_pronacao', 'mmss_tremor', 'mmss_assimetria', 'mmss_desconforto'],
         'conditional' => ['mmii_queda_lados' => [], 'mmii_tremor_lados' => [], 'mmii_assimetria_lado' => null, 'mmii_interrupcao_lados' => [], 'mmii_tempo_direito_segundos' => null, 'mmii_tempo_esquerdo_segundos' => null, 'mmss_queda_lados' => [], 'mmss_tremor_lados' => [], 'mmss_assimetria_lado' => null, 'observacoes' => null],
         'invalid' => ['mmii_sustenta_posicao' => null, 'mmii_queda' => null, 'mmii_queda_lados' => ['INVALID'], 'mmii_tremor' => null, 'mmii_tremor_lados' => ['INVALID'], 'mmii_assimetria' => null, 'mmii_assimetria_lado' => 'INVALID', 'mmii_interrupcao' => null, 'mmii_interrupcao_lados' => ['INVALID'], 'mmii_tempo_direito_segundos' => -1, 'mmii_tempo_esquerdo_segundos' => -1, 'mmii_alteracoes' => ['INVALID'], 'mmss_sustenta_posicao' => null, 'mmss_queda_pronacao' => null, 'mmss_queda_lados' => ['INVALID'], 'mmss_tremor' => null, 'mmss_tremor_lados' => ['INVALID'], 'mmss_assimetria' => null, 'mmss_assimetria_lado' => 'INVALID', 'mmss_desconforto' => null, 'observacoes' => [], 'mmss_tempo_direito_segundos' => -1, 'mmss_tempo_esquerdo_segundos' => -1],
-    ]],
-    'raimiste' => [[
-        'key' => 'raimiste', 'slug' => 'raimiste', 'model' => Raimiste::class, 'table' => 'raimistes',
-        'payload' => [
-            'sustenta_posicao' => true,
-            'pronacao_supinacao' => true,
-            'pronacao_lados' => ['Direita', 'Esquerda'],
-            'tremor_oscilacao' => true,
-            'tremor_lados' => ['Direita', 'Esquerda'],
-            'assimetria' => true,
-            'assimetria_lado' => 'Bilateral',
-            'desconforto' => true,
-            'observacoes' => 'Observação de teste',
-            'tempo_direito_segundos' => 0,
-            'tempo_esquerdo_segundos' => 0,
-        ],
-        'booleans' => ['sustenta_posicao', 'pronacao_supinacao', 'tremor_oscilacao', 'assimetria', 'desconforto'],
-        'conditional' => ['pronacao_lados' => [], 'tremor_lados' => [], 'assimetria_lado' => null, 'observacoes' => null],
-        'invalid' => ['sustenta_posicao' => null, 'pronacao_supinacao' => null, 'pronacao_lados' => ['INVALID'], 'tremor_oscilacao' => null, 'tremor_lados' => ['INVALID'], 'assimetria' => null, 'assimetria_lado' => 'INVALID', 'desconforto' => null, 'observacoes' => [], 'tempo_direito_segundos' => -1, 'tempo_esquerdo_segundos' => -1],
-    ]],
-    'wartenberg' => [[
-        'key' => 'wartenberg', 'slug' => 'wartenberg', 'model' => Wartenberg::class, 'table' => 'wartenbergs',
-        'payload' => [
-            'afastamento_involuntario' => true,
-            'afastamento_lados' => ['Direita', 'Esquerda'],
-            'dificuldade_manter' => true,
-            'manter_lados' => ['Direita', 'Esquerda'],
-            'dificuldade_aproximar' => true,
-            'aproximar_lado' => 'Esquerda',
-            'fraqueza_assimetria' => true,
-            'fraqueza_lados' => ['Direita', 'Esquerda'],
-            'alteracao_sensibilidade' => true,
-            'sensibilidade_lados' => ['Direita', 'Esquerda'],
-            'tempo_mantido_segundos' => 0,
-        ],
-        'booleans' => ['afastamento_involuntario', 'dificuldade_manter', 'dificuldade_aproximar', 'fraqueza_assimetria', 'alteracao_sensibilidade'],
-        'conditional' => ['afastamento_lados' => [], 'manter_lados' => [], 'aproximar_lado' => null, 'fraqueza_lados' => [], 'sensibilidade_lados' => []],
-        'invalid' => ['afastamento_involuntario' => null, 'afastamento_lados' => ['INVALID'], 'dificuldade_manter' => null, 'manter_lados' => ['INVALID'], 'dificuldade_aproximar' => null, 'aproximar_lado' => 'INVALID', 'fraqueza_assimetria' => null, 'fraqueza_lados' => ['INVALID'], 'alteracao_sensibilidade' => null, 'sensibilidade_lados' => ['INVALID'], 'tempo_mantido_segundos' => -1],
     ]],
 ];

@@ -84,39 +84,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{mingazzini}', [App\Http\Controllers\Questionnaires\MingazziniController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('questionnaires/raimiste')->name('questionnaires.raimiste.')
-        ->middleware('module.access:raimiste')->group(function () {
-        Route::get('/', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'index'])->name('index');
-        Route::get('/create', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'create'])->name('create');
-        Route::post('/', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'store'])->name('store');
-        Route::get('/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'show'])->name('show');
-        Route::get('/{raimiste}/edit', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'edit'])->name('edit');
-        Route::match(['put', 'post'], '/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'update'])->name('update');
-        Route::delete('/{raimiste}', [App\Http\Controllers\Questionnaires\RaimisteController::class, 'destroy'])->name('destroy');
-    });
-
-    Route::prefix('questionnaires/wartenberg')->name('questionnaires.wartenberg.')
-        ->middleware('module.access:wartenberg')->group(function () {
-        Route::get('/', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'index'])->name('index');
-        Route::get('/create', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'create'])->name('create');
-        Route::post('/', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'store'])->name('store');
-        Route::get('/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'show'])->name('show');
-        Route::get('/{wartenberg}/edit', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'edit'])->name('edit');
-        Route::match(['put', 'post'], '/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'update'])->name('update');
-        Route::delete('/{wartenberg}', [App\Http\Controllers\Questionnaires\WartenbergController::class, 'destroy'])->name('destroy');
-    });
-
-    Route::prefix('questionnaires/epley')->name('questionnaires.epley.')
-        ->middleware('module.access:epley')->group(function () {
-        Route::get('/', [App\Http\Controllers\Questionnaires\EpleyController::class, 'index'])->name('index');
-        Route::get('/create', [App\Http\Controllers\Questionnaires\EpleyController::class, 'create'])->name('create');
-        Route::post('/', [App\Http\Controllers\Questionnaires\EpleyController::class, 'store'])->name('store');
-        Route::get('/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'show'])->name('show');
-        Route::get('/{epley}/edit', [App\Http\Controllers\Questionnaires\EpleyController::class, 'edit'])->name('edit');
-        Route::match(['put', 'post'], '/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'update'])->name('update');
-        Route::delete('/{epley}', [App\Http\Controllers\Questionnaires\EpleyController::class, 'destroy'])->name('destroy');
-    });
-
     // Rutas específicas para Electroencefalograma
     Route::prefix('questionnaires/electroencefalograma')->name('questionnaires.electroencefalograma.')
         ->middleware('module.access:electroencefalograma')->group(function () {

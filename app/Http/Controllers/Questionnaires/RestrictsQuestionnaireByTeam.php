@@ -74,6 +74,18 @@ trait RestrictsQuestionnaireByTeam
      */
     private function applyIndexFilters($query, \Illuminate\Http\Request $request, array $searchFields, array $allowedSortFields, string $defaultSort = 'created_at'): void
     {
+        // The patient directory needs identity metadata, never questionnaire answers or images.
+        // Keep the same team/module authorization and normal index behavior.
+        if ($request->boolean('directory')) {
+            $fields = ['nome_completo', 'nome', 'rg_ou_cpf', 'rg', 'data_nascimento', 'sexo',
+                'clinica', 'data_exame', 'nome_avaliador', 'examinador', 'created_by'];
+            $query->select(array_merge(['id', 'created_at'], array_values(array_intersect(
+                $query->getModel()->getFillable(), $fields
+            ))));
+            $query->setEagerLoads([]);
+            $query->with('creator:id,name');
+        }
+
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search, $searchFields) {
                 foreach ($searchFields as $field) {

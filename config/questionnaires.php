@@ -39,28 +39,6 @@ use App\Models\TdahInfantil;
 return [
 
     'types' => [
-        'wartenberg' => [
-            'model' => \App\Models\Wartenberg::class,
-            'name_field' => 'nome_completo',
-            'slug' => 'wartenberg',
-            'label' => 'Teste de Wartenberg',
-            'description' => 'Avaliação do sinal do dedo mínimo e da função motora do nervo ulnar',
-            'color' => 'bg-teal-500',
-            'core' => false,
-            'jsx' => 'Questionnaires/Wartenberg/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
-        ],
-        'raimiste' => [
-            'model' => \App\Models\Raimiste::class,
-            'name_field' => 'nome_completo',
-            'slug' => 'raimiste',
-            'label' => 'Manobra de Raimiste',
-            'description' => 'Avaliação da sustentação e controle motor dos membros superiores',
-            'color' => 'bg-teal-500',
-            'core' => false,
-            'jsx' => 'Questionnaires/Raimiste/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
-        ],
         'mingazzini' => [
             'model' => \App\Models\Mingazzini::class,
             'name_field' => 'nome_completo',
@@ -92,17 +70,6 @@ return [
             'color' => 'bg-teal-500',
             'core' => false,
             'jsx' => 'Questionnaires/Barre/Create.jsx',
-            'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
-        ],
-        'epley' => [
-            'model' => \App\Models\Epley::class,
-            'name_field' => 'nome_completo',
-            'slug' => 'epley',
-            'label' => 'Manobra de Epley',
-            'description' => 'Avaliação vestibular e registro da manobra de Epley',
-            'color' => 'bg-teal-500',
-            'core' => false,
-            'jsx' => 'Questionnaires/Epley/Create.jsx',
             'precio' => ['secciones' => 4, 'nivel' => 'C', 'bs' => 300],
         ],
         'electroencefalograma' => [

@@ -23,12 +23,14 @@ function Section({ id, title, children }) {
 export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sections = [], definition }) {
     const editing = !!questionnaire;
     const fields = definition.groups.flatMap(group => flattenFields(group.fields));
+    const optionalGroups = definition.groups.filter(group => group.optional);
     const q = questionnaire || {};
     const { data, setData, post, processing, errors, transform } = useForm({
         nome_completo: q.nome_completo || '', rg_ou_cpf: q.rg_ou_cpf || '',
         data_nascimento: dateValue(q.data_nascimento), sexo: q.sexo || '',
         clinica: q.clinica || '', data_exame: dateValue(q.data_exame) || localToday(),
         ...Object.fromEntries(fields.map(field => [field.key, q[field.key] ?? (field.type === 'checks' ? [] : '')])),
+        ...Object.fromEntries(optionalGroups.map(group => [`${group.key}_avaliado`, editing ? q[group.fields[0].key] != null : true])),
         nome_avaliador: q.nome_avaliador || '',
         cid: q.cid || '', comentario: q.comentario || '',
         assinatura_paciente: q.assinatura_paciente || null, pedido_medico: null, anexos: [],

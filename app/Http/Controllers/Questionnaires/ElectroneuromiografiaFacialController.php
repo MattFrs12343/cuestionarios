@@ -26,7 +26,7 @@ class ElectroneuromiografiaFacialController extends Controller
 
         $this->applyIndexFilters($query, $request, ['nome', 'rg'], ['nome', 'clinica', 'rg', 'data_exame', 'created_at']);
 
-        $questionnaires = $query->paginate(15);
+        $questionnaires = $query->paginate($request->boolean('directory') ? 100 : 15);
 
         // No mandamos al listado la firma (LONGTEXT base64) ni el pedido
         // medico: no se muestran en la tabla y engordaban el payload de

@@ -27,10 +27,23 @@ function Field({ field, data, setData, errors }) {
     </div>;
 }
 export function ManeuverFields({ definition, data, setData, errors }) {
-    return <div className="space-y-10">{definition.groups.map(group => <div key={group.title}>
-        {definition.groups.length > 1 && <h4 className="mb-6 border-b border-gray-200 pb-3 text-lg font-semibold dark:border-zinc-600">{group.title}</h4>}
-        <div className="space-y-7">{group.fields.map(field => <Field key={field.key} field={field} data={data} setData={setData} errors={errors} />)}</div>
-    </div>)}</div>;
+    return <div className="space-y-10">{definition.groups.map(group => {
+        const avaliadoKey = group.optional ? `${group.key}_avaliado` : null;
+        const avaliado = !avaliadoKey || data[avaliadoKey] !== false;
+        return <div key={group.title}>
+            {definition.groups.length > 1 && <h4 className="mb-6 border-b border-gray-200 pb-3 text-lg font-semibold dark:border-zinc-600">{group.title}</h4>}
+            {avaliadoKey && <label className="mb-5 inline-flex min-h-11 items-center gap-2">
+                <input type="checkbox" checked={avaliado} onChange={e => setData(previous => ({
+                    ...previous,
+                    [avaliadoKey]: e.target.checked,
+                    ...(e.target.checked ? {} : Object.fromEntries(flattenFields(group.fields).map(field => [field.key, emptyValue(field)]))),
+                }))} className="rounded text-blue-700 focus:ring-blue-600" />
+                <span className="text-sm font-medium">Este bloco foi avaliado</span>
+            </label>}
+            {avaliado ? <div className="space-y-7">{group.fields.map(field => <Field key={field.key} field={field} data={data} setData={setData} errors={errors} />)}</div>
+                : <p className="text-sm text-gray-500 dark:text-zinc-400">Bloco não avaliado nesta aplicação.</p>}
+        </div>;
+    })}</div>;
 }
 export function ManeuverInstructions({ definition }) {
     const StepHeading = definition.groups.length > 1 ? 'h5' : 'h4';
@@ -53,8 +66,12 @@ function ResultField({ field, questionnaire: q }) {
     return <div className="break-inside-avoid"><dt className="font-semibold">{field.label}</dt><dd className="mt-1 whitespace-pre-wrap break-words">{display}</dd>{field.type === 'boolean' && value === true && field.children?.length > 0 && <dd className="mt-2"><dl className="space-y-2 pl-3">{field.children.map(child => <ResultField key={child.key} field={child} questionnaire={q} />)}</dl></dd>}</div>;
 }
 export function ManeuverResults({ definition, questionnaire, compact = false }) {
-    return <div className={compact ? 'space-y-4 text-xs' : 'space-y-8'}>{definition.groups.map(group => <div key={group.title}>
-        {definition.groups.length > 1 && <h4 className="mb-3 border-b border-gray-200 pb-2 font-bold">{group.title}</h4>}
-        <dl className={compact ? 'space-y-3' : 'space-y-5'}>{group.fields.map(field => <ResultField key={field.key} field={field} questionnaire={questionnaire} />)}</dl>
-    </div>)}</div>;
+    return <div className={compact ? 'space-y-4 text-xs' : 'space-y-8'}>{definition.groups.map(group => {
+        const avaliado = !group.optional || questionnaire[group.fields[0].key] != null;
+        return <div key={group.title}>
+            {definition.groups.length > 1 && <h4 className="mb-3 border-b border-gray-200 pb-2 font-bold">{group.title}</h4>}
+            {avaliado ? <dl className={compact ? 'space-y-3' : 'space-y-5'}>{group.fields.map(field => <ResultField key={field.key} field={field} questionnaire={questionnaire} />)}</dl>
+                : <p className="text-sm text-gray-500">Bloco não avaliado nesta aplicação.</p>}
+        </div>;
+    })}</div>;
 }

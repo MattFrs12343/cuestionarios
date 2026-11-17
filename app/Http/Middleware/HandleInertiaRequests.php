@@ -86,6 +86,10 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user ? $user->load(['teams', 'roles']) : null,
             ],
             'currentTeam' => $currentTeam,
+            'navigation' => [
+                'administration' => $user && ($user->isSuperAdmin() || $user->isAdmin()),
+                'manageRoles' => $user && $user->isSuperAdmin(),
+            ],
             // Lo que el usuario ve de verdad. Se comparte para que el layout no
             // pueda enlazar a un módulo que la persona no tiene: el menú móvil
             // tenía fijos dos enlaces que devolvían 403 al apagarles el módulo.

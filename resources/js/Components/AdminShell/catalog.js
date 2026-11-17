@@ -1,0 +1,17 @@
+﻿export const questionnaireCatalog = [
+    { key: 'electroencefalograma', component: 'Questionnaires/Electroencefalograma/Index', slug: 'electroencefalograma', label: 'Electroencefalograma', group: 'Exames neurológicos', color: 'bg-blue-500' },
+    { key: 'electroneuromiografia', component: 'Questionnaires/Electroneuromiografia/Index', slug: 'electroneuromiografia', label: 'Electroneuromiografia', group: 'Exames neurológicos', color: 'bg-purple-500' },
+    { key: 'potencial', component: 'Questionnaires/Potencial/Index', slug: 'potencial', label: 'Potencial Evocado', group: 'Exames neurológicos', color: 'bg-green-500' },
+    { key: 'electroneuromiografia_facial', component: 'Questionnaires/ElectroneuromiografiaFacial/Index', slug: 'electroneuromiografia-facial', label: 'Electroneuromiografia Facial', group: 'Exames neurológicos', color: 'bg-orange-500' },
+    { key: 'rastreio_cognitivo', component: 'Questionnaires/RastreioCognitivo/Index', slug: 'rastreio-cognitivo', label: 'Rastreio Cognitivo (MoCA)', group: 'Avaliações e manobras', color: 'bg-teal-500' },
+    { key: 'equilibrio', component: 'Questionnaires/AvaliacaoEquilibrio/Index', slug: 'equilibrio', label: 'Avaliação do Equilíbrio', group: 'Avaliações e manobras', color: 'bg-yellow-500' },
+    { key: 'mini_exame_mental', component: 'Questionnaires/MiniExameMental/Index', slug: 'mini-exame-mental', label: 'Mini Exame do Estado Mental', group: 'Avaliações e manobras', color: 'bg-blue-500' },
+    { key: 'estesiometria', component: 'Questionnaires/Estesiometria/Index', slug: 'estesiometria', label: 'Estesiometria', group: 'Avaliações e manobras', color: 'bg-red-500' },
+    { key: 'dinamometro', component: 'Questionnaires/Dinamometro/Index', slug: 'dinamometro', label: 'Dinamômetro', group: 'Avaliações e manobras', color: 'bg-violet-500' },
+    { key: 'dinamometria_mmii', component: 'Questionnaires/DinamometriaMmii/Index', slug: 'dinamometria-mmii', label: 'Dinamometria MMII', group: 'Avaliações e manobras', color: 'bg-cyan-500' },
+    { key: 'barre', component: 'Questionnaires/Barre/Index', slug: 'barre', label: 'Manobra de Barré', group: 'Avaliações e manobras', color: 'bg-amber-400' },
+    { key: 'finger_tapping', component: 'Questionnaires/FingerTapping/Index', slug: 'finger-tapping', label: 'Finger Tapping', group: 'Avaliações e manobras', color: 'bg-sky-400' },
+    { key: 'mingazzini', component: 'Questionnaires/Mingazzini/Index', slug: 'mingazzini', label: 'Mingazzini MMSS e MMII', group: 'Avaliações e manobras', color: 'bg-fuchsia-400' },
+    { key: 'tdah_infantil', component: 'Questionnaires/TdahInfantil/Index', slug: 'tdah-infantil', label: 'TDAH Infantil (SNAP-IV)', group: 'TDAH', color: 'bg-violet-500' },
+    { key: 'tdah_adulto', component: 'Questionnaires/TdahAdulto/Index', slug: 'tdah-adulto', label: 'TDAH Adulto (ASRS-18)', group: 'TDAH', color: 'bg-indigo-500' },
+];

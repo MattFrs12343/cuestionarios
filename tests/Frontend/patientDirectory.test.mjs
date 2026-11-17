@@ -1,0 +1,10 @@
+﻿import test from 'node:test';
+import assert from 'node:assert/strict';
+import { groupPatients, clinicalRecord } from '../../resources/js/Utils/patients/groupPatients.js';
+const r=(key,document='',birthDate='1990-05-10',name='Ana Silva')=>({key,document,birthDate,name,examDate:'2026-11-15',createdAt:'2026-11-15',type:key,clinic:''});
+test('groups document punctuation variants across modules, deduplicating rows',()=>{const a=r('epley:1','001.234-50');const p=groupPatients([a,r('barre:1','00123450'),a]);assert.equal(p.length,1);assert.equal(p[0].records.length,2);});
+test('keeps conflicting birth dates and different documented homonyms separate',()=>{assert.equal(groupPatients([r('a','123'),r('b','123','1980-05-10')]).length,2);assert.equal(groupPatients([r('a','123'),r('b','456')]).length,2);});
+test('keeps undocumented homonym separate when identity is ambiguous',()=>{const p=groupPatients([r('a','123'),r('b','456'),r('c')]);assert.equal(p.length,3);assert.ok(p.some(p=>p.identity==='ambiguous'));});
+test('matches normalized name and birth when unambiguous',()=>{assert.equal(groupPatients([r('a','123',undefined,'Ána Silva'),r('b','',undefined,' ANA  SILVA ')]).length,1);});
+test('never groups by name alone or missing name',()=>{assert.equal(groupPatients([r('a','',''),r('b','','')]).length,2);assert.equal(groupPatients([r('a','',undefined,'Nome não informado'),r('b','',undefined,'Nome não informado')]).length,2);});
+test('does not use clinician registration as patient identifier',()=>{const p=clinicalRecord({id:1,crm_rg:'MEDICO-123',nome:'Ana'},{key:'a',slug:'a',label:'A'});assert.equal(p.document,'');assert.equal(p.url,'/questionnaires/a/1');});

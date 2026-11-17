@@ -25,7 +25,7 @@ class MingazziniController extends Controller
 
         $this->applyIndexFilters($query, $request, ['nome_completo', 'rg_ou_cpf'], ['nome_completo', 'rg_ou_cpf', 'clinica', 'data_exame', 'created_at']);
 
-        $questionnaires = $query->paginate(15);
+        $questionnaires = $query->paginate($request->boolean('directory') ? 100 : 15);
 
         // No mandamos al listado la firma (LONGTEXT base64) ni el pedido
         // medico: no se muestran en la tabla y engordaban el payload de
@@ -59,32 +59,32 @@ class MingazziniController extends Controller
             'sexo' => 'required|in:Masculino,Feminino',
             'clinica' => 'nullable|string|max:255',
             'data_exame' => 'required|date',
-            'mmii_sustenta_posicao' => 'required|boolean',
-            'mmii_queda' => 'required|boolean',
+            'mmii_sustenta_posicao' => 'nullable|boolean',
+            'mmii_queda' => 'nullable|boolean',
             'mmii_queda_lados' => 'nullable|array|max:2',
             'mmii_queda_lados.*' => ['string', 'distinct', Rule::in(['Direita', 'Esquerda'])],
-            'mmii_tremor' => 'required|boolean',
+            'mmii_tremor' => 'nullable|boolean',
             'mmii_tremor_lados' => 'nullable|array|max:2',
             'mmii_tremor_lados.*' => ['string', 'distinct', Rule::in(['Direita', 'Esquerda'])],
-            'mmii_assimetria' => 'required|boolean',
+            'mmii_assimetria' => 'nullable|boolean',
             'mmii_assimetria_lado' => 'nullable|in:Direita,Esquerda',
-            'mmii_interrupcao' => 'required|boolean',
+            'mmii_interrupcao' => 'nullable|boolean',
             'mmii_interrupcao_lados' => 'nullable|array|max:2',
             'mmii_interrupcao_lados.*' => ['string', 'distinct', Rule::in(['Direita', 'Esquerda'])],
             'mmii_tempo_direito_segundos' => 'nullable|integer|min:0|max:3600',
             'mmii_tempo_esquerdo_segundos' => 'nullable|integer|min:0|max:3600',
             'mmii_alteracoes' => 'nullable|array|max:10',
             'mmii_alteracoes.*' => ['string', 'distinct', Rule::in(['queda_progressiva_direita', 'queda_progressiva_esquerda', 'queda_subita_direita', 'queda_subita_esquerda', 'fadiga_direita', 'fadiga_esquerda', 'tremor', 'dor', 'incapacidade', 'sem_alteracoes'])],
-            'mmss_sustenta_posicao' => 'required|boolean',
-            'mmss_queda_pronacao' => 'required|boolean',
+            'mmss_sustenta_posicao' => 'nullable|boolean',
+            'mmss_queda_pronacao' => 'nullable|boolean',
             'mmss_queda_lados' => 'nullable|array|max:2',
             'mmss_queda_lados.*' => ['string', 'distinct', Rule::in(['Direita', 'Esquerda'])],
-            'mmss_tremor' => 'required|boolean',
+            'mmss_tremor' => 'nullable|boolean',
             'mmss_tremor_lados' => 'nullable|array|max:2',
             'mmss_tremor_lados.*' => ['string', 'distinct', Rule::in(['Direita', 'Esquerda'])],
-            'mmss_assimetria' => 'required|boolean',
+            'mmss_assimetria' => 'nullable|boolean',
             'mmss_assimetria_lado' => 'nullable|in:Direita,Esquerda,Bilateral',
-            'mmss_desconforto' => 'required|boolean',
+            'mmss_desconforto' => 'nullable|boolean',
             'observacoes' => 'nullable|string|max:5000',
             'mmss_tempo_direito_segundos' => 'nullable|integer|min:0|max:3600',
             'mmss_tempo_esquerdo_segundos' => 'nullable|integer|min:0|max:3600',
@@ -94,6 +94,35 @@ class MingazziniController extends Controller
             'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
         ];
+    }
+
+    /**
+     * MMII e MMSS podem ser avaliados de forma independente (ex.: só membros
+     * inferiores). Por isso cada bloco deve ser respondido por completo ou
+     * deixado totalmente em branco, e ao menos um dos dois precisa ser
+     * avaliado.
+     */
+    private function assertGroupCompleteness(array $validated): void
+    {
+        $groups = [
+            'mmii_sustenta_posicao' => ['mmii_sustenta_posicao', 'mmii_queda', 'mmii_tremor', 'mmii_assimetria', 'mmii_interrupcao'],
+            'mmss_sustenta_posicao' => ['mmss_sustenta_posicao', 'mmss_queda_pronacao', 'mmss_tremor', 'mmss_assimetria', 'mmss_desconforto'],
+        ];
+
+        $answeredCounts = [];
+
+        foreach ($groups as $anchorField => $fields) {
+            $answered = count(array_filter($fields, fn ($field) => $validated[$field] !== null));
+            $answeredCounts[$anchorField] = $answered;
+
+            if ($answered > 0 && $answered < count($fields)) {
+                throw ValidationException::withMessages([$anchorField => 'Responda todas as perguntas deste bloco ou deixe-o totalmente em branco se não foi avaliado.']);
+            }
+        }
+
+        if (array_sum($answeredCounts) === 0) {
+            throw ValidationException::withMessages(['mmii_sustenta_posicao' => 'É necessário avaliar ao menos um bloco: membros inferiores (MMII) ou membros superiores (MMSS).']);
+        }
     }
 
     private function normalizeAnswers(array $validated): array
@@ -122,6 +151,7 @@ class MingazziniController extends Controller
         BoolCoerce::apply($request);
 
         $validated = $request->validate(array_merge($this->rules(), $this->attachmentRules()));
+        $this->assertGroupCompleteness($validated);
         $validated = $this->normalizeAnswers($validated);
         $validated['team_id'] = $this->currentTeam($request)->id;
         $validated['created_by'] = auth()->id();
@@ -175,6 +205,7 @@ class MingazziniController extends Controller
         BoolCoerce::apply($request);
 
         $validated = $request->validate(array_merge($this->rules(), $this->attachmentRules()));
+        $this->assertGroupCompleteness($validated);
         $validated = $this->normalizeAnswers($validated);
         $validated['updated_by'] = auth()->id();
 
