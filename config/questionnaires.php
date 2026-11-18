@@ -65,7 +65,7 @@ return [
             'model' => \App\Models\Barre::class,
             'name_field' => 'nome_completo',
             'slug' => 'barre',
-            'label' => 'Manobra de Barré',
+            'label' => 'Teste de Barré',
             'description' => 'Avaliação da força e sustentação dos membros inferiores',
             'color' => 'bg-teal-500',
             'core' => false,

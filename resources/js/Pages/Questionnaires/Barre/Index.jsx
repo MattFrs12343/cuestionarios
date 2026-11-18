@@ -160,7 +160,7 @@ export default function BarreIndex({
                         </div>
                         <div>
                             <h2 className="text-gray-800 dark:text-zinc-200 leading-tight text-xl font-semibold">
-                                Manobra de Barré
+                                Teste de Barré
                             </h2>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 Avaliação neurológica dos membros inferiores e resposta à manobra
@@ -179,7 +179,7 @@ export default function BarreIndex({
                 </div>
             }
         >
-            <Head title="Manobra de Barré" />
+            <Head title="Teste de Barré" />
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -218,7 +218,7 @@ export default function BarreIndex({
                                 <div>
                                     <h3 className="text-gray-900 dark:text-zinc-100 flex items-center font-semibold text-xl">
                                         <span className="w-1 h-8 bg-gradient-to-b from-sky-500 to-blue-600 rounded-full mr-3"></span>
-                                        Questionários de Manobra de Barré
+                                        Questionários de Teste de Barré
                                     </h3>
                                 </div>
                                 {can.create && (
