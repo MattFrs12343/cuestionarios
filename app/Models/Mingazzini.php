@@ -23,6 +23,7 @@ class Mingazzini extends Model
         'sexo',
         'clinica',
         'data_exame',
+        'mmii_membro_avaliado',
         'mmii_sustenta_posicao',
         'mmii_queda',
         'mmii_queda_lados',

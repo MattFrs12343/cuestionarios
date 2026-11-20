@@ -7,6 +7,7 @@ return [
     'finger_tapping' => [[
         'key' => 'finger_tapping', 'slug' => 'finger-tapping', 'model' => FingerTapping::class, 'table' => 'finger_tappings',
         'payload' => [
+            'mao_avaliada' => 'Bilateral',
             'movimentos_rapidos' => true,
             'bradicinesia' => true,
             'bradicinesia_lados' => ['Direita', 'Esquerda'],
@@ -27,6 +28,7 @@ return [
     'mingazzini' => [[
         'key' => 'mingazzini', 'slug' => 'mingazzini', 'model' => Mingazzini::class, 'table' => 'mingazzinis',
         'payload' => [
+            'mmii_membro_avaliado' => 'Direita',
             'mmii_sustenta_posicao' => true,
             'mmii_queda' => true,
             'mmii_queda_lados' => ['Direita', 'Esquerda'],

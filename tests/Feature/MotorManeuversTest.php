@@ -48,6 +48,27 @@ class MotorManeuversTest extends TestCase
         ], $case['payload'], $overrides);
     }
 
+    public function test_mingazzini_saves_either_block_and_clears_the_removed_block_on_edit(): void
+    {
+        $case = self::cases()['mingazzini'][0];
+        $payload = $this->payload($case);
+        $mmii = array_filter($payload, fn ($key) => ! str_starts_with($key, 'mmss_') && $key !== 'observacoes', ARRAY_FILTER_USE_KEY);
+        $mmss = array_filter($payload, fn ($key) => ! str_starts_with($key, 'mmii_'), ARRAY_FILTER_USE_KEY);
+        $this->actingAs($this->user)->post(route('questionnaires.mingazzini.store'), $mmii)->assertSessionHasNoErrors()->assertRedirect();
+        $record = $case['model']::sole();
+        $this->assertNull($record->mmss_desconforto);
+        $this->assertSame('Direita', $record->mmii_membro_avaliado);
+        $this->post(route('questionnaires.mingazzini.update', $record), $mmss + ['_method' => 'put'])->assertSessionHasNoErrors()->assertRedirect();
+        $record->refresh();
+        $this->assertNull($record->mmii_sustenta_posicao);
+        $this->assertNull($record->mmii_membro_avaliado);
+        $this->assertSame(mb_strtoupper($mmss['observacoes']), $record->observacoes);
+        $this->post(route('questionnaires.mingazzini.store'), $mmss)->assertSessionHasNoErrors()->assertRedirect();
+        $blank = array_filter($mmii, fn ($key) => ! str_starts_with($key, 'mmii_'), ARRAY_FILTER_USE_KEY);
+        $this->post(route('questionnaires.mingazzini.store'), $blank)->assertSessionHasErrors('mmii_sustenta_posicao');
+        $this->assertDatabaseCount('mingazzinis', 2);
+    }
+
     #[DataProvider('cases')]
     public function test_create_preserves_every_clinical_answer_and_zero_seconds(array $case): void
     {
@@ -110,7 +131,7 @@ class MotorManeuversTest extends TestCase
         $this->actingAs($this->user)->post(route("questionnaires.{$case['slug']}.store"), $this->payload($case, array_merge($case['invalid'], [
             'pedido_medico' => UploadedFile::fake()->image('pedido.png'),
             'anexos' => [UploadedFile::fake()->create('invalid.txt')],
-        ])))->assertSessionHasErrors([$case['booleans'][0], 'anexos.0']);
+        ])))->assertSessionHasErrors([$case['key'] === 'mingazzini' ? 'mmii_assimetria_lado' : $case['booleans'][0], 'anexos.0']);
         $this->assertDatabaseCount($case['table'], 0);
         $this->assertSame([], Storage::disk('private')->allFiles());
     }

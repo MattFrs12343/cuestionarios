@@ -1,0 +1,346 @@
+﻿
+   WARN  Metadata found in doc-comment for method Tests\Feature\PatientDirectoryOptimizationTest::test_lightweight_directory_preserves_team_and_module_scope(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   PASS  Tests\Unit\QuestionnaireFieldsTest
+  ✓ azul no ve peso ni altura en potencial                                                                       0.27s  
+  ✓ azul ve hiperativo en potencial                                                                              0.03s  
+  ✓ otros equipos ven peso altura pero no hiperativo                                                             0.03s  
+  ✓ avc es exclusivo de azul en facial                                                                           0.03s  
+  ✓ los campos de azul no afectan a otros cuestionarios                                                          0.02s  
+  ✓ only visible descarta lo que el equipo no puede ver                                                          0.03s  
+  ✓ only visible descarta el exclusivo de otro equipo                                                            0.02s  
+  ✓ only visible descarta el avc para otros equipos                                                              0.02s  
+  ✓ sin equipo no se muestra ningun campo exclusivo                                                              0.03s  
+  ✓ equipo sin configuracion ve el formulario completo pero no los exclusivos de otros                           0.02s  
+  ✓ for inertia expone la lista oculta                                                                           0.03s  
+  ✓ la lista oculta no tiene duplicados                                                                          0.02s  
+
+   PASS  Tests\Feature\ActivityHistoryTest
+  ✓ un usuario solo ve sus propios registros                                                                     0.52s  
+  ✓ un administrador ve todo el equipo                                                                           0.06s  
+  ✓ el rango filtra por created at                                                                               0.08s  
+  ✓ los conteos respetan el rango                                                                                0.06s  
+
+   PASS  Tests\Feature\AttachmentServingTest
+  ✓ pedido medico url is the authenticated route with data set "wartenberg"                                      0.95s  
+  ✓ pedido medico url is the authenticated route with data set "raimiste"                                        0.06s  
+  ✓ pedido medico url is the authenticated route with data set "mingazzini"                                      0.07s  
+  ✓ pedido medico url is the authenticated route with data set "finger tapping"                                  0.10s  
+  ✓ pedido medico url is the authenticated route with data set "barre"                                           0.08s  
+  ✓ pedido medico url is the authenticated route with data set "epley"                                           0.09s  
+  ✓ pedido medico url is the authenticated route with data set "electroencefalograma"                            0.20s  
+  ✓ pedido medico url is the authenticated route with data set "electroneuromiografia"                           0.11s  
+  ✓ pedido medico url is the authenticated route with data set "potencial"                                       0.10s  
+  ✓ pedido medico url is the authenticated route with data set "electroneuromiografia facial"                    0.10s  
+  ✓ pedido medico url is the authenticated route with data set "rastreio cognitivo"                              0.09s  
+  ✓ pedido medico url is the authenticated route with data set "equilibrio"                                      0.10s  
+  ✓ pedido medico url is the authenticated route with data set "mini exame mental"                               0.09s  
+  ✓ pedido medico url is the authenticated route with data set "dinamometria mmii"                               0.08s  
+  ✓ pedido medico route streams the image with data set "wartenberg"                                             0.29s  
+  ✓ pedido medico route streams the image with data set "raimiste"                                               0.08s  
+  ✓ pedido medico route streams the image with data set "mingazzini"                                             0.08s  
+  ✓ pedido medico route streams the image with data set "finger tapping"                                         0.09s  
+  ✓ pedido medico route streams the image with data set "barre"                                                  0.10s  
+  ✓ pedido medico route streams the image with data set "epley"                                                  0.08s  
+  ✓ pedido medico route streams the image with data set "electroencefalograma"                                   0.09s  
+  ✓ pedido medico route streams the image with data set "electroneuromiografia"                                  0.08s  
+  ✓ pedido medico route streams the image with data set "potencial"                                              0.09s  
+  ✓ pedido medico route streams the image with data set "electroneuromiografia facial"                           0.08s  
+  ✓ pedido medico route streams the image with data set "rastreio cognitivo"                                     0.08s  
+  ✓ pedido medico route streams the image with data set "equilibrio"                                             0.09s  
+  ✓ pedido medico route streams the image with data set "mini exame mental"                                      0.08s  
+  ✓ pedido medico route streams the image with data set "estesiometria"                                          0.07s  
+  ✓ pedido medico route streams the image with data set "tdah infantil"                                          0.07s  
+  ✓ pedido medico route streams the image with data set "tdah adulto"                                            0.10s  
+  ✓ pedido medico route streams the image with data set "dinamometro"                                            0.11s  
+  ✓ pedido medico route streams the image with data set "dinamometria mmii"                                      0.08s  
+  ✓ pedido medico route 404s when the file is gone with data set "wartenberg"                                    0.08s  
+  ✓ pedido medico route 404s when the file is gone with data set "raimiste"                                      0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "mingazzini"                                    0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "finger tapping"                                0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "barre"                                         0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "epley"                                         0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "electroencefalograma"                          0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "electroneuromiografia"                         0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "potencial"                                     0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "electroneuromiografia facial"                  0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "rastreio cognitivo"                            0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "equilibrio"                                    0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "mini exame mental"                             0.07s  
+  ✓ pedido medico route 404s when the file is gone with data set "estesiometria"                                 0.07s  
+  ✓ pedido medico route 404s when the file is gone with data set "tdah infantil"                                 0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "tdah adulto"                                   0.06s  
+  ✓ pedido medico route 404s when the file is gone with data set "dinamometro"                                   0.05s  
+  ✓ pedido medico route 404s when the file is gone with data set "dinamometria mmii"                             0.07s  
+  ✓ pedido medico url is null when there is no file with data set "wartenberg"                                   0.10s  
+  ✓ pedido medico url is null when there is no file with data set "raimiste"                                     0.06s  
+  ✓ pedido medico url is null when there is no file with data set "mingazzini"                                   0.07s  
+  ✓ pedido medico url is null when there is no file with data set "finger tapping"                               0.07s  
+  ✓ pedido medico url is null when there is no file with data set "barre"                                        0.05s  
+  ✓ pedido medico url is null when there is no file with data set "epley"                                        0.08s  
+  ✓ pedido medico url is null when there is no file with data set "electroencefalograma"                         0.07s  
+  ✓ pedido medico url is null when there is no file with data set "electroneuromiografia"                        0.08s  
+  ✓ pedido medico url is null when there is no file with data set "potencial"                                    0.05s  
+  ✓ pedido medico url is null when there is no file with data set "electroneuromiografia facial"                 0.08s  
+  ✓ pedido medico url is null when there is no file with data set "rastreio cognitivo"                           0.07s  
+  ✓ pedido medico url is null when there is no file with data set "equilibrio"                                   0.06s  
+  ✓ pedido medico url is null when there is no file with data set "mini exame mental"                            0.07s  
+  ✓ pedido medico url is null when there is no file with data set "dinamometria mmii"                            0.06s  
+  ✓ types without pedido medico ui do not send the prop with data set "estesiometria"                            0.07s  
+  ✓ types without pedido medico ui do not send the prop with data set "tdah infantil"                            0.07s  
+  ✓ types without pedido medico ui do not send the prop with data set "tdah adulto"                              0.07s  
+  ✓ types without pedido medico ui do not send the prop with data set "dinamometro"                              0.07s  
+  ✓ pedido medico route 404s for an unknown type                                                                 0.05s  
+  ✓ attachment route streams the image                                                                           0.13s  
+  ✓ attachment route 404s when the file is gone                                                                  0.05s  
+
+   PASS  Tests\Feature\BarreTest
+  ✓ create preserves bilateral answers times and current team                                                    0.48s  
+  ✓ multipart update clears hidden answers and preserves signature and files                                     0.55s  
+  ✓ zero seconds is preserved and all source alterations are supported                                           0.06s  
+  ✓ other teams cannot access records or private files                                                           0.08s  
+  ✓ disabled module blocks direct access                                                                         0.04s  
+  ✓ invalid data does not save records or uploaded files                                                         0.16s  
+  ✓ no alterations cannot be combined with abnormal answers                                                      0.06s  
+  ✓ filters and list payload match existing questionnaires                                                       0.05s  
+
+   PASS  Tests\Feature\ElectroneuromiografiaFacialObservacoesTest
+  ✓ se guarda la observacion al crear                                                                            0.04s  
+  ✓ la observacion se devuelve en el detalle                                                                     0.06s  
+  ✓ se actualiza la observacion al editar                                                                        0.04s  
+
+   PASS  Tests\Feature\EpleyTest
+  ✓ create and detail preserve answers and force current team                                                    0.09s  
+  ✓ multipart update clears hidden answers and preserves files                                                   0.09s  
+  ✓ other team records and files are forbidden and not listed                                                    0.09s  
+  ✓ disabled module blocks direct access                                                                         0.04s  
+  ✓ invalid answers and attachments do not create records                                                        0.06s  
+  ✓ filters and list payload match existing questionnaires                                                       0.05s  
+
+   PASS  Tests\Feature\FactorySanityTest
+  ✓ factories create records and team modules autoprovision                                                      0.03s  
+
+   PASS  Tests\Feature\LoginRedirectTest
+  ✓ direct login opens the main questionnaire catalog                                                            0.23s  
+  ✓ saved potential destination does not override the main catalog                                               0.04s  
+  ✓ other saved destinations are also cleared after login                                                        0.07s  
+  ✓ invalid credentials keep the user on the login page                                                          0.25s  
+
+   PASS  Tests\Feature\MotorManeuversTest
+  ✓ create preserves every clinical answer and zero seconds with data set "finger tapping"                       0.12s  
+  ✓ create preserves every clinical answer and zero seconds with data set "mingazzini"                           0.09s  
+  ✓ create preserves every clinical answer and zero seconds with data set "raimiste"                             0.09s  
+  ✓ create preserves every clinical answer and zero seconds with data set "wartenberg"                           0.09s  
+  ✓ multipart update clears hidden fields and preserves private files with data set "finger tapping"             0.10s  
+  ✓ multipart update clears hidden fields and preserves private files with data set "mingazzini"                 0.11s  
+  ✓ multipart update clears hidden fields and preserves private files with data set "raimiste"                   0.12s  
+  ✓ multipart update clears hidden fields and preserves private files with data set "wartenberg"                 0.11s  
+  ✓ invalid clinical values do not save records or uploaded files with data set "finger tapping"                 0.06s  
+  ✓ invalid clinical values do not save records or uploaded files with data set "mingazzini"                     0.05s  
+  ✓ invalid clinical values do not save records or uploaded files with data set "raimiste"                       0.05s  
+  ✓ invalid clinical values do not save records or uploaded files with data set "wartenberg"                     0.05s  
+  ✓ module can be disabled without disabling the others with data set "finger tapping"                           0.09s  
+  ✓ module can be disabled without disabling the others with data set "mingazzini"                               0.09s  
+  ✓ module can be disabled without disabling the others with data set "raimiste"                                 0.09s  
+  ✓ module can be disabled without disabling the others with data set "wartenberg"                               0.08s  
+  ✓ index filters and private payloads follow existing behavior with data set "finger tapping"                   0.07s  
+  ✓ index filters and private payloads follow existing behavior with data set "mingazzini"                       0.07s  
+  ✓ index filters and private payloads follow existing behavior with data set "raimiste"                         0.07s  
+  ✓ index filters and private payloads follow existing behavior with data set "wartenberg"                       0.08s  
+  ✓ mingazzini rejects no changes when abnormal findings are selected                                            0.05s  
+
+   PASS  Tests\Feature\PatientDirectoryOptimizationTest
+  ✓ navigation exposes roles only for super admin                                                                0.10s  
+  ✓ lightweight directory preserves team and module scope with data set "wartenberg"                             0.09s  
+  ✓ lightweight directory preserves team and module scope with data set "raimiste"                               0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "mingazzini"                             0.09s  
+  ✓ lightweight directory preserves team and module scope with data set "finger tapping"                         0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "barre"                                  0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "epley"                                  0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "electroencefalograma"                   0.09s  
+  ✓ lightweight directory preserves team and module scope with data set "electroneuromiografia"                  0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "potencial"                              0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "electroneuromiografia facial"           0.07s  
+  ✓ lightweight directory preserves team and module scope with data set "rastreio cognitivo"                     0.07s  
+  ✓ lightweight directory preserves team and module scope with data set "equilibrio"                             0.07s  
+  ✓ lightweight directory preserves team and module scope with data set "mini exame mental"                      0.06s  
+  ✓ lightweight directory preserves team and module scope with data set "estesiometria"                          0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "tdah infantil"                          0.06s  
+  ✓ lightweight directory preserves team and module scope with data set "tdah adulto"                            0.07s  
+  ✓ lightweight directory preserves team and module scope with data set "dinamometro"                            0.06s  
+  ✓ lightweight directory preserves team and module scope with data set "dinamometria mmii"                      0.07s  
+
+   PASS  Tests\Feature\PricingClassificationTest
+  ✓ todos los cuestionarios tienen jsx y bloque de precio                                                        0.07s  
+  ✓ el archivo del formulario de cada cuestionario existe                                                        0.03s  
+  ✓ las secciones detectadas en el codigo coinciden con las declaradas                                           0.37s  
+  ✓ nivel y precio respetan la regla de las secciones                                                            0.03s  
+  ✓ regla de precios en los limites                                                                              0.03s  
+
+   PASS  Tests\Feature\QuestionnaireFieldVisibilityTest
+  ✓ potencial azul no persiste peso ni altura manipulados                                                        0.12s  
+  ✓ potencial otro equipo no persiste hiperativo manipulado                                                      0.05s  
+  ✓ potencial update tambien filtra                                                                              0.05s  
+  ✓ potencial conserva datos existentes de peso al editar para azul                                              0.06s  
+  ✓ potencial prop de visibilidad por vista                                                                      0.09s  
+  ✓ potencial otro equipo recibe lista oculta con hiperativo                                                     0.05s  
+  ✓ facial azul persiste avc                                                                                     0.04s  
+  ✓ facial otro equipo no persiste avc manipulado                                                                0.04s  
+  ✓ facial prop de visibilidad por vista                                                                         0.08s  
+  ✓ facial otro equipo recibe lista oculta con avc                                                               0.04s  
+
+   PASS  Tests\Feature\QuestionnaireIndexFilterTest
+  ✓ search matches case insensitively across multiple fields                                                     0.06s  
+  ✓ clinica filter matches case insensitively                                                                    0.05s  
+  ✓ date range filters are applied                                                                               0.06s  
+  ✓ invalid sort field falls back to default without erroring                                                    0.05s  
+
+   PASS  Tests\Feature\SmokeTest
+  ✓ login page loads                                                                                             0.03s  
+
+   PASS  Tests\Feature\TeamAndUserProvisioningTest
+  ✓ is super admin reads the column not the email                                                                0.03s  
+  ✓ bootstrap email only grants super admin while there is none                                                  0.03s  
+  ✓ regular user is not super admin                                                                              0.03s  
+  ✓ team can be created with all its members in one step                                                         0.08s  
+  ✓ new members survive the existing users sync                                                                  0.05s  
+  ✓ team without administrator is rejected                                                                       0.04s  
+  ✓ duplicate member emails are reported without a 500                                                           0.03s  
+  ✓ team can be created with an existing administrator                                                           0.05s  
+  ✓ non super admin cannot create teams                                                                          0.04s  
+  ✓ team admin cannot remove the last administrator via team update                                              0.06s  
+  ✓ team admin can hand the team over to another administrator                                                   0.05s  
+  ✓ team admin cannot strip the admin role from the only administrator                                           0.08s  
+  ✓ team admin cannot delete a user who is the last admin of one of their teams                                  0.08s  
+  ✓ super admin may leave a team without administrator                                                           0.05s  
+  ✓ team admin cannot touch the admin role at all                                                                0.06s  
+  ✓ team admin cannot create a user with the admin role                                                          0.05s  
+  ✓ team admin cannot promote themselves to super admin                                                          0.06s  
+  ✓ team admin cannot manage a super admin                                                                       0.05s  
+  ✓ team admin cannot deactivate a super admin                                                                   0.05s  
+  ✓ team admin cannot pull a user from another team                                                              0.07s  
+  ✓ team admin can still add a user without any team                                                             0.06s  
+  ✓ super admin can move a user between teams                                                                    0.06s  
+
+   PASS  Tests\Feature\TenantIsolationTest
+  ✓ show is forbidden for another teams record with data set "wartenberg"                                        0.10s  
+  ✓ show is forbidden for another teams record with data set "raimiste"                                          0.06s  
+  ✓ show is forbidden for another teams record with data set "mingazzini"                                        0.06s  
+  ✓ show is forbidden for another teams record with data set "finger tapping"                                    0.05s  
+  ✓ show is forbidden for another teams record with data set "barre"                                             0.05s  
+  ✓ show is forbidden for another teams record with data set "epley"                                             0.05s  
+  ✓ show is forbidden for another teams record with data set "electroencefalograma"                              0.05s  
+  ✓ show is forbidden for another teams record with data set "electroneuromiografia"                             0.05s  
+  ✓ show is forbidden for another teams record with data set "potencial"                                         0.05s  
+  ✓ show is forbidden for another teams record with data set "electroneuromiografia facial"                      0.06s  
+  ✓ show is forbidden for another teams record with data set "rastreio cognitivo"                                0.05s  
+  ✓ show is forbidden for another teams record with data set "equilibrio"                                        0.05s  
+  ✓ show is forbidden for another teams record with data set "mini exame mental"                                 0.05s  
+  ✓ show is forbidden for another teams record with data set "estesiometria"                                     0.05s  
+  ✓ show is forbidden for another teams record with data set "tdah infantil"                                     0.05s  
+  ✓ show is forbidden for another teams record with data set "tdah adulto"                                       0.05s  
+  ✓ show is forbidden for another teams record with data set "dinamometro"                                       0.06s  
+  ✓ show is forbidden for another teams record with data set "dinamometria mmii"                                 0.05s  
+  ✓ edit is forbidden for another teams record with data set "wartenberg"                                        0.05s  
+  ✓ edit is forbidden for another teams record with data set "raimiste"                                          0.05s  
+  ✓ edit is forbidden for another teams record with data set "mingazzini"                                        0.06s  
+  ✓ edit is forbidden for another teams record with data set "finger tapping"                                    0.06s  
+  ✓ edit is forbidden for another teams record with data set "barre"                                             0.06s  
+  ✓ edit is forbidden for another teams record with data set "epley"                                             0.05s  
+  ✓ edit is forbidden for another teams record with data set "electroencefalograma"                              0.06s  
+  ✓ edit is forbidden for another teams record with data set "electroneuromiografia"                             0.08s  
+  ✓ edit is forbidden for another teams record with data set "potencial"                                         0.07s  
+  ✓ edit is forbidden for another teams record with data set "electroneuromiografia facial"                      0.06s  
+  ✓ edit is forbidden for another teams record with data set "rastreio cognitivo"                                0.07s  
+  ✓ edit is forbidden for another teams record with data set "equilibrio"                                        0.06s  
+  ✓ edit is forbidden for another teams record with data set "mini exame mental"                                 0.06s  
+  ✓ edit is forbidden for another teams record with data set "estesiometria"                                     0.07s  
+  ✓ edit is forbidden for another teams record with data set "tdah infantil"                                     0.07s  
+  ✓ edit is forbidden for another teams record with data set "tdah adulto"                                       0.08s  
+  ✓ edit is forbidden for another teams record with data set "dinamometro"                                       0.10s  
+  ✓ edit is forbidden for another teams record with data set "dinamometria mmii"                                 0.10s  
+  ✓ update is forbidden for another teams record with data set "wartenberg"                                      0.06s  
+  ✓ update is forbidden for another teams record with data set "raimiste"                                        0.05s  
+  ✓ update is forbidden for another teams record with data set "mingazzini"                                      0.05s  
+  ✓ update is forbidden for another teams record with data set "finger tapping"                                  0.05s  
+  ✓ update is forbidden for another teams record with data set "barre"                                           0.05s  
+  ✓ update is forbidden for another teams record with data set "epley"                                           0.07s  
+  ✓ update is forbidden for another teams record with data set "electroneuromiografia facial"                    0.07s  
+  ✓ update is forbidden for another teams record with data set "rastreio cognitivo"                              0.07s  
+  ✓ update is forbidden for another teams record with data set "equilibrio"                                      0.06s  
+  ✓ update is forbidden for another teams record with data set "mini exame mental"                               0.06s  
+  ✓ update is forbidden for another teams record with data set "estesiometria"                                   0.07s  
+  ✓ update is forbidden for another teams record with data set "tdah infantil"                                   0.07s  
+  ✓ update is forbidden for another teams record with data set "tdah adulto"                                     0.06s  
+  ✓ update is forbidden for another teams record with data set "dinamometro"                                     0.06s  
+  ✓ update is forbidden for another teams record with data set "dinamometria mmii"                               0.10s  
+  ✓ destroy is forbidden for another teams record with data set "wartenberg"                                     0.11s  
+  ✓ destroy is forbidden for another teams record with data set "raimiste"                                       0.08s  
+  ✓ destroy is forbidden for another teams record with data set "mingazzini"                                     0.07s  
+  ✓ destroy is forbidden for another teams record with data set "finger tapping"                                 0.08s  
+  ✓ destroy is forbidden for another teams record with data set "barre"                                          0.07s  
+  ✓ destroy is forbidden for another teams record with data set "epley"                                          0.06s  
+  ✓ destroy is forbidden for another teams record with data set "electroencefalograma"                           0.06s  
+  ✓ destroy is forbidden for another teams record with data set "electroneuromiografia"                          0.06s  
+  ✓ destroy is forbidden for another teams record with data set "potencial"                                      0.06s  
+  ✓ destroy is forbidden for another teams record with data set "electroneuromiografia facial"                   0.08s  
+  ✓ destroy is forbidden for another teams record with data set "rastreio cognitivo"                             0.06s  
+  ✓ destroy is forbidden for another teams record with data set "equilibrio"                                     0.10s  
+  ✓ destroy is forbidden for another teams record with data set "mini exame mental"                              0.13s  
+  ✓ destroy is forbidden for another teams record with data set "estesiometria"                                  0.14s  
+  ✓ destroy is forbidden for another teams record with data set "tdah infantil"                                  0.11s  
+  ✓ destroy is forbidden for another teams record with data set "tdah adulto"                                    0.10s  
+  ✓ destroy is forbidden for another teams record with data set "dinamometro"                                    0.12s  
+  ✓ destroy is forbidden for another teams record with data set "dinamometria mmii"                              0.10s  
+  ✓ index only shows current teams records with data set "wartenberg"                                            0.12s  
+  ✓ index only shows current teams records with data set "raimiste"                                              0.09s  
+  ✓ index only shows current teams records with data set "mingazzini"                                            0.09s  
+  ✓ index only shows current teams records with data set "finger tapping"                                        0.09s  
+  ✓ index only shows current teams records with data set "barre"                                                 0.07s  
+  ✓ index only shows current teams records with data set "epley"                                                 0.07s  
+  ✓ index only shows current teams records with data set "electroencefalograma"                                  0.07s  
+  ✓ index only shows current teams records with data set "electroneuromiografia"                                 0.08s  
+  ✓ index only shows current teams records with data set "potencial"                                             0.06s  
+  ✓ index only shows current teams records with data set "electroneuromiografia facial"                          0.06s  
+  ✓ index only shows current teams records with data set "rastreio cognitivo"                                    0.07s  
+  ✓ index only shows current teams records with data set "equilibrio"                                            0.06s  
+  ✓ index only shows current teams records with data set "mini exame mental"                                     0.07s  
+  ✓ index only shows current teams records with data set "estesiometria"                                         0.06s  
+  ✓ index only shows current teams records with data set "tdah infantil"                                         0.07s  
+  ✓ index only shows current teams records with data set "tdah adulto"                                           0.06s  
+  ✓ index only shows current teams records with data set "dinamometro"                                           0.07s  
+  ✓ index only shows current teams records with data set "dinamometria mmii"                                     0.08s  
+  ✓ attachment is forbidden for another teams questionnaire                                                      0.07s  
+
+   PASS  Tests\Feature\UppercasesTextAttributesTest
+  ✓ store convierte texto libre a mayusculas y preserva selects                                                  0.12s  
+  ✓ update vuelve a aplicar mayusculas                                                                           0.05s  
+  ✓ normaliza unicode a nfc antes de encadenar mayusculas                                                        0.05s  
+  ✓ el trait no toca campos fuera de la whitelist                                                                0.05s  
+
+   PASS  Tests\Feature\UserModuleAccessTest
+  ✓ un modulo asignado se ve en el cuestionario                                                                  0.06s  
+  ✓ apagar un modulo lo oculta y bloquea el acceso directo                                                       0.09s  
+  ✓ encender un modulo se refleja aunque el plan del equipo lo tenga apagado                                     0.10s  
+  ✓ la pantalla de asignacion ofrece el catalogo completo                                                        0.05s  
+  ✓ apagar en el plan no toca a quien ya lo tiene                                                                0.06s  
+  ✓ el plan no toca los usuarios actuales sin apply to members                                                   0.05s  
+  ✓ apply to members si propaga el plan a los usuarios actuales                                                  0.07s  
+  ✓ quien entra a un equipo nace con el valor inicial del plan                                                   0.05s  
+  ✓ provisionar no pisa un modulo que el admin apago                                                             0.06s  
+  ✓ alta de usuario desde el panel lo siembra con el plan                                                        0.06s  
+  ✓ un tecnico ve el plan de su equipo sin asignacion individual                                                 0.06s  
+  ✓ apagar un modulo a un tecnico si lo oculta                                                                   0.09s  
+  ✓ encender un modulo a un tecnico si lo muestra aunque el plan no lo tenga                                     0.10s  
+  ✓ los modulos que no se toquaron siguen siguiendo el plan                                                      0.07s  
+  ✓ guardar sin tocar nada no le quita los modulos del plan                                                      0.10s  
+  ✓ un administrador no se gestiona por modulos                                                                  0.05s  
+  ✓ apagar a uno no toca a los demas del equipo                                                                  0.10s  
+  ✓ guardar la lista de miembros no reactiva lo que se apago                                                     0.07s  
+  ✓ quien entra al equipo sin lista lo siembra con el plan                                                       0.06s  
+  ✓ el barrido de reparacion no reactiva modulos apagados                                                        0.08s  
+  ✓ el super admin tiene is super admin expuesto a la interfaz                                                   0.04s  
+
+  Tests:    304 passed (2699 assertions)
+  Duration: 24.37s
+

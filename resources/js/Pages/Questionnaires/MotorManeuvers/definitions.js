@@ -39,18 +39,8 @@ export const definitions = {
             "children": [
               {
                 "key": "bradicinesia_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
-                ]
+                "type": "hand-side",
+                "label": "Mão observada"
               }
             ]
           },
@@ -61,18 +51,8 @@ export const definitions = {
             "children": [
               {
                 "key": "reducao_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
-                ]
+                "type": "hand-side",
+                "label": "Mão observada"
               }
             ]
           },
@@ -83,18 +63,8 @@ export const definitions = {
             "children": [
               {
                 "key": "irregularidade_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
-                ]
+                "type": "hand-side",
+                "label": "Mão observada"
               }
             ]
           },
@@ -105,29 +75,31 @@ export const definitions = {
             "children": [
               {
                 "key": "interrupcao_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
-                ]
+                "type": "hand-side",
+                "label": "Mão observada"
               },
               {
                 "key": "tempo_direito_segundos",
                 "type": "number",
-                "label": "Mão direita (segundos)"
+                "label": "Tempo até a interrupção — Mão direita (segundos)",
+                "displaySeparately": true
               },
               {
                 "key": "tempo_esquerdo_segundos",
                 "type": "number",
-                "label": "Mão esquerda (segundos)"
+                "label": "Tempo até a interrupção — Mão esquerda (segundos)",
+                "displaySeparately": true
               }
+            ]
+          },
+          {
+            "key": "finger_interruption_times",
+            "type": "interruption-times",
+            "label": "Tempo até a interrupção",
+            "dependsOn": "interrupcao",
+            "inputs": [
+              { "key": "tempo_direito_segundos", "label": "Mão direita" },
+              { "key": "tempo_esquerdo_segundos", "label": "Mão esquerda" }
             ]
           },
           {
@@ -197,23 +169,37 @@ export const definitions = {
             "children": []
           },
           {
+            "key": "mmii_membro_avaliado",
+            "type": "select",
+            "label": "Membro inferior avaliado",
+            "options": [
+              [
+                "Direita",
+                "Membro inferior direito"
+              ],
+              [
+                "Esquerda",
+                "Membro inferior esquerdo"
+              ],
+              [
+                "Bilateral",
+                "Bilateral"
+              ]
+            ],
+            "reportOnly": true
+          },
+          {
             "key": "mmii_queda",
             "type": "boolean",
             "label": "2. Durante a manobra, apresenta queda progressiva de um dos membros inferiores?",
             "children": [
               {
                 "key": "mmii_queda_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
+                "type": "hand-side",
+                "label": "Lado observado",
+                "sideLabels": [
+                  "Direito",
+                  "Esquerdo"
                 ]
               }
             ]
@@ -225,17 +211,11 @@ export const definitions = {
             "children": [
               {
                 "key": "mmii_tremor_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
+                "type": "hand-side",
+                "label": "Lado observado",
+                "sideLabels": [
+                  "Direito",
+                  "Esquerdo"
                 ]
               }
             ]
@@ -247,7 +227,7 @@ export const definitions = {
             "children": [
               {
                 "key": "mmii_assimetria_lado",
-                "type": "select",
+                "type": "side-radio",
                 "label": "Maior dificuldade",
                 "options": [
                   [
@@ -269,28 +249,40 @@ export const definitions = {
             "children": [
               {
                 "key": "mmii_interrupcao_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
+                "type": "hand-side",
+                "label": "Lado observado",
+                "sideLabels": [
+                  "Membro inferior direito",
+                  "Membro inferior esquerdo"
                 ]
               },
               {
                 "key": "mmii_tempo_direito_segundos",
                 "type": "number",
-                "label": "Membro inferior direito (segundos)"
+                "label": "Tempo até a queda ou interrupção — Membro inferior direito (segundos)",
+                "displaySeparately": true
               },
               {
                 "key": "mmii_tempo_esquerdo_segundos",
                 "type": "number",
-                "label": "Membro inferior esquerdo (segundos)"
+                "label": "Tempo até a queda ou interrupção — Membro inferior esquerdo (segundos)",
+                "displaySeparately": true
+              }
+            ]
+          },
+          {
+            "key": "mmii_interruption_times",
+            "type": "interruption-times",
+            "label": "Tempo até a queda ou interrupção",
+            "dependsOn": "mmii_interrupcao",
+            "inputs": [
+              {
+                "key": "mmii_tempo_direito_segundos",
+                "label": "Membro inferior direito"
+              },
+              {
+                "key": "mmii_tempo_esquerdo_segundos",
+                "label": "Membro inferior esquerdo"
               }
             ]
           },
@@ -340,7 +332,21 @@ export const definitions = {
                 "Completou o tempo solicitado sem alterações"
               ]
             ],
-            "exclusive": "sem_alteracoes"
+            "exclusive": "sem_alteracoes",
+            "sideGroups": [
+              [
+                "queda_progressiva",
+                "Queda progressiva do membro (D-E)"
+              ],
+              [
+                "queda_subita",
+                "Queda súbita do membro (D-E)"
+              ],
+              [
+                "fadiga",
+                "Fadiga muscular (D-E)"
+              ]
+            ]
           }
         ]
       },
@@ -378,17 +384,11 @@ export const definitions = {
             "children": [
               {
                 "key": "mmss_queda_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
+                "type": "hand-side",
+                "label": "Lado observado",
+                "sideLabels": [
+                  "Direito",
+                  "Esquerdo"
                 ]
               }
             ]
@@ -400,17 +400,11 @@ export const definitions = {
             "children": [
               {
                 "key": "mmss_tremor_lados",
-                "type": "checks",
-                "label": "Lado observado (marque ambos se bilateral)",
-                "options": [
-                  [
-                    "Direita",
-                    "Direita"
-                  ],
-                  [
-                    "Esquerda",
-                    "Esquerda"
-                  ]
+                "type": "hand-side",
+                "label": "Lado observado",
+                "sideLabels": [
+                  "Direito",
+                  "Esquerdo"
                 ]
               }
             ]
@@ -422,7 +416,7 @@ export const definitions = {
             "children": [
               {
                 "key": "mmss_assimetria_lado",
-                "type": "select",
+                "type": "side-radio",
                 "label": "Maior dificuldade",
                 "options": [
                   [
@@ -449,19 +443,37 @@ export const definitions = {
               {
                 "key": "observacoes",
                 "type": "text",
-                "label": "Qual?"
+                "label": "Qual?",
+                "alwaysVisible": true
               }
             ]
           },
           {
             "key": "mmss_tempo_direito_segundos",
             "type": "number",
-            "label": "Membro superior direito (segundos)"
+            "label": "Membro superior direito (segundos)",
+            "reportOnly": true
           },
           {
             "key": "mmss_tempo_esquerdo_segundos",
             "type": "number",
-            "label": "Membro superior esquerdo (segundos)"
+            "label": "Membro superior esquerdo (segundos)",
+            "reportOnly": true
+          },
+          {
+            "key": "mmss_sustentation_times",
+            "type": "interruption-times",
+            "label": "Tempo de sustentação",
+            "inputs": [
+              {
+                "key": "mmss_tempo_direito_segundos",
+                "label": "Membro superior direito"
+              },
+              {
+                "key": "mmss_tempo_esquerdo_segundos",
+                "label": "Membro superior esquerdo"
+              }
+            ]
           }
         ]
       }

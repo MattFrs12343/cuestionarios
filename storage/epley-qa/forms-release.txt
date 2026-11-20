@@ -1,0 +1,11 @@
+app/Http/Controllers/Questionnaires/FingerTappingController.php
+app/Http/Controllers/Questionnaires/MingazziniController.php
+app/Models/FingerTapping.php
+app/Models/Mingazzini.php
+resources/js/Pages/Questionnaires/Barre/Form.jsx
+resources/js/Pages/Questionnaires/MotorManeuvers/Fields.jsx
+resources/js/Pages/Questionnaires/MotorManeuvers/Form.jsx
+resources/js/Pages/Questionnaires/MotorManeuvers/definitions.js
+database/migrations/2026_11_17_000000_make_mingazzini_core_booleans_nullable.php
+database/migrations/2026_11_17_000001_add_evaluated_side_to_motor_maneuvers.php
+public/build

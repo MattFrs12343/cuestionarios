@@ -59,6 +59,7 @@ class MingazziniController extends Controller
             'sexo' => 'required|in:Masculino,Feminino',
             'clinica' => 'nullable|string|max:255',
             'data_exame' => 'required|date',
+            'mmii_membro_avaliado' => 'nullable|in:Direita,Esquerda,Bilateral',
             'mmii_sustenta_posicao' => 'nullable|boolean',
             'mmii_queda' => 'nullable|boolean',
             'mmii_queda_lados' => 'nullable|array|max:2',
@@ -112,7 +113,7 @@ class MingazziniController extends Controller
         $answeredCounts = [];
 
         foreach ($groups as $anchorField => $fields) {
-            $answered = count(array_filter($fields, fn ($field) => $validated[$field] !== null));
+            $answered = count(array_filter($fields, fn ($field) => ($validated[$field] ?? null) !== null));
             $answeredCounts[$anchorField] = $answered;
 
             if ($answered > 0 && $answered < count($fields)) {
@@ -127,6 +128,18 @@ class MingazziniController extends Controller
 
     private function normalizeAnswers(array $validated): array
     {
+        foreach (['mmii', 'mmss'] as $group) {
+            $anchor = $group.'_sustenta_posicao';
+            if (($validated[$anchor] ?? null) !== null) {
+                continue;
+            }
+            foreach (array_keys($this->rules()) as $field) {
+                if (str_starts_with($field, $group.'_') && ! str_ends_with($field, '.*')) {
+                    $validated[$field] = null;
+                }
+            }
+        }
+
         $validated['mmii_queda_lados'] = $validated['mmii_queda'] ? ($validated['mmii_queda_lados'] ?? []) : [];
         $validated['mmii_tremor_lados'] = $validated['mmii_tremor'] ? ($validated['mmii_tremor_lados'] ?? []) : [];
         $validated['mmii_assimetria_lado'] = $validated['mmii_assimetria'] ? ($validated['mmii_assimetria_lado'] ?? null) : null;

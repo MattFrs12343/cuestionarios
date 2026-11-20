@@ -1,0 +1,16 @@
+
+   WARN  Metadata found in doc-comment for method Tests\Feature\PatientDirectoryOptimizationTest::test_lightweight_directory_preserves_team_and_module_scope(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   PASS  Tests\Feature\BarreTest
+  ✓ create preserves bilateral answers times and current team                                                   16.42s  
+  ✓ multipart update clears hidden answers and preserves signature and files                                     1.66s  
+  ✓ zero seconds is preserved and all source alterations are supported                                           0.06s  
+  ✓ other teams cannot access records or private files                                                           0.38s  
+  ✓ disabled module blocks direct access                                                                         0.07s  
+  ✓ invalid data does not save records or uploaded files                                                         0.21s  
+  ✓ no alterations cannot be combined with abnormal answers                                                      0.09s  
+  ✓ filters and list payload match existing questionnaires                                                       0.13s  
+
+  Tests:    8 passed (102 assertions)
+  Duration: 25.15s
+

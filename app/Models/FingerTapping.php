@@ -23,6 +23,7 @@ class FingerTapping extends Model
         'sexo',
         'clinica',
         'data_exame',
+        'mao_avaliada',
         'movimentos_rapidos',
         'bradicinesia',
         'bradicinesia_lados',

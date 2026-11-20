@@ -1,0 +1,235 @@
+
+> build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/AvaliacaoEquilibrio/Edit.jsx: Duplicate key "_method" in object literal
+81 |          pedido_medico: null,
+82 |          anexos: [],
+83 |          _method: 'put',
+   |          ^
+84 |      });
+85 |  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/MiniExameMental/Edit.jsx: Duplicate key "_method" in object literal
+82 |          pedido_medico: null,
+83 |          anexos: [],
+84 |          _method: 'put',
+   |          ^
+85 |      });
+86 |  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/Estesiometria/Edit.jsx: Duplicate key "_method" in object literal
+99 |          pedido_medico: null,
+100|          anexos: [],
+101|          _method: 'put',
+   |          ^
+102|      });
+103|  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/TdahAdulto/Edit.jsx: Duplicate key "_method" in object literal
+88 |          pedido_medico: null,
+89 |          anexos: [],
+90 |          _method: 'put',
+   |          ^
+91 |      });
+92 |  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/RastreioCognitivo/Edit.jsx: Duplicate key "_method" in object literal
+103|          pedido_medico: null,
+104|          anexos: [],
+105|          _method: 'put',
+   |          ^
+106|      });
+107|  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/TdahInfantil/Edit.jsx: Duplicate key "_method" in object literal
+88 |          pedido_medico: null,
+89 |          anexos: [],
+90 |          _method: 'put',
+   |          ^
+91 |      });
+92 |  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/Dinamometro/Edit.jsx: Duplicate key "_method" in object literal
+115|          pedido_medico: null,
+116|          anexos: [],
+117|          _method: 'put',
+   |          ^
+118|      });
+119|  
+
+[plugin:vite:esbuild] [plugin vite:esbuild] resources/js/Pages/Questionnaires/DinamometriaMmii/Edit.jsx: Duplicate key "_method" in object literal
+183|          pedido_medico: null,
+184|          anexos: [],
+185|          _method: 'put',
+   |          ^
+186|      });
+187|  
+
+✓ 890 modules transformed.
+rendering chunks...
+computing gzip size...
+public/build/assets/login-cover-Cpwgqvy2.svg                    0.91 kB │ gzip:  0.36 kB
+public/build/assets/hero-brain-B8T4XV0l.webp                   30.08 kB
+public/build/assets/camelo-D_b2If-a.jpg                        35.74 kB
+public/build/assets/rinoceronte-CAUrdV02.jpg                   36.29 kB
+public/build/assets/leao-cYX-vzJf.jpg                          36.29 kB
+public/build/manifest.json                                     91.35 kB │ gzip:  5.90 kB
+public/build/assets/AdminShell-Dacihjmj.css                     0.65 kB │ gzip:  0.33 kB
+public/build/assets/app-C4rVASeO.css                          161.42 kB │ gzip: 21.91 kB
+public/build/assets/AdminShell.module-AelAcM1Z.js               0.14 kB │ gzip:  0.12 kB
+public/build/assets/camelo-hmG3n4fU.js                          0.15 kB │ gzip:  0.13 kB
+public/build/assets/useFieldVisibility-D44HRrVZ.js              0.22 kB │ gzip:  0.19 kB
+public/build/assets/InputLabel-BVt0vHhf.js                      0.22 kB │ gzip:  0.20 kB
+public/build/assets/Checkbox-DfpGieNT.js                        0.37 kB │ gzip:  0.26 kB
+public/build/assets/Content-Ct7gP3ve.js                         0.43 kB │ gzip:  0.26 kB
+public/build/assets/Content-DkY9Dubb.js                         0.43 kB │ gzip:  0.26 kB
+public/build/assets/Content-BaNT9oSh.js                         0.43 kB │ gzip:  0.26 kB
+public/build/assets/Content-BmU923uH.js                         0.44 kB │ gzip:  0.27 kB
+public/build/assets/XMarkIcon-B8ZSoCZo.js                       0.47 kB │ gzip:  0.35 kB
+public/build/assets/DangerButton-PrEAl4k7.js                    0.60 kB │ gzip:  0.36 kB
+public/build/assets/UserIcon-D9p-wHl_.js                        0.61 kB │ gzip:  0.42 kB
+public/build/assets/Form-BP5HyQVd.js                            0.62 kB │ gzip:  0.39 kB
+public/build/assets/Form-CT40Kacb.js                            0.63 kB │ gzip:  0.39 kB
+public/build/assets/Form-BjPIKMfY.js                            0.63 kB │ gzip:  0.39 kB
+public/build/assets/Form-D2PFkSiv.js                            0.63 kB │ gzip:  0.39 kB
+public/build/assets/TextInput-D1m0my9_.js                       0.64 kB │ gzip:  0.40 kB
+public/build/assets/PrimaryButton-Bm33c7m2.js                   0.65 kB │ gzip:  0.37 kB
+public/build/assets/Edit-BfQUyUBK.js                            0.65 kB │ gzip:  0.40 kB
+public/build/assets/Edit-BgX1d-l_.js                            0.65 kB │ gzip:  0.40 kB
+public/build/assets/PatientDetails-D6rMq3zn.js                  0.66 kB │ gzip:  0.43 kB
+public/build/assets/Edit-CJwxkFsI.js                            0.68 kB │ gzip:  0.41 kB
+public/build/assets/Edit-CMiCM-IX.js                            0.68 kB │ gzip:  0.41 kB
+public/build/assets/Edit-CjAltNdY.js                            0.68 kB │ gzip:  0.41 kB
+public/build/assets/Edit-BpA4wCVa.js                            0.68 kB │ gzip:  0.41 kB
+public/build/assets/EyeIcon-BW6TCfKA.js                         0.75 kB │ gzip:  0.47 kB
+public/build/assets/Create-BQ1lf7Od.js                          0.79 kB │ gzip:  0.49 kB
+public/build/assets/Create-B07JSO5y.js                          0.80 kB │ gzip:  0.50 kB
+public/build/assets/Create-BjuZ4Yth.js                          0.80 kB │ gzip:  0.49 kB
+public/build/assets/Create-Bh_WYBrE.js                          0.80 kB │ gzip:  0.49 kB
+public/build/assets/Create-CNxLhBhp.js                          0.80 kB │ gzip:  0.49 kB
+public/build/assets/Create-B0v6F6IF.js                          0.80 kB │ gzip:  0.49 kB
+public/build/assets/dateFormatter-Dn0_eFuj.js                   0.83 kB │ gzip:  0.45 kB
+public/build/assets/InputError-sAHOz2Ac.js                      1.00 kB │ gzip:  0.64 kB
+public/build/assets/PencilIcon-E8ABT6QS.js                      1.10 kB │ gzip:  0.49 kB
+public/build/assets/ConfirmPassword-DcxhGaHa.js                 1.21 kB │ gzip:  0.68 kB
+public/build/assets/GuestLayout-CYNsHMCa.js                     1.21 kB │ gzip:  0.59 kB
+public/build/assets/ForgotPassword-Dvo3UA9r.js                  1.21 kB │ gzip:  0.71 kB
+public/build/assets/exportMotorManeuver-CcNytZXm.js             1.34 kB │ gzip:  0.85 kB
+public/build/assets/Export-CyWWFcNo.js                          1.42 kB │ gzip:  0.68 kB
+public/build/assets/Export-DH2mZGy4.js                          1.43 kB │ gzip:  0.68 kB
+public/build/assets/VerifyEmail-CLSvm1sS.js                     1.43 kB │ gzip:  0.77 kB
+public/build/assets/Export-D2u0RYKo.js                          1.45 kB │ gzip:  0.71 kB
+public/build/assets/Edit-v1ii_8XB.js                            1.81 kB │ gzip:  0.72 kB
+public/build/assets/ResetPassword-DBq98iST.js                   1.81 kB │ gzip:  0.71 kB
+public/build/assets/SwitchTeamForm-52GVdDID.js                  2.20 kB │ gzip:  1.05 kB
+public/build/assets/UpdatePasswordForm-2XuvRfFr.js              2.45 kB │ gzip:  0.93 kB
+public/build/assets/UpdateProfileInformationForm-BADiLGxE.js    2.59 kB │ gzip:  1.11 kB
+public/build/assets/BirthDateSelectInput-Cnb5zOh7.js            2.66 kB │ gzip:  0.93 kB
+public/build/assets/DeleteUserForm-Cm2FrOAu.js                  2.71 kB │ gzip:  1.26 kB
+public/build/assets/UserSearchSelect-12nzRwv3.js                2.76 kB │ gzip:  1.01 kB
+public/build/assets/presentation-CLEgHl-P.js                    2.93 kB │ gzip:  0.97 kB
+public/build/assets/ShellIcon-uBGeFohq.js                       3.07 kB │ gzip:  1.36 kB
+public/build/assets/QuestionnaireSectionNav-1BsCVTGX.js         3.13 kB │ gzip:  1.19 kB
+public/build/assets/ImageZoomModal-DK2dbFMd.js                  3.80 kB │ gzip:  1.44 kB
+public/build/assets/Content-C5Y44Ulx.js                         4.66 kB │ gzip:  1.83 kB
+public/build/assets/DraftRestoreBanner-P1bqlpOq.js              4.75 kB │ gzip:  1.97 kB
+public/build/assets/Show-sgCwQ9NT.js                            4.84 kB │ gzip:  1.82 kB
+public/build/assets/Show-CL5v1aS-.js                            4.85 kB │ gzip:  1.83 kB
+public/build/assets/Show-b3katSVn.js                            4.94 kB │ gzip:  1.86 kB
+public/build/assets/Show-Cp_g7REm.js                            4.95 kB │ gzip:  1.86 kB
+public/build/assets/Show-1fmFF-Hr.js                            4.99 kB │ gzip:  1.87 kB
+public/build/assets/Show-CaHYbM3x.js                            5.01 kB │ gzip:  1.88 kB
+public/build/assets/IndexSimple-BCItl7Ix.js                     5.31 kB │ gzip:  1.47 kB
+public/build/assets/Content-BUfwtVFk.js                         5.75 kB │ gzip:  2.37 kB
+public/build/assets/Show-BjkJbwAE.js                            6.33 kB │ gzip:  1.53 kB
+public/build/assets/Create-N8lzggQZ.js                          6.42 kB │ gzip:  1.95 kB
+public/build/assets/Edit-D_GSRKOA.js                            6.58 kB │ gzip:  2.26 kB
+public/build/assets/Edit-xUAVngMH.js                            6.72 kB │ gzip:  2.06 kB
+public/build/assets/Create-Cexi4i6G.js                          7.18 kB │ gzip:  1.83 kB
+public/build/assets/Form-ChgZD9He.js                            7.27 kB │ gzip:  3.05 kB
+public/build/assets/useTranslation-BxRkJljk.js                  7.54 kB │ gzip:  2.73 kB
+public/build/assets/Index-wrR5F-cp.js                           7.70 kB │ gzip:  2.27 kB
+public/build/assets/Edit-DpxsCQ0h.js                            8.01 kB │ gzip:  2.70 kB
+public/build/assets/Fields-C_4SiNlc.js                          8.35 kB │ gzip:  2.64 kB
+public/build/assets/Show-iErGRYoS.js                            8.35 kB │ gzip:  1.84 kB
+public/build/assets/Index-Dd_kKx-k.js                           8.67 kB │ gzip:  2.25 kB
+public/build/assets/Index-Dbl_DXEv.js                           8.87 kB │ gzip:  2.32 kB
+public/build/assets/Show-CaawoPDQ.js                            8.92 kB │ gzip:  2.66 kB
+public/build/assets/uppercase-a3w07NAB.js                       9.05 kB │ gzip:  3.27 kB
+public/build/assets/Create-Bw_h1kKi.js                          9.44 kB │ gzip:  2.01 kB
+public/build/assets/Edit-Cb0by-wH.js                            9.60 kB │ gzip:  2.11 kB
+public/build/assets/Dashboard-Dr8kGz4f.js                       9.67 kB │ gzip:  2.40 kB
+public/build/assets/Show-CfAyGzgk.js                            9.83 kB │ gzip:  2.79 kB
+public/build/assets/Dashboard-CrApiBTX.js                       9.93 kB │ gzip:  2.38 kB
+public/build/assets/Show-BrnPgpAd.js                           10.42 kB │ gzip:  3.10 kB
+public/build/assets/Form-BUzhy6_2.js                           10.42 kB │ gzip:  3.86 kB
+public/build/assets/Show-kdctAay2.js                           11.56 kB │ gzip:  2.82 kB
+public/build/assets/Login-3zzkJ4Is.js                          11.78 kB │ gzip:  3.97 kB
+public/build/assets/Show-ChOs4GA_.js                           11.83 kB │ gzip:  2.70 kB
+public/build/assets/Index-BDNZ0nsT.js                          12.04 kB │ gzip:  3.41 kB
+public/build/assets/Show-DFKCu4ge.js                           13.19 kB │ gzip:  2.96 kB
+public/build/assets/Form-DaxgIRqE.js                           13.22 kB │ gzip:  4.46 kB
+public/build/assets/definitions-Br44fyYh.js                    13.46 kB │ gzip:  3.01 kB
+public/build/assets/Show-BJnpU7Ns.js                           13.57 kB │ gzip:  2.90 kB
+public/build/assets/Show-B5SRAlfp.js                           13.97 kB │ gzip:  3.04 kB
+public/build/assets/Show-C_oAC3UY.js                           13.97 kB │ gzip:  3.12 kB
+public/build/assets/Show-BJVNDjMh.js                           14.21 kB │ gzip:  3.30 kB
+public/build/assets/transition-66dhvNfb.js                     14.63 kB │ gzip:  5.76 kB
+public/build/assets/Create-Bytw5jQ5.js                         15.04 kB │ gzip:  3.29 kB
+public/build/assets/Create-UOwsblkB.js                         15.91 kB │ gzip:  4.00 kB
+public/build/assets/Create-CkrF-8uC.js                         16.02 kB │ gzip:  3.79 kB
+public/build/assets/Edit-DE5hH4kN.js                           16.23 kB │ gzip:  4.05 kB
+public/build/assets/Edit-B-01T3Fn.js                           16.62 kB │ gzip:  4.01 kB
+public/build/assets/Show-BrhYtJWP.js                           16.70 kB │ gzip:  3.30 kB
+public/build/assets/IndexWithFilters-4OpEWblI.js               17.35 kB │ gzip:  3.91 kB
+public/build/assets/Show-Ds3QoXX9.js                           17.68 kB │ gzip:  3.92 kB
+public/build/assets/Index-CHE2gj0L.js                          18.01 kB │ gzip:  3.73 kB
+public/build/assets/Create-CnuF4b-F.js                         19.12 kB │ gzip:  4.45 kB
+public/build/assets/Index-CSHr0LkU.js                          19.28 kB │ gzip:  4.65 kB
+public/build/assets/Create-Bk1cRArf.js                         19.30 kB │ gzip:  4.60 kB
+public/build/assets/Index-C-PqhfFn.js                          19.39 kB │ gzip:  4.68 kB
+public/build/assets/Index-C0EemoFM.js                          19.46 kB │ gzip:  4.71 kB
+public/build/assets/Index-CK0KaYmU.js                          19.68 kB │ gzip:  4.76 kB
+public/build/assets/Index-CZ-CwRxq.js                          19.69 kB │ gzip:  4.84 kB
+public/build/assets/Edit-DOipovUj.js                           20.03 kB │ gzip:  4.67 kB
+public/build/assets/Create-PsgKB_Bm.js                         20.19 kB │ gzip:  3.90 kB
+public/build/assets/Edit-CZ4E59zw.js                           20.34 kB │ gzip:  4.86 kB
+public/build/assets/Index-BXPcKtJt.js                          21.05 kB │ gzip:  6.59 kB
+public/build/assets/Edit-BVe9B9pZ.js                           21.09 kB │ gzip:  4.17 kB
+public/build/assets/Index-C9WRVds5.js                          21.28 kB │ gzip:  5.44 kB
+public/build/assets/Create-CAqsFEbu.js                         21.52 kB │ gzip:  5.34 kB
+public/build/assets/Create-i2QNW--C.js                         21.95 kB │ gzip:  4.90 kB
+public/build/assets/Index-CoWD_o6C.js                          21.98 kB │ gzip:  4.99 kB
+public/build/assets/Index-DWjiWViy.js                          22.00 kB │ gzip:  5.02 kB
+public/build/assets/Index-BRtNYjVl.js                          22.05 kB │ gzip:  5.03 kB
+public/build/assets/Index-BqXB6DtN.js                          22.08 kB │ gzip:  5.04 kB
+public/build/assets/Index-DWgakthD.js                          22.14 kB │ gzip:  5.06 kB
+public/build/assets/Index-DPMXfava.js                          22.17 kB │ gzip:  5.05 kB
+public/build/assets/Index-rX9QXLKY.js                          22.22 kB │ gzip:  5.03 kB
+public/build/assets/Index-Bs8wyrvm.js                          22.25 kB │ gzip:  5.05 kB
+public/build/assets/Index-Cyi3aBuk.js                          22.25 kB │ gzip:  5.02 kB
+public/build/assets/Edit-C6F6btCL.js                           22.49 kB │ gzip:  5.56 kB
+public/build/assets/Index-DyTHmMvU.js                          23.14 kB │ gzip:  5.36 kB
+public/build/assets/Edit-BFbBRl80.js                           23.53 kB │ gzip:  5.29 kB
+public/build/assets/Create-BqKf9sJS.js                         23.78 kB │ gzip:  4.57 kB
+public/build/assets/Create-Cmkm74VT.js                         24.87 kB │ gzip:  4.29 kB
+public/build/assets/AuthenticatedLayout-C2-5CPxm.js            25.50 kB │ gzip:  7.54 kB
+public/build/assets/Edit-Dx8jBQQ5.js                           25.83 kB │ gzip:  4.86 kB
+public/build/assets/Index-BR8yKF-H.js                          26.38 kB │ gzip:  5.45 kB
+public/build/assets/Index-BE_EUCz5.js                          26.62 kB │ gzip:  5.51 kB
+public/build/assets/Edit-FyuNGkYL.js                           26.90 kB │ gzip:  4.83 kB
+public/build/assets/Modal-uSTsHq_K.js                          31.14 kB │ gzip: 11.25 kB
+public/build/assets/Create-B9vy6V66.js                         31.59 kB │ gzip:  6.25 kB
+public/build/assets/Edit-dg2P6kQb.js                           33.04 kB │ gzip:  6.56 kB
+public/build/assets/Create-TpPquOam.js                         36.63 kB │ gzip:  7.57 kB
+public/build/assets/Edit-DiMA8u6v.js                           38.00 kB │ gzip:  7.93 kB
+public/build/assets/AnexosUploader-gPYgWYIa.js                 38.03 kB │ gzip: 11.75 kB
+public/build/assets/Create-TL_B8Xvf.js                         39.53 kB │ gzip:  6.19 kB
+public/build/assets/Edit-DExA6TBU.js                           43.96 kB │ gzip:  7.25 kB
+public/build/assets/exportQuestionnaire-TZ1RwJN5.js            66.14 kB │ gzip:  9.86 kB
+public/build/assets/html2canvas.esm-Cd_m6xXs.js               200.91 kB │ gzip: 47.90 kB
+public/build/assets/app-DHlRAxKP.js                           295.72 kB │ gzip: 96.74 kB
+✓ built in 13.65s

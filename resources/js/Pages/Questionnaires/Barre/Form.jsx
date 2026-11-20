@@ -61,6 +61,14 @@ export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sect
         }} className="text-blue-700 focus:ring-blue-600" />{caption}</label>)}
     </div>{errors[name] && <p role="alert" className="text-sm text-red-700 dark:text-red-300">{errors[name]}</p>}</fieldset>;
     const sides = name => <fieldset className="mt-3"><legend className="text-sm">Lado observado (marque ambos se bilateral)</legend><div className="flex flex-wrap gap-5">{['Direita', 'Esquerda'].map(side => <label key={side} className="inline-flex min-h-11 items-center gap-2"><input type="checkbox" checked={data[name].includes(side)} onChange={e => setData(name, e.target.checked ? [...data[name], side] : data[name].filter(v => v !== side))} className="rounded text-blue-700 focus:ring-blue-600" />{side}</label>)}</div>{Object.entries(errors).filter(([key]) => key === name || key.startsWith(`${name}.`)).map(([key, message]) => <p key={key} role="alert" className="text-sm text-red-700 dark:text-red-300">{message}</p>)}</fieldset>;
+    const toggleAlteration = (key, checked) => {
+        setData(previous => ({
+            ...previous,
+            alteracoes: checked
+                ? key === 'sem_alteracoes' ? [key] : [...previous.alteracoes.filter(option => option !== 'sem_alteracoes'), key]
+                : previous.alteracoes.filter(option => option !== key),
+        }));
+    };
     return <AuthenticatedLayout user={auth.user} header={<h2 className="text-gray-800 dark:text-zinc-200 text-xl font-semibold">{editing ? 'Editar' : 'Novo questionário'} — Teste de Barré</h2>}>
         <Head title={`${editing ? 'Editar' : 'Novo'} — Teste de Barré`} />
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
@@ -82,8 +90,74 @@ export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sect
                     <div>{yesNo('queda_progressiva', '2. Durante a execução da manobra, observa-se queda progressiva de uma ou ambas as pernas?')}{data.queda_progressiva === true && sides('queda_lados')}</div>
                     <div>{yesNo('tremor_oscilacao', '3. O paciente apresenta tremor, oscilação ou dificuldade para manter as pernas elevadas?')}{data.tremor_oscilacao === true && sides('tremor_lados')}</div>
                     <div>{yesNo('assimetria', '4. Observa-se assimetria da força muscular ou da capacidade de sustentação entre os membros inferiores?')}{data.assimetria === true && <div className="mt-3"><Field name="assimetria_lado" label="Maior comprometimento" errors={errors}><select id="assimetria_lado" value={data.assimetria_lado} onChange={e => setData('assimetria_lado', e.target.value)} className={inputClass}><option value="">Selecione...</option><option value="Direita">À direita</option><option value="Esquerda">À esquerda</option></select></Field></div>}</div>
-                    <div>{yesNo('interrupcao', '5. Durante a manobra, o paciente apresentou queda de uma ou ambas as pernas, perda da posição ou incapacidade de completar o tempo solicitado? Após quantos segundos ocorreu a alteração?')}{data.interrupcao === true && <div className="mt-3 space-y-4">{sides('interrupcao_lados')}<div><p className="mb-3 text-sm font-medium">Tempo até a queda ou interrupção</p><div className="grid gap-5 sm:grid-cols-2">{[['tempo_direito_segundos', 'Membro inferior direito (segundos)'], ['tempo_esquerdo_segundos', 'Membro inferior esquerdo (segundos)']].map(([name, label]) => <Field key={name} name={name} label={label} errors={errors}><input id={name} type="number" min="0" max="3600" step="1" value={data[name]} onChange={e => setData(name, e.target.value)} className={inputClass} /></Field>)}</div></div></div>}</div>
-                    <fieldset><legend className="mb-3 font-semibold">Tipo de alteração observada</legend><div className="grid gap-x-6 gap-y-1 sm:grid-cols-2">{ALTERACOES.map(([key, label]) => <label key={key} className="flex min-h-11 items-start gap-3 py-2"><input type="checkbox" checked={data.alteracoes.includes(key)} disabled={key === 'sem_alteracoes' && (data.queda_progressiva === true || data.tremor_oscilacao === true || data.assimetria === true || data.interrupcao === true || data.sustenta_60_segundos === false)} onChange={e => setData('alteracoes', e.target.checked ? key === 'sem_alteracoes' ? [key] : [...data.alteracoes.filter(option => option !== 'sem_alteracoes'), key] : data.alteracoes.filter(option => option !== key))} className="mt-1 rounded text-blue-700 focus:ring-blue-600 disabled:opacity-50" /><span className="text-sm leading-6">{label}</span></label>)}</div>{Object.entries(errors).filter(([key]) => key === 'alteracoes' || key.startsWith('alteracoes.')).map(([key, message]) => <p key={key} role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">{message}</p>)}</fieldset>
+                    <div className="space-y-5">
+                        {yesNo('interrupcao', '5. Durante a manobra, o paciente apresentou queda de uma ou ambas as pernas, perda da posição ou incapacidade de completar o tempo solicitado?')}
+                        <fieldset disabled={data.interrupcao === false}>
+                            <legend className="font-semibold">Membro inferior afetado</legend>
+                            <div className="flex flex-wrap gap-x-5">
+                                {[
+                                    ['Membro inferior direito', ['Direita']],
+                                    ['Membro inferior esquerdo', ['Esquerda']],
+                                    ['Bilateral', ['Direita', 'Esquerda']],
+                                ].map(([label, limbs]) => (
+                                    <label key={label} className="inline-flex min-h-11 items-center gap-2">
+                                        <input type="radio" name="interrupcao_lados" checked={data.interrupcao_lados.length === limbs.length && limbs.every(limb => data.interrupcao_lados.includes(limb))} onChange={() => setData(previous => ({ ...previous, interrupcao: true, interrupcao_lados: limbs, alteracoes: previous.alteracoes.filter(option => option !== 'sem_alteracoes') }))} />
+                                        {label}
+                                    </label>
+                                ))}
+                            </div>
+                        </fieldset>
+                        <fieldset disabled={data.interrupcao === false}>
+                            <legend className="mb-3 font-semibold">Tempo até a queda ou interrupção</legend>
+                            <div className="grid gap-5 sm:grid-cols-2">
+                                {[
+                                    ['tempo_direito_segundos', 'Membro inferior direito'],
+                                    ['tempo_esquerdo_segundos', 'Membro inferior esquerdo'],
+                                ].map(([name, label]) => (
+                                    <Field key={name} name={name} label={label} errors={errors}>
+                                        <div className="flex items-center gap-2">
+                                            <input id={name} type="number" min="0" max="3600" step="1" value={data[name]} aria-describedby={name + '-unit'} onChange={e => {
+                                                const value = e.target.value;
+                                                setData(previous => ({ ...previous, [name]: value, interrupcao: true, alteracoes: previous.alteracoes.filter(option => option !== 'sem_alteracoes') }));
+                                            }} className={inputClass} />
+                                            <span id={name + '-unit'} className="text-sm">segundos</span>
+                                        </div>
+                                    </Field>
+                                ))}
+                            </div>
+                        </fieldset>
+                    </div>
+                    <fieldset>
+                        <legend className="mb-3 font-semibold">Tipo de alteração observada</legend>
+                        <div className="space-y-2">
+                            {[
+                                ['Queda progressiva da perna (D-E)', 'queda_progressiva'],
+                                ['Queda súbita da perna (D-E)', 'queda_subita'],
+                                ['Perda gradual da flexão do joelho (D-E)', 'perda_flexao'],
+                            ].map(([label, prefix]) => (
+                                <fieldset key={prefix}>
+                                    <legend className="text-sm font-medium">{label}</legend>
+                                    <div className="flex flex-wrap gap-x-6">
+                                        {[
+                                            ['direita', 'D (direito)'],
+                                            ['esquerda', 'E (esquerdo)'],
+                                        ].map(([side, caption]) => (
+                                            <label key={side} className="inline-flex min-h-11 items-center gap-2">
+                                                <input type="checkbox" checked={data.alteracoes.includes(prefix + '_' + side)} onChange={e => toggleAlteration(prefix + '_' + side, e.target.checked)} className="rounded text-blue-700 focus:ring-blue-600" />
+                                                {caption}
+                                            </label>
+                                        ))}
+                                    </div>
+                                </fieldset>
+                            ))}
+                            {ALTERACOES.slice(6).map(([key, label]) => (
+                                <label key={key} className="flex min-h-11 items-center gap-3">
+                                    <input type="checkbox" checked={data.alteracoes.includes(key)} disabled={key === 'sem_alteracoes' && (data.queda_progressiva === true || data.tremor_oscilacao === true || data.assimetria === true || data.interrupcao === true || data.sustenta_60_segundos === false)} onChange={e => toggleAlteration(key, e.target.checked)} className="rounded text-blue-700 focus:ring-blue-600 disabled:opacity-50" />
+                                    <span className="text-sm">{label}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </fieldset>
                     <div className="grid gap-5 sm:grid-cols-2">{textInput('nome_avaliador', 'Nome do avaliador')}{textInput('cid', 'CID')}</div>
                     <Field name="comentario" label="Comentários e observações do avaliador" errors={errors}><textarea id="comentario" rows={4} value={data.comentario} onChange={e => setData('comentario', e.target.value.toUpperCase())} className={inputClass} /></Field>
                 </div></Section>

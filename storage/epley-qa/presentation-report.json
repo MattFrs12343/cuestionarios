@@ -1,0 +1,450 @@
+[
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroencefalograma\\Create.jsx",
+    "actions": 3,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroencefalograma\\Edit.jsx",
+    "actions": 3,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroencefalograma\\Index.jsx",
+    "actions": 12,
+    "headers": 1,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroencefalograma\\Show.jsx",
+    "actions": 2,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroneuromiografia\\Create.jsx",
+    "actions": 3,
+    "headers": 3,
+    "headings": 8,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroneuromiografia\\Edit.jsx",
+    "actions": 4,
+    "headers": 3,
+    "headings": 8,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroneuromiografia\\Index.jsx",
+    "actions": 12,
+    "headers": 9,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Electroneuromiografia\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 9,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Potencial\\Create.jsx",
+    "actions": 1,
+    "headers": 0,
+    "headings": 6,
+    "spacing": 4
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Potencial\\Edit.jsx",
+    "actions": 1,
+    "headers": 0,
+    "headings": 6,
+    "spacing": 4
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Potencial\\Index.jsx",
+    "actions": 7,
+    "headers": 1,
+    "headings": 3,
+    "spacing": 4
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Potencial\\Show.jsx",
+    "actions": 0,
+    "headers": 0,
+    "headings": 2,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\ElectroneuromiografiaFacial\\Create.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 5,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\ElectroneuromiografiaFacial\\Edit.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 5,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\ElectroneuromiografiaFacial\\Index.jsx",
+    "actions": 12,
+    "headers": 9,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\ElectroneuromiografiaFacial\\Show.jsx",
+    "actions": 2,
+    "headers": 7,
+    "headings": 5,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\RastreioCognitivo\\Create.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\RastreioCognitivo\\Edit.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\RastreioCognitivo\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\RastreioCognitivo\\Show.jsx",
+    "actions": 2,
+    "headers": 6,
+    "headings": 4,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\AvaliacaoEquilibrio\\Create.jsx",
+    "actions": 3,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\AvaliacaoEquilibrio\\Edit.jsx",
+    "actions": 3,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\AvaliacaoEquilibrio\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\AvaliacaoEquilibrio\\Show.jsx",
+    "actions": 2,
+    "headers": 8,
+    "headings": 6,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MiniExameMental\\Create.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MiniExameMental\\Edit.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 6,
+    "spacing": 3
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MiniExameMental\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MiniExameMental\\Show.jsx",
+    "actions": 2,
+    "headers": 6,
+    "headings": 4,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Estesiometria\\Create.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 7,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Estesiometria\\Edit.jsx",
+    "actions": 3,
+    "headers": 7,
+    "headings": 7,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Estesiometria\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Estesiometria\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 6,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahInfantil\\Create.jsx",
+    "actions": 3,
+    "headers": 4,
+    "headings": 4,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahInfantil\\Edit.jsx",
+    "actions": 3,
+    "headers": 4,
+    "headings": 4,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahInfantil\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahInfantil\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 4,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahAdulto\\Create.jsx",
+    "actions": 3,
+    "headers": 4,
+    "headings": 4,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahAdulto\\Edit.jsx",
+    "actions": 3,
+    "headers": 4,
+    "headings": 4,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahAdulto\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\TdahAdulto\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 4,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Dinamometro\\Create.jsx",
+    "actions": 3,
+    "headers": 11,
+    "headings": 11,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Dinamometro\\Edit.jsx",
+    "actions": 3,
+    "headers": 10,
+    "headings": 11,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Dinamometro\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Dinamometro\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 6,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\DinamometriaMmii\\Create.jsx",
+    "actions": 3,
+    "headers": 11,
+    "headings": 10,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\DinamometriaMmii\\Edit.jsx",
+    "actions": 3,
+    "headers": 11,
+    "headings": 10,
+    "spacing": 2
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\DinamometriaMmii\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\DinamometriaMmii\\Show.jsx",
+    "actions": 2,
+    "headers": 3,
+    "headings": 8,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Epley\\Form.jsx",
+    "actions": 3,
+    "headers": 1,
+    "headings": 2,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Epley\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Epley\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Barre\\Form.jsx",
+    "actions": 3,
+    "headers": 1,
+    "headings": 2,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Barre\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Barre\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\FingerTapping\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\FingerTapping\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Mingazzini\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Mingazzini\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Raimiste\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Raimiste\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Wartenberg\\Index.jsx",
+    "actions": 12,
+    "headers": 5,
+    "headings": 3,
+    "spacing": 1
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\Wartenberg\\Show.jsx",
+    "actions": 3,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MotorManeuvers\\Fields.jsx",
+    "actions": 0,
+    "headers": 0,
+    "headings": 1,
+    "spacing": 0
+  },
+  {
+    "file": "resources\\js\\Pages\\Questionnaires\\MotorManeuvers\\Form.jsx",
+    "actions": 3,
+    "headers": 1,
+    "headings": 2,
+    "spacing": 1
+  }
+]

@@ -25,7 +25,7 @@ function SidebarContent({ modules, user, currentTeam, isAdmin, canManageRoles, c
         <nav aria-label="Navegação principal" className={`${styles.sidebarScroll} min-h-0 flex-1 overflow-y-auto px-2 pb-5 pt-3`}>
             <Link title="Painel de pacientes" aria-current={pathname === '/questionnaires' ? 'page' : undefined} href={route('questionnaires.index')} onClick={onNavigate} className={navClass(pathname === '/questionnaires')}><ShellIcon name="patients" />{!collapsed && <span>Pacientes</span>}</Link>
             <Link title="Histórico de atividade" href={route('history.index')} onClick={onNavigate} aria-current={pathname === '/historial' ? 'page' : undefined} className={navClass(pathname === '/historial')}><ShellIcon name="history" />{!collapsed && <span>Histórico de atividade</span>}</Link>
-            {['Exames neurológicos', 'Avaliações e manobras', 'TDAH'].map(group => {
+            {['Exames neurológicos', 'Avaliações e testes', 'TDAH'].map(group => {
                 const items = filtered.filter(module => module.group === group);
                 if (!items.length) return null;
                 return <div key={group} className="mt-4">{!collapsed && <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-[#9ba3ab]">{group}</p>}{items.map(module => {

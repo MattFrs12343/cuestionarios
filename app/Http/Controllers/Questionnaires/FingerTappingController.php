@@ -58,6 +58,7 @@ class FingerTappingController extends Controller
             'sexo' => 'required|in:Masculino,Feminino',
             'clinica' => 'nullable|string|max:255',
             'data_exame' => 'required|date',
+            'mao_avaliada' => 'nullable|in:Direita,Esquerda,Bilateral',
             'movimentos_rapidos' => 'required|boolean',
             'bradicinesia' => 'required|boolean',
             'bradicinesia_lados' => 'nullable|array|max:2',

@@ -1,0 +1,27 @@
+﻿
+   WARN  Metadata found in doc-comment for method Tests\Feature\PatientDirectoryOptimizationTest::test_lightweight_directory_preserves_team_and_module_scope(). Metadata in doc-comments is deprecated and will no longer be supported in PHPUnit 12. Update your test code to use attributes instead.
+
+   PASS  Tests\Feature\PatientDirectoryOptimizationTest
+  ✓ navigation exposes roles only for super admin                                                                3.78s  
+  ✓ lightweight directory preserves team and module scope with data set "wartenberg"                             0.50s  
+  ✓ lightweight directory preserves team and module scope with data set "raimiste"                               0.12s  
+  ✓ lightweight directory preserves team and module scope with data set "mingazzini"                             0.12s  
+  ✓ lightweight directory preserves team and module scope with data set "finger tapping"                         0.14s  
+  ✓ lightweight directory preserves team and module scope with data set "barre"                                  0.11s  
+  ✓ lightweight directory preserves team and module scope with data set "epley"                                  0.10s  
+  ✓ lightweight directory preserves team and module scope with data set "electroencefalograma"                   0.09s  
+  ✓ lightweight directory preserves team and module scope with data set "electroneuromiografia"                  0.12s  
+  ✓ lightweight directory preserves team and module scope with data set "potencial"                              0.14s  
+  ✓ lightweight directory preserves team and module scope with data set "electroneuromiografia facial"           0.11s  
+  ✓ lightweight directory preserves team and module scope with data set "rastreio cognitivo"                     0.11s  
+  ✓ lightweight directory preserves team and module scope with data set "equilibrio"                             0.17s  
+  ✓ lightweight directory preserves team and module scope with data set "mini exame mental"                      0.10s  
+  ✓ lightweight directory preserves team and module scope with data set "estesiometria"                          0.10s  
+  ✓ lightweight directory preserves team and module scope with data set "tdah infantil"                          0.11s  
+  ✓ lightweight directory preserves team and module scope with data set "tdah adulto"                            0.11s  
+  ✓ lightweight directory preserves team and module scope with data set "dinamometro"                            0.08s  
+  ✓ lightweight directory preserves team and module scope with data set "dinamometria mmii"                      0.09s  
+
+  Tests:    19 passed (369 assertions)
+  Duration: 9.55s
+
