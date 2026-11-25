@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class TdahAdultoController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -70,9 +72,8 @@ class TdahAdultoController extends Controller
 
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -86,6 +87,8 @@ class TdahAdultoController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -104,7 +107,8 @@ class TdahAdultoController extends Controller
         $tdahAdulto->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/TdahAdulto/Show', [
-            'questionnaire' => $tdahAdulto,
+            'questionnaire' => $tdahAdulto->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($tdahAdulto, 'assinatura_paciente', 'tdah-adulto'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -119,7 +123,8 @@ class TdahAdultoController extends Controller
         $tdahAdulto->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/TdahAdulto/Edit', [
-            'questionnaire' => $tdahAdulto,
+            'questionnaire' => $tdahAdulto->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($tdahAdulto, 'assinatura_paciente', 'tdah-adulto'),
         ]);
     }
 
@@ -141,6 +146,8 @@ class TdahAdultoController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($tdahAdulto, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $tdahAdulto->update($validated);
@@ -157,6 +164,10 @@ class TdahAdultoController extends Controller
 
         if ($tdahAdulto->pedido_medico) {
             Storage::disk('private')->delete($tdahAdulto->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($tdahAdulto->{$field});
         }
 
         $tdahAdulto->delete();

@@ -13,7 +13,9 @@ use Inertia\Response;
 
 class FingerTappingController extends Controller
 {
-    use HandlesAttachments, RestrictsQuestionnaireByTeam;
+    use HandlesAttachments, RestrictsQuestionnaireByTeam, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -79,9 +81,8 @@ class FingerTappingController extends Controller
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     private function normalizeAnswers(array $validated): array
@@ -111,6 +112,8 @@ class FingerTappingController extends Controller
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
 
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
+
         $model = FingerTapping::create($validated);
 
         $this->storeAttachments($model, $request);
@@ -126,10 +129,11 @@ class FingerTappingController extends Controller
         $fingerTapping->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/FingerTapping/Show', [
-            'questionnaire' => $fingerTapping,
+            'questionnaire' => $fingerTapping->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $fingerTapping->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'finger-tapping', 'id' => $fingerTapping->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($fingerTapping, 'assinatura_paciente', 'finger-tapping'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -144,8 +148,9 @@ class FingerTappingController extends Controller
         $fingerTapping->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/FingerTapping/Edit', [
-            'questionnaire' => $fingerTapping,
+            'questionnaire' => $fingerTapping->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $fingerTapping->pedido_medico ? route('pedidos-medicos.show', ['type' => 'finger-tapping', 'id' => $fingerTapping->id]) : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($fingerTapping, 'assinatura_paciente', 'finger-tapping'),
         ]);
     }
 
@@ -168,6 +173,8 @@ class FingerTappingController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($fingerTapping, $request, self::SIGNATURE_FIELDS, $validated);
+
         $fingerTapping->update($validated);
 
         $this->storeAttachments($fingerTapping, $request);
@@ -182,6 +189,10 @@ class FingerTappingController extends Controller
 
         if ($fingerTapping->pedido_medico) {
             Storage::disk('private')->delete($fingerTapping->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($fingerTapping->{$field});
         }
 
         $fingerTapping->delete();

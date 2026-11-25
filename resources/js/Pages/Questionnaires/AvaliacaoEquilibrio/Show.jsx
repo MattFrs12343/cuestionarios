@@ -23,7 +23,7 @@ const BERG_ITEMS = [
     { field: 'berg_apoio_monopodal', label: '14. Apoio Monopodal' },
 ];
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
 
@@ -205,9 +205,9 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     <div>
                                         <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Avaliador</dt>
-                                        {questionnaire.assinatura_paciente ? (
+                                        {assinaturaPacienteUrl ? (
                                             <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-yellow-500 dark:hover:border-yellow-400 transition-colors duration-200" onClick={() => setIsImageModalOpen(true)}>
-                                                <img src={questionnaire.assinatura_paciente} alt="Assinatura do Avaliador" className="w-full h-auto p-4" />
+                                                <img src={assinaturaPacienteUrl} alt="Assinatura do Avaliador" className="w-full h-auto p-4" />
                                                 <div className="bg-gray-50 dark:bg-zinc-600 px-3 py-2 text-center">
                                                     <span className="text-xs text-gray-600 dark:text-zinc-400">Clique para ampliar</span>
                                                 </div>
@@ -247,7 +247,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                 </div>
             </div>
 
-            <ImageZoomModal isOpen={isImageModalOpen} onClose={() => setIsImageModalOpen(false)} imageSrc={questionnaire.assinatura_paciente} imageAlt="Assinatura do Avaliador" />
+            <ImageZoomModal isOpen={isImageModalOpen} onClose={() => setIsImageModalOpen(false)} imageSrc={assinaturaPacienteUrl} imageAlt="Assinatura do Avaliador" />
             <ImageZoomModal isOpen={isPedidoMedicoModalOpen} onClose={() => setIsPedidoMedicoModalOpen(false)} imageSrc={pedidoMedicoUrl} imageAlt="Pedido Médico" />
         <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                         <AnexosUploader type="equilibrio" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />

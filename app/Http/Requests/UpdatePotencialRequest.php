@@ -93,7 +93,8 @@ class UpdatePotencialRequest extends FormRequest
             'observacoes' => 'nullable|string',
             
             // Archivos
-            'assinatura_paciente' => 'nullable|string',
+            'assinatura_paciente' => 'nullable|file|image|max:5120',
+            'assinatura_paciente_remove' => 'nullable|boolean',
             'pedido_medico' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf|max:10240',
         ];
     }

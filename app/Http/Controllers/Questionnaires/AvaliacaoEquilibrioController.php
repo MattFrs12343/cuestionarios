@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class AvaliacaoEquilibrioController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -77,9 +79,8 @@ class AvaliacaoEquilibrioController extends Controller
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -91,6 +92,8 @@ class AvaliacaoEquilibrioController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -109,10 +112,11 @@ class AvaliacaoEquilibrioController extends Controller
         $equilibrio->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Show', [
-            'questionnaire' => $equilibrio,
+            'questionnaire' => $equilibrio->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $equilibrio->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'equilibrio', 'id' => $equilibrio->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($equilibrio, 'assinatura_paciente', 'equilibrio'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -127,7 +131,8 @@ class AvaliacaoEquilibrioController extends Controller
         $equilibrio->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/AvaliacaoEquilibrio/Edit', [
-            'questionnaire' => $equilibrio,
+            'questionnaire' => $equilibrio->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($equilibrio, 'assinatura_paciente', 'equilibrio'),
         ]);
     }
 
@@ -147,6 +152,8 @@ class AvaliacaoEquilibrioController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($equilibrio, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $equilibrio->update($validated);
@@ -163,6 +170,10 @@ class AvaliacaoEquilibrioController extends Controller
 
         if ($equilibrio->pedido_medico) {
             Storage::disk('private')->delete($equilibrio->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($equilibrio->{$field});
         }
 
         $equilibrio->delete();

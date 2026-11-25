@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, desenhoCopiaUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
     const [isDesenhoModalOpen, setIsDesenhoModalOpen] = useState(false);
@@ -153,12 +153,12 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                         <dd className="mt-1 text-sm text-gray-900 dark:text-zinc-100 whitespace-pre-wrap">{questionnaire.comentario}</dd>
                                     </div>
                                 )}
-                                {questionnaire.desenho_copia && (
+                                {desenhoCopiaUrl && (
                                     <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-500">
                                         <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Desenho do Paciente (Cópia dos Pentágonos)</dt>
                                         <div className="max-w-xs">
                                             <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-sky-500 dark:hover:border-sky-400 transition-colors duration-200" onClick={() => setIsDesenhoModalOpen(true)}>
-                                                <img src={questionnaire.desenho_copia} alt="Cópia do Desenho" className="w-full h-auto p-4" />
+                                                <img src={desenhoCopiaUrl} alt="Cópia do Desenho" className="w-full h-auto p-4" />
                                                 <div className="bg-gray-50 dark:bg-zinc-600 px-3 py-2 text-center">
                                                     <span className="text-xs text-gray-600 dark:text-zinc-400">Clique para ampliar</span>
                                                 </div>
@@ -196,9 +196,9 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
 
                                     <div>
                                         <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Avaliador</dt>
-                                        {questionnaire.assinatura_paciente ? (
+                                        {assinaturaPacienteUrl ? (
                                             <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-sky-500 dark:hover:border-sky-400 transition-colors duration-200" onClick={() => setIsImageModalOpen(true)}>
-                                                <img src={questionnaire.assinatura_paciente} alt="Assinatura do Avaliador" className="w-full h-auto p-4" />
+                                                <img src={assinaturaPacienteUrl} alt="Assinatura do Avaliador" className="w-full h-auto p-4" />
                                                 <div className="bg-gray-50 dark:bg-zinc-600 px-3 py-2 text-center">
                                                     <span className="text-xs text-gray-600 dark:text-zinc-400">Clique para ampliar</span>
                                                 </div>
@@ -238,9 +238,9 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                 </div>
             </div>
 
-            <ImageZoomModal isOpen={isImageModalOpen} onClose={() => setIsImageModalOpen(false)} imageSrc={questionnaire.assinatura_paciente} imageAlt="Assinatura do Avaliador" />
+            <ImageZoomModal isOpen={isImageModalOpen} onClose={() => setIsImageModalOpen(false)} imageSrc={assinaturaPacienteUrl} imageAlt="Assinatura do Avaliador" />
             <ImageZoomModal isOpen={isPedidoMedicoModalOpen} onClose={() => setIsPedidoMedicoModalOpen(false)} imageSrc={pedidoMedicoUrl} imageAlt="Pedido Médico" />
-            <ImageZoomModal isOpen={isDesenhoModalOpen} onClose={() => setIsDesenhoModalOpen(false)} imageSrc={questionnaire.desenho_copia} imageAlt="Cópia do Desenho" />
+            <ImageZoomModal isOpen={isDesenhoModalOpen} onClose={() => setIsDesenhoModalOpen(false)} imageSrc={desenhoCopiaUrl} imageAlt="Cópia do Desenho" />
             <div className="mt-6 bg-white dark:bg-zinc-700 shadow-sm sm:rounded-lg p-6">
                 <AnexosUploader type="mini-exame-mental" id={questionnaire.id} existing={questionnaire.attachments || []} readOnly={true} />
             </div>

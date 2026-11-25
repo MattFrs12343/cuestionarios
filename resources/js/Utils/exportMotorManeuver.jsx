@@ -6,7 +6,7 @@ import { definitions } from '@/Pages/Questionnaires/MotorManeuvers/definitions';
 
 // These new forms can span more than one A4 height (especially Mingazzini).
 // Capture their full natural height, preserving every answer and comment.
-export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePrefix, patientName) {
+export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePrefix, patientName, assinaturaPacienteUrl = null) {
     const definition = Object.values(definitions).find(item => item.slug === type);
     if (!definition) throw new Error('Tipo de questionário não suportado.');
     const container = document.createElement('div');
@@ -14,7 +14,7 @@ export async function exportQuestionnaireToJPG(questionnaire, type, fileNamePref
     document.body.appendChild(container);
     const root = createRoot(container);
     try {
-        flushSync(() => root.render(<Export questionnaire={questionnaire} definition={definition} />));
+        flushSync(() => root.render(<Export questionnaire={questionnaire} definition={definition} assinaturaPacienteUrl={assinaturaPacienteUrl} />));
         await document.fonts.ready;
         await Promise.all(Array.from(container.querySelectorAll('img')).map(img => img.decode().catch(() => {})));
         const canvas = await html2canvas(container.firstChild, { scale: 2, useCORS: false, allowTaint: false, logging: false, backgroundColor: '#fff', windowWidth: 794 });

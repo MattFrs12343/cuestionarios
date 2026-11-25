@@ -78,7 +78,8 @@ class StoreQuestionnaireRequest extends FormRequest
             'comentario' => ['nullable', 'string'],
             
             // Archivos
-            'assinatura_paciente' => ['nullable', 'string'],
+            'assinatura_paciente' => ['nullable', 'file', 'image', 'max:5120'],
+            'assinatura_paciente_remove' => ['nullable', 'boolean'],
             'pedido_medico' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:5120'],
         ];
     }

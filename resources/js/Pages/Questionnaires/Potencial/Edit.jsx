@@ -1,5 +1,5 @@
 import { QUESTIONNAIRE_ACTIONS as QA } from '@/Components/Questionnaires/presentation';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { useTranslation } from '@/Hooks/useTranslation';
@@ -15,12 +15,11 @@ import SignaturePad from '@/Components/SignaturePad';
 import AnexosUploader from '@/Components/AnexosUploader';
 import { upperAll } from '@/Utils/uppercase';
 
-export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMentalGraus }) {
+export default function Edit({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, retardoMentalGraus }) {
     const { t } = useTranslation();
     const { sees } = useFieldVisibility();
-    const [signatureData, setSignatureData] = useState(questionnaire.assinatura_paciente || '');
 
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -96,7 +95,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
         observacoes: questionnaire.observacoes || '',
         
         // Archivos
-        assinatura_paciente: questionnaire.assinatura_paciente || '',
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
     });
@@ -105,19 +105,11 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        if (signatureData) {
-            setData('assinatura_paciente', signatureData);
-        }
-        
-        if (data.pedido_medico || data.anexos.length > 0) {
-            post(route('questionnaires.potencial.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.potencial.update', questionnaire.id));
-        }
+
+        post(route('questionnaires.potencial.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     const handleBirthDateChange = (date) => {
@@ -907,8 +899,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, retardoMent
                                     <div>
                                         <InputLabel value={t('Assinatura do Paciente')} />
                                         <SignaturePad
-                                            onSignatureChange={setSignatureData}
-                                            initialSignature={signatureData}
+                                            onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }}
+                                            initialSignature={assinaturaPacienteUrl}
                                             className="mt-1"
                                         />
                                         <InputError message={errors.assinatura_paciente} className="mt-2" />

@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'store'])->name('store');
         Route::get('/{questionnaire}', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'show'])->name('show');
         Route::get('/{questionnaire}/edit', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'edit'])->name('edit');
-        Route::put('/{questionnaire}', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{questionnaire}', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'update'])->name('update');
         Route::delete('/{questionnaire}', [App\Http\Controllers\Questionnaires\ElectroencefalogramaController::class, 'destroy'])->name('destroy');
     });
     
@@ -104,7 +104,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'store'])->name('store');
         Route::get('/{electroneuromiografia}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'show'])->name('show');
         Route::get('/{electroneuromiografia}/edit', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'edit'])->name('edit');
-        Route::put('/{electroneuromiografia}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{electroneuromiografia}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'update'])->name('update');
         Route::delete('/{electroneuromiografia}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaController::class, 'destroy'])->name('destroy');
     });
     
@@ -128,7 +128,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'store'])->name('store');
         Route::get('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'show'])->name('show');
         Route::get('/{electroneuromiografiaFacial}/edit', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'edit'])->name('edit');
-        Route::put('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'update'])->name('update');
         Route::delete('/{electroneuromiografiaFacial}', [App\Http\Controllers\Questionnaires\ElectroneuromiografiaFacialController::class, 'destroy'])->name('destroy');
     });
 
@@ -147,7 +147,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'store'])->name('store');
         Route::get('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'show'])->name('show');
         Route::get('/{rastreioCognitivo}/edit', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'edit'])->name('edit');
-        Route::put('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'update'])->name('update');
         Route::delete('/{rastreioCognitivo}', [App\Http\Controllers\Questionnaires\RastreioCognitivoController::class, 'destroy'])->name('destroy');
     });
 
@@ -159,7 +159,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'store'])->name('store');
         Route::get('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'show'])->name('show');
         Route::get('/{equilibrio}/edit', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'edit'])->name('edit');
-        Route::put('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'update'])->name('update');
         Route::delete('/{equilibrio}', [App\Http\Controllers\Questionnaires\AvaliacaoEquilibrioController::class, 'destroy'])->name('destroy');
     });
 
@@ -171,7 +171,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'store'])->name('store');
         Route::get('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'show'])->name('show');
         Route::get('/{estesiometria}/edit', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'edit'])->name('edit');
-        Route::put('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'update'])->name('update');
         Route::delete('/{estesiometria}', [App\Http\Controllers\Questionnaires\EstesiometriaController::class, 'destroy'])->name('destroy');
     });
 
@@ -183,7 +183,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'store'])->name('store');
         Route::get('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'show'])->name('show');
         Route::get('/{tdahInfantil}/edit', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'edit'])->name('edit');
-        Route::put('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'update'])->name('update');
         Route::delete('/{tdahInfantil}', [App\Http\Controllers\Questionnaires\TdahInfantilController::class, 'destroy'])->name('destroy');
     });
 
@@ -195,7 +195,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'store'])->name('store');
         Route::get('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'show'])->name('show');
         Route::get('/{tdahAdulto}/edit', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'edit'])->name('edit');
-        Route::put('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'update'])->name('update');
         Route::delete('/{tdahAdulto}', [App\Http\Controllers\Questionnaires\TdahAdultoController::class, 'destroy'])->name('destroy');
     });
 
@@ -207,7 +207,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'store'])->name('store');
         Route::get('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'show'])->name('show');
         Route::get('/{dinamometro}/edit', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'edit'])->name('edit');
-        Route::put('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'update'])->name('update');
         Route::delete('/{dinamometro}', [App\Http\Controllers\Questionnaires\DinamometroController::class, 'destroy'])->name('destroy');
     });
 
@@ -219,7 +219,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'store'])->name('store');
         Route::get('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'show'])->name('show');
         Route::get('/{dinamometriaMmii}/edit', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'edit'])->name('edit');
-        Route::put('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'update'])->name('update');
         Route::delete('/{dinamometriaMmii}', [App\Http\Controllers\Questionnaires\DinamometriaMmiiController::class, 'destroy'])->name('destroy');
     });
 
@@ -231,7 +231,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'store'])->name('store');
         Route::get('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'show'])->name('show');
         Route::get('/{miniExameMental}/edit', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'edit'])->name('edit');
-        Route::put('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'update'])->name('update');
+        Route::match(['put', 'post'], '/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'update'])->name('update');
         Route::delete('/{miniExameMental}', [App\Http\Controllers\Questionnaires\MiniExameMentalController::class, 'destroy'])->name('destroy');
     });
 
@@ -246,6 +246,10 @@ Route::middleware('auth')->group(function () {
     // Pedido médico (archivo privado adjunto a cualquier tipo de cuestionario)
     Route::get('pedidos-medicos/{type}/{id}', [App\Http\Controllers\PedidoMedicoController::class, 'show'])
         ->name('pedidos-medicos.show');
+
+    // Firmas y dibujos (SignaturePad) guardados como archivo privado en vez de base64 inline
+    Route::get('assinaturas/{type}/{id}/{field}', [App\Http\Controllers\QuestionnaireSignatureController::class, 'show'])
+        ->name('signatures.show');
 
     // Cambiar el equipo actual de la sesión (selector global)
     Route::post('equipes/{team}/switch', App\Http\Controllers\TeamSwitchController::class)

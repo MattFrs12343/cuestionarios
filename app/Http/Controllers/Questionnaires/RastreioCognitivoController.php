@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class RastreioCognitivoController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente', 'desenho_visoespacial', 'desenho_atencao', 'desenho_evocacao_tardia', 'desenho_orientacao'];
 
     public function index(Request $request): Response
     {
@@ -63,18 +65,13 @@ class RastreioCognitivoController extends Controller
             'pontuacao_abstracao' => 'nullable|integer|min:0|max:2',
             'pontuacao_evocacao_tardia' => 'nullable|integer|min:0|max:5',
             'pontuacao_orientacao' => 'nullable|integer|min:0|max:6',
-            'desenho_visoespacial' => 'nullable|string',
-            'desenho_atencao' => 'nullable|string',
-            'desenho_evocacao_tardia' => 'nullable|string',
-            'desenho_orientacao' => 'nullable|string',
             'ajuste_escolaridade' => 'boolean',
             'pontuacao_total' => 'nullable|integer|min:0|max:30',
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -88,6 +85,8 @@ class RastreioCognitivoController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -106,10 +105,15 @@ class RastreioCognitivoController extends Controller
         $rastreioCognitivo->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/RastreioCognitivo/Show', [
-            'questionnaire' => $rastreioCognitivo,
+            'questionnaire' => $rastreioCognitivo->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $rastreioCognitivo->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'rastreio-cognitivo', 'id' => $rastreioCognitivo->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($rastreioCognitivo, 'assinatura_paciente', 'rastreio-cognitivo'),
+            'desenhoVisoespacialUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_visoespacial', 'rastreio-cognitivo'),
+            'desenhoAtencaoUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_atencao', 'rastreio-cognitivo'),
+            'desenhoEvocacaoTardiaUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_evocacao_tardia', 'rastreio-cognitivo'),
+            'desenhoOrientacaoUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_orientacao', 'rastreio-cognitivo'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -124,7 +128,12 @@ class RastreioCognitivoController extends Controller
         $rastreioCognitivo->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/RastreioCognitivo/Edit', [
-            'questionnaire' => $rastreioCognitivo,
+            'questionnaire' => $rastreioCognitivo->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($rastreioCognitivo, 'assinatura_paciente', 'rastreio-cognitivo'),
+            'desenhoVisoespacialUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_visoespacial', 'rastreio-cognitivo'),
+            'desenhoAtencaoUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_atencao', 'rastreio-cognitivo'),
+            'desenhoEvocacaoTardiaUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_evocacao_tardia', 'rastreio-cognitivo'),
+            'desenhoOrientacaoUrl' => $this->signatureUrl($rastreioCognitivo, 'desenho_orientacao', 'rastreio-cognitivo'),
         ]);
     }
 
@@ -146,6 +155,8 @@ class RastreioCognitivoController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($rastreioCognitivo, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $rastreioCognitivo->update($validated);
@@ -162,6 +173,10 @@ class RastreioCognitivoController extends Controller
 
         if ($rastreioCognitivo->pedido_medico) {
             Storage::disk('private')->delete($rastreioCognitivo->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($rastreioCognitivo->{$field});
         }
 
         $rastreioCognitivo->delete();

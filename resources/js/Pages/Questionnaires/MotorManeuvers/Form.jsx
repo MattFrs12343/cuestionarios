@@ -20,7 +20,7 @@ function Section({ id, title, children }) {
     return <section id={id} className="scroll-mt-24 border-b border-gray-200 py-6 last:border-0 dark:border-zinc-600"><h3 className="mb-5 text-xl text-gray-900 dark:text-zinc-100 font-semibold">{title}</h3>{children}</section>;
 }
 
-export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sections = [], definition }) {
+export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, assinaturaPacienteUrl, sections = [], definition }) {
     const editing = !!questionnaire;
     const fields = definition.groups.flatMap(group => flattenFields(group.fields)).filter(field => field.type !== 'interruption-times');
     const optionalGroups = definition.groups.filter(group => group.optional);
@@ -33,7 +33,7 @@ export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sect
         ...Object.fromEntries(optionalGroups.map(group => [`${group.key}_avaliado`, editing ? q[group.fields[0].key] != null : false])),
         nome_avaliador: q.nome_avaliador || '',
         cid: q.cid || '', comentario: q.comentario || '',
-        assinatura_paciente: q.assinatura_paciente || null, pedido_medico: null, anexos: [],
+        assinatura_paciente: null, assinatura_paciente_remove: false, pedido_medico: null, anexos: [],
     });
     const draft = useDraftAutosave({
         key: { type: definition.key, mode: editing ? 'edit' : 'create', id: q.id },
@@ -82,7 +82,7 @@ export default function Form({ auth, questionnaire = null, pedidoMedicoUrl, sect
                         <input id="pedido_medico" type="file" accept="image/*" onChange={e => setData('pedido_medico', e.target.files[0] || null)} className="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:px-4 file:py-3" />
                     </Field>
                     <AnexosUploader type={definition.slug} id={q.id} files={data.anexos} onFilesChange={files => setData('anexos', files)} existing={q.attachments || []} />
-                    <div><p className="mb-2 text-sm font-medium">Assinatura do avaliador</p><SignaturePad title="Assinatura do Avaliador" initialSignature={data.assinatura_paciente} onSignatureChange={signature => setData('assinatura_paciente', signature)} /></div>
+                    <div><p className="mb-2 text-sm font-medium">Assinatura do avaliador</p><SignaturePad title="Assinatura do Avaliador" initialSignature={assinaturaPacienteUrl} onSignatureChange={file => setData(previous => ({ ...previous, assinatura_paciente: file, assinatura_paciente_remove: !file }))} /></div>
                 </div></Section>
                 <div className="mt-6 flex flex-wrap justify-end items-center gap-3"><Link href={route(`questionnaires.${definition.slug}.index`)} className={QA.neutral}>Cancelar</Link><button type="submit" disabled={processing} className={QA.primary}>{processing ? 'Salvando...' : editing ? 'Salvar alterações' : 'Salvar questionário'}</button></div>
             </form>

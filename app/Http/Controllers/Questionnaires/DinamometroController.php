@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class DinamometroController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     private const CONTEXTOS = ['neurologico', 'ortopedico', 'geriatrico', 'pediatrico'];
 
@@ -125,9 +127,8 @@ class DinamometroController extends Controller
             'crefito_crm' => 'nullable|string|max:255',
 
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -141,6 +142,8 @@ class DinamometroController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -159,7 +162,8 @@ class DinamometroController extends Controller
         $dinamometro->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Dinamometro/Show', [
-            'questionnaire' => $dinamometro,
+            'questionnaire' => $dinamometro->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($dinamometro, 'assinatura_paciente', 'dinamometro'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -174,7 +178,8 @@ class DinamometroController extends Controller
         $dinamometro->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Dinamometro/Edit', [
-            'questionnaire' => $dinamometro,
+            'questionnaire' => $dinamometro->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($dinamometro, 'assinatura_paciente', 'dinamometro'),
         ]);
     }
 
@@ -196,6 +201,8 @@ class DinamometroController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($dinamometro, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $dinamometro->update($validated);
@@ -212,6 +219,10 @@ class DinamometroController extends Controller
 
         if ($dinamometro->pedido_medico) {
             Storage::disk('private')->delete($dinamometro->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($dinamometro->{$field});
         }
 
         $dinamometro->delete();

@@ -110,8 +110,8 @@ const CheckboxGroup = ({ options, selected, onToggle, cols = 'grid-cols-1 sm:gri
     </div>
 );
 
-export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+export default function Edit({ auth, questionnaire, assinaturaPacienteUrl }) {
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -179,10 +179,10 @@ export default function Edit({ auth, questionnaire }) {
         crm_registro: questionnaire.crm_registro || '',
 
         comentario: questionnaire.comentario || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
-        _method: 'put',
     });
 
     transform(upperAll);
@@ -269,14 +269,10 @@ export default function Edit({ auth, questionnaire }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (data.anexos.length > 0) {
-            post(route('questionnaires.dinamometria-mmii.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.dinamometria-mmii.update', questionnaire.id));
-        }
+        post(route('questionnaires.dinamometria-mmii.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     const labelClass = "block text-base font-semibold text-gray-700 dark:text-zinc-300 mb-1.5";
@@ -768,7 +764,7 @@ export default function Edit({ auth, questionnaire }) {
                                                 </div>
                                                 <div>
                                                     <label className={labelClass}>Assinatura do Paciente</label>
-                                                    <SignaturePad initialSignature={questionnaire.assinatura_paciente} onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
+                                                    <SignaturePad initialSignature={assinaturaPacienteUrl} onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }} className="w-full" />
                                                     {errors.assinatura_paciente && <div className={errorClass}>{errors.assinatura_paciente}</div>}
                                                 </div>
                                             </div>

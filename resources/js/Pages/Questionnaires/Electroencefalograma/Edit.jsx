@@ -7,7 +7,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import { compressImage, formatFileSize, getCompressionRatio } from '@/Utils/imageCompression';
 import { upperAll } from '@/Utils/uppercase';
 
-export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExameOptions, tipoExameOptions }) {
+export default function Edit({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, momentoExameOptions, tipoExameOptions }) {
     // Função para formatar datas no formato YYYY-MM-DD
     const formatDateForInput = (date) => {
         if (!date) return '';
@@ -15,7 +15,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
         return d.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -54,7 +54,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
         nome_tecnico_medico_exame: questionnaire.nome_tecnico_medico_exame || '',
         momento_exame: questionnaire.momento_exame || '',
         comentario: questionnaire.comentario || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
     });
@@ -103,15 +104,11 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Se houver um arquivo, usar PUT com forceFormData para enviar FormData
-        if (data.pedido_medico || data.anexos.length > 0) {
-            post(route('questionnaires.electroencefalograma.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.electroencefalograma.update', questionnaire.id));
-        }
+        // Use POST with method spoofing so PHP parses files and all form fields.
+        post(route('questionnaires.electroencefalograma.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     const handleBooleanChange = (field, value) => {
@@ -630,8 +627,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl, momentoExam
                                                 Assinatura do Paciente
                                             </label>
                                             <SignaturePad
-                                                onSignatureChange={(signature) => setData('assinatura_paciente', signature)}
-                                                initialSignature={questionnaire.assinatura_paciente}
+                                                onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }}
+                                                initialSignature={assinaturaPacienteUrl}
                                                 className="w-full"
                                             />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}

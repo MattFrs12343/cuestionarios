@@ -41,7 +41,7 @@ const PRE_EXAM_QUESTIONS = [
     { field: 'medicamentos_sistema_nervoso', label: 'Uso de medicamentos que afetam o sistema nervoso' },
 ];
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, assinaturaPacienteUrl, can }) {
     const [zoomPaciente, setZoomPaciente] = useState(false);
 
     return (
@@ -141,9 +141,9 @@ export default function Show({ auth, questionnaire, can }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <dt className="text-sm text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
-                                        {questionnaire.assinatura_paciente ? (
+                                        {assinaturaPacienteUrl ? (
                                             <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer" onClick={() => setZoomPaciente(true)}>
-                                                <img src={questionnaire.assinatura_paciente} alt="Assinatura do Paciente" className="w-full h-auto p-4" />
+                                                <img src={assinaturaPacienteUrl} alt="Assinatura do Paciente" className="w-full h-auto p-4" />
                                             </div>
                                         ) : (<div className="border-2 border-dashed border-gray-300 dark:border-zinc-500 rounded-lg p-6 text-center text-sm text-gray-500 dark:text-zinc-400">Sem assinatura</div>)}
                                     </div>
@@ -170,7 +170,7 @@ export default function Show({ auth, questionnaire, can }) {
                 </div>
             </div>
 
-            <ImageZoomModal isOpen={zoomPaciente} onClose={() => setZoomPaciente(false)} imageSrc={questionnaire.assinatura_paciente} imageAlt="Assinatura do Paciente" />
+            <ImageZoomModal isOpen={zoomPaciente} onClose={() => setZoomPaciente(false)} imageSrc={assinaturaPacienteUrl} imageAlt="Assinatura do Paciente" />
         </AuthenticatedLayout>
     );
 }

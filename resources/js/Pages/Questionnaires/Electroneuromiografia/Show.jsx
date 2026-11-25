@@ -4,7 +4,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import { Head, Link } from '@inertiajs/react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, can }) {
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
         <div className="mb-4">
             <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400">{label}</dt>
@@ -329,10 +329,10 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     </div>
                                     <div>
                                         <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente ou Acompanhante</dt>
-                                        {questionnaire.assinatura_paciente ? (
+                                        {assinaturaPacienteUrl ? (
                                             <div>
                                                 <img
-                                                    src={questionnaire.assinatura_paciente}
+                                                    src={assinaturaPacienteUrl}
                                                     alt="Assinatura do paciente"
                                                     className="max-w-full h-32 object-contain border rounded bg-white"
                                                 />

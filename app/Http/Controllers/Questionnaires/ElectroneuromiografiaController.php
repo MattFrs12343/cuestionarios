@@ -13,7 +13,9 @@ use Inertia\Response;
 
 class ElectroneuromiografiaController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function __construct()
     {
@@ -68,10 +70,7 @@ class ElectroneuromiografiaController extends Controller
         $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
@@ -96,10 +95,11 @@ class ElectroneuromiografiaController extends Controller
         $electroneuromiografia->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Show', [
-            'questionnaire' => $electroneuromiografia,
+            'questionnaire' => $electroneuromiografia->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $electroneuromiografia->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroneuromiografia', 'id' => $electroneuromiografia->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($electroneuromiografia, 'assinatura_paciente', 'electroneuromiografia'),
             'can' => [
                 'edit' => auth()->user()->can('update', $electroneuromiografia),
                 'delete' => auth()->user()->can('delete', $electroneuromiografia),
@@ -114,10 +114,11 @@ class ElectroneuromiografiaController extends Controller
         $electroneuromiografia->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroneuromiografia/Edit', [
-            'questionnaire' => $electroneuromiografia,
+            'questionnaire' => $electroneuromiografia->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $electroneuromiografia->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroneuromiografia', 'id' => $electroneuromiografia->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($electroneuromiografia, 'assinatura_paciente', 'electroneuromiografia'),
             'tiposExameOptions' => ['MSD', 'MSE', 'MID', 'MIE'],
             'areasColuna' => ['Cervical', 'Torácica', 'Lombar', 'Região Sacral', 'Região do Cóccix'],
             'momentoExameOptions' => [
@@ -135,10 +136,7 @@ class ElectroneuromiografiaController extends Controller
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields($electroneuromiografia, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             // Eliminar archivo anterior si existe
@@ -167,8 +165,10 @@ class ElectroneuromiografiaController extends Controller
     {
         $this->authorizeTeamAccess($electroneuromiografia);
 
-        // No necesita eliminar assinatura_paciente ya que es base64 en BD
-        
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($electroneuromiografia->{$field});
+        }
+
         if ($electroneuromiografia->pedido_medico) {
             Storage::disk('private')->delete($electroneuromiografia->pedido_medico);
         }

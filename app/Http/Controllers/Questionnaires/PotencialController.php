@@ -14,10 +14,12 @@ use Inertia\Response;
 
 class PotencialController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
 
     /** Slug del cuestionario, para resolver la visibilidad de campos. */
     private const SLUG = 'potencial';
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -68,10 +70,7 @@ class PotencialController extends Controller
         $data['team_id'] = $team->id;
         $data['created_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
@@ -96,10 +95,11 @@ class PotencialController extends Controller
         $potencial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Potencial/Show', [
-            'questionnaire' => $potencial,
+            'questionnaire' => $potencial->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $potencial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($potencial, 'assinatura_paciente', 'potencial'),
             'fieldVisibility' => QuestionnaireFields::forInertia($potencial->team, self::SLUG),
             'can' => [
                 'edit' => auth()->user()->can('update', $potencial),
@@ -115,10 +115,11 @@ class PotencialController extends Controller
         $potencial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Potencial/Edit', [
-            'questionnaire' => $potencial,
+            'questionnaire' => $potencial->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $potencial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'potencial', 'id' => $potencial->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($potencial, 'assinatura_paciente', 'potencial'),
             'fieldVisibility' => QuestionnaireFields::forInertia($potencial->team, self::SLUG),
             'retardoMentalGraus' => ['Leve', 'Moderado', 'Grave'],
         ]);
@@ -133,10 +134,7 @@ class PotencialController extends Controller
         $data = QuestionnaireFields::onlyVisible($potencial->team, self::SLUG, $request->validated());
         $data['updated_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields($potencial, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             // Eliminar archivo anterior si existe
@@ -164,6 +162,10 @@ class PotencialController extends Controller
     public function destroy(Potencial $potencial)
     {
         $this->authorizeTeamAccess($potencial);
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($potencial->{$field});
+        }
 
         if ($potencial->pedido_medico) {
             Storage::disk('private')->delete($potencial->pedido_medico);

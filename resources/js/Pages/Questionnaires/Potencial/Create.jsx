@@ -1,5 +1,5 @@
 import { QUESTIONNAIRE_ACTIONS as QA } from '@/Components/Questionnaires/presentation';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AnexosUploader from '@/Components/AnexosUploader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -18,7 +18,6 @@ import { upperAll } from '@/Utils/uppercase';
 export default function Create({ auth, retardoMentalGraus }) {
     const { t } = useTranslation();
     const { sees } = useFieldVisibility();
-    const [signatureData, setSignatureData] = useState('');
 
     const { data, setData, post, processing, errors, reset, transform } = useForm({
         // Datos básicos
@@ -92,7 +91,7 @@ export default function Create({ auth, retardoMentalGraus }) {
         observacoes: '',
         
         // Archivos
-        assinatura_paciente: '',
+        assinatura_paciente: null,
         pedido_medico: null,
         anexos: [],
     });
@@ -101,14 +100,9 @@ export default function Create({ auth, retardoMentalGraus }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        // Actualizar firma si hay
-        if (signatureData) {
-            setData('assinatura_paciente', signatureData);
-        }
-        
+
         // Enviar con put/post según corresponda (post para create)
-        if (data.pedido_medico || data.anexos.length > 0) {
+        if (data.pedido_medico || data.anexos.length > 0 || data.assinatura_paciente) {
             post(route('questionnaires.potencial.store'), {
                 forceFormData: true,
                 preserveScroll: true,
@@ -903,7 +897,7 @@ export default function Create({ auth, retardoMentalGraus }) {
                                     <div>
                                         <InputLabel value={t('Assinatura do Paciente')} />
                                         <SignaturePad
-                                            onSignatureChange={setSignatureData}
+                                            onSignatureChange={(file) => setData('assinatura_paciente', file)}
                                             className="mt-1"
                                         />
                                         <InputError message={errors.assinatura_paciente} className="mt-2" />

@@ -74,7 +74,7 @@ const CONDITIONAL_FIELDS = {
     avc_quando: [{ name: 'avc_quando', placeholder: 'Quando?' }],
 };
 
-export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
+export default function Edit({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl }) {
     const { sees } = useFieldVisibility();
 
 
@@ -83,7 +83,7 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         return today.toISOString().split('T')[0];
     };
 
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -125,7 +125,8 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
         teve_avc: questionnaire.teve_avc || false,
         avc_quando: questionnaire.avc_quando || '',
         observacoes: questionnaire.observacoes || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
     });
@@ -205,21 +206,13 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
             }
         }
         
-        if (data.anexos.length > 0) {
-            post(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-                onSuccess: () => {
-                    if (draft && draft.clear) draft.clear();
-                },
-            });
-        } else {
-            put(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
+        post(route('questionnaires.electroneuromiografia-facial.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
             onSuccess: () => {
                 if (draft && draft.clear) draft.clear();
             },
         });
-        }
     };
 
     const handleBooleanChange = useCallback((field, value) => {
@@ -443,10 +436,10 @@ export default function Edit({ auth, questionnaire, pedidoMedicoUrl }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Paciente</label>
-                                            <SignaturePad 
-                                                onSignatureChange={(signature) => setData('assinatura_paciente', signature)} 
-                                                initialSignature={questionnaire.assinatura_paciente}
-                                                className="w-full" 
+                                            <SignaturePad
+                                                onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }}
+                                                initialSignature={assinaturaPacienteUrl}
+                                                className="w-full"
                                             />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>

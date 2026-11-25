@@ -53,8 +53,8 @@ const InstructionCard = ({ title, text }) => (
     </div>
 );
 
-export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+export default function Edit({ auth, questionnaire, assinaturaPacienteUrl, desenhoCopiaUrl }) {
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -73,15 +73,16 @@ export default function Edit({ auth, questionnaire }) {
         pontuacao_evocacao: questionnaire.pontuacao_evocacao ?? '',
         pontuacao_linguagem: questionnaire.pontuacao_linguagem ?? '',
         pontuacao_desenho: questionnaire.pontuacao_desenho ?? '',
-        desenho_copia: questionnaire.desenho_copia || null,
+        desenho_copia: null,
+        desenho_copia_remove: false,
         pontuacao_total: questionnaire.pontuacao_total ?? '',
         nome_avaliador: questionnaire.nome_avaliador || '',
         cid: questionnaire.cid || '',
         comentario: questionnaire.comentario || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
-        _method: 'put',
     });
 
     transform(upperAll);
@@ -132,14 +133,10 @@ export default function Edit({ auth, questionnaire }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (data.anexos.length > 0) {
-            post(route('questionnaires.mini-exame-mental.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.mini-exame-mental.update', questionnaire.id));
-        }
+        post(route('questionnaires.mini-exame-mental.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -274,7 +271,7 @@ export default function Edit({ auth, questionnaire }) {
                                         <ScoreField label="Atenção e Cálculo" field="pontuacao_atencao_calculo" max={5} help="Subtração seriada de 7 ou soletrar MUNDO ao contrário" value={data.pontuacao_atencao_calculo} onChange={setData} errors={errors} />
                                         <ScoreField label="Evocação" field="pontuacao_evocacao" max={3} help="Recordação das 3 palavras sem pistas (1pt cada)" value={data.pontuacao_evocacao} onChange={setData} errors={errors} />
                                         <ScoreField label="Linguagem" field="pontuacao_linguagem" max={8} help="Nomeação (2), repetição (1), comando (3), leitura (1), escrita (1)" value={data.pontuacao_linguagem} onChange={setData} errors={errors} />
-                                        <ScoreField label="Cópia do Desenho" field="pontuacao_desenho" max={1} help="Cópia dos dois pentágonos que se interceptam" value={data.pontuacao_desenho} onChange={setData} errors={errors} drawing={{ title: 'Cópia do Desenho', value: data.desenho_copia, onChange: (signature) => setData('desenho_copia', signature) }} />
+                                        <ScoreField label="Cópia do Desenho" field="pontuacao_desenho" max={1} help="Cópia dos dois pentágonos que se interceptam" value={data.pontuacao_desenho} onChange={setData} errors={errors} drawing={{ title: 'Cópia do Desenho', value: desenhoCopiaUrl, onChange: (file) => { setData('desenho_copia', file); setData('desenho_copia_remove', !file); } }} />
                                     </div>
 
                                     {/* Resultado da avaliação */}
@@ -331,7 +328,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Avaliador</label>
-                                            <SignaturePad initialSignature={questionnaire.assinatura_paciente} onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
+                                            <SignaturePad initialSignature={assinaturaPacienteUrl} onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }} className="w-full" />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>
                                     </div>

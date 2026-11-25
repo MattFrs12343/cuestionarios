@@ -44,7 +44,7 @@ const RespostasList = ({ title, perguntas, respostas }) => (
     </div>
 );
 
-export default function Show({ auth, questionnaire, can }) {
+export default function Show({ auth, questionnaire, assinaturaPacienteUrl, can }) {
     const [zoomSignature, setZoomSignature] = useState(false);
 
     return (
@@ -132,9 +132,9 @@ export default function Show({ auth, questionnaire, can }) {
 
                             <div className="bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                 <h4 className="text-xl text-gray-800 dark:text-zinc-200 mb-4 font-semibold">Assinatura do Paciente/Acompanhante</h4>
-                                {questionnaire.assinatura_paciente ? (
+                                {assinaturaPacienteUrl ? (
                                     <div className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer max-w-md" onClick={() => setZoomSignature(true)}>
-                                        <img src={questionnaire.assinatura_paciente} alt="Assinatura" className="w-full h-auto p-4" />
+                                        <img src={assinaturaPacienteUrl} alt="Assinatura" className="w-full h-auto p-4" />
                                     </div>
                                 ) : (<div className="border-2 border-dashed border-gray-300 dark:border-zinc-500 rounded-lg p-6 text-center text-sm text-gray-500 dark:text-zinc-400 max-w-md">Sem assinatura</div>)}
                             </div>
@@ -159,7 +159,7 @@ export default function Show({ auth, questionnaire, can }) {
                 </div>
             </div>
 
-            <ImageZoomModal isOpen={zoomSignature} onClose={() => setZoomSignature(false)} imageSrc={questionnaire.assinatura_paciente} imageAlt="Assinatura" />
+            <ImageZoomModal isOpen={zoomSignature} onClose={() => setZoomSignature(false)} imageSrc={assinaturaPacienteUrl} imageAlt="Assinatura" />
         </AuthenticatedLayout>
     );
 }

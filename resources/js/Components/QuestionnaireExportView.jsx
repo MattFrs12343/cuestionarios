@@ -10,7 +10,7 @@ import { formatDateShort } from '@/Utils/dateFormatter';
  * sin esto, un PDF exportado por un Rojo dejaría ver "Hiperativo?", que en la
  * pantalla nunca se le muestra.
  */
-export default function QuestionnaireExportView({ questionnaire, type = 'electroencefalograma', hiddenFields = [] }) {
+export default function QuestionnaireExportView({ questionnaire, type = 'electroencefalograma', hiddenFields = [], assinaturaPacienteUrl = null }) {
     const sees = (field) => !hiddenFields.includes(field);
 
     const InfoRow = ({ label, value }) => (
@@ -32,7 +32,7 @@ export default function QuestionnaireExportView({ questionnaire, type = 'electro
         </div>
     );
 
-    if (type === 'barre') return <BarreExport questionnaire={questionnaire} />;
+    if (type === 'barre') return <BarreExport questionnaire={questionnaire} assinaturaPacienteUrl={assinaturaPacienteUrl} />;
 
     if (type === 'epley') return <EpleyExport questionnaire={questionnaire} />;
 

@@ -12,10 +12,12 @@ use Inertia\Response;
 
 class ElectroneuromiografiaFacialController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
 
     /** Slug del cuestionario, para resolver la visibilidad de campos. */
     private const SLUG = 'electroneuromiografia-facial';
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -100,9 +102,8 @@ class ElectroneuromiografiaFacialController extends Controller
             'toma_medicamento' => 'boolean',
             'medicamentos' => 'nullable|string',
             'observacoes' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ]);
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS));
 
         // Descarta los campos que este equipo no debe ver, antes de guardar.
         $validated = QuestionnaireFields::onlyVisible($team, self::SLUG, $validated);
@@ -130,6 +131,8 @@ class ElectroneuromiografiaFacialController extends Controller
             $validated['pedido_medico'] = $filePath;
         }
 
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $model = ElectroneuromiografiaFacial::create($validated);
@@ -147,10 +150,11 @@ class ElectroneuromiografiaFacialController extends Controller
         $electroneuromiografiaFacial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/ElectroneuromiografiaFacial/Show', [
-            'questionnaire' => $electroneuromiografiaFacial,
+            'questionnaire' => $electroneuromiografiaFacial->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $electroneuromiografiaFacial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroneuromiografia-facial', 'id' => $electroneuromiografiaFacial->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($electroneuromiografiaFacial, 'assinatura_paciente', 'electroneuromiografia-facial'),
             'fieldVisibility' => QuestionnaireFields::forInertia($electroneuromiografiaFacial->team, self::SLUG),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
@@ -167,10 +171,11 @@ class ElectroneuromiografiaFacialController extends Controller
         $electroneuromiografiaFacial->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/ElectroneuromiografiaFacial/Edit', [
-            'questionnaire' => $electroneuromiografiaFacial,
+            'questionnaire' => $electroneuromiografiaFacial->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $electroneuromiografiaFacial->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroneuromiografia-facial', 'id' => $electroneuromiografiaFacial->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($electroneuromiografiaFacial, 'assinatura_paciente', 'electroneuromiografia-facial'),
             'fieldVisibility' => QuestionnaireFields::forInertia($electroneuromiografiaFacial->team, self::SLUG),
         ]);
     }
@@ -219,9 +224,8 @@ class ElectroneuromiografiaFacialController extends Controller
             'toma_medicamento' => 'boolean',
             'medicamentos' => 'nullable|string',
             'observacoes' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ]);
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS));
 
         // Se filtra contra el equipo del registro, no el actual: es el que
         // determina qué campos puede tener guardados este cuestionario.
@@ -258,6 +262,8 @@ class ElectroneuromiografiaFacialController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($electroneuromiografiaFacial, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $electroneuromiografiaFacial->update($validated);
@@ -274,6 +280,10 @@ class ElectroneuromiografiaFacialController extends Controller
 
         if ($electroneuromiografiaFacial->pedido_medico) {
             Storage::disk('private')->delete($electroneuromiografiaFacial->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($electroneuromiografiaFacial->{$field});
         }
 
         $electroneuromiografiaFacial->delete();

@@ -14,7 +14,9 @@ use Inertia\Response;
 
 class MingazziniController extends Controller
 {
-    use HandlesAttachments, RestrictsQuestionnaireByTeam;
+    use HandlesAttachments, RestrictsQuestionnaireByTeam, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -92,9 +94,8 @@ class MingazziniController extends Controller
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     /**
@@ -173,6 +174,8 @@ class MingazziniController extends Controller
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
 
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
+
         $model = Mingazzini::create($validated);
 
         $this->storeAttachments($model, $request);
@@ -188,10 +191,11 @@ class MingazziniController extends Controller
         $mingazzini->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Mingazzini/Show', [
-            'questionnaire' => $mingazzini,
+            'questionnaire' => $mingazzini->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $mingazzini->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'mingazzini', 'id' => $mingazzini->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($mingazzini, 'assinatura_paciente', 'mingazzini'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -206,8 +210,9 @@ class MingazziniController extends Controller
         $mingazzini->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Mingazzini/Edit', [
-            'questionnaire' => $mingazzini,
+            'questionnaire' => $mingazzini->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $mingazzini->pedido_medico ? route('pedidos-medicos.show', ['type' => 'mingazzini', 'id' => $mingazzini->id]) : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($mingazzini, 'assinatura_paciente', 'mingazzini'),
         ]);
     }
 
@@ -231,6 +236,8 @@ class MingazziniController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($mingazzini, $request, self::SIGNATURE_FIELDS, $validated);
+
         $mingazzini->update($validated);
 
         $this->storeAttachments($mingazzini, $request);
@@ -245,6 +252,10 @@ class MingazziniController extends Controller
 
         if ($mingazzini->pedido_medico) {
             Storage::disk('private')->delete($mingazzini->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($mingazzini->{$field});
         }
 
         $mingazzini->delete();

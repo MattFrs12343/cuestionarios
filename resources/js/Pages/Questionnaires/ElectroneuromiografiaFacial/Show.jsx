@@ -7,7 +7,7 @@ import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 import { useFieldVisibility } from '@/Hooks/useFieldVisibility';
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, can }) {
     const { sees } = useFieldVisibility();
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [isPedidoMedicoModalOpen, setIsPedidoMedicoModalOpen] = useState(false);
@@ -226,13 +226,13 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                     {/* Assinatura */}
                                     <div>
                                         <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
-                                        {questionnaire.assinatura_paciente ? (
-                                            <div 
+                                        {assinaturaPacienteUrl ? (
+                                            <div
                                                 className="border-2 border-gray-300 dark:border-zinc-500 rounded-lg overflow-hidden bg-white cursor-pointer hover:border-orange-500 dark:hover:border-orange-400 transition-colors duration-200"
                                                 onClick={() => setIsImageModalOpen(true)}
                                             >
                                                 <img
-                                                    src={questionnaire.assinatura_paciente}
+                                                    src={assinaturaPacienteUrl}
                                                     alt="Assinatura do Paciente"
                                                     className="w-full h-auto p-4"
                                                 />
@@ -279,7 +279,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
             <ImageZoomModal
                 isOpen={isImageModalOpen}
                 onClose={() => setIsImageModalOpen(false)}
-                imageSrc={questionnaire.assinatura_paciente}
+                imageSrc={assinaturaPacienteUrl}
                 imageAlt="Assinatura do Paciente"
             />
 

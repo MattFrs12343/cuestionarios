@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class DinamometriaMmiiController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     private const FRAQUEZA_TIPOS = ['Proximal', 'Distal', 'Difusa', 'Assimétrica'];
 
@@ -189,9 +191,8 @@ class DinamometriaMmiiController extends Controller
             'crm_registro' => 'nullable|string|max:255',
 
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -205,6 +206,8 @@ class DinamometriaMmiiController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -223,10 +226,11 @@ class DinamometriaMmiiController extends Controller
         $dinamometriaMmii->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/DinamometriaMmii/Show', [
-            'questionnaire' => $dinamometriaMmii,
+            'questionnaire' => $dinamometriaMmii->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $dinamometriaMmii->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'dinamometria-mmii', 'id' => $dinamometriaMmii->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($dinamometriaMmii, 'assinatura_paciente', 'dinamometria-mmii'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -241,10 +245,11 @@ class DinamometriaMmiiController extends Controller
         $dinamometriaMmii->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/DinamometriaMmii/Edit', [
-            'questionnaire' => $dinamometriaMmii,
+            'questionnaire' => $dinamometriaMmii->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $dinamometriaMmii->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'dinamometria-mmii', 'id' => $dinamometriaMmii->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($dinamometriaMmii, 'assinatura_paciente', 'dinamometria-mmii'),
         ]);
     }
 
@@ -266,6 +271,8 @@ class DinamometriaMmiiController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($dinamometriaMmii, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $dinamometriaMmii->update($validated);
@@ -282,6 +289,10 @@ class DinamometriaMmiiController extends Controller
 
         if ($dinamometriaMmii->pedido_medico) {
             Storage::disk('private')->delete($dinamometriaMmii->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($dinamometriaMmii->{$field});
         }
 
         $dinamometriaMmii->delete();

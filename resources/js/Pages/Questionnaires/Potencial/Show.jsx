@@ -9,7 +9,7 @@ import { QuestionnaireSecondaryButton as SecondaryButton } from '@/Components/Qu
 import ImageZoomModal from '@/Components/ImageZoomModal';
 import { formatDateShort } from '@/Utils/dateFormatter';
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, can }) {
     const { t } = useTranslation();
     const { sees } = useFieldVisibility();
     const [showSignatureModal, setShowSignatureModal] = useState(false);
@@ -221,7 +221,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             {/* Assinatura e Documentos */}
                             <InfoSection title={t('Assinatura e Documentos')}>
                                 <div className="col-span-2 space-y-4">
-                                    {questionnaire.assinatura_paciente && (
+                                    {assinaturaPacienteUrl && (
                                         <div>
                                             <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">
                                                 {t('Assinatura do Paciente')}
@@ -232,7 +232,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                     className="inline-block border border-gray-300 dark:border-zinc-500 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-zinc-600 transition-colors"
                                                 >
                                                     <img
-                                                        src={questionnaire.assinatura_paciente}
+                                                        src={assinaturaPacienteUrl}
                                                         alt={t('Assinatura do Paciente')}
                                                         className="h-20 w-auto"
                                                     />
@@ -285,7 +285,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
             <ImageZoomModal
                 isOpen={showSignatureModal}
                 onClose={() => setShowSignatureModal(false)}
-                imageSrc={questionnaire.assinatura_paciente}
+                imageSrc={assinaturaPacienteUrl}
                 imageAlt={t('Assinatura do Paciente')}
             />
 

@@ -21,7 +21,6 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "html2canvas": "^1.4.1",
-        "react-easy-crop": "^6.2.4"
+        "html2canvas": "^1.4.1"
     }
 }

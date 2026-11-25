@@ -173,12 +173,20 @@ export default function SignaturePad({ onSignatureChange, initialSignature = nul
         if (!modalCanvasRef.current) return;
 
         const canvas = modalCanvasRef.current;
-        const dataURL = canvas.toDataURL('image/png');
 
-        setCurrentSignature(dataURL);
+        // El preview local usa un dataURL (nunca viaja por red, solo se
+        // renderiza en el <img> de este componente). Lo que se envía al
+        // servidor es un archivo real (canvas.toBlob) en vez del dataURL:
+        // mandar ese base64 como texto dentro del body del POST es lo que
+        // hacía que ModSecurity bloqueara el guardado con un 406.
+        setCurrentSignature(canvas.toDataURL('image/png'));
         setIsEmpty(false);
-        onSignatureChange(dataURL);
         setIsModalOpen(false);
+
+        canvas.toBlob((blob) => {
+            if (!blob) return;
+            onSignatureChange(new File([blob], 'signature.png', { type: 'image/png' }));
+        }, 'image/png');
     };
 
     const openModal = () => {

@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import QuestionnaireTypeIcon from '@/Components/QuestionnaireTypeIcon';
 import { Head, Link, router } from '@inertiajs/react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from '@/Hooks/useTranslation';
 import { formatDateTime } from '@/Utils/dateFormatter';
 
@@ -32,7 +32,7 @@ export default function Index({ timeline, counts, total, range, dateFrom, dateTo
     };
 
     const rows = timeline.data || [];
-    const activeCounts = useMemo(() => counts.filter((c) => c.count > 0), [counts]);
+    const activeCounts = counts.filter((c) => c.count > 0);
 
     return (
         <AuthenticatedLayout
@@ -74,11 +74,12 @@ export default function Index({ timeline, counts, total, range, dateFrom, dateTo
                                     key={r.key}
                                     type="button"
                                     onClick={() => (r.key === 'custom' ? applyRange('custom') : applyRange(r.key))}
-                                    className={`rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                                        range === r.key
+                                    className={
+                                        'rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ' +
+                                        (range === r.key
                                             ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md'
-                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-500'
-                                    }`}
+                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-500')
+                                    }
                                 >
                                     {r.label}
                                 </button>
@@ -127,7 +128,7 @@ export default function Index({ timeline, counts, total, range, dateFrom, dateTo
                                 key={c.type_key}
                                 className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-md ring-1 ring-gray-900/5 dark:bg-zinc-700 dark:ring-zinc-600/50"
                             >
-                                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white ${c.color}`}>
+                                <div className={'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white ' + c.color}>
                                     <QuestionnaireTypeIcon type={c.type_key} className="h-5 w-5" />
                                 </div>
                                 <div className="min-w-0">
@@ -202,14 +203,16 @@ export default function Index({ timeline, counts, total, range, dateFrom, dateTo
                         <div className="flex flex-wrap items-center justify-center gap-1">
                             {timeline.links.map((link, i) => (
                                 <Link
-                                    key={`${link.label}-${i}`}
+                                    key={i}
                                     href={link.url || '#'}
                                     preserveScroll
-                                    className={`rounded-lg px-3 py-1.5 text-sm transition-colors ${
-                                        link.active
+                                    className={
+                                        'rounded-lg px-3 py-1.5 text-sm transition-colors ' +
+                                        (link.active
                                             ? 'bg-purple-500 font-semibold text-white'
-                                            : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-600'
-                                    }${!link.url ? ' pointer-events-none opacity-40' : ''}`}
+                                            : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-600') +
+                                        (!link.url ? ' pointer-events-none opacity-40' : '')
+                                    }
                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                 />
                             ))}

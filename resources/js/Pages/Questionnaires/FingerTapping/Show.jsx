@@ -6,7 +6,7 @@ import AnexosUploader from '@/Components/AnexosUploader';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 import { PatientDetails, Results, Instructions } from './Content';
 
-export default function Show({ auth, questionnaire: q, pedidoMedicoUrl, can = {} }) {
+export default function Show({ auth, questionnaire: q, pedidoMedicoUrl, assinaturaPacienteUrl, can = {} }) {
     const [image, setImage] = useState(null);
     const [exporting, setExporting] = useState(false);
     const [exportError, setExportError] = useState('');
@@ -14,7 +14,7 @@ export default function Show({ auth, questionnaire: q, pedidoMedicoUrl, can = {}
         setExporting(true); setExportError('');
         try {
             const { exportQuestionnaireToJPG } = await import('@/Utils/exportMotorManeuver');
-            await exportQuestionnaireToJPG(q, 'finger-tapping', 'questionario_finger-tapping', q.nome_completo);
+            await exportQuestionnaireToJPG(q, 'finger-tapping', 'questionario_finger-tapping', q.nome_completo, assinaturaPacienteUrl);
         } catch { setExportError('Não foi possível exportar. Tente novamente.'); }
         finally { setExporting(false); }
     };
@@ -35,7 +35,7 @@ export default function Show({ auth, questionnaire: q, pedidoMedicoUrl, can = {}
                 <details className="border-b border-gray-200 py-5 dark:border-zinc-600"><summary className="cursor-pointer font-semibold">Instruções e observações técnicas</summary><div className="mt-4"><Instructions /></div></details>
                 <section className="py-6"><h3 className="mb-5 text-xl font-semibold">Arquivos e Assinatura</h3><div className="grid gap-6 sm:grid-cols-2">
                     <div><h4 className="mb-3 font-semibold">Pedido médico</h4>{pedidoMedicoUrl ? <button type="button" className="w-full rounded-md border border-gray-300 p-2" onClick={() => setImage({ src: pedidoMedicoUrl, alt: 'Pedido médico' })}><img src={pedidoMedicoUrl} alt="Pedido médico — ampliar" className="max-h-72 w-full object-contain" /><span className="mt-2 block text-sm">Ampliar pedido médico</span></button> : <p className="text-sm">Nenhum pedido médico anexado.</p>}</div>
-                    <div><h4 className="mb-3 font-semibold">Assinatura do avaliador</h4>{q.assinatura_paciente ? <button type="button" className="w-full rounded-md bg-white p-2" onClick={() => setImage({ src: q.assinatura_paciente, alt: 'Assinatura do avaliador' })}><img src={q.assinatura_paciente} alt="Assinatura do avaliador — ampliar" className="max-h-48 w-full object-contain" /></button> : <p className="text-sm">Nenhuma assinatura registrada.</p>}</div>
+                    <div><h4 className="mb-3 font-semibold">Assinatura do avaliador</h4>{assinaturaPacienteUrl ? <button type="button" className="w-full rounded-md bg-white p-2" onClick={() => setImage({ src: assinaturaPacienteUrl, alt: 'Assinatura do avaliador' })}><img src={assinaturaPacienteUrl} alt="Assinatura do avaliador — ampliar" className="max-h-48 w-full object-contain" /></button> : <p className="text-sm">Nenhuma assinatura registrada.</p>}</div>
                 </div><div className="mt-6"><AnexosUploader type="finger-tapping" id={q.id} existing={q.attachments || []} readOnly /></div></section>
             </article>
         </div>

@@ -11,7 +11,10 @@ use Inertia\Response;
 
 class MiniExameMentalController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    /** Campos de firma/dibujo (SignaturePad) de este cuestionario. */
+    private const SIGNATURE_FIELDS = ['assinatura_paciente', 'desenho_copia'];
 
     public function index(Request $request): Response
     {
@@ -65,13 +68,11 @@ class MiniExameMentalController extends Controller
             'pontuacao_linguagem' => 'nullable|integer|min:0|max:8',
             'pontuacao_desenho' => 'nullable|integer|min:0|max:1',
             'pontuacao_total' => 'nullable|integer|min:0|max:30',
-            'desenho_copia' => 'nullable|string',
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -85,6 +86,8 @@ class MiniExameMentalController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -103,10 +106,12 @@ class MiniExameMentalController extends Controller
         $miniExameMental->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/MiniExameMental/Show', [
-            'questionnaire' => $miniExameMental,
+            'questionnaire' => $miniExameMental->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $miniExameMental->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'mini-exame-mental', 'id' => $miniExameMental->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($miniExameMental, 'assinatura_paciente', 'mini-exame-mental'),
+            'desenhoCopiaUrl' => $this->signatureUrl($miniExameMental, 'desenho_copia', 'mini-exame-mental'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -121,7 +126,9 @@ class MiniExameMentalController extends Controller
         $miniExameMental->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/MiniExameMental/Edit', [
-            'questionnaire' => $miniExameMental,
+            'questionnaire' => $miniExameMental->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($miniExameMental, 'assinatura_paciente', 'mini-exame-mental'),
+            'desenhoCopiaUrl' => $this->signatureUrl($miniExameMental, 'desenho_copia', 'mini-exame-mental'),
         ]);
     }
 
@@ -143,6 +150,8 @@ class MiniExameMentalController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($miniExameMental, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $miniExameMental->update($validated);
@@ -159,6 +168,10 @@ class MiniExameMentalController extends Controller
 
         if ($miniExameMental->pedido_medico) {
             Storage::disk('private')->delete($miniExameMental->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($miniExameMental->{$field});
         }
 
         $miniExameMental->delete();

@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class TdahInfantilController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -70,9 +72,8 @@ class TdahInfantilController extends Controller
 
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -86,6 +87,8 @@ class TdahInfantilController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -104,7 +107,8 @@ class TdahInfantilController extends Controller
         $tdahInfantil->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/TdahInfantil/Show', [
-            'questionnaire' => $tdahInfantil,
+            'questionnaire' => $tdahInfantil->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($tdahInfantil, 'assinatura_paciente', 'tdah-infantil'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -119,7 +123,8 @@ class TdahInfantilController extends Controller
         $tdahInfantil->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/TdahInfantil/Edit', [
-            'questionnaire' => $tdahInfantil,
+            'questionnaire' => $tdahInfantil->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($tdahInfantil, 'assinatura_paciente', 'tdah-infantil'),
         ]);
     }
 
@@ -141,6 +146,8 @@ class TdahInfantilController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($tdahInfantil, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $tdahInfantil->update($validated);
@@ -157,6 +164,10 @@ class TdahInfantilController extends Controller
 
         if ($tdahInfantil->pedido_medico) {
             Storage::disk('private')->delete($tdahInfantil->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($tdahInfantil->{$field});
         }
 
         $tdahInfantil->delete();

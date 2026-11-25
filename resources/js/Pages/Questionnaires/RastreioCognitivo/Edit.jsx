@@ -71,8 +71,8 @@ const NamingStimuli = () => (
     </div>
 );
 
-export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+export default function Edit({ auth, questionnaire, assinaturaPacienteUrl, desenhoVisoespacialUrl, desenhoAtencaoUrl, desenhoEvocacaoTardiaUrl, desenhoOrientacaoUrl }) {
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -90,19 +90,23 @@ export default function Edit({ auth, questionnaire }) {
         pontuacao_abstracao: questionnaire.pontuacao_abstracao ?? '',
         pontuacao_evocacao_tardia: questionnaire.pontuacao_evocacao_tardia ?? '',
         pontuacao_orientacao: questionnaire.pontuacao_orientacao ?? '',
-        desenho_visoespacial: questionnaire.desenho_visoespacial || null,
-        desenho_atencao: questionnaire.desenho_atencao || null,
-        desenho_evocacao_tardia: questionnaire.desenho_evocacao_tardia || null,
-        desenho_orientacao: questionnaire.desenho_orientacao || null,
+        desenho_visoespacial: null,
+        desenho_visoespacial_remove: false,
+        desenho_atencao: null,
+        desenho_atencao_remove: false,
+        desenho_evocacao_tardia: null,
+        desenho_evocacao_tardia_remove: false,
+        desenho_orientacao: null,
+        desenho_orientacao_remove: false,
         ajuste_escolaridade: questionnaire.ajuste_escolaridade || false,
         pontuacao_total: questionnaire.pontuacao_total ?? '',
         nome_avaliador: questionnaire.nome_avaliador || '',
         cid: questionnaire.cid || '',
         comentario: questionnaire.comentario || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
-        _method: 'put',
     });
 
     transform(upperAll);
@@ -163,14 +167,10 @@ export default function Edit({ auth, questionnaire }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (data.anexos.length > 0) {
-            post(route('questionnaires.rastreio-cognitivo.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.rastreio-cognitivo.update', questionnaire.id));
-        }
+        post(route('questionnaires.rastreio-cognitivo.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -292,12 +292,12 @@ export default function Edit({ auth, questionnaire }) {
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                                        <ScoreField label="Visoespacial / Executiva" field="pontuacao_visoespacial" max={5} help="Alternância (1pt), Cubo (1pt), Relógio (3pts - Círculo, Números, Ponteiros)" value={data.pontuacao_visoespacial} onChange={setData} errors={errors} drawing={{ title: 'Visoespacial / Executiva', value: data.desenho_visoespacial, onChange: (signature) => setData('desenho_visoespacial', signature) }} />
-                                        <ScoreField label="Atenção" field="pontuacao_atencao" max={6} help="Dígitos (2pts), Vigilância/Letra A (1pt), Subtração de 7 em 7 (3pts)" value={data.pontuacao_atencao} onChange={setData} errors={errors} drawing={{ title: 'Atenção', value: data.desenho_atencao, onChange: (signature) => setData('desenho_atencao', signature) }} />
+                                        <ScoreField label="Visoespacial / Executiva" field="pontuacao_visoespacial" max={5} help="Alternância (1pt), Cubo (1pt), Relógio (3pts - Círculo, Números, Ponteiros)" value={data.pontuacao_visoespacial} onChange={setData} errors={errors} drawing={{ title: 'Visoespacial / Executiva', value: desenhoVisoespacialUrl, onChange: (file) => { setData('desenho_visoespacial', file); setData('desenho_visoespacial_remove', !file); } }} />
+                                        <ScoreField label="Atenção" field="pontuacao_atencao" max={6} help="Dígitos (2pts), Vigilância/Letra A (1pt), Subtração de 7 em 7 (3pts)" value={data.pontuacao_atencao} onChange={setData} errors={errors} drawing={{ title: 'Atenção', value: desenhoAtencaoUrl, onChange: (file) => { setData('desenho_atencao', file); setData('desenho_atencao_remove', !file); } }} />
                                         <ScoreField label="Linguagem" field="pontuacao_linguagem" max={3} help="Repetição de frases (2pts), Fluidez verbal/Letra F > 11 palavras (1pt)" value={data.pontuacao_linguagem} onChange={setData} errors={errors} />
                                         <ScoreField label="Abstração" field="pontuacao_abstracao" max={2} help="Semelhança entre objetos (2 pontos no total)" value={data.pontuacao_abstracao} onChange={setData} errors={errors} />
-                                        <ScoreField label="Evocação Tardia" field="pontuacao_evocacao_tardia" max={5} help="Recordação das 5 palavras de forma espontânea (1 ponto cada)" value={data.pontuacao_evocacao_tardia} onChange={setData} errors={errors} drawing={{ title: 'Evocação Tardia', value: data.desenho_evocacao_tardia, onChange: (signature) => setData('desenho_evocacao_tardia', signature) }} />
-                                        <ScoreField label="Orientação" field="pontuacao_orientacao" max={6} help="Tempo: Dia, Mês, Ano, Dia da semana. Espaço: Lugar, Cidade (1pt cada)" value={data.pontuacao_orientacao} onChange={setData} errors={errors} drawing={{ title: 'Orientação', value: data.desenho_orientacao, onChange: (signature) => setData('desenho_orientacao', signature) }} />
+                                        <ScoreField label="Evocação Tardia" field="pontuacao_evocacao_tardia" max={5} help="Recordação das 5 palavras de forma espontânea (1 ponto cada)" value={data.pontuacao_evocacao_tardia} onChange={setData} errors={errors} drawing={{ title: 'Evocação Tardia', value: desenhoEvocacaoTardiaUrl, onChange: (file) => { setData('desenho_evocacao_tardia', file); setData('desenho_evocacao_tardia_remove', !file); } }} />
+                                        <ScoreField label="Orientação" field="pontuacao_orientacao" max={6} help="Tempo: Dia, Mês, Ano, Dia da semana. Espaço: Lugar, Cidade (1pt cada)" value={data.pontuacao_orientacao} onChange={setData} errors={errors} drawing={{ title: 'Orientação', value: desenhoOrientacaoUrl, onChange: (file) => { setData('desenho_orientacao', file); setData('desenho_orientacao_remove', !file); } }} />
                                     </div>
 
                                     {/* Nomeação com estímulos visuais */}
@@ -375,7 +375,7 @@ export default function Edit({ auth, questionnaire }) {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Avaliador</label>
-                                            <SignaturePad initialSignature={questionnaire.assinatura_paciente} onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
+                                            <SignaturePad initialSignature={assinaturaPacienteUrl} onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }} className="w-full" />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>
                                     </div>

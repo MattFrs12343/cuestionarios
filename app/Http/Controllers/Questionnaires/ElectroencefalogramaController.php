@@ -15,7 +15,9 @@ use Throwable;
 
 class ElectroencefalogramaController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function __construct()
     {
@@ -97,10 +99,7 @@ class ElectroencefalogramaController extends Controller
         $data['team_id'] = $this->currentTeam($request)->id;
         $data['created_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             $filePath = $request->file('pedido_medico')
@@ -140,10 +139,11 @@ class ElectroencefalogramaController extends Controller
         $questionnaire->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Show', [
-            'questionnaire' => $questionnaire,
+            'questionnaire' => $questionnaire->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $questionnaire->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroencefalograma', 'id' => $questionnaire->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($questionnaire, 'assinatura_paciente', 'electroencefalograma'),
             'can' => [
                 'edit' => auth()->user()->can('update', $questionnaire),
                 'delete' => auth()->user()->can('delete', $questionnaire),
@@ -158,10 +158,11 @@ class ElectroencefalogramaController extends Controller
         $questionnaire->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Electroencefalograma/Edit', [
-            'questionnaire' => $questionnaire,
+            'questionnaire' => $questionnaire->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $questionnaire->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'electroencefalograma', 'id' => $questionnaire->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($questionnaire, 'assinatura_paciente', 'electroencefalograma'),
             'momentoExameOptions' => [
                 'O PACIENTE FICOU CALMO',
                 'O PACIENTE FICOU ANSISO E NERVOSO E MOVIMENTANDO-SE TODO O TEMPO',
@@ -178,10 +179,7 @@ class ElectroencefalogramaController extends Controller
         $data = $request->validated();
         $data['updated_by'] = auth()->id();
 
-        // Manejar assinatura (base64)
-        if ($request->filled('assinatura_paciente')) {
-            $data['assinatura_paciente'] = $request->assinatura_paciente;
-        }
+        $this->applySignatureFields($questionnaire, $request, self::SIGNATURE_FIELDS, $data);
 
         if ($request->hasFile('pedido_medico')) {
             // Eliminar archivo anterior si existe
@@ -224,8 +222,10 @@ class ElectroencefalogramaController extends Controller
     {
         $this->authorizeTeamAccess($questionnaire);
 
-        // No necesita eliminar assinatura_paciente ya que es base64 en BD
-        
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($questionnaire->{$field});
+        }
+
         if ($questionnaire->pedido_medico) {
             Storage::disk('private')->delete($questionnaire->pedido_medico);
         }

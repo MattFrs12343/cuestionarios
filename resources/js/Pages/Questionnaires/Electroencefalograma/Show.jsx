@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { formatDateShort } from '@/Utils/dateFormatter';
 import ImageZoomModal from '@/Components/ImageZoomModal';
 
-export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
+export default function Show({ auth, questionnaire, pedidoMedicoUrl, assinaturaPacienteUrl, can }) {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
     const BooleanDisplay = ({ label, value, conditionalValue = null }) => (
@@ -226,7 +226,7 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                             </div>
 
                             {/* Arquivos */}
-                            {(questionnaire.pedido_medico || questionnaire.assinatura_paciente) && (
+                            {(questionnaire.pedido_medico || assinaturaPacienteUrl) && (
                                 <div className="mb-8 bg-gradient-to-br from-gray-50 to-white dark:from-zinc-600 dark:to-zinc-700 rounded-xl p-6 border border-gray-200 dark:border-zinc-500 shadow-sm">
                                     <div className="flex items-center mb-4">
                                         <div className={QT.electroencefalograma.accent + " w-1 h-8 rounded-full mr-3"}></div>
@@ -258,12 +258,12 @@ export default function Show({ auth, questionnaire, pedidoMedicoUrl, can }) {
                                                 </dd>
                                             </div>
                                         )}
-                                        {questionnaire.assinatura_paciente && (
+                                        {assinaturaPacienteUrl && (
                                             <div>
                                                 <dt className="text-sm font-medium text-gray-500 dark:text-zinc-400 mb-2">Assinatura do Paciente</dt>
                                                 <dd>
-                                                    <img 
-                                                        src={questionnaire.assinatura_paciente}
+                                                    <img
+                                                        src={assinaturaPacienteUrl}
                                                         alt="Assinatura do Paciente"
                                                         className="max-w-full h-auto border border-gray-300 dark:border-zinc-500 rounded-lg shadow-sm dark:shadow-zinc-900/50"
                                                     />

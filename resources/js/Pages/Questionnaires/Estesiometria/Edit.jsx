@@ -66,8 +66,8 @@ const PRE_EXAM_QUESTIONS = [
     { field: 'medicamentos_sistema_nervoso', label: 'Usa medicamentos que afetam o sistema nervoso? (quimio, anticonvulsivantes, etc.)' },
 ];
 
-export default function Edit({ auth, questionnaire }) {
-    const { data, setData, put, post, processing, errors, transform } = useForm({
+export default function Edit({ auth, questionnaire, assinaturaPacienteUrl }) {
+    const { data, setData, post, processing, errors, transform } = useForm({
         // Laravel no puede parsear multipart/form-data en PUT: al enviar
         // fotos se hace un POST real con este campo para que el método
         // efectivo siga siendo PUT (ver handleSubmit).
@@ -95,10 +95,10 @@ export default function Edit({ auth, questionnaire }) {
         maos_percent_acerto_e: questionnaire.maos_percent_acerto_e ?? '',
         maos_classificacao: questionnaire.maos_classificacao || '',
         comentario: questionnaire.comentario || '',
-        assinatura_paciente: questionnaire.assinatura_paciente || null,
+        assinatura_paciente: null,
+        assinatura_paciente_remove: false,
         pedido_medico: null,
         anexos: [],
-        _method: 'put',
     });
 
     transform(upperAll);
@@ -128,14 +128,10 @@ export default function Edit({ auth, questionnaire }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (data.anexos.length > 0) {
-            post(route('questionnaires.estesiometria.update', questionnaire.id), {
-                forceFormData: true,
-                preserveScroll: true,
-            });
-        } else {
-            put(route('questionnaires.estesiometria.update', questionnaire.id));
-        }
+        post(route('questionnaires.estesiometria.update', questionnaire.id), {
+            forceFormData: true,
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -327,7 +323,7 @@ export default function Edit({ auth, questionnaire }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 dark:text-zinc-300 mb-1">Assinatura do Paciente</label>
-                                            <SignaturePad initialSignature={questionnaire.assinatura_paciente} onSignatureChange={(signature) => setData('assinatura_paciente', signature)} className="w-full" />
+                                            <SignaturePad initialSignature={assinaturaPacienteUrl} onSignatureChange={(file) => { setData('assinatura_paciente', file); setData('assinatura_paciente_remove', !file); }} className="w-full" />
                                             {errors.assinatura_paciente && <div className="text-red-600 dark:text-red-400 text-sm mt-1">{errors.assinatura_paciente}</div>}
                                         </div>
                                     </div>

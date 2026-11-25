@@ -11,7 +11,9 @@ use Inertia\Response;
 
 class EstesiometriaController extends Controller
 {
-    use RestrictsQuestionnaireByTeam, HandlesAttachments;
+    use RestrictsQuestionnaireByTeam, HandlesAttachments, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     private const CORES = ['Verde', 'Azul', 'Violeta', 'Vermelho', 'Laranja/Rosa'];
 
@@ -89,9 +91,8 @@ class EstesiometriaController extends Controller
             'maos_classificacao' => 'nullable|in:Normal,Leve,Moderada,Grave',
 
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     public function store(Request $request)
@@ -105,6 +106,8 @@ class EstesiometriaController extends Controller
         if ($request->hasFile('pedido_medico')) {
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
+
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
 
         $request->validate($this->attachmentRules());
 
@@ -123,7 +126,8 @@ class EstesiometriaController extends Controller
         $estesiometria->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Estesiometria/Show', [
-            'questionnaire' => $estesiometria,
+            'questionnaire' => $estesiometria->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($estesiometria, 'assinatura_paciente', 'estesiometria'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -138,7 +142,8 @@ class EstesiometriaController extends Controller
         $estesiometria->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Estesiometria/Edit', [
-            'questionnaire' => $estesiometria,
+            'questionnaire' => $estesiometria->makeHidden(self::SIGNATURE_FIELDS),
+            'assinaturaPacienteUrl' => $this->signatureUrl($estesiometria, 'assinatura_paciente', 'estesiometria'),
         ]);
     }
 
@@ -160,6 +165,8 @@ class EstesiometriaController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($estesiometria, $request, self::SIGNATURE_FIELDS, $validated);
+
         $request->validate($this->attachmentRules());
 
         $estesiometria->update($validated);
@@ -176,6 +183,10 @@ class EstesiometriaController extends Controller
 
         if ($estesiometria->pedido_medico) {
             Storage::disk('private')->delete($estesiometria->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($estesiometria->{$field});
         }
 
         $estesiometria->delete();

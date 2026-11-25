@@ -14,7 +14,9 @@ use Inertia\Response;
 
 class BarreController extends Controller
 {
-    use HandlesAttachments, RestrictsQuestionnaireByTeam;
+    use HandlesAttachments, RestrictsQuestionnaireByTeam, HandlesSignatureUploads;
+
+    private const SIGNATURE_FIELDS = ['assinatura_paciente'];
 
     public function index(Request $request): Response
     {
@@ -78,9 +80,8 @@ class BarreController extends Controller
             'nome_avaliador' => 'nullable|string|max:255',
             'cid' => 'nullable|string|max:255',
             'comentario' => 'nullable|string',
-            'assinatura_paciente' => 'nullable|string',
             'pedido_medico' => 'nullable|file|image|max:10240',
-        ];
+        ] + $this->signatureRules(self::SIGNATURE_FIELDS);
     }
 
     private function normalizeAnswers(array $validated): array
@@ -120,6 +121,8 @@ class BarreController extends Controller
             $validated['pedido_medico'] = $request->file('pedido_medico')->store('medical_requests', 'private');
         }
 
+        $this->applySignatureFields(null, $request, self::SIGNATURE_FIELDS, $validated);
+
         $model = Barre::create($validated);
 
         $this->storeAttachments($model, $request);
@@ -135,10 +138,11 @@ class BarreController extends Controller
         $barre->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Barre/Show', [
-            'questionnaire' => $barre,
+            'questionnaire' => $barre->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $barre->pedido_medico
                 ? route('pedidos-medicos.show', ['type' => 'barre', 'id' => $barre->id])
                 : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($barre, 'assinatura_paciente', 'barre'),
             'can' => [
                 'edit' => auth()->user()->can('edit questionnaires'),
                 'delete' => auth()->user()->can('delete questionnaires'),
@@ -153,8 +157,9 @@ class BarreController extends Controller
         $barre->load(['team', 'creator', 'editor', 'attachments']);
 
         return Inertia::render('Questionnaires/Barre/Edit', [
-            'questionnaire' => $barre,
+            'questionnaire' => $barre->makeHidden(self::SIGNATURE_FIELDS),
             'pedidoMedicoUrl' => $barre->pedido_medico ? route('pedidos-medicos.show', ['type' => 'barre', 'id' => $barre->id]) : null,
+            'assinaturaPacienteUrl' => $this->signatureUrl($barre, 'assinatura_paciente', 'barre'),
         ]);
     }
 
@@ -177,6 +182,8 @@ class BarreController extends Controller
             unset($validated['pedido_medico']);
         }
 
+        $this->applySignatureFields($barre, $request, self::SIGNATURE_FIELDS, $validated);
+
         $barre->update($validated);
 
         $this->storeAttachments($barre, $request);
@@ -191,6 +198,10 @@ class BarreController extends Controller
 
         if ($barre->pedido_medico) {
             Storage::disk('private')->delete($barre->pedido_medico);
+        }
+
+        foreach (self::SIGNATURE_FIELDS as $field) {
+            $this->deleteStoredSignature($barre->{$field});
         }
 
         $barre->delete();
